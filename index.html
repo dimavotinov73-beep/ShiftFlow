@@ -1,14 +1,860 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1020"><title>ShiftFlow</title>
-<style>
-:root{--bg:#09101f;--text:#f7f9ff;--muted:#aeb8cc;--glass:rgba(255,255,255,.12);--line:rgba(255,255,255,.22);--blue:#84a7ff;--cyan:#72e5ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 15% 0,#334b82 0,transparent 34%),radial-gradient(circle at 90% 80%,#124c68 0,transparent 30%),linear-gradient(135deg,#09101f,#17223b);background-attachment:fixed}body.light{--bg:#edf3ff;--text:#17233c;--muted:#5c6980;--glass:rgba(255,255,255,.55);--line:rgba(80,105,150,.25);background:linear-gradient(135deg,#dce7ff,#fff)}button,input{font:inherit}button{cursor:pointer;color:var(--text);border:0}.app{max-width:780px;margin:auto;padding:20px 16px 110px}.top{display:flex;justify-content:space-between;align-items:center;margin:8px 0 18px}.brand{font-size:29px;font-weight:800;letter-spacing:-1px}.brand span{color:var(--cyan)}.sub,small{color:var(--muted);font-size:12px}.glass{background:var(--glass);border:1px solid var(--line);border-radius:25px;backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);box-shadow:inset 0 1px #fff3,0 16px 45px #0003}.btn{background:#ffffff16;border:1px solid var(--line);padding:10px 14px;border-radius:14px}.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#071020;font-weight:700}.header{display:flex;align-items:center;justify-content:space-between;padding:17px;margin-bottom:14px}.header h1{margin:0;font-size:20px;text-transform:capitalize}.calendar{padding:12px}.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.week div{text-align:center;color:var(--muted);font-size:12px;padding:8px 0}.day{min-height:78px;padding:7px;border-radius:15px;background:#ffffff09;border:1px solid transparent;text-align:left;position:relative;color:var(--text)}.day:hover{border-color:#fff8}.day.today{outline:2px solid var(--cyan)}.empty{visibility:hidden}.work-label{display:block;margin-top:8px;color:var(--cyan);font-size:10px;line-height:1.15;overflow:hidden;max-height:27px}.income-label{display:block;margin-top:3px;color:var(--muted);font-size:10px}.dot{position:absolute;left:7px;right:7px;bottom:5px;height:4px;border-radius:8px;background:var(--cyan)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.stat{padding:16px 12px}.stat b{display:block;font-size:19px;margin-top:7px}.section{padding:18px;margin-top:14px}.section h2{margin:0 0 13px;font-size:18px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #fff2}.row:last-child{border:0}.nav{position:fixed;z-index:5;bottom:16px;left:50%;transform:translateX(-50%);width:min(748px,calc(100% - 32px));padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.nav button{background:transparent;padding:10px;border-radius:16px;color:var(--muted)}.nav button.active{background:#84a7ff38;color:var(--text)}.nav span{display:block;font-size:11px;margin-top:3px}.modal{position:fixed;inset:0;z-index:10;background:#000a;display:none;align-items:flex-end}.modal.show{display:flex}.sheet{width:min(780px,100%);margin:auto;padding:22px;border-radius:28px 28px 0 0;background:#17223b;border:1px solid var(--line)}.sheet h2{margin-top:0}label{display:block;color:var(--muted);font-size:13px;margin:12px 0 6px}input{width:100%;padding:13px;border-radius:14px;border:1px solid var(--line);background:#ffffff12;color:var(--text);outline:0}.actions{display:flex;gap:10px;margin-top:18px}.actions button{flex:1}.agreement{line-height:1.6;color:var(--muted)}@media(max-width:500px){.day{min-height:67px;padding:6px}.stats{gap:5px}.stat b{font-size:15px}}
-</style></head>
-<body><main class="app"><div class="top"><div><div class="brand">Shift<span>Flow</span></div><div class="sub">Твои смены. Твой доход.</div></div><button class="btn" id="theme">☼</button></div><div id="screen"></div></main><nav class="nav glass"><button data-tab="calendar" class="active">📅<span>Главная</span></button><button data-tab="finance">💰<span>Финансы</span></button><button data-tab="settings">⚙️<span>Настройки</span></button></nav><div class="modal" id="modal"><div class="sheet"><h2>Смена</h2><label>Наименование работы</label><input id="work" placeholder="Например: Официант"><label>Доход, ₽</label><input id="income" type="number" min="0" step="1" placeholder="5000"><label>Часы</label><input id="hours" type="number" min="0" step="0.5" placeholder="8"><div class="actions"><button class="btn" id="close">Отмена</button><button class="btn primary" id="save">Сохранить</button></div></div></div><div class="modal" id="agreement"><div class="sheet"><h2>Пользовательское соглашение</h2><div class="agreement">ShiftFlow — локальный планировщик смен. Введённые данные хранятся только в браузере на этом устройстве и не передаются на сервер. Пользователь самостоятельно отвечает за сохранность данных и точность введённой информации. Используя приложение, вы соглашаетесь с этими условиями.</div><div class="actions"><button class="btn primary" onclick="agreement.classList.remove('show')">Понятно</button></div></div></div>
-<script>
-let shifts=JSON.parse(localStorage.shiftflowShifts||'{}'),tab='calendar',selected=new Date();const $=id=>document.getElementById(id);function key(d){return d.toISOString().slice(0,10)}function money(n){return new Intl.NumberFormat('ru-RU').format(Math.round(n||0))+' ₽'}function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function persist(){localStorage.shiftflowShifts=JSON.stringify(shifts)}function render(){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));tab==='calendar'?calendar():tab==='finance'?finance():settings()}
-function calendar(){let y=selected.getFullYear(),m=selected.getMonth(),first=new Date(y,m,1),count=new Date(y,m+1,0).getDate(),start=(first.getDay()+6)%7,c='';for(let i=0;i<start;i++)c+='<div class="day empty"></div>';for(let d=1;d<=count;d++){let dt=new Date(y,m,d),k=key(dt),x=shifts[k];c+=`<button class="day ${k===key(new Date())?'today':''}" onclick="openModal('${k}')">${d}${x?`<span class="work-label">Работа: ${esc(x.work)}</span><span class="income-label">${money(x.income)}</span><i class="dot"></i>`:''}</button>`}let arr=Object.values(shifts).filter(x=>x.date.startsWith(`${y}-${String(m+1).padStart(2,'0')}`));$('screen').innerHTML=`<div class="header glass"><button class="btn" onclick="move(-1)">‹</button><div><h1>${first.toLocaleDateString('ru-RU',{month:'long',year:'numeric'})}</h1><small>Сегодня: ${new Date().toLocaleDateString('ru-RU')}</small></div><button class="btn" onclick="selected=new Date();render()">Сегодня</button></div><div class="calendar glass"><div class="week">${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(x=>`<div>${x}</div>`).join('')}</div><div class="days">${c}</div></div><div class="stats"><div class="stat glass"><small>Смены</small><b>${arr.length}</b></div><div class="stat glass"><small>Доходы</small><b>${money(arr.reduce((a,x)=>a+x.income,0))}</b></div><div class="stat glass"><small>Часы</small><b>${arr.reduce((a,x)=>a+x.hours,0)}</b></div></div>`}function move(n){selected=new Date(selected.getFullYear(),selected.getMonth()+n,1);render()}
-function openModal(k){selected=new Date(k+'T12:00:00');let x=shifts[k];$('work').value=x?.work||'';$('income').value=x?.income??'';$('hours').value=x?.hours??'';$('modal').classList.add('show')}function finance(){let a=Object.values(shifts),total=a.reduce((s,x)=>s+x.income,0);let names=[...new Set(a.map(x=>x.work))];$('screen').innerHTML=`<div class="header glass"><h1>Финансы</h1><button class="btn primary" onclick="openModal('${key(new Date())}')">＋ Смена</button></div><div class="stats"><div class="stat glass"><small>Количество смен</small><b>${a.length}</b></div><div class="stat glass"><small>Доход</small><b>${money(total)}</b></div><div class="stat glass"><small>Часы</small><b>${a.reduce((s,x)=>s+x.hours,0)}</b></div></div><div class="section glass"><h2>Работы</h2>${names.map(n=>`<div class="row"><span>${esc(n)}</span><b>${a.filter(x=>x.work===n).length} смен · ${money(a.filter(x=>x.work===n).reduce((s,x)=>s+x.income,0))}</b></div>`).join('')||'<small>Добавьте первую смену в календаре</small>'}</div>`}function settings(){$('screen').innerHTML=`<div class="header glass"><h1>Настройки</h1></div><div class="section glass"><h2>Внешний вид</h2><div class="row"><span>Тема приложения</span><button class="btn" onclick="document.body.classList.toggle('light')">Изменить тему</button></div></div><div class="section glass"><h2>Данные</h2><div class="row"><span>Сохранено смен</span><b>${Object.keys(shifts).length}</b></div><button class="btn" onclick="localStorage.removeItem('shiftflowShifts');shifts={};render()">Очистить данные</button></div><div class="section glass"><h2>Документы</h2><button class="btn primary" onclick="$('agreement').classList.add('show')">Пользовательское соглашение</button></div>`}
- document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});$('theme').onclick=()=>document.body.classList.toggle('light');$('close').onclick=()=>$('modal').classList.remove('show');$('save').onclick=()=>{let work=$('work').value.trim(),income=Number($('income').value),hours=Number($('hours').value);if(!work||income<0||hours<0)return alert('Заполните название, доход и часы');let k=key(selected);shifts[k]={date:k,work,income,hours};persist();$('modal').classList.remove('show');render()};render();
-</script></body></html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShiftFlow</title>
+  <style>
+    :root {
+      --glass-1: rgba(255,255,255,0.14);
+      --glass-2: rgba(255,255,255,0.06);
+      --glass-line: rgba(255,255,255,0.28);
+      --glass-shadow: rgba(30,45,87,0.48);
+      --bg: #09101f;
+      --text: #f7f9ff;
+      --muted: #aeb8cc;
+      --glass: rgba(255,255,255,0.12);
+      --line: rgba(255,255,255,0.22);
+      --blue: #84a7ff;
+      --cyan: #72e5ff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font: 15px system-ui, -apple-system, Segoe UI, sans-serif;
+      background:
+        radial-gradient(circle at 15% 0, #334b82 0, transparent 34%),
+        radial-gradient(circle at 90% 80%, #124c68 0, transparent 30%),
+        linear-gradient(135deg, #09101f, #17223b);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    body.light {
+      --bg: #edf3ff;
+      --text: #17233c;
+      --muted: #5c6980;
+      --glass: rgba(255,255,255,0.55);
+      --line: rgba(80,105,150,0.25);
+      background: linear-gradient(135deg, #dce7ff, #fff);
+    }
+
+    body.theme-transition * {
+      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      color: var(--text);
+      border: 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .app {
+      max-width: 780px;
+      margin: auto;
+      padding: 20px 16px 110px;
+      animation: fadeUp 0.5s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .top, .header, .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top {
+      margin: 8px 0 18px;
+    }
+
+    .brand {
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .brand span {
+      color: var(--cyan);
+    }
+
+    .sub, small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .glass {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04)),
+        rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 28px;
+      backdrop-filter: blur(26px) saturate(170%);
+      -webkit-backdrop-filter: blur(26px) saturate(170%);
+      box-shadow:
+        inset 0 1px rgba(255,255,255,0.22),
+        inset 0 -10px 20px rgba(255,255,255,0.04),
+        0 18px 40px rgba(7,12,24,0.32),
+        0 0 0 1px rgba(255,255,255,0.06);
+      animation: premiumIn 0.4s ease;
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg,
+          rgba(255,255,255,0.18) 0%,
+          rgba(255,255,255,0.04) 18%,
+          transparent 32%,
+          transparent 100%);
+      pointer-events: none;
+    }
+
+    .glass::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      pointer-events: none;
+    }
+
+    @keyframes premiumIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      border-radius: 14px;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.09), 0 10px 22px rgba(118,146,255,0.12);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #071020;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(132,167,255,0.28);
+    }
+
+    .header {
+      padding: 17px;
+      margin-bottom: 14px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+      text-transform: capitalize;
+    }
+
+    .calendar {
+      padding: 12px;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .week, .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+
+    .week div {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 0;
+    }
+
+    .day {
+      min-height: 78px;
+      padding: 7px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid transparent;
+      text-align: left;
+      position: relative;
+      color: var(--text);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      animation: fadeUp 0.2s ease;
+    }
+
+    .day:hover {
+      border-color: rgba(255,255,255,0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.09), 0 10px 22px rgba(118,146,255,0.12);
+    }
+
+    .day.today {
+      outline: 2px solid var(--cyan);
+      box-shadow: 0 0 0 4px rgba(114,229,255,0.12);
+      background: rgba(114,229,255,0.08);
+    }
+
+    .empty {
+      visibility: hidden;
+    }
+
+    .work-label {
+      display: block;
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: 10px;
+      line-height: 1.15;
+      overflow: hidden;
+      max-height: 27px;
+    }
+
+    .income-label {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .dot {
+      position: absolute;
+      left: 7px;
+      right: 7px;
+      bottom: 5px;
+      height: 4px;
+      border-radius: 8px;
+      background: var(--cyan);
+      animation: pulse 1.4s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scaleX(0.9); }
+      50% { opacity: 1; transform: scaleX(1); }
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 14px 0;
+    }
+
+    .stat {
+      padding: 16px 12px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 19px;
+      margin-top: 7px;
+    }
+
+    .section {
+      padding: 18px;
+      margin-top: 14px;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .section h2 {
+      margin: 0 0 13px;
+      font-size: 18px;
+    }
+
+    .row {
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      gap: 10px;
+    }
+
+    .row:last-child {
+      border: 0;
+    }
+
+    .pill {
+      padding: 6px 9px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 5;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(748px, calc(100% - 32px));
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .nav button {
+      background: transparent;
+      padding: 10px;
+      border-radius: 16px;
+      color: var(--muted);
+    }
+
+    .nav button:hover {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.09), 0 10px 22px rgba(118,146,255,0.12);
+    }
+
+    .nav button.active {
+      background: linear-gradient(135deg, rgba(132,167,255,0.22), rgba(114,229,255,0.10));
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 1px rgba(255,255,255,0.15), 0 8px 18px rgba(91,124,255,0.18);
+      color: var(--text);
+    }
+
+    .nav span {
+      display: block;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: rgba(0,0,0,0.72);
+      display: none;
+      align-items: flex-end;
+      animation: modalGlow 0.28s ease;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    @keyframes modalGlow {
+      from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+      }
+      to {
+        opacity: 1;
+        backdrop-filter: blur(12px);
+      }
+    }
+
+    .sheet {
+      width: min(780px, 100%);
+      margin: auto;
+      padding: 22px;
+      border-radius: 28px 28px 0 0;
+      background: #17223b;
+      border: 1px solid var(--line);
+      animation: sheetLift 0.28s ease;
+      box-shadow:
+        0 -18px 45px rgba(0,0,0,0.24),
+        inset 0 1px rgba(255,255,255,0.10);
+    }
+
+    @keyframes sheetLift {
+      from {
+        transform: translateY(34px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .sheet h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 12px 0 6px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      outline: 0;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .actions button {
+      flex: 1;
+    }
+
+    .agreement {
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .theme-icon {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      font-size: 22px;
+      line-height: 40px;
+      text-align: center;
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(255, 80, 100, 0.22), rgba(255, 140, 100, 0.12)) !important;
+      border: 1px solid rgba(255, 100, 120, 0.3) !important;
+    }
+
+    @media (max-width: 500px) {
+      .day { min-height: 67px; padding: 6px; }
+      .stats { gap: 5px; }
+      .stat b { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="top">
+      <div>
+        <div class="brand">Shift<span>Flow</span></div>
+        <div class="sub" id="subtitle">Твои смены. Твой доход.</div>
+      </div>
+    </div>
+
+    <div id="screen"></div>
+  </main>
+
+  <nav class="nav glass">
+    <button data-tab="calendar" class="active">📅<span id="nav-home">Главная</span></button>
+    <button data-tab="finance">💰<span id="nav-finance">Финансы</span></button>
+    <button data-tab="settings">⚙️<span id="nav-settings">Настройки</span></button>
+  </nav>
+
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <h2 id="modal-title">Смена</h2>
+      <label id="label-work">Наименование работы</label>
+      <input id="work" placeholder="Например: Официант" />
+
+      <label id="label-income">Доход, ₽</label>
+      <input id="income" type="number" min="0" step="1" placeholder="5000" />
+
+      <label id="label-hours">Часы</label>
+      <input id="hours" type="number" min="0" step="0.5" placeholder="8" />
+
+      <div class="actions">
+        <button class="btn" id="close" data-i18n="cancel">Отмена</button>
+        <button class="btn primary" id="save" data-i18n="save">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="agreement">
+    <div class="sheet">
+      <h2 id="agreement-title">Пользовательское соглашение</h2>
+      <div class="agreement" id="agreement-text">
+        ShiftFlow — локальный планировщик смен. Введённые данные хранятся только в браузере на этом устройстве и не передаются на сервер. Пользователь самостоятельно отвечает за сохранность данных и точность введённой информации. Используя приложение, вы соглашаетесь с этими условиями.
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="document.getElementById('agreement').classList.remove('show')" data-i18n="understand">Понятно</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let shifts = JSON.parse(localStorage.shiftflowShifts || '{}');
+    let currentLang = localStorage.shiftflowLang || 'ru';
+    let tab = 'calendar';
+    let selected = new Date();
+
+    const i18n = {
+      ru: {
+        subtitle: 'Твои смены. Твой доход.',
+        home: 'Главная',
+        finance: 'Финансы',
+        settings: 'Настройки',
+        modal_title: 'Смена',
+        label_work: 'Наименование работы',
+        label_income: 'Доход, ₽',
+        label_hours: 'Часы',
+        cancel: 'Отмена',
+        save: 'Сохранить',
+        today: 'Сегодня',
+        shifts: 'Смены',
+        income: 'Доходы',
+        hours: 'Часы',
+        finance_title: 'Финансы',
+        add_shift: '＋ Смена',
+        count_shifts: 'Количество смен',
+        works: 'Работы',
+        no_shifts: 'Добавьте первую смену в календаре',
+        settings_title: 'Настройки',
+        appearance: 'Внешний вид',
+        theme: 'Тема приложения',
+        change_theme: 'Изменить тему',
+        data: 'Данные',
+        saved_shifts: 'Сохранено смен',
+        clear_data: 'Очистить данные',
+        documents: 'Документы',
+        agreement: 'Пользовательское соглашение',
+        language: 'Язык',
+        select_language: 'Выберите язык',
+        prev_shifts: 'Последние смены',
+        agreement_title: 'Пользовательское соглашение',
+        agreement_text: 'ShiftFlow — локальный планировщик смен. Введённые данные хранятся только в браузере на этом устройстве и не передаются на сервер. Пользователь самостоятельно отвечает за сохранность данных и точность введённой информации. Используя приложение, вы соглашаетесь с этими условиями.',
+        understand: 'Понятно'
+      },
+      en: {
+        subtitle: 'Your shifts. Your income.',
+        home: 'Home',
+        finance: 'Finance',
+        settings: 'Settings',
+        modal_title: 'Shift',
+        label_work: 'Job name',
+        label_income: 'Income, $',
+        label_hours: 'Hours',
+        cancel: 'Cancel',
+        save: 'Save',
+        today: 'Today',
+        shifts: 'Shifts',
+        income: 'Income',
+        hours: 'Hours',
+        finance_title: 'Finance',
+        add_shift: '＋ Shift',
+        count_shifts: 'Total shifts',
+        works: 'Jobs',
+        no_shifts: 'Add your first shift in calendar',
+        settings_title: 'Settings',
+        appearance: 'Appearance',
+        theme: 'Application theme',
+        change_theme: 'Change theme',
+        data: 'Data',
+        saved_shifts: 'Saved shifts',
+        clear_data: 'Clear all data',
+        documents: 'Documents',
+        agreement: 'User Agreement',
+        language: 'Language',
+        select_language: 'Select language',
+        prev_shifts: 'Recent shifts',
+        agreement_title: 'User Agreement',
+        agreement_text: 'ShiftFlow is a local shift planner. Data is stored only in your browser on this device and is not sent to servers. You are responsible for data security and accuracy. By using this app, you agree to these terms.',
+        understand: 'Understood'
+      }
+    };
+
+    function t(key) {
+      return i18n[currentLang][key] || key;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.shiftflowLang = lang;
+      document.documentElement.lang = lang;
+      render();
+    }
+
+    const $ = (id) => document.getElementById(id);
+
+    function key(d) {
+      return d.toISOString().slice(0, 10);
+    }
+
+    function money(n) {
+      return new Intl.NumberFormat(currentLang === 'ru' ? 'ru-RU' : 'en-US').format(Math.round(n || 0)) + ' ₽';
+    }
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function persist() {
+      localStorage.shiftflowShifts = JSON.stringify(shifts);
+    }
+
+    function render() {
+      document.querySelectorAll('.nav button').forEach((b) => {
+        b.classList.toggle('active', b.dataset.tab === tab);
+      });
+
+      $('subtitle').textContent = t('subtitle');
+      $('nav-home').textContent = t('home');
+      $('nav-finance').textContent = t('finance');
+      $('nav-settings').textContent = t('settings');
+
+      if (tab === 'calendar') calendar();
+      else if (tab === 'finance') finance();
+      else settings();
+    }
+
+    function calendar() {
+      const y = selected.getFullYear();
+      const m = selected.getMonth();
+      const first = new Date(y, m, 1);
+      const count = new Date(y, m + 1, 0).getDate();
+      const start = (first.getDay() + 6) % 7;
+      const today = new Date();
+      const todayKey = key(today);
+
+      let cells = '';
+      for (let i = 0; i < start; i++) {
+        cells += '<div class="day empty"></div>';
+      }
+
+      for (let d = 1; d <= count; d++) {
+        const dt = new Date(y, m, d);
+        const k = key(dt);
+        const x = shifts[k];
+        const isToday = k === todayKey;
+        cells += `
+          <button class="day ${isToday ? 'today' : ''}" onclick="openModal('${k}')">
+            ${d}
+            ${x ? `
+              <span class="work-label">${t('works')}: ${esc(x.work)}</span>
+              <span class="income-label">${money(x.income)}</span>
+              <i class="dot"></i>
+            ` : ''}
+          </button>
+        `;
+      }
+
+      const monthEntries = Object.values(shifts).filter((x) =>
+        x.date.startsWith(`${y}-${String(m + 1).padStart(2, '0')}`)
+      );
+
+      $('screen').innerHTML = `
+        <div class="header glass">
+          <button class="btn" onclick="move(-1)">‹</button>
+          <div>
+            <h1>${first.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { month: 'long', year: 'numeric' })}</h1>
+            <small>${t('today')}: ${today.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US')}</small>
+          </div>
+          <button class="btn" onclick="selected = new Date(); render()">${t('today')}</button>
+        </div>
+
+        <div class="calendar glass">
+          <div class="week">
+            ${['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map((x) => `<div>${x}</div>`).join('')}
+          </div>
+          <div class="days">
+            ${cells}
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat glass">
+            <small>${t('shifts')}</small>
+            <b>${monthEntries.length}</b>
+          </div>
+          <div class="stat glass">
+            <small>${t('income')}</small>
+            <b>${money(monthEntries.reduce((a, x) => a + x.income, 0))}</b>
+          </div>
+          <div class="stat glass">
+            <small>${t('hours')}</small>
+            <b>${monthEntries.reduce((a, x) => a + (Number(x.hours) || 0), 0)}</b>
+          </div>
+        </div>
+      `;
+    }
+
+    function move(step) {
+      selected = new Date(selected.getFullYear(), selected.getMonth() + step, 1);
+      render();
+    }
+
+    function openModal(k) {
+      selected = new Date(k + 'T12:00:00');
+      const x = shifts[k];
+      $('modal-title').textContent = t('modal_title');
+      $('label-work').textContent = t('label_work');
+      $('label-income').textContent = t('label_income');
+      $('label-hours').textContent = t('label_hours');
+      $('work').value = x?.work || '';
+      $('income').value = x?.income ?? '';
+      $('hours').value = x?.hours ?? '';
+      $('modal').classList.add('show');
+    }
+
+    function finance() {
+      const all = Object.values(shifts);
+      const total = all.reduce((s, x) => s + x.income, 0);
+      const names = [...new Set(all.map((x) => x.work))];
+
+      $('screen').innerHTML = `
+        <div class="header glass">
+          <h1>${t('finance_title')}</h1>
+          <button class="btn primary" onclick="openModal('${key(new Date())}')">${t('add_shift')}</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat glass">
+            <small>${t('count_shifts')}</small>
+            <b>${all.length}</b>
+          </div>
+          <div class="stat glass">
+            <small>${t('income')}</small>
+            <b>${money(total)}</b>
+          </div>
+          <div class="stat glass">
+            <small>${t('hours')}</small>
+            <b>${all.reduce((s, x) => s + (Number(x.hours) || 0), 0)}</b>
+          </div>
+        </div>
+
+        <div class="section glass">
+          <h2>${t('works')}</h2>
+          ${names.length
+            ? names.map((n) => {
+                const sum = all.filter((x) => x.work === n).reduce((s, x) => s + x.income, 0);
+                const count = all.filter((x) => x.work === n).length;
+                return `<div class="row"><span>${esc(n)}</span><b>${count} ${t('shifts')} · ${money(sum)}</b></div>`;
+              }).join('')
+            : `<small>${t('no_shifts')}</small>`
+          }
+        </div>
+      `;
+    }
+
+    function settings() {
+      $('screen').innerHTML = `
+        <div class="header glass">
+          <h1>${t('settings_title')}</h1>
+        </div>
+
+        <div class="section glass">
+          <h2>${t('language')}</h2>
+          <div class="row">
+            <span>${t('select_language')}</span>
+            <select onchange="setLanguage(this.value)" style="max-width: 130px;">
+              <option value="ru" ${currentLang === 'ru' ? 'selected' : ''}>Русский</option>
+              <option value="en" ${currentLang === 'en' ? 'selected' : ''}>English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section glass">
+          <h2>${t('appearance')}</h2>
+          <div class="row">
+            <span>${t('theme')}</span>
+            <button class="btn theme-btn" onclick="toggleTheme()">
+              <span class="theme-icon">${document.body.classList.contains('light') ? '☀️' : '🌙'}</span>
+              <span>${document.body.classList.contains('light') ? t('change_theme') : t('change_theme')}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="section glass">
+          <h2>${t('data')}</h2>
+          <div class="row">
+            <span>${t('saved_shifts')}</span>
+            <b>${Object.keys(shifts).length}</b>
+          </div>
+          <button class="btn" onclick="if(confirm('${t('clear_data')}?')) { localStorage.removeItem('shiftflowShifts'); shifts = {}; render(); }">${t('clear_data')}</button>
+        </div>
+
+        <div class="section glass">
+          <h2>${t('documents')}</h2>
+          <button class="btn primary" onclick="showAgreement()">${t('agreement')}</button>
+        </div>
+      `;
+    }
+
+    function toggleTheme() {
+      document.body.classList.add('theme-transition');
+      document.body.classList.toggle('light');
+      setTimeout(() => {
+        document.body.classList.remove('theme-transition');
+      }, 400);
+    }
+
+    function showAgreement() {
+      $('agreement-title').textContent = t('agreement_title');
+      $('agreement-text').textContent = t('agreement_text');
+      $('agreement').classList.add('show');
+    }
+
+    document.querySelectorAll('.nav button').forEach((b) => {
+      b.onclick = () => {
+        tab = b.dataset.tab;
+        render();
+      };
+    });
+
+    $('close').onclick = () => $('modal').classList.remove('show');
+
+    $('save').onclick = () => {
+      const work = $('work').value.trim();
+      const income = Number($('income').value);
+      const hours = Number($('hours').value);
+
+      if (!work || income < 0 || hours < 0) {
+        alert(currentLang === 'ru' ? 'Заполните название, доход и часы' : 'Fill in job name, income and hours');
+        return;
+      }
+
+      const k = key(selected);
+      shifts[k] = { date: k, work, income, hours };
+      persist();
+      $('modal').classList.remove('show');
+      render();
+    };
+
+    document.documentElement.lang = currentLang;
+    render();
+  </script>
+</body>
+</html>
