@@ -10,23 +10,10 @@ class AppTheme {
       surface: Color(0xFFF7F9FF),
       onSurface: Color(0xFF121826),
     ),
-    cardTheme: CardTheme(
-      color: Colors.white.withOpacity(0.62),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      elevation: 0,
-    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       foregroundColor: Color(0xFF121826),
       elevation: 0,
-    ),
-    dialogTheme: DialogTheme(
-      backgroundColor: Colors.white.withOpacity(0.8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
     ),
   );
 
@@ -39,23 +26,10 @@ class AppTheme {
       surface: Color(0xFF171E2A),
       onSurface: Color(0xFFF3F7FF),
     ),
-    cardTheme: CardTheme(
-      color: Colors.white.withOpacity(0.08),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      elevation: 0,
-    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       foregroundColor: Color(0xFFF3F7FF),
       elevation: 0,
-    ),
-    dialogTheme: DialogTheme(
-      backgroundColor: Colors.black.withOpacity(0.38),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
     ),
   );
 }

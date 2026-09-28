@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'app/app_localizations.dart';
-import 'app/app_theme.dart';
-import 'features/home/home_shell.dart';
+import '../features/home/home_shell.dart';
+import 'app_theme.dart';
 
 class ShiftFlowApp extends StatefulWidget {
   const ShiftFlowApp({super.key});
@@ -12,19 +10,15 @@ class ShiftFlowApp extends StatefulWidget {
 }
 
 class _ShiftFlowAppState extends State<ShiftFlowApp> {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.dark;
   Locale _locale = const Locale('ru');
 
   void _onThemeChanged(ThemeMode mode) {
-    setState(() {
-      _themeMode = mode;
-    });
+    setState(() => _themeMode = mode);
   }
 
   void _onLocaleChanged(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
+    setState(() => _locale = locale);
   }
 
   @override
@@ -38,7 +32,6 @@ class _ShiftFlowAppState extends State<ShiftFlowApp> {
       locale: _locale,
       supportedLocales: const [Locale('ru'), Locale('en')],
       localizationsDelegates: const [
-        AppLocalizationsDelegate(),
         DefaultWidgetsLocalizations.delegate,
         DefaultMaterialLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
