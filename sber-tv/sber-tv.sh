@@ -4,8 +4,9 @@
 # Скрипт не делает ничего своего с телевизором: он скачивает проект CleanYourTV
 # (github.com/Gathin23/cleanyourtv) на зафиксированном коммите и запускает его же скрипты
 # с готовым профилем examples/sber-salute-tv-at30a6 — теми же командами, что и на ПК.
-# Единственное отличие: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а
-# берётся готовый APK, собранный из того же коммита (sha256 проверяется).
+# Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
+# собранный из того же коммита с правками для Салют ТВ из launcher/sber1.patch — компактные кнопки
+# сверху, включение и выключение VPN кнопкой, погода (sha256 проверяется).
 #
 # Использование (TV_IP — адрес телевизора в домашней сети):
 #   bash sber-tv.sh TV_IP              проверить ТВ и сделать всё (= install)
@@ -18,15 +19,17 @@
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
-#   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет фона, подсветка
+#   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет, погода, кнопка VPN
+#   bash sber-tv.sh TV_IP update-launcher   обновить домашний экран до версии из этого набора
 #   bash sber-tv.sh TV_IP look-reset   вернуть оформление, которое ставит чистка
 #   bash sber-tv.sh TV_IP shell 'КОМАНДА'   выполнить одну shell-команду на ТВ
 set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0.apk
-APK_SHA256=233edfc06d751f96b6203c057ee6f96e22d3d8a5ab42b45112e9d9a5cabbb986
+APK_NAME=tvhome-3.0-sber1.apk
+APK_SHA256=d6e9d3e91c21f6a73f8dab3bf617656ba50117d81a80969b1fcb6566ba1d04e6
+APK_VERSION_CODE=10
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -212,6 +215,58 @@ aurora() {
   echo "Чтобы Салют ТВ сам не удалял поставленные приложения при нехватке места: bash $0 $TV_HOST rotation"
 }
 
+update_launcher() {   # update_launcher [quiet]: quiet — из look, который сам дальше включит новое
+  probe
+  say "Обновляю домашний экран до $APK_NAME (оформление, обои и порядок приложений сохранятся)"
+  # STOCK_LAUNCHER=none: экран Сбера уже отключён чисткой, трогать его не нужно.
+  if (cd "$DIR/launcher" && JAVA_HOME="${JAVA_HOME:-$DIR/launcher/prebuilt}" STOCK_LAUNCHER=none bash build-and-install.sh); then
+    if [ "${1:-}" = quiet ]; then say "Домашний экран обновлён"
+    else say "Домашний экран обновлён. Новые кнопки, погода и VPN включаются командой: bash $0 $TV_HOST look"; fi
+    return 0
+  fi
+  echo
+  echo "Обновить поверх не получилось (ответ ТВ выше). Если там INSTALL_FAILED_UPDATE_INCOMPATIBLE —"
+  echo "у установленного экрана другая подпись. Тогда: bash $0 $TV_HOST restore, затем"
+  echo "bash $0 $TV_HOST install и bash $0 $TV_HOST look (оформление придётся выбрать заново)."
+  exit 1
+}
+
+launcher_version() {   # versionCode установленного домашнего экрана, 0 если его нет
+  local v
+  v="$(tv 'dumpsys package com.gathin.tvhome' | tr -d '\r' | sed -n 's/.*versionCode=\([0-9]*\).*/\1/p' | head -n 1)"
+  echo "${v:-0}"
+}
+
+geocode() {   # geocode ГОРОД → строка "широта долгота Название|Название, регион, страна" или ничего
+  curl -fsS --get --max-time 15 --data-urlencode "name=$1" -d count=1 -d language=ru -d format=json \
+    https://geocoding-api.open-meteo.com/v1/search | "$PY" -I -c '
+import json, sys
+r = (json.load(sys.stdin).get("results") or [None])[0]
+if r:
+    parts = []
+    for x in (r.get("name"), r.get("admin1"), r.get("country")):
+        if x and x not in parts:
+            parts.append(x)
+    where = ", ".join(parts)
+    print("%s %s %s|%s" % (r["latitude"], r["longitude"], r["name"], where))
+'
+}
+
+vpn_name() {   # понятное имя для известных VPN-приложений
+  case "$1" in
+    com.v2ray.ang) echo "v2rayNG" ;;
+    com.wireguard.android) echo "WireGuard" ;;
+    app.hiddify.com) echo "Hiddify" ;;
+    org.amnezia.vpn) echo "AmneziaVPN" ;;
+    org.amnezia.awg) echo "AmneziaWG" ;;
+    com.happproxy) echo "Happ" ;;
+    com.v2raytun.android) echo "v2RayTun" ;;
+    org.outline.android.client) echo "Outline" ;;
+    com.github.shadowsocks*) echo "Shadowsocks" ;;
+    *) echo "$1" ;;
+  esac
+}
+
 LOOK_ANSWERS=()
 choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "вариант 2" ...; ответ берётся из LOOK_ANSWERS, если он там есть
   local var=$1 title=$2 i=1 ans opt
@@ -230,8 +285,16 @@ choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "в
 }
 
 look() {   # look [стиль обои цвет подсветка] [фото...]: собрать тему из ответов и отправить на ТВ
-  local style wall color glow hex src photos=() out="$DIR/look"
-  local colors=("#000000" "#070A14" "#14161C" "#06140E" "#1A0A0E" "#120A1F")
+  local style wall color glow hex src photos=() out="$DIR/look" city place vpn pkg tunnel=""
+  local colors=("#000000" "#070A14" "#14161C" "#06140E" "#1A0A0E" "#120A1F") vpns=() labels=() receivers
+  probe
+  local version
+  version="$(launcher_version)"
+  [ "$version" -gt 0 ] || die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST"
+  if [ "$version" -lt "$APK_VERSION_CODE" ]; then
+    say "Домашний экран на ТВ старой версии: без обновления не будет компактных кнопок, VPN и погоды"
+    update_launcher quiet
+  fi
   LOOK_ANSWERS=("${@:1:4}")
   choose style "Стиль домашнего экрана" \
     "Классика — тёмная полоса с приложениями и крупное название" \
@@ -260,6 +323,48 @@ look() {   # look [стиль обои цвет подсветка] [фото...
   fi
   choose glow "Подсветка выбранного приложения" "В цвет приложения" "Белая"
 
+  # Погода: город превращается в координаты здесь, на телефоне (Open-Meteo, без ключа и регистрации).
+  if [ -n "${LOOK_CITY+x}" ]; then city=$LOOK_CITY; else
+    printf '\n\033[1m%s\033[0m\n' "Погода вверху справа"
+    read -r -p "Город (Enter — без погоды): " city
+  fi
+  if [ -n "$city" ]; then
+    place="$(geocode "$city" || true)"
+    [ -n "$place" ] || die "не нашёл город «$city» (проверьте написание или интернет на телефоне)"
+    echo "Погода для: ${place#*|}"
+    read -r LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY <<< "${place%%|*}"
+    export LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY
+  fi
+
+  # Кнопка VPN: приложения с VpnService на ТВ; переключать сама она умеет v2rayNG (и его форки) и WireGuard.
+  mapfile -t vpns < <(tv 'cmd package query-services --brief -a android.net.VpnService' | tr -d '\r' \
+    | sed -n 's#^ *\([A-Za-z0-9_.]*\)/.*#\1#p' | sort -u)
+  if [ ${#vpns[@]} -eq 0 ]; then
+    echo; echo "VPN-приложений на ТВ нет — кнопку VPN не добавляю."
+  else
+    receivers="$(tv 'cmd package query-receivers --brief -a com.twofortyfouram.locale.intent.action.FIRE_SETTING' | tr -d '\r')"
+    for pkg in "${vpns[@]}"; do
+      if [ "$pkg" = com.wireguard.android ] || [[ "$receivers" == *"$pkg/"* ]]; then
+        labels+=("$(vpn_name "$pkg") — OK включает и выключает VPN")
+      else
+        labels+=("$(vpn_name "$pkg") — OK открывает приложение")
+      fi
+    done
+    [ -n "${LOOK_VPN-}" ] && LOOK_ANSWERS=("$LOOK_VPN")
+    choose vpn "Кнопка VPN вверху справа (зелёная — VPN включён, красная — выключен)" "${labels[@]}" "Без кнопки VPN"
+    if [ "$vpn" -le ${#vpns[@]} ]; then
+      export LOOK_VPN_APP=${vpns[$((vpn - 1))]}
+      if [ "$LOOK_VPN_APP" = com.wireguard.android ]; then
+        read -r -p "Имя туннеля WireGuard (как в приложении): " tunnel
+        [ -n "$tunnel" ] || die "без имени туннеля WireGuard переключать нечего"
+        tv 'pm grant com.gathin.tvhome com.wireguard.android.permission.CONTROL_TUNNELS' \
+          || die "ТВ не выдал лаунчеру право управлять WireGuard"
+        echo "В WireGuard на ТВ: Настройки → включите «Allow remote control apps» (удалённое управление)."
+      fi
+      export LOOK_VPN_TUNNEL=$tunnel
+    fi
+  fi
+
   if [ "$wall" = 9 ]; then
     if [ $# -gt 4 ]; then
       photos=("${@:5}")
@@ -282,11 +387,6 @@ look() {   # look [стиль обои цвет подсветка] [фото...
     fi
   fi
 
-  probe
-  case "$(tv 'pm list packages com.gathin.tvhome')" in
-    *package:com.gathin.tvhome*) ;;
-    *) die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST" ;;
-  esac
   say "Собираю тему"
   cat > "$DIR/look_build.py" <<'PYEOF'
 import json, os, re, shutil, sys
@@ -306,6 +406,13 @@ cfg["background_color"] = color
 cfg["app_glow"] = glow == "1"
 cfg["tile_menu"] = True        # удержать OK на плитке: Переместить, Убрать с главного, О приложении
 cfg["reorder_button"] = True   # кнопка перестановки приложений в верхней панели
+cfg["compact_pills"] = True    # кнопки сверху — кружки, раскрываются с подписью при наведении
+if os.environ.get("LOOK_WEATHER_LAT"):
+    cfg.update(weather_lat=float(os.environ["LOOK_WEATHER_LAT"]), weather_lon=float(os.environ["LOOK_WEATHER_LON"]),
+               weather_city=os.environ.get("LOOK_WEATHER_CITY", ""))
+if os.environ.get("LOOK_VPN_APP"):
+    cfg.update(vpn_app=os.environ["LOOK_VPN_APP"], vpn_pill=True, vpn_toggle=True,
+               vpn_tunnel=os.environ.get("LOOK_VPN_TUNNEL", ""))
 
 shutil.rmtree(out, ignore_errors=True)
 walls = os.path.join(out, "wallpapers")
@@ -421,6 +528,7 @@ case "$CMD" in
   aurora) aurora ;;
   apk) shift 2; apk_install "$@" ;;
   look) shift 2; look "$@" ;;
+  update-launcher) update_launcher ;;
   look-reset) probe && bash "$DIR/tools/theme.sh" "$DIR/$PROFILE" ;;
   shell) shift 2; [ $# -gt 0 ] || die "укажите команду: shell 'pm list packages -d'"; tv "$*" ;;
   *) die "неизвестная команда: $CMD (см. bash $0 без аргументов)" ;;

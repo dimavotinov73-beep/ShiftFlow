@@ -1,0 +1,1148 @@
+From 42b65b1ab797eaa43957f4d260a2017553132448 Mon Sep 17 00:00:00 2001
+From: x <x@x>
+Date: Mon, 26 Oct 2026 21:07:01 +0000
+Subject: [PATCH] Sber edition: compact pills, VPN switch, weather
+
+---
+ launcher/app/build.gradle                     |   6 +-
+ launcher/app/src/main/AndroidManifest.xml     |  10 +
+ .../main/java/com/gathin/tvhome/Config.java   |   2 +-
+ .../java/com/gathin/tvhome/HeaderExtras.java  |  69 ++++++
+ .../java/com/gathin/tvhome/MainActivity.java  | 220 +++++++++++++++++-
+ .../java/com/gathin/tvhome/VpnControl.java    |  84 +++++++
+ .../main/java/com/gathin/tvhome/Weather.java  | 113 +++++++++
+ .../src/main/res/drawable/ic_lock_open.xml    |   9 +
+ .../app/src/main/res/drawable/ic_wx_clear.xml |   9 +
+ .../src/main/res/drawable/ic_wx_cloudy.xml    |  13 ++
+ .../app/src/main/res/drawable/ic_wx_fog.xml   |  11 +
+ .../app/src/main/res/drawable/ic_wx_night.xml |   7 +
+ .../main/res/drawable/ic_wx_night_partly.xml  |  11 +
+ .../src/main/res/drawable/ic_wx_partly.xml    |  13 ++
+ .../app/src/main/res/drawable/ic_wx_rain.xml  |  11 +
+ .../app/src/main/res/drawable/ic_wx_snow.xml  |  11 +
+ .../app/src/main/res/drawable/ic_wx_storm.xml |  11 +
+ .../src/main/res/layout-iw/activity_main.xml  |  17 ++
+ .../app/src/main/res/layout/activity_main.xml |  43 ++++
+ .../src/main/res/values-ru/strings_sber.xml   |  15 ++
+ .../app/src/main/res/values/strings_sber.xml  |  16 ++
+ .../com/gathin/tvhome/HeaderExtrasTest.java   |  53 +++++
+ .../java/com/gathin/tvhome/WeatherTest.java   |  70 ++++++
+ 23 files changed, 816 insertions(+), 8 deletions(-)
+ create mode 100644 launcher/app/src/main/java/com/gathin/tvhome/HeaderExtras.java
+ create mode 100644 launcher/app/src/main/java/com/gathin/tvhome/VpnControl.java
+ create mode 100644 launcher/app/src/main/java/com/gathin/tvhome/Weather.java
+ create mode 100644 launcher/app/src/main/res/drawable/ic_lock_open.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_clear.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_cloudy.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_fog.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_night.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_night_partly.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_partly.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_rain.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_snow.xml
+ create mode 100644 launcher/app/src/main/res/drawable/ic_wx_storm.xml
+ create mode 100644 launcher/app/src/main/res/values-ru/strings_sber.xml
+ create mode 100644 launcher/app/src/main/res/values/strings_sber.xml
+ create mode 100644 launcher/app/src/test/java/com/gathin/tvhome/HeaderExtrasTest.java
+ create mode 100644 launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java
+
+diff --git a/launcher/app/build.gradle b/launcher/app/build.gradle
+index 3ceec7b..50a46f9 100644
+--- a/launcher/app/build.gradle
++++ b/launcher/app/build.gradle
+@@ -11,8 +11,8 @@ android {
+         applicationId providers.gradleProperty('launcherApplicationId').getOrElse('com.gathin.tvhome')
+         minSdk 26
+         targetSdk 34
+-        versionCode 9
+-        versionName '3.0'
++        versionCode 10
++        versionName '3.0-sber1'
+     }
+ 
+     buildTypes {
+@@ -45,4 +45,6 @@ dependencies {
+     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+     // Test only (never in the APK): plain JVM tests for the module card validators, src/test.
+     testImplementation 'junit:junit:4.13.2'
++    // The real org.json for HeaderExtrasTest and WeatherTest: android.jar's is a stub in JVM tests.
++    testImplementation 'org.json:json:20240303'
+ }
+diff --git a/launcher/app/src/main/AndroidManifest.xml b/launcher/app/src/main/AndroidManifest.xml
+index 701b5fe..f5abac6 100644
+--- a/launcher/app/src/main/AndroidManifest.xml
++++ b/launcher/app/src/main/AndroidManifest.xml
+@@ -21,6 +21,11 @@
+     <!-- YaOS (Yandex TV OS): HDMI, AV and the tuner all play in com.yandex.tv.live, whose activities require
+          this permission (protection level normal, so it is granted at install). Ignored on other TVs. -->
+     <uses-permission android:name="yandex.tv.permission.ACCESS_TV_SOURCE" />
++    <!-- The weather line (weather_lat / weather_lon in a theme): one small request to api.open-meteo.com every half
++         hour, and only while a theme turns the line on. -->
++    <uses-permission android:name="android.permission.INTERNET" />
++    <!-- vpn_toggle with WireGuard: its tunnel switch requires this (protection level dangerous, granted with pm grant). -->
++    <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS" />
+ 
+     <!-- Android 11+ package visibility: lets the launcher list the TV apps it shows as tiles, and the
+          apps that declare a module card (docs/specs/card.md). -->
+@@ -68,6 +73,11 @@
+         <!-- Coocaa OS sources for the Inputs menu (coocaa_sources); see CoocaaSources. -->
+         <provider android:authorities="com.skyworth.tv.provider" />
+         <provider android:authorities="com.skyworth.tv.sdk.provider" />
++        <!-- vpn_toggle: VPN apps with a Locale/Tasker plugin receiver (v2rayNG and its forks), and WireGuard. -->
++        <intent>
++            <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
++        </intent>
++        <package android:name="com.wireguard.android" />
+     </queries>
+ 
+     <application
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/Config.java b/launcher/app/src/main/java/com/gathin/tvhome/Config.java
+index 71356ff..7e032cb 100644
+--- a/launcher/app/src/main/java/com/gathin/tvhome/Config.java
++++ b/launcher/app/src/main/java/com/gathin/tvhome/Config.java
+@@ -755,7 +755,7 @@ final class Config {
+         return json;
+     }
+ 
+-    private static JSONObject read(File file) {
++    static JSONObject read(File file) {
+         if (file == null || !file.isFile()) return null;
+         if (file.length() > 64 * 1024) {
+             Log.w(TAG, "ignoring " + file + ": larger than 64 KB");
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/HeaderExtras.java b/launcher/app/src/main/java/com/gathin/tvhome/HeaderExtras.java
+new file mode 100644
+index 0000000..702e6a4
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/HeaderExtras.java
+@@ -0,0 +1,69 @@
++package com.gathin.tvhome;
++
++import android.content.Context;
++
++import org.json.JSONObject;
++
++import java.io.File;
++
++/**
++ * The header keys this build adds on top of {@link Config}, read from the same theme config.json (Config.load keeps a
++ * copy of it in the app's files): compact pills, the VPN pill's on/off switch and the weather line. Every key is
++ * optional; absent or malformed, its feature stays off and Home looks as it did without it.
++ */
++final class HeaderExtras {
++
++    /** compact_pills: the top pills are round icons and open out to their label while focused. */
++    final boolean compactPills;
++    /** vpn_toggle: OK on the VPN pill switches the VPN through vpn_app's control intent, where the app has one. */
++    final boolean vpnToggle;
++    /** vpn_tunnel: the WireGuard tunnel that vpn_toggle switches; other apps ignore it. */
++    final String vpnTunnel;
++    /** weather_lat, weather_lon: the place the weather line is for; NaN while either is missing keeps the line off. */
++    final double weatherLat, weatherLon;
++    /** weather_city: the place's name after the conditions; empty shows none. */
++    final String weatherCity;
++
++    private HeaderExtras(boolean compactPills, boolean vpnToggle, String vpnTunnel, double weatherLat, double weatherLon,
++                         String weatherCity) {
++        this.compactPills = compactPills;
++        this.vpnToggle = vpnToggle;
++        this.vpnTunnel = vpnTunnel;
++        this.weatherLat = weatherLat;
++        this.weatherLon = weatherLon;
++        this.weatherCity = weatherCity;
++    }
++
++    /** After Config.load, which leaves the theme's config.json in the app's files (or removes it with the theme). */
++    static HeaderExtras load(Context ctx) {
++        return from(Config.read(new File(ctx.getFilesDir(), Config.FILE_NAME)));
++    }
++
++    static HeaderExtras from(JSONObject json) {
++        if (json == null) return new HeaderExtras(false, false, "", Double.NaN, Double.NaN, "");
++        double lat = coordinate(json.opt("weather_lat"), 90);
++        double lon = coordinate(json.opt("weather_lon"), 180);
++        boolean place = !Double.isNaN(lat) && !Double.isNaN(lon);
++        return new HeaderExtras(
++                json.opt("compact_pills") instanceof Boolean && json.optBoolean("compact_pills"),
++                json.opt("vpn_toggle") instanceof Boolean && json.optBoolean("vpn_toggle"),
++                text(json.opt("vpn_tunnel")),
++                place ? lat : Double.NaN,
++                place ? lon : Double.NaN,
++                text(json.opt("weather_city")));
++    }
++
++    boolean weather() {
++        return !Double.isNaN(weatherLat);
++    }
++
++    private static double coordinate(Object v, double limit) {
++        if (!(v instanceof Number)) return Double.NaN;
++        double d = ((Number) v).doubleValue();
++        return Double.isNaN(d) || Math.abs(d) > limit ? Double.NaN : d;
++    }
++
++    private static String text(Object v) {
++        return v instanceof String ? ((String) v).trim() : "";
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
+index a5acd79..616a151 100644
+--- a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
++++ b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
+@@ -52,6 +52,10 @@ import android.text.Spanned;
+ import android.text.TextPaint;
+ import android.text.TextUtils;
+ import android.text.style.ForegroundColorSpan;
++import android.text.style.RelativeSizeSpan;
++import android.transition.ChangeBounds;
++import android.transition.TransitionManager;
++import android.util.Log;
+ import android.util.TypedValue;
+ import android.view.Gravity;
+ import android.view.KeyEvent;
+@@ -62,6 +66,7 @@ import android.view.ViewTreeObserver;
+ import android.view.Window;
+ import android.view.animation.AnimationUtils;
+ import android.view.animation.LayoutAnimationController;
++import android.view.animation.PathInterpolator;
+ import android.widget.FrameLayout;
+ import android.widget.ImageView;
+ import android.widget.LinearLayout;
+@@ -90,6 +95,10 @@ import java.util.List;
+ import java.util.Locale;
+ import java.util.Map;
+ import java.util.Set;
++import java.util.concurrent.ExecutorService;
++import java.util.concurrent.Executors;
++
++import org.json.JSONException;
+ 
+ /**
+  * tvOS style home: black, a pinned dock row, an app grid, and one glass highlight that springs between tiles.
+@@ -377,6 +386,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             if (festive) updateWifiLabel();
+             sky.update();
+             wallpaperPlayer.update();
++            if (extras.weather()) refreshWeatherIfDue();
+             handler.postDelayed(this, MINUTE_MS);
+         }
+     };
+@@ -512,6 +522,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         vpnApp = cfg.vpnApp;
+         vpnPill = cfg.vpnPill && !cfg.topMenu;
+         btnVpn = findViewById(R.id.btnVpn);
++        extras = HeaderExtras.load(this);
++        compactPills = extras.compactPills && !cfg.topMenu;
++        weatherView = findViewById(R.id.weather);
++        if (extras.weather()) {
++            View weatherBlock = findViewById(R.id.weatherBlock);
++            if (weatherBlock != null) {
++                // The date keeps its width and the weather block takes what is left, so an opening pill shortens
++                // the conditions line rather than breaking the day's name over two lines.
++                LinearLayout.LayoutParams dlp =
++                        (LinearLayout.LayoutParams) ((View) findViewById(R.id.date).getParent()).getLayoutParams();
++                dlp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
++                dlp.weight = 0;
++            }
++            showCachedWeather();
++        }
+         moduleCards = cfg.moduleCards;
+         hiddenApps = new HashSet<>(cfg.hiddenApps);
+ 
+@@ -707,7 +732,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         View btnSettings = findViewById(R.id.btnSettings);
+         btnInputs.setOnClickListener(v -> showInputs());
+         btnWifi.setOnClickListener(v -> openNetworkPill());
+-        btnVpn.setOnClickListener(v -> openVpnPill());
++        btnVpn.setOnClickListener(v -> {
++            if (!extras.vpnToggle || !toggleVpn()) openVpnPill();
++        });
++        btnVpn.setOnLongClickListener(v -> {
++            openVpnPill();
++            return true;
++        });
+         btnWifi.setOnLongClickListener(v -> {
+             open(systemIntent(Settings.ACTION_WIFI_SETTINGS));
+             return true;
+@@ -737,7 +768,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         addTopBarApps(cfg.topBarApps, cfg.launchActions);
+         iconOnlyButtons = cfg.iconOnlyButtons;
+         topMenu = cfg.topMenu;
+-        wifiIconOnly = iconOnlyButtons && cfg.wifiLabelWidth <= 0;
++        wifiIconOnly = iconOnlyButtons && cfg.wifiLabelWidth <= 0 && !compactPills;
+         if (cfg.wifiStatusColor) {
+             wifiPlainTint = btnWifi.getCompoundDrawableTintList();
+             wifiOnlineTint = getColorStateList(R.color.pill_icon_online);
+@@ -764,12 +795,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             topButtons.setLayoutParams(tlp);
+             topButtons.setGravity(Gravity.CENTER_VERTICAL);
+         }
+-        if (iconOnlyButtons) {
++        if (iconOnlyButtons && !compactPills) {
+             if (cfg.wifiLabelWidth > 0) btnWifi.setMaxWidth(Math.round(cfg.wifiLabelWidth * density));
+             else makeIconOnly(btnWifi);
+             makeIconOnly((TextView) btnSettings);
+         }
+-        if (cfg.iconOnlyInputs) makeIconOnly((TextView) btnInputs);
++        if (cfg.iconOnlyInputs && !compactPills) makeIconOnly((TextView) btnInputs);
+         btnSettings.setOnLongClickListener(v -> {
+             showSettingsMenu();
+             return true;
+@@ -809,6 +840,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             }
+         }
+         if (festive) applyFestiveSkin((TextView) btnInputs, (TextView) btnSettings);
++        if (compactPills) {
++            // After the focus effects and the festive skin, whose focus listeners these chain onto.
++            for (View pill : Arrays.asList(btnInputs, btnWifi, btnVpn, btnReorder, btnLibraryTop, btnSettings)) {
++                makeCompact((TextView) pill);
++            }
++            // Their descriptions ("Изменить порядок приложений") would push the clock aside while open.
++            setCompactLabel((TextView) btnReorder, getString(R.string.reorder_short));
++            setCompactLabel((TextView) btnLibraryTop, getString(R.string.library_short));
++        }
+ 
+         // Hide the glass when focus leaves the tiles.
+         getWindow().getDecorView().getViewTreeObserver().addOnGlobalFocusChangeListener((oldF, newF) -> {
+@@ -983,6 +1023,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             pillsShown = true;
+         }
+         if (showStats) startStats();
++        if (extras.weather()) refreshWeatherIfDue();
+         sky.update();
+         wallpaperPlayer.start();
+         handler.postDelayed(minuteTick, MINUTE_MS);
+@@ -1215,6 +1256,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         super.onDestroy();
+         unregisterReceiver(packageReceiver);
+         wallpaperPlayer.close();
++        handler.removeCallbacks(vpnToggleCheck);
++        if (weatherExecutor != null) weatherExecutor.shutdownNow();
+         ConnectivityManager cm = getSystemService(ConnectivityManager.class);
+         TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
+         if (tim != null) tim.unregisterCallback(inputCallback);
+@@ -2678,6 +2721,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             btnWifi.setContentDescription(btnWifi.getText());
+             btnWifi.setText(null);
+         }
++        if (compactPills) setCompactLabel(btnWifi, btnWifi.getText());
+         if (festive && diya != null) {
+             if (online && flame == 0) flame = 3;   // online some other way (cellular, USB tethering)
+             diya.setSteady(steady);
+@@ -2727,6 +2771,170 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+         pill.getLayoutParams().width = Math.round(42 * density);
+     }
+ 
++    // ---- compact pills, VPN switch and weather (HeaderExtras) ---------------------------------------
++
++    /** This build's header keys, read from the theme next to Config. */
++    private HeaderExtras extras;
++    /** compact_pills, except with top_menu, whose lone gear stays as it is. */
++    private boolean compactPills;
++    /** compact_pills: each pill's label, shown only while the pill has focus. */
++    private final Map<TextView, CharSequence> pillLabels = new HashMap<>();
++
++    /** compact_pills: a round icon that opens out to {@code pill}'s label (or its description) while focused. */
++    private void makeCompact(TextView pill) {
++        CharSequence label = pill.getText();
++        pillLabels.put(pill, label != null && label.length() > 0 ? label : pill.getContentDescription());
++        View.OnFocusChangeListener previous = pill.getOnFocusChangeListener();
++        pill.setOnFocusChangeListener((v, focused) -> {
++            if (previous != null) previous.onFocusChange(v, focused);
++            showPillLabel(pill, focused, true);
++        });
++        showPillLabel(pill, pill.isFocused(), false);
++    }
++
++    /** compact_pills: the pill's label changed (network name, VPN state): keep it for focus, shown only while focused. */
++    private void setCompactLabel(TextView pill, CharSequence label) {
++        pillLabels.put(pill, label);
++        showPillLabel(pill, pill.isFocused(), false);
++    }
++
++    private void showPillLabel(TextView pill, boolean open, boolean animate) {
++        CharSequence label = pillLabels.get(pill);
++        if (label == null || label.length() == 0) open = false;
++        if (animate && animations && !reducedMotion && pill.getParent() instanceof ViewGroup) {
++            // The row is aligned to the right edge, so an opening pill grows to the left and its neighbours slide.
++            TransitionManager.beginDelayedTransition((ViewGroup) pill.getParent(), new ChangeBounds()
++                    .setDuration(200).setInterpolator(new PathInterpolator(0.2f, 0f, 0f, 1f)));
++        }
++        ViewGroup.LayoutParams lp = pill.getLayoutParams();
++        if (open) {
++            pill.setText(label);
++            pill.setContentDescription(null);
++            pill.setPaddingRelative(Math.round(16 * density), 0, Math.round(20 * density), 0);
++            pill.setCompoundDrawablePadding(Math.round(9 * density));
++            lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
++        } else {
++            pill.setContentDescription(label);
++            pill.setText(null);
++            int pad = Math.round(10 * density);
++            pill.setPaddingRelative(pad, 0, pad, 0);
++            pill.setCompoundDrawablePadding(0);
++            lp.width = Math.round(42 * density);
++        }
++        pill.setLayoutParams(lp);
++    }
++
++    /** How long a VPN switch may take before the pill gives up and opens the VPN app instead. */
++    private static final long VPN_TOGGLE_WAIT_MS = 6000;
++    /** The pill state when the switch was asked for; still the same after the wait means the app did not act. */
++    private int vpnToggleFrom;
++    private final Runnable vpnToggleCheck = () -> {
++        // No permission, its remote control switched off, no server chosen yet, or Android kept it from starting in
++        // the background: the app is where the VPN can be switched, so open it while Home is still in front.
++        if (vpnPillState == vpnToggleFrom && hasWindowFocus()) openVpnPill();
++    };
++
++    /** vpn_toggle: asks vpn_app to switch its VPN. False when the app has no way to be asked, so the caller opens it. */
++    private boolean toggleVpn() {
++        boolean up = vpnPillState == VpnBadge.PILL_UP;
++        if (!VpnControl.send(this, vpnApp, !up, extras.vpnTunnel)) return false;
++        Toast.makeText(this, up ? R.string.vpn_switching_off : R.string.vpn_switching_on, Toast.LENGTH_SHORT).show();
++        vpnToggleFrom = vpnPillState;
++        handler.removeCallbacks(vpnToggleCheck);
++        handler.postDelayed(vpnToggleCheck, VPN_TOGGLE_WAIT_MS);
++        return true;
++    }
++
++    private static final String WEATHER_PREFS = "weather";
++    /** A new reading every half hour; a failed one is tried again after five minutes. */
++    private static final long WEATHER_EVERY_MS = 30 * 60_000L, WEATHER_RETRY_MS = 5 * 60_000L;
++    /** A reading older than this is not shown at all: better no weather than yesterday's. */
++    private static final long WEATHER_KEEP_MS = 6 * 60 * 60_000L;
++    private TextView weatherView;
++    private ExecutorService weatherExecutor;
++    /** elapsedRealtime when the next fetch is due; 0 fetches at the first chance. */
++    private long weatherDueAt;
++    private boolean weatherFetching;
++
++    /** The last reading, kept across restarts, so the line is there at once instead of after the first fetch. */
++    private void showCachedWeather() {
++        SharedPreferences prefs = getSharedPreferences(WEATHER_PREFS, MODE_PRIVATE);
++        String body = prefs.getString("body", null);
++        if (body != null) showWeather(body, prefs.getLong("at", 0));
++    }
++
++    private void refreshWeatherIfDue() {
++        long now = SystemClock.elapsedRealtime();
++        if (weatherFetching || now < weatherDueAt) return;
++        weatherFetching = true;
++        if (weatherExecutor == null) weatherExecutor = Executors.newSingleThreadExecutor();
++        double lat = extras.weatherLat, lon = extras.weatherLon;
++        weatherExecutor.execute(() -> {
++            String body;
++            try {
++                body = Weather.fetch(lat, lon);
++                Weather.parse(body);   // only a reading that parses replaces the cached one
++            } catch (IOException | JSONException | RuntimeException e) {
++                Log.w("Weather", "no reading: " + e.getMessage());
++                body = null;
++            }
++            String reading = body;
++            handler.post(() -> {
++                weatherFetching = false;
++                weatherDueAt = SystemClock.elapsedRealtime() + (reading != null ? WEATHER_EVERY_MS : WEATHER_RETRY_MS);
++                if (reading == null || isDestroyed()) {
++                    if (!isDestroyed()) showCachedWeather();   // hides a cached reading that has grown too old
++                    return;
++                }
++                long at = System.currentTimeMillis();
++                getSharedPreferences(WEATHER_PREFS, MODE_PRIVATE).edit()
++                        .putString("body", reading).putLong("at", at).apply();
++                showWeather(reading, at);
++            });
++        });
++    }
++
++    /**
++     * The weather block: the icon and "+7°", and under them "ПЕРЕМЕННАЯ ОБЛАЧНОСТЬ · МОСКВА". The Hebrew layout has no
++     * block, only the one line, which then holds all of it with the temperature in white and a little larger.
++     */
++    private void showWeather(String body, long at) {
++        TextView now = findViewById(R.id.weatherNow);
++        View shown = now != null ? (View) now.getParent() : weatherView;
++        Weather w;
++        try {
++            w = Weather.parse(body);
++        } catch (JSONException e) {
++            shown.setVisibility(View.GONE);
++            return;
++        }
++        if (Math.abs(System.currentTimeMillis() - at) > WEATHER_KEEP_MS) {
++            shown.setVisibility(View.GONE);
++            return;
++        }
++        String temperature = Weather.temperature(w.temperature);
++        String conditions = getString(w.label());
++        if (!extras.weatherCity.isEmpty()) conditions += "  ·  " + extras.weatherCity;
++        conditions = conditions.toUpperCase(Locale.getDefault());
++        Drawable icon = getDrawable(w.icon());
++        if (icon != null) {
++            int size = Math.round((now != null ? 28 : 22) * density);
++            icon.setBounds(0, 0, size, size);
++        }
++        if (now != null) {
++            now.setText(temperature);
++            now.setCompoundDrawablesRelative(icon, null, null, null);
++            weatherView.setText(conditions);
++        } else {
++            SpannableString text = new SpannableString(temperature + "  " + conditions);
++            text.setSpan(new ForegroundColorSpan(0xFFFFFFFF), 0, temperature.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
++            text.setSpan(new RelativeSizeSpan(1.25f), 0, temperature.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
++            weatherView.setText(text);
++            weatherView.setCompoundDrawablesRelative(icon, null, null, null);
++        }
++        shown.setVisibility(View.VISIBLE);
++    }
++
+     // ---- festive skin ------------------------------------------------------------------------------
+ 
+     /**
+@@ -2826,8 +3034,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+             btnVpn.setText(up ? R.string.vpn : R.string.vpn_off);
+             btnVpn.setTextColor(ink);
+             btnVpn.setBackground(VpnBadge.pillBackground(up, density));
+-            btnVpn.setCompoundDrawablesRelativeWithIntrinsicBounds(up ? R.drawable.ic_lock : 0, 0, 0, 0);
++            btnVpn.setCompoundDrawablesRelativeWithIntrinsicBounds(
++                    up ? R.drawable.ic_lock : compactPills ? R.drawable.ic_lock_open : 0, 0, 0, 0);
+             btnVpn.setCompoundDrawableTintList(ink);
++            if (compactPills) setCompactLabel(btnVpn, btnVpn.getText());
+         }
+         btnVpn.setVisibility(View.VISIBLE);
+     }
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/VpnControl.java b/launcher/app/src/main/java/com/gathin/tvhome/VpnControl.java
+new file mode 100644
+index 0000000..4ec05c4
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/VpnControl.java
+@@ -0,0 +1,84 @@
++package com.gathin.tvhome;
++
++import android.content.ComponentName;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.ActivityInfo;
++import android.content.pm.PackageManager;
++import android.content.pm.ResolveInfo;
++import android.os.Bundle;
++import android.util.Log;
++
++import java.util.List;
++
++/**
++ * vpn_toggle: switches the VPN on or off through the VPN app's own control intent. Android gives no app a way to
++ * switch another app's VPN, so this only works for apps that accept such a command:
++ * <ul>
++ *   <li>WireGuard: SET_TUNNEL_UP / SET_TUNNEL_DOWN for a named tunnel (vpn_tunnel). Needs its CONTROL_TUNNELS
++ *       permission granted to this app (pm grant) and "Allow remote control apps" on in WireGuard's settings.</li>
++ *   <li>v2rayNG, and forks that kept its Tasker plugin receiver: a Locale FIRE_SETTING broadcast with an on/off switch
++ *       and "Default", the server selected in the app.</li>
++ * </ul>
++ * Any other app gets nothing sent; the caller opens it instead.
++ */
++final class VpnControl {
++
++    private static final String TAG = "VpnControl";
++
++    static final String WIREGUARD = "com.wireguard.android";
++    static final String WIREGUARD_PERMISSION = WIREGUARD + ".permission.CONTROL_TUNNELS";
++    static final String FIRE_SETTING = "com.twofortyfouram.locale.intent.action.FIRE_SETTING";
++    private static final String EXTRA_BUNDLE = "com.twofortyfouram.locale.intent.extra.BUNDLE";
++
++    private VpnControl() {
++    }
++
++    /**
++     * Asks {@code pkg} to bring its VPN up or down. True when a command went out; whether the app took it shows
++     * only in the VPN network coming or going, which the caller watches.
++     */
++    static boolean send(Context ctx, String pkg, boolean up, String tunnel) {
++        if (pkg == null || pkg.isEmpty()) return false;
++        try {
++            if (WIREGUARD.equals(pkg)) {
++                if (tunnel.isEmpty() || ctx.checkSelfPermission(WIREGUARD_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
++                    return false;
++                }
++                ctx.sendBroadcast(new Intent(WIREGUARD + (up ? ".action.SET_TUNNEL_UP" : ".action.SET_TUNNEL_DOWN"))
++                        .setPackage(WIREGUARD)
++                        .putExtra("tunnel", tunnel));
++                return true;
++            }
++            ComponentName receiver = taskerReceiver(ctx, pkg);
++            if (receiver == null) return false;
++            Bundle settings = new Bundle();
++            settings.putBoolean("tasker_extra_bundle_switch", up);
++            settings.putString("tasker_extra_bundle_guid", "Default");
++            ctx.sendBroadcast(new Intent(FIRE_SETTING).setComponent(receiver).putExtra(EXTRA_BUNDLE, settings));
++            return true;
++        } catch (RuntimeException e) {
++            Log.w(TAG, "could not ask " + pkg + " to switch its VPN: " + e.getMessage());
++            return false;
++        }
++    }
++
++    /** True when {@link #send} has a way to reach {@code pkg}, so the pill can say "press to switch" or not. */
++    static boolean supported(Context ctx, String pkg, String tunnel) {
++        if (pkg == null || pkg.isEmpty()) return false;
++        if (WIREGUARD.equals(pkg)) {
++            return !tunnel.isEmpty() && ctx.checkSelfPermission(WIREGUARD_PERMISSION) == PackageManager.PERMISSION_GRANTED;
++        }
++        return taskerReceiver(ctx, pkg) != null;
++    }
++
++    private static ComponentName taskerReceiver(Context ctx, String pkg) {
++        List<ResolveInfo> found = ctx.getPackageManager().queryBroadcastReceivers(
++                new Intent(FIRE_SETTING).setPackage(pkg), 0);
++        for (ResolveInfo r : found) {
++            ActivityInfo info = r.activityInfo;
++            if (info != null && info.exported) return new ComponentName(info.packageName, info.name);
++        }
++        return null;
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/Weather.java b/launcher/app/src/main/java/com/gathin/tvhome/Weather.java
+new file mode 100644
+index 0000000..1941457
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/Weather.java
+@@ -0,0 +1,113 @@
++package com.gathin.tvhome;
++
++import org.json.JSONException;
++import org.json.JSONObject;
++
++import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.net.HttpURLConnection;
++import java.net.URL;
++import java.nio.charset.StandardCharsets;
++import java.util.Locale;
++
++/**
++ * The weather line's data: the current temperature and conditions from Open-Meteo, which needs no key and no
++ * account. {@link #fetch} does network I/O and must run off the main thread; the rest is plain parsing.
++ */
++final class Weather {
++
++    /** What the icon and the word show, from the WMO weather code Open-Meteo reports. */
++    enum Kind { CLEAR, PARTLY, CLOUDY, FOG, DRIZZLE, RAIN, SNOW, STORM }
++
++    final double temperature;
++    final Kind kind;
++    /** Daylight at the place: a clear night shows the moon instead of the sun. */
++    final boolean day;
++
++    Weather(double temperature, Kind kind, boolean day) {
++        this.temperature = temperature;
++        this.kind = kind;
++        this.day = day;
++    }
++
++    static String url(double lat, double lon) {
++        return String.format(Locale.US, "https://api.open-meteo.com/v1/forecast?latitude=%.4f&longitude=%.4f"
++                + "&current=temperature_2m,weather_code,is_day&timezone=auto", lat, lon);
++    }
++
++    static Weather parse(String body) throws JSONException {
++        JSONObject current = new JSONObject(body).getJSONObject("current");
++        double t = current.getDouble("temperature_2m");
++        if (Double.isNaN(t) || Double.isInfinite(t)) throw new JSONException("temperature_2m is not a number");
++        return new Weather(t, kind(current.getInt("weather_code")), current.optInt("is_day", 1) == 1);
++    }
++
++    /** WMO 4677 codes as Open-Meteo documents them; anything unknown reads as cloudy rather than as nothing. */
++    static Kind kind(int code) {
++        if (code == 0) return Kind.CLEAR;
++        if (code == 1 || code == 2) return Kind.PARTLY;
++        if (code == 45 || code == 48) return Kind.FOG;
++        if (code >= 51 && code <= 57) return Kind.DRIZZLE;
++        if ((code >= 61 && code <= 67) || (code >= 80 && code <= 82)) return Kind.RAIN;
++        if ((code >= 71 && code <= 77) || code == 85 || code == 86) return Kind.SNOW;
++        if (code >= 95 && code <= 99) return Kind.STORM;
++        return Kind.CLOUDY;
++    }
++
++    /** "+7°", "−3°" with a true minus sign, "0°" without a sign; rounded to whole degrees. */
++    static String temperature(double celsius) {
++        long t = Math.round(celsius);
++        if (t == 0) return "0°";
++        return (t > 0 ? "+" : "−") + Math.abs(t) + "°";
++    }
++
++    int icon() {
++        switch (kind) {
++            case CLEAR: return day ? R.drawable.ic_wx_clear : R.drawable.ic_wx_night;
++            case PARTLY: return day ? R.drawable.ic_wx_partly : R.drawable.ic_wx_night_partly;
++            case FOG: return R.drawable.ic_wx_fog;
++            case DRIZZLE:
++            case RAIN: return R.drawable.ic_wx_rain;
++            case SNOW: return R.drawable.ic_wx_snow;
++            case STORM: return R.drawable.ic_wx_storm;
++            default: return R.drawable.ic_wx_cloudy;
++        }
++    }
++
++    int label() {
++        switch (kind) {
++            case CLEAR: return R.string.weather_clear;
++            case PARTLY: return R.string.weather_partly;
++            case FOG: return R.string.weather_fog;
++            case DRIZZLE: return R.string.weather_drizzle;
++            case RAIN: return R.string.weather_rain;
++            case SNOW: return R.string.weather_snow;
++            case STORM: return R.string.weather_storm;
++            default: return R.string.weather_cloudy;
++        }
++    }
++
++    /** The raw response, for {@link #parse} and for the cache that shows the last reading after a restart. */
++    static String fetch(double lat, double lon) throws IOException {
++        HttpURLConnection c = (HttpURLConnection) new URL(url(lat, lon)).openConnection();
++        c.setConnectTimeout(10_000);
++        c.setReadTimeout(10_000);
++        c.setRequestProperty("User-Agent", "CleanYourTV-launcher");
++        try {
++            if (c.getResponseCode() != 200) throw new IOException("HTTP " + c.getResponseCode());
++            try (InputStream in = c.getInputStream()) {
++                ByteArrayOutputStream out = new ByteArrayOutputStream();
++                byte[] buf = new byte[4096];
++                int n;
++                while ((n = in.read(buf)) > 0) {
++                    out.write(buf, 0, n);
++                    if (out.size() > 64 * 1024) throw new IOException("response larger than 64 KB");
++                }
++                return new String(out.toByteArray(), StandardCharsets.UTF_8);
++            }
++        } finally {
++            c.disconnect();
++        }
++    }
++}
+diff --git a/launcher/app/src/main/res/drawable/ic_lock_open.xml b/launcher/app/src/main/res/drawable/ic_lock_open.xml
+new file mode 100644
+index 0000000..2651dac
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_lock_open.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp" android:height="24dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <path android:fillColor="#FFFFFF" android:fillType="evenOdd"
++        android:pathData="M18,8H6c-1.1,0 -2,0.9 -2,2v10c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2V10C20,8.9 19.1,8 18,8zM12,17c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2z" />
++    <path android:strokeColor="#FFFFFF" android:strokeWidth="1.9" android:strokeLineCap="round"
++        android:pathData="M8,8V5.6c0,-2.2 1.8,-4 4,-4s4,1.8 4,4" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_clear.xml b/launcher/app/src/main/res/drawable/ic_wx_clear.xml
+new file mode 100644
+index 0000000..f30a955
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_clear.xml
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <path android:fillColor="#FFC93C"
++        android:pathData="M7.40,12.00a4.6,4.6 0 1,0 9.20,0a4.6,4.6 0 1,0 -9.20,0z" />
++    <path android:strokeColor="#FFC93C" android:strokeWidth="1.9" android:strokeLineCap="round"
++        android:pathData="M19.20,12.00L21.70,12.00M17.09,17.09L18.86,18.86M12.00,19.20L12.00,21.70M6.91,17.09L5.14,18.86M4.80,12.00L2.30,12.00M6.91,6.91L5.14,5.14M12.00,4.80L12.00,2.30M17.09,6.91L18.86,5.14" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_cloudy.xml b/launcher/app/src/main/res/drawable/ic_wx_cloudy.xml
+new file mode 100644
+index 0000000..58f313a
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_cloudy.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <group android:scaleX="0.6" android:scaleY="0.6" android:translateX="9.6" android:translateY="2.6">
++        <path android:fillColor="#AEB6C4"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++    <group android:scaleX="0.82" android:scaleY="0.82" android:translateX="0.4" android:translateY="5.6">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_fog.xml b/launcher/app/src/main/res/drawable/ic_wx_fog.xml
+new file mode 100644
+index 0000000..1284d59
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_fog.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <group android:scaleX="0.7" android:scaleY="0.7" android:translateX="3.6" android:translateY="-0.6">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++    <path android:strokeColor="#C9CED6" android:strokeWidth="2" android:strokeLineCap="round"
++        android:pathData="M4,17.2h16M7,20.8h10" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_night.xml b/launcher/app/src/main/res/drawable/ic_wx_night.xml
+new file mode 100644
+index 0000000..c9d598b
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_night.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <path android:fillColor="#E6E9F2"
++        android:pathData="M10.64,4.04A8.5,8.5 0 1,0 19.96,13.36A6.8,6.8 0 0,1 10.64,4.04Z" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_night_partly.xml b/launcher/app/src/main/res/drawable/ic_wx_night_partly.xml
+new file mode 100644
+index 0000000..cc726f5
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_night_partly.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <path android:fillColor="#E6E9F2"
++        android:pathData="M7.43,3.03A5.5,5.5 0 1,0 13.47,9.07A4.4,4.4 0 0,1 7.43,3.03Z" />
++    <group android:scaleX="0.62" android:scaleY="0.62" android:translateX="8.6" android:translateY="9.6">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_partly.xml b/launcher/app/src/main/res/drawable/ic_wx_partly.xml
+new file mode 100644
+index 0000000..914b704
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_partly.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <path android:fillColor="#FFC93C"
++        android:pathData="M5.00,8.40a3.4,3.4 0 1,0 6.80,0a3.4,3.4 0 1,0 -6.80,0z" />
++    <path android:strokeColor="#FFC93C" android:strokeWidth="1.6" android:strokeLineCap="round"
++        android:pathData="M13.70,8.40L15.50,8.40M12.15,12.15L13.42,13.42M8.40,13.70L8.40,15.50M4.65,12.15L3.38,13.42M3.10,8.40L1.30,8.40M4.65,4.65L3.38,3.38M8.40,3.10L8.40,1.30M12.15,4.65L13.42,3.38" />
++    <group android:scaleX="0.62" android:scaleY="0.62" android:translateX="8.6" android:translateY="9.6">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_rain.xml b/launcher/app/src/main/res/drawable/ic_wx_rain.xml
+new file mode 100644
+index 0000000..685a801
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_rain.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <group android:scaleX="0.78" android:scaleY="0.78" android:translateX="2.6" android:translateY="-1.4">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++    <path android:strokeColor="#5AC8FA" android:strokeWidth="1.9" android:strokeLineCap="round"
++        android:pathData="M8.2,17.4l-1.3,3.2M12.6,17.4l-1.3,3.2M17,17.4l-1.3,3.2" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_snow.xml b/launcher/app/src/main/res/drawable/ic_wx_snow.xml
+new file mode 100644
+index 0000000..1d8871a
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_snow.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <group android:scaleX="0.78" android:scaleY="0.78" android:translateX="2.6" android:translateY="-1.4">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++    <path android:fillColor="#FFFFFF"
++        android:pathData="M6.85,17.90a1.15,1.15 0 1,0 2.30,0a1.15,1.15 0 1,0 -2.30,0zM11.25,17.90a1.15,1.15 0 1,0 2.30,0a1.15,1.15 0 1,0 -2.30,0zM15.65,17.90a1.15,1.15 0 1,0 2.30,0a1.15,1.15 0 1,0 -2.30,0zM9.05,21.40a1.15,1.15 0 1,0 2.30,0a1.15,1.15 0 1,0 -2.30,0zM13.45,21.40a1.15,1.15 0 1,0 2.30,0a1.15,1.15 0 1,0 -2.30,0z" />
++</vector>
+diff --git a/launcher/app/src/main/res/drawable/ic_wx_storm.xml b/launcher/app/src/main/res/drawable/ic_wx_storm.xml
+new file mode 100644
+index 0000000..0be3d50
+--- /dev/null
++++ b/launcher/app/src/main/res/drawable/ic_wx_storm.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="22dp" android:height="22dp"
++    android:viewportWidth="24" android:viewportHeight="24">
++    <group android:scaleX="0.78" android:scaleY="0.78" android:translateX="2.6" android:translateY="-1.4">
++        <path android:fillColor="#F2F4F8"
++            android:pathData="M19.35,10.04C18.67,6.59 15.64,4 12,4 9.11,4 6.6,5.64 5.35,8.04 2.34,8.36 0,10.91 0,14c0,3.31 2.69,6 6,6h13c2.76,0 5,-2.24 5,-5 0,-2.64 -2.05,-4.78 -4.65,-4.96z" />
++    </group>
++    <path android:fillColor="#FFD60A"
++        android:pathData="M13.3,14.3L9.7,19.7H12.3L11,23.6L15.5,17.6H12.8L14.5,14.3Z" />
++</vector>
+diff --git a/launcher/app/src/main/res/layout-iw/activity_main.xml b/launcher/app/src/main/res/layout-iw/activity_main.xml
+index 8bf804f..3072497 100644
+--- a/launcher/app/src/main/res/layout-iw/activity_main.xml
++++ b/launcher/app/src/main/res/layout-iw/activity_main.xml
+@@ -231,6 +231,23 @@
+                             android:letterSpacing="0.14"
+                             android:textAllCaps="true"
+                             android:visibility="gone" />
++
++                        <!-- Weather (weather_lat and weather_lon in a theme), as in layout/activity_main.xml. -->
++                        <TextView
++                            android:id="@+id/weather"
++                            android:gravity="right|center_vertical"
++                            android:layout_width="match_parent"
++                            android:layout_height="wrap_content"
++                            android:layout_marginTop="6dp"
++                            android:singleLine="true"
++                            android:ellipsize="end"
++                            android:drawablePadding="8dp"
++                            android:textColor="#B3FFFFFF"
++                            android:textSize="14sp"
++                            android:fontFamily="@string/font_regular"
++                            android:letterSpacing="0.12"
++                            android:includeFontPadding="false"
++                            android:visibility="gone" />
+                 </LinearLayout>
+ 
+                 <View
+diff --git a/launcher/app/src/main/res/layout/activity_main.xml b/launcher/app/src/main/res/layout/activity_main.xml
+index c037d24..72f0857 100644
+--- a/launcher/app/src/main/res/layout/activity_main.xml
++++ b/launcher/app/src/main/res/layout/activity_main.xml
+@@ -288,6 +288,49 @@
+                             android:textAllCaps="true"
+                             android:visibility="gone" />
+                     </LinearLayout>
++
++                    <!-- Weather (weather_lat and weather_lon in a theme), at the row's end beside the pills: the icon
++                         and temperature, and under them the conditions and the place, level with the date's two
++                         lines so the header keeps its height. With it shown the date column keeps its own width (set
++                         in code) and this block takes the rest: a pill opening shortens the conditions, not the date. -->
++                    <LinearLayout
++                        android:id="@+id/weatherBlock"
++                        android:layout_width="0dp"
++                        android:layout_weight="1"
++                        android:layout_height="wrap_content"
++                        android:layout_gravity="bottom"
++                        android:layout_marginStart="16dp"
++                        android:layout_marginBottom="9dp"
++                        android:gravity="right"
++                        android:orientation="vertical"
++                        android:visibility="gone">
++
++                        <TextView
++                            android:id="@+id/weatherNow"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:gravity="center_vertical"
++                            android:singleLine="true"
++                            android:drawablePadding="8dp"
++                            android:textColor="#FFFFFFFF"
++                            android:textSize="24sp"
++                            android:fontFamily="@string/font_light"
++                            android:includeFontPadding="false" />
++
++                        <!-- Upper case is set in code, so the place keeps its own spelling in other scripts. -->
++                        <TextView
++                            android:id="@+id/weather"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:layout_marginTop="7dp"
++                            android:singleLine="true"
++                            android:ellipsize="end"
++                            android:textColor="#A6FFFFFF"
++                            android:textSize="13sp"
++                            android:fontFamily="@string/font_regular"
++                            android:letterSpacing="0.12"
++                            android:includeFontPadding="false" />
++                    </LinearLayout>
+                 </LinearLayout>
+ 
+             </LinearLayout>
+diff --git a/launcher/app/src/main/res/values-ru/strings_sber.xml b/launcher/app/src/main/res/values-ru/strings_sber.xml
+new file mode 100644
+index 0000000..dbb5c45
+--- /dev/null
++++ b/launcher/app/src/main/res/values-ru/strings_sber.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="weather_clear">Ясно</string>
++    <string name="weather_partly">Малооблачно</string>
++    <string name="weather_cloudy">Пасмурно</string>
++    <string name="weather_fog">Туман</string>
++    <string name="weather_drizzle">Морось</string>
++    <string name="weather_rain">Дождь</string>
++    <string name="weather_snow">Снег</string>
++    <string name="weather_storm">Гроза</string>
++    <string name="vpn_switching_on">Включаю VPN…</string>
++    <string name="vpn_switching_off">Выключаю VPN…</string>
++    <string name="reorder_short">Порядок</string>
++    <string name="library_short">Все приложения</string>
++</resources>
+diff --git a/launcher/app/src/main/res/values/strings_sber.xml b/launcher/app/src/main/res/values/strings_sber.xml
+new file mode 100644
+index 0000000..b9f404e
+--- /dev/null
++++ b/launcher/app/src/main/res/values/strings_sber.xml
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Strings for the compact pills, the VPN switch and the weather line; Russian in values-ru. -->
++<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
++    <string name="weather_clear">Clear</string>
++    <string name="weather_partly">Partly cloudy</string>
++    <string name="weather_cloudy">Cloudy</string>
++    <string name="weather_fog">Fog</string>
++    <string name="weather_drizzle">Drizzle</string>
++    <string name="weather_rain">Rain</string>
++    <string name="weather_snow">Snow</string>
++    <string name="weather_storm">Thunderstorm</string>
++    <string name="vpn_switching_on">Turning the VPN on…</string>
++    <string name="vpn_switching_off">Turning the VPN off…</string>
++    <string name="reorder_short">Reorder</string>
++    <string name="library_short">All apps</string>
++</resources>
+diff --git a/launcher/app/src/test/java/com/gathin/tvhome/HeaderExtrasTest.java b/launcher/app/src/test/java/com/gathin/tvhome/HeaderExtrasTest.java
+new file mode 100644
+index 0000000..015ebb5
+--- /dev/null
++++ b/launcher/app/src/test/java/com/gathin/tvhome/HeaderExtrasTest.java
+@@ -0,0 +1,53 @@
++package com.gathin.tvhome;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
++import static org.junit.Assert.assertTrue;
++
++import org.json.JSONException;
++import org.json.JSONObject;
++import org.junit.Test;
++
++public class HeaderExtrasTest {
++
++    @Test
++    public void noThemeKeepsEverythingOff() {
++        HeaderExtras e = HeaderExtras.from(null);
++        assertFalse(e.compactPills);
++        assertFalse(e.vpnToggle);
++        assertFalse(e.weather());
++        assertEquals("", e.vpnTunnel);
++        assertEquals("", e.weatherCity);
++    }
++
++    @Test
++    public void readsEveryKey() throws JSONException {
++        HeaderExtras e = HeaderExtras.from(new JSONObject("{\"compact_pills\":true,\"vpn_toggle\":true,"
++                + "\"vpn_tunnel\":\" home \",\"weather_lat\":55.7558,\"weather_lon\":37.6173,\"weather_city\":\"Москва\"}"));
++        assertTrue(e.compactPills);
++        assertTrue(e.vpnToggle);
++        assertEquals("home", e.vpnTunnel);
++        assertTrue(e.weather());
++        assertEquals(55.7558, e.weatherLat, 1e-9);
++        assertEquals(37.6173, e.weatherLon, 1e-9);
++        assertEquals("Москва", e.weatherCity);
++    }
++
++    @Test
++    public void wrongTypesAreIgnored() throws JSONException {
++        HeaderExtras e = HeaderExtras.from(new JSONObject("{\"compact_pills\":\"yes\",\"vpn_toggle\":1,"
++                + "\"weather_lat\":\"55.7\",\"weather_lon\":37.6}"));
++        assertFalse(e.compactPills);
++        assertFalse(e.vpnToggle);
++        assertFalse(e.weather());
++    }
++
++    @Test
++    public void bothCoordinatesInRangeOrNoWeather() throws JSONException {
++        assertFalse(HeaderExtras.from(new JSONObject("{\"weather_lat\":95,\"weather_lon\":37.6}")).weather());
++        assertFalse(HeaderExtras.from(new JSONObject("{\"weather_lat\":55.7,\"weather_lon\":-181}")).weather());
++        assertFalse(HeaderExtras.from(new JSONObject("{\"weather_lat\":55.7}")).weather());
++        assertTrue(HeaderExtras.from(new JSONObject("{\"weather_lat\":-33.9,\"weather_lon\":-180}")).weather());
++        assertTrue(HeaderExtras.from(new JSONObject("{\"weather_lat\":0,\"weather_lon\":0}")).weather());
++    }
++}
+diff --git a/launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java b/launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java
+new file mode 100644
+index 0000000..1947aac
+--- /dev/null
++++ b/launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java
+@@ -0,0 +1,70 @@
++package com.gathin.tvhome;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
++import static org.junit.Assert.assertTrue;
++
++import org.json.JSONException;
++import org.junit.Test;
++
++public class WeatherTest {
++
++    /** Trimmed from a real api.open-meteo.com answer for Moscow. */
++    private static final String BODY = "{\"latitude\":55.75,\"longitude\":37.625,\"current_units\":{\"temperature_2m\":\"°C\"},"
++            + "\"current\":{\"time\":\"2026-10-26T23:15\",\"interval\":900,\"temperature_2m\":6.6,\"weather_code\":3,\"is_day\":0}}";
++
++    @Test
++    public void parsesTheCurrentReading() throws JSONException {
++        Weather w = Weather.parse(BODY);
++        assertEquals(6.6, w.temperature, 1e-9);
++        assertEquals(Weather.Kind.CLOUDY, w.kind);
++        assertFalse(w.day);
++        assertEquals(R.drawable.ic_wx_cloudy, w.icon());
++        assertEquals(R.string.weather_cloudy, w.label());
++    }
++
++    @Test
++    public void clearNightShowsTheMoon() throws JSONException {
++        Weather w = Weather.parse(BODY.replace("\"weather_code\":3", "\"weather_code\":0"));
++        assertEquals(R.drawable.ic_wx_night, w.icon());
++        Weather day = Weather.parse(BODY.replace("\"weather_code\":3", "\"weather_code\":1").replace("\"is_day\":0", "\"is_day\":1"));
++        assertEquals(R.drawable.ic_wx_partly, day.icon());
++    }
++
++    @Test(expected = JSONException.class)
++    public void anErrorAnswerIsNoReading() throws JSONException {
++        Weather.parse("{\"error\":true,\"reason\":\"Latitude must be in range of -90 to 90°.\"}");
++    }
++
++    @Test
++    public void wmoCodes() {
++        assertEquals(Weather.Kind.CLEAR, Weather.kind(0));
++        assertEquals(Weather.Kind.PARTLY, Weather.kind(2));
++        assertEquals(Weather.Kind.CLOUDY, Weather.kind(3));
++        assertEquals(Weather.Kind.FOG, Weather.kind(48));
++        assertEquals(Weather.Kind.DRIZZLE, Weather.kind(55));
++        assertEquals(Weather.Kind.RAIN, Weather.kind(65));
++        assertEquals(Weather.Kind.RAIN, Weather.kind(81));
++        assertEquals(Weather.Kind.SNOW, Weather.kind(75));
++        assertEquals(Weather.Kind.SNOW, Weather.kind(86));
++        assertEquals(Weather.Kind.STORM, Weather.kind(99));
++        assertEquals(Weather.Kind.CLOUDY, Weather.kind(42));   // not a code Open-Meteo sends
++    }
++
++    @Test
++    public void temperatureSigns() {
++        assertEquals("+7°", Weather.temperature(6.6));
++        assertEquals("−3°", Weather.temperature(-2.6));
++        assertEquals("−2°", Weather.temperature(-2.5));   // Math.round goes up at .5
++        assertEquals("0°", Weather.temperature(-0.4));
++        assertEquals("0°", Weather.temperature(0.4));
++        assertEquals("+12°", Weather.temperature(12.49));
++    }
++
++    @Test
++    public void urlCarriesThePlace() {
++        String url = Weather.url(55.7558, 37.6173);
++        assertTrue(url.startsWith("https://api.open-meteo.com/v1/forecast?latitude=55.7558&longitude=37.6173"));
++        assertTrue(url.contains("current=temperature_2m,weather_code,is_day"));
++    }
++}
