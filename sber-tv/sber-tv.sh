@@ -16,6 +16,8 @@
 #   bash sber-tv.sh TV_IP rotation     если сторонние приложения сами пропадают («ротация» Сбера)
 #   bash sber-tv.sh TV_IP finish       закрыть ADB-порт после перезагрузки; потом выключить ADB в меню
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
+#   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
+#   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
 #   bash sber-tv.sh TV_IP shell 'КОМАНДА'   выполнить одну shell-команду на ТВ
 set -euo pipefail
 
@@ -25,6 +27,8 @@ APK_NAME=tvhome-3.0.apk
 APK_SHA256=233edfc06d751f96b6203c057ee6f96e22d3d8a5ab42b45112e9d9a5cabbb986
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
+AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
+AURORA_SHA256=fd9c75d90d0f4a7c132b9b4a5a2cf1992a45e03b8d8ff988b7dcfbc0db2c4d11
 DIR="${CLEANYOURTV_DIR:-$HOME/cleanyourtv}"
 
 say() { printf '\n\033[1;36m== %s\033[0m\n' "$*"; }
@@ -32,7 +36,7 @@ die() { printf '\033[1;31mОшибка:\033[0m %s\n' "$*" >&2; exit 1; }
 
 TV_IP="${1:-}"
 CMD="${2:-install}"
-[ -n "$TV_IP" ] || { sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 1; }
+[ -n "$TV_IP" ] || { sed -n '2,/^set -euo/p' "$0" | sed '$d; s/^# \{0,1\}//'; exit 1; }
 [[ "$TV_IP" =~ ^[0-9A-Za-z.:-]+$ ]] || die "не похоже на IP-адрес: $TV_IP"
 export TV_HOST="$TV_IP"
 
@@ -158,6 +162,54 @@ restore() {
   echo "Готово. Обновления системных приложений, если удалялись, вернутся через каталог Сбера."
 }
 
+apk_install() {   # одно приложение: один APK или base.apk со split-файлами
+  [ $# -gt 0 ] || die "укажите файл: apk приложение.apk (или base.apk split_*.apk одного приложения)"
+  local f i out cmds
+  for f in "$@"; do [ -f "$f" ] || die "нет файла: $f"; done
+  probe
+  say "Копирую на ТВ: $*"
+  i=0
+  for f in "$@"; do
+    "$PY" -I "$DIR/tools/b64push.py" "$f" "/data/local/tmp/cyt-apk-$i.apk" >/dev/null || die "не удалось скопировать $f на ТВ"
+    i=$((i + 1))
+  done
+  say "Устанавливаю"
+  if [ $# -eq 1 ]; then
+    cmds='pm install -r /data/local/tmp/cyt-apk-0.apk'
+  else
+    # Split-APK ставятся одной сессией, как это делает adb install-multiple. $s раскрывается на ТВ.
+    # shellcheck disable=SC2016
+    cmds='s=$(pm install-create -r | sed -n "s/.*\[\([0-9]*\)\].*/\1/p") && [ -n "$s" ]'
+    for ((i = 0; i < $#; i++)); do cmds="$cmds && pm install-write \$s split$i /data/local/tmp/cyt-apk-$i.apk"; done
+    cmds="$cmds && pm install-commit \$s"
+  fi
+  out="$(tv "$cmds; rm -f /data/local/tmp/cyt-apk-*.apk" | tr -d '\r')"
+  echo "$out"
+  case "$out" in *Success*) ;; *) die "ТВ не установил приложение (ответ выше)" ;; esac
+}
+
+aurora() {
+  local apk="$DIR/downloads/aurora-store.apk" code
+  mkdir -p "$DIR/downloads"
+  say "Скачиваю Aurora Store с F-Droid"
+  if curl -fL --retry 3 -o "$apk" "https://f-droid.org/repo/com.aurora.store_$AURORA_CODE.apk"; then
+    [ "$(sha256_of "$apk")" = "$AURORA_SHA256" ] || die "контрольная сумма Aurora Store не совпала, файл повреждён"
+  else
+    # F-Droid держит только несколько последних версий: когда проверенной не станет, берём текущую.
+    code="$(curl -fsSL https://f-droid.org/api/v1/packages/com.aurora.store | sed -n 's/.*"suggestedVersionCode":\([0-9]*\).*/\1/p')"
+    [ -n "$code" ] || die "не удалось узнать текущую версию Aurora Store на F-Droid"
+    curl -fL --retry 3 -o "$apk" "https://f-droid.org/repo/com.aurora.store_$code.apk"
+    echo "Скачана версия $code, новее проверенной ($AURORA_CODE). sha256: $(sha256_of "$apk")"
+  fi
+  apk_install "$apk"
+  # Без этого разрешения Aurora не сможет сама ставить скачанные приложения.
+  tv 'appops set com.aurora.store REQUEST_INSTALL_PACKAGES allow'
+  say "Aurora Store установлена: она есть на домашнем экране и в списке всех приложений."
+  echo "При первом запуске выберите анонимный вход. Если установка приложения зависает,"
+  echo "в настройках Aurora поменяйте способ установки (Installer) на другой."
+  echo "Чтобы Салют ТВ сам не удалял поставленные приложения при нехватке места: bash $0 $TV_HOST rotation"
+}
+
 prepare
 case "$CMD" in
   install) install ;;
@@ -170,6 +222,8 @@ case "$CMD" in
     echo "Теперь на ТВ: FactoryMenu → Debug → ADB Enable = Off, затем перезагрузка."
     echo "Проверить, что порт закрыт: bash $0 $TV_HOST closed" ;;
   closed) "$PY" -I "$DIR/tools/adb-closed.py" "$TV_HOST" && echo "ADB-порт закрыт." ;;
+  aurora) aurora ;;
+  apk) shift 2; apk_install "$@" ;;
   shell) shift 2; [ $# -gt 0 ] || die "укажите команду: shell 'pm list packages -d'"; tv "$*" ;;
   *) die "неизвестная команда: $CMD (см. bash $0 без аргументов)" ;;
 esac
