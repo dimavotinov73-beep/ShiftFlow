@@ -18,6 +18,8 @@
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
+#   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет фона, подсветка
+#   bash sber-tv.sh TV_IP look-reset   вернуть оформление, которое ставит чистка
 #   bash sber-tv.sh TV_IP shell 'КОМАНДА'   выполнить одну shell-команду на ТВ
 set -euo pipefail
 
@@ -210,6 +212,199 @@ aurora() {
   echo "Чтобы Салют ТВ сам не удалял поставленные приложения при нехватке места: bash $0 $TV_HOST rotation"
 }
 
+LOOK_ANSWERS=()
+choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "вариант 2" ...; ответ берётся из LOOK_ANSWERS, если он там есть
+  local var=$1 title=$2 i=1 ans opt
+  shift 2
+  if [ ${#LOOK_ANSWERS[@]} -gt 0 ]; then
+    ans=${LOOK_ANSWERS[0]}
+    LOOK_ANSWERS=("${LOOK_ANSWERS[@]:1}")
+  else
+    printf '\n\033[1m%s\033[0m\n' "$title"
+    for opt in "$@"; do printf '  %d) %s\n' "$i" "$opt"; i=$((i + 1)); done
+    read -r -p "Номер [1]: " ans
+  fi
+  ans=${ans:-1}
+  [[ "$ans" =~ ^[0-9]+$ ]] && [ "$ans" -ge 1 ] && [ "$ans" -le $# ] || die "нет такого варианта: $ans"
+  printf -v "$var" '%s' "$ans"
+}
+
+look() {   # look [стиль обои цвет подсветка] [фото...]: собрать тему из ответов и отправить на ТВ
+  local style wall color glow hex src photos=() out="$DIR/look"
+  local colors=("#000000" "#070A14" "#14161C" "#06140E" "#1A0A0E" "#120A1F")
+  LOOK_ANSWERS=("${@:1:4}")
+  choose style "Стиль домашнего экрана" \
+    "Классика — тёмная полоса с приложениями и крупное название" \
+    "Стекло — матовая полупрозрачная полоса, кнопки-иконки" \
+    "Кино — сверху большая обложка выбранного приложения" \
+    "Минимал — без полосы, только тонкая рамка вокруг выбранного" \
+    "Плитки — иконки на карточках своего цвета, подписи под всеми"
+  choose wall "Обои (любую картинку из набора потом можно выбрать на ТВ)" \
+    "Галерея — все 35 картинок ниже, меняются раз в час" \
+    "Рисованные пейзажи — 14 штук" \
+    "Природа — 12 фотографий" \
+    "Швеция — 3 фотографии" \
+    "Утро, день и ночь — картинка по времени суток" \
+    "Северное сияние" \
+    "Тёмное стекло" \
+    "Осеннее озеро" \
+    "Свои фото с телефона" \
+    "Без обоев, только цвет фона"
+  choose color "Цвет фона (заметен, когда обоев нет или картинка ещё грузится)" \
+    "Чёрный" "Ночной синий" "Графит" "Тёмно-зелёный" "Бордовый" "Фиолетовый" "Свой цвет (#RRGGBB)"
+  if [ "$color" -le ${#colors[@]} ]; then
+    hex=${colors[$((color - 1))]}
+  else
+    read -r -p "Цвет в виде #RRGGBB: " hex
+    [[ "$hex" =~ ^#[0-9A-Fa-f]{6}$ ]] || die "цвет должен быть вида #1A2B3C"
+  fi
+  choose glow "Подсветка выбранного приложения" "В цвет приложения" "Белая"
+
+  if [ "$wall" = 9 ]; then
+    if [ $# -gt 4 ]; then
+      photos=("${@:5}")
+    else
+      read -r -p "Файл или папка с фото [~/storage/downloads]: " src
+      src=${src:-$HOME/storage/downloads}
+      src=${src/#\~/$HOME}
+      [ -e "$src" ] || die "нет такого пути: $src (для доступа к «Загрузкам» один раз выполните termux-setup-storage)"
+      if [ -d "$src" ]; then
+        while IFS= read -r -d '' f; do photos+=("$f"); done < <(find "$src" -maxdepth 1 -type f \
+          \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print0 | sort -z | head -z -n 30)
+      else
+        photos=("$src")
+      fi
+    fi
+    [ ${#photos[@]} -gt 0 ] || die "в $src нет фото (jpg, png, webp)"
+    if ! "$PY" -c 'import PIL' 2>/dev/null; then
+      say "Ставлю Pillow, чтобы уменьшить фото под экран ТВ"
+      if in_termux; then pkg install -y python-pillow; else "$PY" -m pip install -q pillow; fi
+    fi
+  fi
+
+  probe
+  case "$(tv 'pm list packages com.gathin.tvhome')" in
+    *package:com.gathin.tvhome*) ;;
+    *) die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST" ;;
+  esac
+  say "Собираю тему"
+  cat > "$DIR/look_build.py" <<'PYEOF'
+import json, os, re, shutil, sys
+kit, out, style, wall, color, glow, *photos = sys.argv[1:]
+themes = os.path.join(kit, "themes")
+with open(os.path.join(kit, "examples/sber-salute-tv-at30a6/config.json"), encoding="utf-8") as f:
+    cfg = json.load(f)   # скрытые служебные приложения, русские названия, библиотека приложений
+cfg.update({
+    "1": {},
+    "2": {"dock_glass": True, "icon_only_buttons": True, "glow_style": "horizon", "focus_overshoot": False},
+    "3": {"cinematic_home": True, "dock_glass": True, "icon_only_buttons": True, "focus_overshoot": False},
+    "4": {"dock_band": False, "glass_style": "rim", "dock_title": False, "ambient_glow": False,
+          "icon_only_buttons": True, "icon_only_inputs": True, "wifi_status_color": True},
+    "5": {"uniform_tiles": True, "always_show_names": True, "dock_glass": True},
+}[style])
+cfg["background_color"] = color
+cfg["app_glow"] = glow == "1"
+cfg["tile_menu"] = True        # удержать OK на плитке: Переместить, Убрать с главного, О приложении
+cfg["reorder_button"] = True   # кнопка перестановки приложений в верхней панели
+
+shutil.rmtree(out, ignore_errors=True)
+walls = os.path.join(out, "wallpapers")
+os.makedirs(walls)
+captions = []
+
+def slug(text):
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:40] or "x"
+
+def caption_map(folder):
+    path = os.path.join(themes, folder, "wallpapers", "captions.txt")
+    result = {}
+    if os.path.exists(path):
+        for line in open(path, encoding="utf-8"):
+            if "\t" in line and not line.startswith("#"):
+                name, text = line.rstrip("\n").split("\t", 1)
+                result[name] = text
+    return result
+
+def add(src, name, caption=None):
+    shutil.copyfile(src, os.path.join(walls, name))
+    if caption:
+        captions.append(f"{name}\t{caption}")
+
+def scenes():
+    caps = caption_map("scenes")
+    for name in sorted(os.listdir(os.path.join(themes, "scenes", "wallpapers"))):
+        if name.endswith(".jpg"):
+            add(os.path.join(themes, "scenes", "wallpapers", name), "scene-" + name, caps.get(name))
+
+def photos_of(folder, prefix, sep):
+    caps = caption_map(folder)
+    for i, name in enumerate(sorted(n for n in os.listdir(os.path.join(themes, folder, "wallpapers")) if n.endswith(".jpg")), 1):
+        text = caps.get(name, "")
+        add(os.path.join(themes, folder, "wallpapers", name), f"{prefix}-{i:02d}-{slug(text.split(sep)[0])}.jpg", text or None)
+
+DAYTIME = {"morning": ("6am_4pm.jpg", "daytime-1-day.jpg"), "evening": ("4pm_9pm.jpg", "daytime-2-evening.jpg"),
+           "night": ("9pm_6am.jpg", "daytime-3-night.jpg")}
+
+def daytime():
+    for src, name in DAYTIME.values():
+        add(os.path.join(themes, "retro", "wallpapers", src), name)
+
+SINGLES = {"6": ("aurora", "aurora.jpg"), "7": ("glass", "dark-glass.jpg"), "8": ("ruska", "autumn-lake.jpg")}
+
+def single(key):
+    folder, name = SINGLES[key]
+    add(os.path.join(themes, folder, "wallpaper.jpg"), name)
+
+collection = {"wallpaper": True, "wallpaper_rotation_minutes": 60, "wallpaper_order": "shuffle", "wallpaper_dim": 10}
+if wall == "1":
+    scenes(); photos_of("nature-calm", "nature", " - "); photos_of("sweden", "sweden", " · "); daytime()
+    for key in SINGLES:
+        single(key)
+    cfg.update(collection, wallpaper_captions=True)
+elif wall == "2":
+    scenes(); cfg.update(collection)
+elif wall == "3":
+    photos_of("nature-calm", "nature", " - "); cfg.update(collection, wallpaper_captions=True, wallpaper_dim=14)
+elif wall == "4":
+    photos_of("sweden", "sweden", " · "); cfg.update(collection, wallpaper_captions=True)
+elif wall == "5":
+    daytime()
+    cfg.update(collection, wallpaper_order="sequential",
+               wallpaper_moods={mood: [name] for mood, (_, name) in DAYTIME.items()})
+elif wall in SINGLES:
+    # Одна картинка, но тоже в наборе: так на ТВ её можно выключить и включить в настройках лаунчера.
+    single(wall); cfg.update(collection)
+elif wall == "9":
+    from PIL import Image, ImageOps
+    for i, path in enumerate(photos, 1):
+        image = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
+        image = ImageOps.fit(image, (1920, 1080), Image.LANCZOS)   # по размеру экрана, лишнее обрезается по краям
+        image.save(os.path.join(walls, f"photo-{i:02d}.jpg"), "JPEG", quality=85)
+    cfg.update(collection)
+else:
+    cfg["wallpaper"] = False
+
+if captions:
+    with open(os.path.join(walls, "captions.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(captions) + "\n")
+if not os.listdir(walls):
+    os.rmdir(walls)
+with open(os.path.join(out, "config.json"), "w", encoding="utf-8") as f:
+    json.dump(cfg, f, ensure_ascii=False, indent=2)
+count = len([n for n in os.listdir(walls) if n.endswith(".jpg")]) if os.path.isdir(walls) else 0
+print(f"тема собрана: обоев {count}")
+PYEOF
+  "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$style" "$wall" "$hex" "$glow" "${photos[@]}"
+  say "Отправляю тему на ТВ (обои копируются по одной, это может занять пару минут)"
+  bash "$DIR/tools/theme.sh" "$out"
+  say "Готово. На ТВ:"
+  echo "- переставить приложение: удержите OK на плитке → «Переместить», стрелки, «Назад» — поставить"
+  echo "  (или кнопка «Изменить порядок приложений» в верхней панели);"
+  echo "- выбрать обои, число приложений в ряду, непрозрачность полосы: удержите OK на «Настройках» →"
+  echo "  «Настройки главного экрана»;"
+  echo "- вернуть оформление после чистки: bash $0 $TV_HOST look-reset"
+}
+
 prepare
 case "$CMD" in
   install) install ;;
@@ -225,6 +420,8 @@ case "$CMD" in
   closed) "$PY" -I "$DIR/tools/adb-closed.py" "$TV_HOST" && echo "ADB-порт закрыт." ;;
   aurora) aurora ;;
   apk) shift 2; apk_install "$@" ;;
+  look) shift 2; look "$@" ;;
+  look-reset) probe && bash "$DIR/tools/theme.sh" "$DIR/$PROFILE" ;;
   shell) shift 2; [ $# -gt 0 ] || die "укажите команду: shell 'pm list packages -d'"; tv "$*" ;;
   *) die "неизвестная команда: $CMD (см. bash $0 без аргументов)" ;;
 esac
