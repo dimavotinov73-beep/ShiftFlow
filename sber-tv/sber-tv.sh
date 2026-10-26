@@ -5,8 +5,9 @@
 # (github.com/Gathin23/cleanyourtv) на зафиксированном коммите и запускает его же скрипты
 # с готовым профилем examples/sber-salute-tv-at30a6 — теми же командами, что и на ПК.
 # Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
-# собранный из того же коммита с правками для Салют ТВ из launcher/sber1.patch — компактные кнопки
-# сверху, включение и выключение VPN кнопкой, погода (sha256 проверяется).
+# собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — компактные кнопки
+# сверху, VPN одной кнопкой, погода, плитка «Настройки лаунчера», библиотека плитками, отключение
+# кнопок Сбера на пульте (sha256 проверяется).
 #
 # Использование (TV_IP — адрес телевизора в домашней сети):
 #   bash sber-tv.sh TV_IP              проверить ТВ и сделать всё (= install)
@@ -20,6 +21,8 @@
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
 #   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет, погода, кнопка VPN
+#   bash sber-tv.sh TV_IP keys         отключить кнопки Сбера на пульте (Okko, ИВИ...), ассистент → Алиса
+#   bash sber-tv.sh TV_IP keys-reset   вернуть кнопкам пульта их обычную работу
 #   bash sber-tv.sh TV_IP update-launcher   обновить домашний экран до версии из этого набора
 #   bash sber-tv.sh TV_IP look-reset   вернуть оформление, которое ставит чистка
 #   bash sber-tv.sh TV_IP shell 'КОМАНДА'   выполнить одну shell-команду на ТВ
@@ -27,9 +30,9 @@ set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0-sber1.apk
-APK_SHA256=d6e9d3e91c21f6a73f8dab3bf617656ba50117d81a80969b1fcb6566ba1d04e6
-APK_VERSION_CODE=10
+APK_NAME=tvhome-3.0-sber2.apk
+APK_SHA256=4cde8d7b2b241f1d70b11d933e0379f1e8d787b93c048f1eb5a8f6e34bfd32b6
+APK_VERSION_CODE=11
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -220,8 +223,13 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
   say "Обновляю домашний экран до $APK_NAME (оформление, обои и порядок приложений сохранятся)"
   # STOCK_LAUNCHER=none: экран Сбера уже отключён чисткой, трогать его не нужно.
   if (cd "$DIR/launcher" && JAVA_HOME="${JAVA_HOME:-$DIR/launcher/prebuilt}" STOCK_LAUNCHER=none bash build-and-install.sh); then
+    grant_settings
     if [ "${1:-}" = quiet ]; then say "Домашний экран обновлён"
-    else say "Домашний экран обновлён. Новые кнопки, погода и VPN включаются командой: bash $0 $TV_HOST look"; fi
+    else
+      say "Домашний экран обновлён"
+      echo "На ТВ среди приложений появилась плитка «Настройки лаунчера»: стиль (Apple TV), обои с телефона"
+      echo "по QR-коду, цвет, погода, язык, заставка. Кнопки Сбера на пульте: bash $0 $TV_HOST keys"
+    fi
     return 0
   fi
   echo
@@ -231,25 +239,37 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
   exit 1
 }
 
+grant_settings() {   # права для «Настроек лаунчера»: заставка (secure) и время до неё (system)
+  tv 'pm grant com.gathin.tvhome android.permission.WRITE_SECURE_SETTINGS; appops set com.gathin.tvhome WRITE_SETTINGS allow' \
+    >/dev/null 2>&1 || echo "ТВ не выдал права на настройки заставки — её можно будет включить только в настройках ТВ."
+}
+
 launcher_version() {   # versionCode установленного домашнего экрана, 0 если его нет
   local v
   v="$(tv 'dumpsys package com.gathin.tvhome' | tr -d '\r' | sed -n 's/.*versionCode=\([0-9]*\).*/\1/p' | head -n 1)"
   echo "${v:-0}"
 }
 
-geocode() {   # geocode ГОРОД → строка "широта долгота Название|Название, регион, страна" или ничего
-  curl -fsS --get --max-time 15 --data-urlencode "name=$1" -d count=1 -d language=ru -d format=json \
+geocode() {   # geocode "Город[, регион]" → строки "широта долгота Название|Название, регион, район" по одной на место
+  # Поиск Open-Meteo знает только название; одинаковых деревень десятки, поэтому берём все и
+  # оставляем те, где есть указанный после запятой регион (если с ним ничего не нашлось — все).
+  local name=${1%%,*} region=""
+  [[ "$1" == *,* ]] && region=${1#*,}
+  curl -fsS --get --max-time 20 --data-urlencode "name=$name" -d count=100 -d language=ru -d format=json \
     https://geocoding-api.open-meteo.com/v1/search | "$PY" -I -c '
 import json, sys
-r = (json.load(sys.stdin).get("results") or [None])[0]
-if r:
+region = sys.argv[1].strip().lower()
+rows = []
+for r in json.load(sys.stdin).get("results") or []:
     parts = []
-    for x in (r.get("name"), r.get("admin1"), r.get("country")):
+    for x in (r.get("name"), r.get("admin1"), r.get("admin2"), r.get("admin3"), r.get("country")):
         if x and x not in parts:
             parts.append(x)
-    where = ", ".join(parts)
-    print("%s %s %s|%s" % (r["latitude"], r["longitude"], r["name"], where))
-'
+    rows.append((r["latitude"], r["longitude"], r["name"], ", ".join(parts), ", ".join(parts[1:]).lower()))
+picked = [x for x in rows if region and region in x[4]] or rows
+for lat, lon, name, where, _ in picked:
+    print("%s %s %s|%s" % (lat, lon, name, where))
+' "$region"
 }
 
 vpn_name() {   # понятное имя для известных VPN-приложений
@@ -259,12 +279,42 @@ vpn_name() {   # понятное имя для известных VPN-прил�
     app.hiddify.com) echo "Hiddify" ;;
     org.amnezia.vpn) echo "AmneziaVPN" ;;
     org.amnezia.awg) echo "AmneziaWG" ;;
-    com.happproxy) echo "Happ" ;;
+    su.happ.proxyutility) echo "Happ" ;;
     com.v2raytun.android) echo "v2RayTun" ;;
     org.outline.android.client) echo "Outline" ;;
     com.github.shadowsocks*) echo "Shadowsocks" ;;
     *) echo "$1" ;;
   esac
+}
+
+pick_place() {   # pick_place "Место" → LOOK_WEATHER_LAT, LOOK_WEATHER_LON, LOOK_WEATHER_CITY
+  local query=$1 places=() i n pick lat lon
+  if [[ "$query" =~ ^(-?[0-9]+(\.[0-9]+)?)[,\ ]+(-?[0-9]+(\.[0-9]+)?)\ *(.*)$ ]]; then
+    LOOK_WEATHER_LAT=${BASH_REMATCH[1]}
+    LOOK_WEATHER_LON=${BASH_REMATCH[3]}
+    LOOK_WEATHER_CITY=${BASH_REMATCH[5]}
+    echo "Погода для: $LOOK_WEATHER_LAT, $LOOK_WEATHER_LON $LOOK_WEATHER_CITY"
+    return
+  fi
+  mapfile -t places < <(geocode "$query" || true)
+  [ ${#places[@]} -gt 0 ] || die "не нашёл «$query» (проверьте написание или интернет на телефоне)"
+  pick=1
+  if [ ${#places[@]} -gt 1 ]; then
+    printf '\n\033[1m%s\033[0m\n' "Мест с таким названием: ${#places[@]}. Какое ваше?"
+    n=0
+    for i in "${places[@]}"; do
+      n=$((n + 1))
+      read -r lat lon _ <<< "${i%%|*}"
+      printf '  %d) %s  (%s, %s)\n' "$n" "${i#*|}" "$lat" "$lon"
+      # Ссылка открывает карту с точкой: так видно, та ли это деревня.
+      printf '     https://yandex.ru/maps/?pt=%s,%s&z=12&l=map\n' "$lon" "$lat"
+    done
+    if [ -n "${LOOK_PLACE:-}" ]; then pick=$LOOK_PLACE; else read -r -p "Номер места [1]: " pick; fi
+    pick=${pick:-1}
+    [[ "$pick" =~ ^[0-9]+$ ]] && [ "$pick" -ge 1 ] && [ "$pick" -le ${#places[@]} ] || die "нет такого варианта: $pick"
+  fi
+  read -r LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY <<< "${places[$((pick - 1))]%%|*}"
+  echo "Погода для: ${places[$((pick - 1))]#*|}"
 }
 
 LOOK_ANSWERS=()
@@ -284,8 +334,8 @@ choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "в
   printf -v "$var" '%s' "$ans"
 }
 
-look() {   # look [стиль обои цвет подсветка] [фото...]: собрать тему из ответов и отправить на ТВ
-  local style wall color glow hex src photos=() out="$DIR/look" city place vpn pkg tunnel=""
+look() {   # look [стиль обои цвет подсветка [в_ряду]] [фото...]: собрать тему из ответов и отправить на ТВ
+  local style wall color glow hex src photos=() out="$DIR/look" city vpn pkg tunnel=""
   local colors=("#000000" "#070A14" "#14161C" "#06140E" "#1A0A0E" "#120A1F") vpns=() labels=() receivers
   probe
   local version
@@ -297,6 +347,7 @@ look() {   # look [стиль обои цвет подсветка] [фото...
   fi
   LOOK_ANSWERS=("${@:1:4}")
   choose style "Стиль домашнего экрана" \
+    "Apple TV — стеклянный док, плитка приподнимается на свечении своего цвета" \
     "Классика — тёмная полоса с приложениями и крупное название" \
     "Стекло — матовая полупрозрачная полоса, кнопки-иконки" \
     "Кино — сверху большая обложка выбранного приложения" \
@@ -321,18 +372,30 @@ look() {   # look [стиль обои цвет подсветка] [фото...
     read -r -p "Цвет в виде #RRGGBB: " hex
     [[ "$hex" =~ ^#[0-9A-Fa-f]{6}$ ]] || die "цвет должен быть вида #1A2B3C"
   fi
-  choose glow "Подсветка выбранного приложения" "В цвет приложения" "Белая"
+  choose glow "Выделение выбранного приложения" "Свечение в цвет приложения" "Белая рамка"
 
-  # Погода: город превращается в координаты здесь, на телефоне (Open-Meteo, без ключа и регистрации).
+  # Приложений в ряду — само число, не номер варианта. В командной строке это пятый ответ, если он число.
+  local columns first_photo=5
+  if [[ "${5:-}" =~ ^[0-9]+$ ]]; then
+    columns=$5
+    first_photo=6
+  elif [ -n "${LOOK_COLUMNS:-}" ]; then
+    columns=$LOOK_COLUMNS
+  else
+    printf '\n\033[1m%s\033[0m\n' "Приложений в ряду: от 4 (крупные плитки) до 8 (мелкие)"
+    read -r -p "Сколько [5]: " columns
+    columns=${columns:-5}
+  fi
+  [[ "$columns" =~ ^[4-8]$ ]] || die "приложений в ряду может быть от 4 до 8, а не «$columns»"
+
+  # Погода: место превращается в координаты здесь, на телефоне (Open-Meteo, без ключа и регистрации).
   if [ -n "${LOOK_CITY+x}" ]; then city=$LOOK_CITY; else
     printf '\n\033[1m%s\033[0m\n' "Погода вверху справа"
-    read -r -p "Город (Enter — без погоды): " city
+    echo "Город или посёлок; область — после запятой (Глухово, Московская). Или координаты: 55.772,37.253 Глухово"
+    read -r -p "Место (Enter — без погоды): " city
   fi
   if [ -n "$city" ]; then
-    place="$(geocode "$city" || true)"
-    [ -n "$place" ] || die "не нашёл город «$city» (проверьте написание или интернет на телефоне)"
-    echo "Погода для: ${place#*|}"
-    read -r LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY <<< "${place%%|*}"
+    pick_place "$city"
     export LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY
   fi
 
@@ -344,14 +407,16 @@ look() {   # look [стиль обои цвет подсветка] [фото...
   else
     receivers="$(tv 'cmd package query-receivers --brief -a com.twofortyfouram.locale.intent.action.FIRE_SETTING' | tr -d '\r')"
     for pkg in "${vpns[@]}"; do
-      if [ "$pkg" = com.wireguard.android ] || [[ "$receivers" == *"$pkg/"* ]]; then
+      # Happ и v2rayNG переключаются своим ярлыком «вкл/выкл», WireGuard и форки v2rayNG — командой.
+      if [[ " su.happ.proxyutility com.v2ray.ang com.wireguard.android " == *" $pkg "* ]] || [[ "$receivers" == *"$pkg/"* ]]; then
         labels+=("$(vpn_name "$pkg") — OK включает и выключает VPN")
       else
         labels+=("$(vpn_name "$pkg") — OK открывает приложение")
       fi
     done
     [ -n "${LOOK_VPN-}" ] && LOOK_ANSWERS=("$LOOK_VPN")
-    choose vpn "Кнопка VPN вверху справа (зелёная — VPN включён, красная — выключен)" "${labels[@]}" "Без кнопки VPN"
+    choose vpn "Кнопка VPN вверху справа (белая — VPN включён, тусклая — выключен; удержать OK — открыть приложение)" \
+      "${labels[@]}" "Без кнопки VPN"
     if [ "$vpn" -le ${#vpns[@]} ]; then
       export LOOK_VPN_APP=${vpns[$((vpn - 1))]}
       if [ "$LOOK_VPN_APP" = com.wireguard.android ]; then
@@ -366,21 +431,25 @@ look() {   # look [стиль обои цвет подсветка] [фото...
   fi
 
   if [ "$wall" = 9 ]; then
-    if [ $# -gt 4 ]; then
-      photos=("${@:5}")
+    local sources=()
+    if [ $# -ge "$first_photo" ]; then
+      sources=("${@:$first_photo}")
     else
       read -r -p "Файл или папка с фото [~/storage/downloads]: " src
-      src=${src:-$HOME/storage/downloads}
+      sources=("${src:-$HOME/storage/downloads}")
+    fi
+    # Папки раскрываются в фото внутри них (до 30), файлы берутся как есть.
+    for src in "${sources[@]}"; do
       src=${src/#\~/$HOME}
       [ -e "$src" ] || die "нет такого пути: $src (для доступа к «Загрузкам» один раз выполните termux-setup-storage)"
       if [ -d "$src" ]; then
         while IFS= read -r -d '' f; do photos+=("$f"); done < <(find "$src" -maxdepth 1 -type f \
           \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print0 | sort -z | head -z -n 30)
       else
-        photos=("$src")
+        photos+=("$src")
       fi
-    fi
-    [ ${#photos[@]} -gt 0 ] || die "в $src нет фото (jpg, png, webp)"
+    done
+    [ ${#photos[@]} -gt 0 ] || die "в ${sources[*]} нет фото (jpg, png, webp)"
     if ! "$PY" -c 'import PIL' 2>/dev/null; then
       say "Ставлю Pillow, чтобы уменьшить фото под экран ТВ"
       if in_termux; then pkg install -y python-pillow; else "$PY" -m pip install -q pillow; fi
@@ -390,23 +459,28 @@ look() {   # look [стиль обои цвет подсветка] [фото...
   say "Собираю тему"
   cat > "$DIR/look_build.py" <<'PYEOF'
 import json, os, re, shutil, sys
-kit, out, style, wall, color, glow, *photos = sys.argv[1:]
+kit, out, style, wall, color, glow, columns, *photos = sys.argv[1:]
 themes = os.path.join(kit, "themes")
 with open(os.path.join(kit, "examples/sber-salute-tv-at30a6/config.json"), encoding="utf-8") as f:
     cfg = json.load(f)   # скрытые служебные приложения, русские названия, библиотека приложений
 cfg.update({
-    "1": {},
-    "2": {"dock_glass": True, "icon_only_buttons": True, "glow_style": "horizon", "focus_overshoot": False},
-    "3": {"cinematic_home": True, "dock_glass": True, "icon_only_buttons": True, "focus_overshoot": False},
-    "4": {"dock_band": False, "glass_style": "rim", "dock_title": False, "ambient_glow": False,
-          "icon_only_buttons": True, "icon_only_inputs": True, "wifi_status_color": True},
-    "5": {"uniform_tiles": True, "always_show_names": True, "dock_glass": True},
+    # Apple TV: стеклянный док, выбранная плитка приподнимается, вокруг неё свечение её цвета.
+    "1": {"dock_glass": True, "glass_style": "halo", "focus_overshoot": False, "advanced_effects": True, "animations": True},
+    "2": {},
+    "3": {"dock_glass": True, "icon_only_buttons": True, "glow_style": "horizon", "focus_overshoot": False},
+    "4": {"cinematic_home": True, "dock_glass": True, "icon_only_buttons": True, "focus_overshoot": False},
+    "5": {"dock_band": False, "glass_style": "rim", "dock_title": False,
+          "icon_only_buttons": True, "icon_only_inputs": True},
+    "6": {"uniform_tiles": True, "always_show_names": True, "dock_glass": True},
 }[style])
 cfg["background_color"] = color
-cfg["app_glow"] = glow == "1"
+cfg["columns"] = int(columns)  # приложений в ряду; на ТВ меняется в «Настройках лаунчера»
+cfg["app_glow"] = glow == "1"  # выделение в цвет приложения или белое
+cfg["ambient_glow"] = False    # обои цветом выбранного приложения не окрашиваются
 cfg["tile_menu"] = True        # удержать OK на плитке: Переместить, Убрать с главного, О приложении
-cfg["reorder_button"] = True   # кнопка перестановки приложений в верхней панели
+cfg["reorder_button"] = False  # переставлять — через меню плитки или «Настройки лаунчера»
 cfg["compact_pills"] = True    # кнопки сверху — кружки, раскрываются с подписью при наведении
+cfg["restore_key_services"] = True  # кнопки пульта (команда keys) снова работают после сбоя лаунчера
 if os.environ.get("LOOK_WEATHER_LAT"):
     cfg.update(weather_lat=float(os.environ["LOOK_WEATHER_LAT"]), weather_lon=float(os.environ["LOOK_WEATHER_LON"]),
                weather_city=os.environ.get("LOOK_WEATHER_CITY", ""))
@@ -467,13 +541,13 @@ if wall == "1":
     scenes(); photos_of("nature-calm", "nature", " - "); photos_of("sweden", "sweden", " · "); daytime()
     for key in SINGLES:
         single(key)
-    cfg.update(collection, wallpaper_captions=True)
+    cfg.update(collection)
 elif wall == "2":
     scenes(); cfg.update(collection)
 elif wall == "3":
-    photos_of("nature-calm", "nature", " - "); cfg.update(collection, wallpaper_captions=True, wallpaper_dim=14)
+    photos_of("nature-calm", "nature", " - "); cfg.update(collection, wallpaper_dim=14)
 elif wall == "4":
-    photos_of("sweden", "sweden", " · "); cfg.update(collection, wallpaper_captions=True)
+    photos_of("sweden", "sweden", " · "); cfg.update(collection)
 elif wall == "5":
     daytime()
     cfg.update(collection, wallpaper_order="sequential",
@@ -501,15 +575,108 @@ with open(os.path.join(out, "config.json"), "w", encoding="utf-8") as f:
 count = len([n for n in os.listdir(walls) if n.endswith(".jpg")]) if os.path.isdir(walls) else 0
 print(f"тема собрана: обоев {count}")
 PYEOF
-  "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$style" "$wall" "$hex" "$glow" "${photos[@]}"
+  "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$style" "$wall" "$hex" "$glow" "$columns" "${photos[@]}"
   say "Отправляю тему на ТВ (обои копируются по одной, это может занять пару минут)"
   bash "$DIR/tools/theme.sh" "$out"
   say "Готово. На ТВ:"
-  echo "- переставить приложение: удержите OK на плитке → «Переместить», стрелки, «Назад» — поставить"
-  echo "  (или кнопка «Изменить порядок приложений» в верхней панели);"
-  echo "- выбрать обои, число приложений в ряду, непрозрачность полосы: удержите OK на «Настройках» →"
-  echo "  «Настройки главного экрана»;"
+  echo "- переставить приложение: удержите OK на плитке → «Переместить», стрелки, «Назад» — поставить;"
+  echo "- плитка «Настройки лаунчера» среди приложений: стиль, обои (свои фото — по QR-коду с телефона),"
+  echo "  цвет, приложений в ряду, погода, язык, заставка;"
+  echo "- отключить кнопки Сбера на пульте: bash $0 $TV_HOST keys;"
   echo "- вернуть оформление после чистки: bash $0 $TV_HOST look-reset"
+}
+
+KEYS_URI=content://com.gathin.tvhome.theme/remote_keys.json
+KEYS_TMP=/data/local/tmp/cyt-theme-remote_keys.json
+# Кнопки, которые не трогаем, даже если их нажали по ошибке: Enter, Home, стрелки, OK, «Назад».
+NAV_KEYS=" 28 102 103 105 106 108 139 158 172 352 "
+
+capture_key() {   # capture_key "Название" → linux-код нажатой кнопки (так его видит лаунчер, scan:N) или ничего
+  local hex
+  read -r -p "  Нажмите Enter, затем в течение 8 секунд — «$1» на пульте: " _
+  # getevent печатает "/dev/input/event3: 0001 0174 00000001": тип 1 — кнопка, код, значение 1 — нажата.
+  # -c 4: выйти сам после первых событий (нажатие — это 3–4 события), иначе вывод может пропасть
+  # в буфере при остановке по таймеру; таймер нужен, только если ничего не нажали.
+  # shellcheck disable=SC2016
+  hex="$(tv 'getevent -qc 4 2>/dev/null & p=$!; (sleep 8; kill $p) >/dev/null 2>&1 & wait $p; true' | tr -d '\r' \
+    | sed -n 's#^/dev/input/event[0-9]*: 0001 \([0-9a-f]\{4\}\) 00000001$#\1#p' | head -n 1)"
+  [ -z "$hex" ] || echo $((16#$hex))
+}
+
+# Включает InputKeyService лаунчера (через него проходят кнопки пульта) и заставляет его перечитать
+# remote_keys.json: служба выключается и включается снова. Остальные службы специальных возможностей не трогаются.
+key_service_restart() {
+  # shellcheck disable=SC2016
+  tv 'c=com.gathin.tvhome/.InputKeyService; s=$(settings get secure enabled_accessibility_services); case "$s" in null|"") s="";; esac; o=$(printf "%s" "$s" | tr ":" "\n" | grep -v InputKeyService | paste -sd: -); settings put secure enabled_accessibility_services "${o:-}"; sleep 1; settings put secure enabled_accessibility_services "${o:+$o:}$c"; settings put secure accessibility_enabled 1; pm grant com.gathin.tvhome android.permission.WRITE_SECURE_SETTINGS 2>/dev/null; true' >/dev/null
+}
+
+keys() {
+  probe
+  local version entries=() name code alice apps=() i
+  version="$(launcher_version)"
+  [ "$version" -gt 0 ] || die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST"
+  if [ "$version" -lt "$APK_VERSION_CODE" ]; then update_launcher quiet; fi
+  say "Кнопки Сбера на пульте"
+  echo "По очереди: Enter здесь, потом кнопка на пульте. Если на ТВ откроется окно Сбера — закройте его «Назад»."
+  echo "Кнопки, которой на вашем пульте нет, — просто Enter и ничего не нажимать."
+  for name in "Okko" "ИВИ" "Смотрим" "VK Видео" "RUTUBE" "ТВ"; do
+    code="$(capture_key "$name")"
+    if [ -z "$code" ]; then
+      echo "  «$name»: нажатия не было — пропускаю"
+    elif [[ "$NAV_KEYS" == *" $code "* ]]; then
+      echo "  «$name»: это кнопка навигации (код $code) — её не трогаю"
+    else
+      entries+=("scan:$code:none")
+      echo "  «$name»: код $code — будет отключена"
+    fi
+  done
+
+  say "Кнопка ассистента"
+  mapfile -t apps < <(tv 'pm list packages -e' | tr -d '\r' | sed -n 's/^package://p' | grep -i -E 'alice|yandex' | sort)
+  if [ ${#apps[@]} -eq 0 ]; then
+    echo "Приложения Алисы (Яндекса) на ТВ нет — кнопку ассистента не меняю. Поставьте его (например, через"
+    echo "Aurora Store или: bash $0 $TV_HOST apk файл.apk) и выполните keys ещё раз."
+  else
+    echo "Какое приложение открывать кнопкой ассистента (Салют):"
+    for i in "${!apps[@]}"; do printf '  %d) %s\n' "$((i + 1))" "${apps[$i]}"; done
+    printf '  %d) оставить кнопку как есть\n' "$((${#apps[@]} + 1))"
+    read -r -p "Номер [1]: " i
+    i=${i:-1}
+    [[ "$i" =~ ^[0-9]+$ ]] && [ "$i" -ge 1 ] && [ "$i" -le $((${#apps[@]} + 1)) ] || die "нет такого варианта: $i"
+    if [ "$i" -le ${#apps[@]} ]; then
+      alice=${apps[$((i - 1))]}
+      code="$(capture_key "кнопка ассистента")"
+      if [ -z "$code" ] || [[ "$NAV_KEYS" == *" $code "* ]]; then
+        echo "  Кнопку ассистента поймать не удалось — оставляю как есть."
+      else
+        entries+=("scan:$code:$alice")
+        echo "  Ассистент (код $code) будет открывать $alice"
+      fi
+    fi
+  fi
+  [ ${#entries[@]} -gt 0 ] || die "ни одной кнопки не поймано — на ТВ ничего не менялось"
+
+  say "Сохраняю на ТВ"
+  "$PY" -I -c 'import json, sys; json.dump({"app_keys": sys.argv[2:]}, open(sys.argv[1], "w"), indent=1)' \
+    "$DIR/remote_keys.json" "${entries[@]}"
+  tv --push "$DIR/remote_keys.json" "$KEYS_TMP" >/dev/null
+  tv "content write --uri $KEYS_URI < $KEYS_TMP; rm -f $KEYS_TMP" >/dev/null
+  key_service_restart
+  if tv 'dumpsys accessibility' | tr -d '\r' | grep -q 'com.gathin.tvhome/.*InputKeyService'; then
+    say "Готово: нажмите Okko — теперь ничего не должно происходить"
+  else
+    say "Сохранено, но служба кнопок не видна в списке ТВ"
+    echo "Проверьте: Настройки ТВ → Специальные возможности → CleanYourTV — включено."
+  fi
+  echo "Если Сбер всё же реагирует, значит его система ловит кнопку раньше Android — тогда её не отключить."
+  echo "Вернуть кнопки: bash $0 $TV_HOST keys-reset"
+}
+
+keys_reset() {
+  probe
+  tv "content delete --uri $KEYS_URI" >/dev/null 2>&1 || true
+  key_service_restart
+  say "Кнопки пульта снова работают как раньше"
 }
 
 prepare
@@ -528,6 +695,8 @@ case "$CMD" in
   aurora) aurora ;;
   apk) shift 2; apk_install "$@" ;;
   look) shift 2; look "$@" ;;
+  keys) keys ;;
+  keys-reset) keys_reset ;;
   update-launcher) update_launcher ;;
   look-reset) probe && bash "$DIR/tools/theme.sh" "$DIR/$PROFILE" ;;
   shell) shift 2; [ $# -gt 0 ] || die "укажите команду: shell 'pm list packages -d'"; tv "$*" ;;
