@@ -149,7 +149,7 @@ install() {
 
   say "Готово. Нажмите Home на пульте."
   echo "Отменить всё: bash $0 $TV_HOST restore"
-  echo "Когда закончите — выключите ADB Enable в FactoryMenu (Debug) и перезагрузите ТВ."
+  echo "Когда закончите: bash $0 $TV_HOST finish"
 }
 
 restore() {
@@ -219,7 +219,8 @@ case "$CMD" in
   rotation) tv 'settings put global sys_storage_threshold_percentage 1' && echo "Порог «ротации» понижен, сработает после перезагрузки. Вернуть: restore" ;;
   finish)
     tv 'setprop persist.adb.tcp.port ""'
-    echo "Теперь на ТВ: FactoryMenu → Debug → ADB Enable = Off, затем перезагрузка."
+    echo "Теперь выключите ADB там же, где включали: переключатель ADB в SmartApp Studio (Мои устройства)"
+    echo "или FactoryMenu → Debug → ADB Enable = Off. Затем перезагрузите ТВ."
     echo "Проверить, что порт закрыт: bash $0 $TV_HOST closed" ;;
   closed) "$PY" -I "$DIR/tools/adb-closed.py" "$TV_HOST" && echo "ADB-порт закрыт." ;;
   aurora) aurora ;;
