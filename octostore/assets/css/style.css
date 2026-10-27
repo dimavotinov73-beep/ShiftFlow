@@ -638,3 +638,37 @@ textarea.input { height: 84px; padding: 12px 14px; resize: vertical; }
 .map__ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--muted); font-size: 14px; text-align: center; background: radial-gradient(circle at 50% 45%, var(--brand-soft), transparent 60%), repeating-linear-gradient(0deg, transparent 0 38px, var(--line) 38px 39px), repeating-linear-gradient(90deg, transparent 0 38px, var(--line) 38px 39px), var(--surface-2); }
 .map__ph .i { width: 34px; height: 34px; color: var(--brand); }
 .map__ph b { color: var(--text); font-size: 16px; }
+
+/* ---------- Фото товаров ---------- */
+.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 8%; }
+.pcard__media { background: #fff; }
+.pcard__media .photo { transition: transform .35s ease; }
+.pcard:hover .pcard__media .photo { transform: scale(1.04); }
+.price small { font-size: .62em; font-weight: 700; color: var(--muted); }
+.suggest__thumb { position: relative; background: #fff; }
+.suggest__thumb .photo { padding: 3px; }
+.citem__media { position: relative; background: #fff; overflow: hidden; }
+.citem__media .photo { padding: 6px; }
+.cat--photo img { position: absolute; right: -6px; bottom: -6px; width: 118px; height: 118px; object-fit: contain; mix-blend-mode: multiply; transition: transform .3s ease; }
+.cat--photo:hover img { transform: scale(1.06); }
+.gallery__main--photo { background: #fff; }
+.gallery__main .photo { padding: 7%; }
+.gallery__thumbs { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+.gallery__thumbs::-webkit-scrollbar { display: none; }
+.gthumb { position: relative; flex: none; width: 68px; height: 68px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff; padding: 0; overflow: hidden; }
+.gthumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.gthumb.is-on { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent); }
+.specs-wrap { position: relative; }
+.specs-wrap.is-collapsed { max-height: 520px; overflow: hidden; }
+.specs-wrap.is-collapsed::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(transparent, var(--surface)); }
+.specs__group { font-size: 15px; margin: 18px 0 2px; }
+.equip { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.equip li { display: flex; gap: 8px; align-items: center; font-size: 14.5px; }
+.equip .i { width: 18px; height: 18px; color: var(--ok); }
+@media (prefers-color-scheme: dark) {
+  .cat--photo img { mix-blend-mode: normal; background: #fff; border-radius: 18px; padding: 8px; width: 96px; height: 96px; right: 10px; bottom: 10px; }
+}
+@media (max-width: 720px) {
+  .cat--photo img { width: 88px; height: 88px; }
+  .gthumb { width: 56px; height: 56px; }
+}

@@ -6,8 +6,7 @@
   const ART = window.OctoArt;
   const ORDER_URL = "https://t.me/VotinovDM"; // контакт для заказов
   const ORDER_USER = ORDER_URL.split("/").pop();
-  const CHANNEL_URL = DATA.channel || "https://t.me/OctoStore46";
-  const SOCIALS = DATA.socials || {};
+  const SOCIALS = { instagram: "https://www.instagram.com/octostore46", tiktok: "https://www.tiktok.com/@octostore46" };
   const PRODUCTS = DATA.products;
   const BY_ID = new Map(PRODUCTS.map((p) => [p.id, p]));
   const ADDRESS = "Москва, Багратионовский проезд, 7к3";
@@ -15,38 +14,40 @@
   const darkMQ = window.matchMedia("(prefers-color-scheme: dark)");
 
   // ------------------------------------------------------------------
-  // Категории (собственная структура каталога поверх прайса из канала)
+  // Категории сайта. hero — линейка, чьё фото показывается на плитке категории.
   // ------------------------------------------------------------------
   const CATS = [
-    { id: "iphone", title: "iPhone", desc: "iPhone 18 Pro, 17 Pro, Air, 17e и 16-я серия — версии с eSIM и физической SIM из разных регионов.", art: { kind: "phone", color: "Orange" }, banner: (s) => (/^iPhone 18/.test(s) ? "cat-iphone18.jpg" : /^iPhone 16/.test(s) ? "cat-iphone16.jpg" : "cat-iphone17.jpg") },
-    { id: "samsung", title: "Samsung Galaxy", short: "Samsung", desc: "Флагманы Galaxy S26 и S25, складные Z Fold и Z Flip.", art: { kind: "fold", color: "Cobalt Violet" }, banner: () => "cat-samsung.jpg" },
-    { id: "mac", title: "Mac", desc: "MacBook Air и Pro на M5, MacBook Neo, iMac 24\" и Mac mini.", art: { kind: "laptop", color: "Sky Blue" }, banner: (s) => (s === "iMac 24" ? "cat-imac.jpg" : "cat-mac.jpg") },
-    { id: "tablets", title: "Планшеты", desc: "iPad Pro, iPad Air, iPad mini и iPad 11, а также Galaxy Tab.", art: { kind: "tablet", color: "Purple" }, banner: (s) => (/^Galaxy/.test(s) ? "cat-samsung.jpg" : "cat-ipad.jpg") },
-    { id: "watch", title: "Смарт-часы", short: "Часы", desc: "Apple Watch Ultra, Series и SE, Galaxy Watch.", art: { kind: "watch", color: "Orange" }, banner: (s) => (/^Galaxy/.test(s) ? "cat-samsung.jpg" : "cat-watch.jpg") },
-    { id: "audio", title: "Наушники и колонки", short: "Аудио", desc: "AirPods, AirPods Max, EarPods, Galaxy Buds, наушники и колонки Marshall.", art: { kind: "headphones", color: "Sky Blue" }, banner: (s) => (!s || /AirPods|EarPods/.test(s) ? "cat-airpods.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
-    { id: "yandex", title: "Яндекс Станции", short: "Яндекс Станции", desc: "Умные колонки с Алисой: Станция 3, Миди, Макс, Мини, Лайт, Street и Дропс.", art: { kind: "smartspeaker", color: "Малиновая" }, banner: () => "cat-yandex.jpg" },
-    { id: "gaming", title: "Игры и консоли", short: "Консоли", desc: "PlayStation 5, геймпады DualSense, игры, Xbox, Steam Deck, Nintendo Switch и VR.", art: { kind: "gamepad", color: "Cosmic Red" }, banner: () => "cat-gaming.jpg" },
-    { id: "dyson", title: "Dyson", desc: "Стайлеры, фены, выпрямители, пылесосы и очистители. Версии с вилкой EU и с переходником.", art: { kind: "styler", color: "Ceramic Pink" }, banner: () => "cat-dyson.jpg" },
-    { id: "gadgets", title: "Фото и гаджеты", short: "Гаджеты", desc: "Камеры Canon и Instax, умные очки Ray-Ban Meta, диктофоны Plaud, AirTag.", art: { kind: "instant", color: "Candy Pink" }, banner: (s) => (/Plaud|AirTag/.test(s || "") ? null : "cat-gadgets.jpg") },
-    { id: "accessories", title: "Аксессуары", desc: "Защитные стёкла и чехлы, кабели, блоки питания, клавиатуры, мыши и Apple Pencil.", art: { kind: "charger", color: "White" }, banner: () => null },
+    { id: "iphone", title: "iPhone", desc: "iPhone 18 Pro, 17 Pro, Air, 17e и предыдущие поколения — с eSIM и с физической SIM.", art: { kind: "phone", color: "Orange" }, hero: "iPhone 17 Pro Max", banner: (s) => (/^iPhone 18/.test(s) ? "cat-iphone18.jpg" : /^iPhone 1[3-6]/.test(s) ? "cat-iphone16.jpg" : "cat-iphone17.jpg") },
+    { id: "samsung", title: "Samsung Galaxy", short: "Samsung", desc: "Флагманы Galaxy S26 и S25, складные Z Fold и Z Flip, Galaxy A.", art: { kind: "fold", color: "Cobalt Violet" }, hero: "Galaxy S26 Ultra", banner: () => "cat-samsung.jpg" },
+    { id: "android", title: "Android-смартфоны", short: "Android", desc: "Google Pixel, Xiaomi, REDMI, POCO, OnePlus, Nothing, HONOR, Huawei и другие.", art: { kind: "phone", color: "Sage" }, hero: "Google Pixel", banner: () => null },
+    { id: "mac", title: "Mac и ноутбуки", short: "Mac", desc: "MacBook Air и Pro, MacBook Neo, iMac, Mac mini, Mac Studio и мониторы.", art: { kind: "laptop", color: "Sky Blue" }, hero: "MacBook Air 13", banner: (s) => (/iMac/.test(s) ? "cat-imac.jpg" : /^(Mac|$)/.test(s) ? "cat-mac.jpg" : null) },
+    { id: "tablets", title: "Планшеты", desc: "iPad Pro, iPad Air, iPad mini и iPad, Galaxy Tab, Xiaomi Pad и электронные книги.", art: { kind: "tablet", color: "Purple" }, hero: "iPad Air 11", banner: (s) => (!s || /^iPad/.test(s) ? "cat-ipad.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
+    { id: "watch", title: "Часы и браслеты", short: "Часы", desc: "Apple Watch Ultra, Series и SE, Galaxy Watch, Pixel Watch, Garmin, фитнес-браслеты и умные кольца.", art: { kind: "watch", color: "Orange" }, hero: "Apple Watch Ultra", banner: (s) => (!s || /Apple Watch/.test(s) ? "cat-watch.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
+    { id: "audio", title: "Аудио и ТВ", short: "Аудио", desc: "AirPods, Beats, Galaxy Buds, наушники, колонки, умные колонки, телевизоры и медиаплееры.", art: { kind: "headphones", color: "Sky Blue" }, hero: "AirPods Pro", banner: (s) => (!s || /AirPods/.test(s) ? "cat-airpods.jpg" : /Умные колонки/.test(s) ? "cat-yandex.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
+    { id: "gaming", title: "Игры и консоли", short: "Консоли", desc: "Игровые приставки и портативные консоли, геймпады, игры, VR и аксессуары.", art: { kind: "gamepad", color: "Cosmic Red" }, hero: "Приставки", banner: () => "cat-gaming.jpg" },
+    { id: "dyson", title: "Dyson", desc: "Стайлеры, фены, выпрямители, пылесосы, очистители воздуха и аксессуары Dyson.", art: { kind: "styler", color: "Ceramic Pink" }, hero: "Стайлеры", banner: () => "cat-dyson.jpg" },
+    { id: "home", title: "Для дома", desc: "Роботы-пылесосы, умный дом, свет, климат, кухня, красота и здоровье.", art: { kind: "vacuum", color: "White" }, hero: "Роботы-пылесосы", banner: () => null },
+    { id: "gadgets", title: "Фото и гаджеты", short: "Гаджеты", desc: "Камеры моментальной печати, экшн-камеры, DJI, умные очки, трекеры, накопители и другие гаджеты.", art: { kind: "instant", color: "Candy Pink" }, hero: "Моментальная печать", banner: (s) => (!s || /Моментальная|Фото|Экшн|DJI|Стабилиз|очки/.test(s) ? "cat-gadgets.jpg" : null) },
+    { id: "accessories", title: "Аксессуары", desc: "Чехлы и стёкла, зарядки и аккумуляторы, кабели, клавиатуры и мыши, MagSafe.", art: { kind: "charger", color: "White" }, hero: "Для iPhone", banner: () => null },
   ];
   const CAT = Object.fromEntries(CATS.map((c) => [c.id, c]));
   const SUBS = {};
-
-  const REGION_NAMES = { US: "США", JP: "Япония", AE: "ОАЭ", IN: "Индия", CN: "Китай", HK: "Гонконг", KR: "Корея", EU: "Европа", GB: "Великобритания", TH: "Таиланд", MY: "Малайзия", SG: "Сингапур", AU: "Австралия" };
-  const SIM_SHORT = { "только eSIM": "eSIM", "nano-SIM + eSIM": "SIM + eSIM", "2 nano-SIM": "2 SIM" };
+  // Иллюстрация на случай, если у товара нет фото.
+  const KIND = { iphone: "phone", samsung: "phone", android: "phone", mac: "laptop", tablets: "tablet", watch: "watch", audio: "headphones", gaming: "gamepad", dyson: "styler", home: "vacuum", gadgets: "camera", accessories: "accessory" };
 
   // Порядок линеек: новые модели — первыми.
   function subRank(cat, sub) {
     if (cat === "iphone") {
-      const m = /iPhone (\d+)\s*(.*)/.exec(sub) || [];
-      const tier = { "Pro Max": 0, Pro: 1, Air: 2, Plus: 3, "": 4, e: 5 }[(m[2] || "").trim()] ?? 6;
-      return -(+m[1] || 0) * 10 + tier;
+      if (sub === "iPhone Air") return -170 + 2;
+      if (sub === "iPhone Duo") return -180 + 2;
+      const m = /iPhone (\d+)(e?)\s*(.*)/.exec(sub) || [];
+      const tier = m[2] ? 5 : { "Pro Max": 0, Pro: 1, Plus: 3, "": 4, mini: 5 }[(m[3] || "").trim()] ?? 6;
+      return m[1] ? -(+m[1]) * 10 + tier : 0;
     }
     if (cat === "samsung") {
-      const m = /Galaxy (S|Z Fold|Z Flip)(\d+)\s*(.*)/.exec(sub) || [];
-      const fam = { S: 0, "Z Fold": 1, "Z Flip": 2 }[m[1]] ?? 3;
-      const tier = { Ultra: 0, "+": 1, "": 2, FE: 3 }[(m[3] || "").trim()] ?? 4;
+      const m = /Galaxy (S|Z Fold|Z Flip|A)(\d*)\s*(.*)/.exec(sub) || [];
+      const fam = { S: 0, "Z Fold": 1, "Z Flip": 2, A: 3 }[m[1]] ?? 4;
+      const tier = { Ultra: 0, "+": 1, Edge: 1, "": 2, FE: 3 }[(m[3] || "").trim()] ?? 4;
       return fam * 1000 - (+m[2] || 0) * 10 + tier;
     }
     return null;
@@ -59,12 +60,14 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const rub = (n) => n.toLocaleString("ru-RU").replace(/\s/g, " ") + " ₽";
-  const flag = (cc) => String.fromCodePoint(...[...cc].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
   const plural = (n, a, b, c) => { const m10 = n % 10, m100 = n % 100; return m10 === 1 && m100 !== 11 ? a : m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20) ? b : c; };
   const icon = (id, cls = "i") => `<svg class="${cls}"><use href="#i-${id}"/></svg>`;
   const updatedDate = DATA.updated ? new Date(DATA.updated + "T12:00:00") : null;
   const updatedText = updatedDate ? updatedDate.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" }).replace(/\s?г\.$/, "") : "";
   const updatedShort = updatedDate ? updatedDate.toLocaleDateString("ru-RU") : "";
+  const imgSrc = (p) => `assets/img/p/${p.img}`;
+  // Дополнительные фото из галереи грузятся напрямую с CDN поставщика.
+  const cdn = (path, size) => `https://images.biggeek.ru/1/${size}/${path}.webp`;
 
   function norm(s) {
     return String(s).toLowerCase().replace(/ё/g, "е").replace(/[«»"()]/g, " ").replace(/\s+/g, " ").trim();
@@ -75,7 +78,7 @@
     [/айфон|афон/g, "iphone"], [/макбук|макбук/g, "macbook"], [/аймак/g, "imac"], [/айпад/g, "ipad"], [/эйрподс|аирподс|airpods|подсы/g, "airpods"],
     [/эпл вотч|эппл вотч|вотч/g, "watch"], [/самсунг|галакси/g, "galaxy"], [/дайсон/g, "dyson"], [/плейстейшн|пс5|ps 5/g, "ps5"], [/плойк\S*/g, "стайлер"], [/эйр|эир/g, "air"], [/нео(\s|$)/g, "neo$1"],
     [/иксбокс|хбокс/g, "xbox"], [/нинтендо|свитч/g, "switch"], [/инстакс/g, "instax"], [/маршал+/g, "marshall"], [/алиса|яндекс/g, "яндекс"],
-    [/стайлер\S*|эйрвреп\S*|airwrap/g, "стайлер"], [/фен\S*/g, "фен"], [/пылесос/g, "пылесос"], [/очки/g, "ray-ban"], [/геймпад|джойстик/g, "геймпад"],
+    [/стайлер\S*|эйрвреп\S*|airwrap/g, "стайлер"], [/фен\S*/g, "фен"], [/пылесос/g, "пылесос"], [/джойстик/g, "геймпад"], [/пиксел\S*|пиксель/g, "pixel"], [/сяоми|ксиоми/g, "xiaomi"], [/гармин/g, "garmin"],
     [/ про макс| promax| pro max/g, " pro max"], [/ про(\s|$)/g, " pro$1"], [/ макс(\s|$)/g, " max$1"],
   ];
   function searchTokens(q) {
@@ -98,20 +101,14 @@
     return list.filter((p) => matches(p, tokens)).sort((a, b) => nameScore(a) - nameScore(b) || a._ord - b._ord);
   }
 
-  // «Конфигурация» — название без линейки и цвета: «256 ГБ», «M5 Pro 24/1 ТБ», «46 мм M/L».
+  // «Конфигурация» — название без линейки и цвета: «256 ГБ», «M5, 16 ГБ, 512 ГБ».
   function cfgOf(p) {
     let n = p.name;
-    if (p.sub && n.startsWith(p.sub)) n = n.slice(p.sub.length);
-    if (p.color) n = n.replace(p.color, "");
-    return n.replace(/\s+/g, " ").trim() || p.name;
-  }
-  function verOf(p) {
-    const parts = [];
-    if (p.sim) parts.push(SIM_SHORT[p.sim] || p.sim);
-    if (p.plug) parts.push(p.plug.startsWith("EU") ? "Вилка EU" : "С переходником");
-    if (p.region) parts.push(p.region.map((r) => flag(r) + " " + (REGION_NAMES[r] || r)).join(", "));
-    if (p.cat === "samsung" && p.article) parts.push(p.article);
-    return parts.join(" · ");
+    if (p.color && n.endsWith(p.color)) n = n.slice(0, -p.color.length);
+    const sub = p.sub.replace(/^Apple /, "");
+    const i = n.indexOf(sub);
+    if (i >= 0 && i < 12) n = n.slice(i + sub.length);
+    return n.replace(/^[\s,"″”-]+|[\s,]+$/g, "").replace(/\s+/g, " ") || p.name;
   }
 
   const FAMILIES = {
@@ -142,10 +139,11 @@
   function indexCatalog() {
     PRODUCTS.forEach((p, i) => {
       p._i = i;
+      p.kind = KIND[p.cat];
       p._cfg = cfgOf(p);
-      p._ver = verOf(p);
-      p._fam = colorFamily(p.color);
-      p._search = norm([p.name, p.sub, p.brand, CAT[p.cat] && CAT[p.cat].title, p.color, p.mem, p.article, (p.region || []).map((r) => REGION_NAMES[r]).join(" "), p.sim].filter(Boolean).join(" "));
+      p._ver = p.ver || "";
+      p._fam = colorFamily(p.colorEn) || colorFamily(p.color);
+      p._search = norm([p.name, p.sub, p.brand, CAT[p.cat] && CAT[p.cat].title, p.color, p.colorEn, p.mem, p.ver].filter(Boolean).join(" "));
     });
 
     for (const p of PRODUCTS) {
@@ -156,8 +154,8 @@
       if (p.price != null) s.min = Math.min(s.min, p.price);
     }
     for (const [cat, list] of Object.entries(SUBS)) {
-      // В смешанных категориях сначала Apple, затем Samsung; EarPods — после AirPods.
-      list.forEach((s) => (s.rank = subRank(cat, s.name) ?? s.first + (/^Galaxy/.test(s.name) ? 1e5 : 0) + (s.name === "EarPods" ? 5e4 : 0)));
+      // Линейки идут в порядке разделов источника, «Другое» — в конце.
+      list.forEach((s) => (s.rank = subRank(cat, s.name) ?? s.first + (s.name === "Другое" ? 1e6 : 0)));
       list.sort((a, b) => a.rank - b.rank);
       list.forEach((s, i) => (s.order = i));
     }
@@ -200,14 +198,13 @@
   // Telegram
   // ------------------------------------------------------------------
   function productLine(p) {
-    const extra = [p.sim && SIM_SHORT[p.sim], p.plug && (p.plug.startsWith("EU") ? "вилка EU" : "с переходником"), p.region && p.region.map(flag).join(""), p.article].filter(Boolean).join(", ");
-    return p.name + (extra ? ` (${extra})` : "");
+    return p.name + (p.ver ? ` (${p.ver})` : "");
   }
   function tgLink(text) {
     return `${ORDER_URL}?text=${encodeURIComponent(text)}`;
   }
   function askText(p) {
-    return `Здравствуйте! Интересует ${productLine(p)}${p.price != null ? ` — ${rub(p.price)}` : ""}. Есть в наличии?`;
+    return `Здравствуйте! Интересует ${productLine(p)}${p.price != null ? ` — ${p.from ? "от " : ""}${rub(p.price)}` : ""}. Есть в наличии?`;
   }
   // Синхронное копирование — чтобы сразу после него открыть Telegram в том же жесте пользователя.
   function copySync(text) {
@@ -229,25 +226,26 @@
   // ------------------------------------------------------------------
   const isDark = () => darkMQ.matches;
   function tileBg(p) { const [a, b] = ART.tint(p, isDark()); return `background:linear-gradient(160deg,${a},${b})`; }
+  // Фото товара или (если фото нет) иллюстрация.
+  function photo(p, opts = {}) {
+    if (!p.img) return ART.art(p, opts);
+    return `<img class="photo" src="${imgSrc(p)}" alt="${opts.label ? esc(opts.label) : ""}" loading="${opts.eager ? "eager" : "lazy"}" decoding="async">`;
+  }
+  const mediaStyle = (p) => (p.img ? "" : tileBg(p));
 
   function badges(p) {
-    const out = [];
-    if (p.transit) out.push(`<span class="tag tag--warn" title="Товар на подвозе — уточняйте срок у менеджера">🚕 На подвозе</span>`);
-    if (p.stock === 1) out.push(`<span class="tag tag--hot">Последний</span>`);
-    if (p.region && p.cat !== "dyson") out.push(`<span class="tag" title="${esc(p.region.map((r) => REGION_NAMES[r]).join(", "))}">${p.region.map(flag).join(" ")} ${p.region.join("/")}</span>`);
-    return out.join("");
+    return p.ver && p.cat !== "accessories" ? `<span class="tag">${esc(shortVer(p.ver))}</span>` : "";
   }
+  const shortVer = (v) => v.replace(/^SIM-карта:\s*/i, "").replace(/nano-SIM и eSIM/i, "SIM + eSIM").replace(/2 nano-SIM/i, "2 SIM");
   function chips(p) {
     const out = [];
-    const sw = ART.resolve(p.color);
+    const sw = ART.resolve(p.colorEn) || ART.resolve(p.color);
     if (p.mem && p.cat !== "watch") out.push(`<span class="chip">${esc(p.mem)}</span>`);
-    if (p.sim) out.push(`<span class="chip">${esc(SIM_SHORT[p.sim] || p.sim)}</span>`);
-    if (p.plug) out.push(`<span class="chip">${p.plug.startsWith("EU") ? "Вилка EU" : "Переходник"}</span>`);
-    if (sw && p.color && out.length < 3) out.push(`<span class="chip"><i class="swatch" style="background:${sw}"></i>${esc(p.color.length > 16 ? p.color.split(/[\s/]/)[0] : p.color)}</span>`);
+    if (p.color && out.length < 2) out.push(`<span class="chip">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(p.color.length > 18 ? p.color.slice(0, 17) + "…" : p.color)}</span>`);
     return out.join("");
   }
   function priceHtml(p) {
-    return p.price != null ? `<span class="price">${rub(p.price)}</span>` : `<span class="price price--ask">Цена по запросу</span>`;
+    return p.price != null ? `<span class="price">${p.from ? "<small>от</small> " : ""}${rub(p.price)}</span>` : `<span class="price price--ask">Цена по запросу</span>`;
   }
   function buyInner(p, size) {
     if (p.price == null) {
@@ -265,8 +263,8 @@
 
   function card(p) {
     return `<article class="pcard">
-      <a class="pcard__media" href="#/product/${encodeURIComponent(p.id)}" style="${tileBg(p)}" tabindex="-1" aria-hidden="true">
-        <span class="pcard__badges">${badges(p)}</span>${ART.art(p)}
+      <a class="pcard__media" href="#/product/${encodeURIComponent(p.id)}" style="${mediaStyle(p)}" tabindex="-1" aria-hidden="true">
+        <span class="pcard__badges">${badges(p)}</span>${photo(p)}
       </a>
       <div class="pcard__body">
         <span class="pcard__sub">${esc(p.sub)}</span>
@@ -288,7 +286,7 @@
     $(".catnav__in").innerHTML = CATS.map((c) => `<a href="${catHref(c.id)}" data-cat="${c.id}">${esc(c.short || c.title)}</a>`).join("");
     $("#footerCats").innerHTML = CATS.map((c) => `<li><a href="${catHref(c.id)}">${esc(c.title)}</a></li>`).join("");
     $("#year").textContent = new Date().getFullYear();
-    if (updatedText) $("#priceStamp").textContent = `Цены по прайсу от ${updatedText}. Наличие и стоимость уточняйте у менеджера.`;
+    if (updatedText) $("#priceStamp").textContent = `Цены обновлены ${updatedText}. Наличие и стоимость уточняйте у менеджера.`;
     $$("[data-order-link], #tgOrder").forEach((a) => (a.href = ORDER_URL));
 
     // Мега-меню
@@ -335,7 +333,7 @@
       } else {
         box.innerHTML =
           (cats.length ? `<div class="suggest__head">Категории</div>` + cats.map((c) => `<a class="suggest__item" href="${catHref(c.id)}"><span class="suggest__thumb" style="background:var(--surface-2)">${ART.art(c.art)}</span><span class="suggest__name">${esc(c.title)}<small>${PRODUCTS.filter((p) => p.cat === c.id).length} товаров</small></span></a>`).join("") : "") +
-          (found.length ? `<div class="suggest__head">Товары</div>` + found.slice(0, 6).map((p) => `<a class="suggest__item" href="#/product/${encodeURIComponent(p.id)}"><span class="suggest__thumb" style="${tileBg(p)}">${ART.art(p)}</span><span class="suggest__name">${esc(p.name)}<small>${esc(p._ver || p.sub)}</small></span><span class="suggest__price">${p.price != null ? rub(p.price) : "—"}</span></a>`).join("") : "") +
+          (found.length ? `<div class="suggest__head">Товары</div>` + found.slice(0, 6).map((p) => `<a class="suggest__item" href="#/product/${encodeURIComponent(p.id)}"><span class="suggest__thumb" style="${mediaStyle(p)}">${photo(p)}</span><span class="suggest__name">${esc(p.name)}<small>${esc(p.ver ? shortVer(p.ver) : p.sub)}</small></span><span class="suggest__price">${p.price != null ? (p.from ? "от " : "") + rub(p.price) : "—"}</span></a>`).join("") : "") +
           (found.length > 6 ? `<a class="suggest__all" href="#/search?q=${encodeURIComponent(q)}">Показать все ${found.length} ${plural(found.length, "товар", "товара", "товаров")}</a>` : "");
       }
       box.hidden = false;
@@ -408,18 +406,25 @@
   // Главная
   // ------------------------------------------------------------------
   function pickCheapest(sub, filter) {
-    return PRODUCTS.filter((p) => p.sub === sub && p.price != null && (!filter || filter(p))).sort((a, b) => a.price - b.price)[0];
+    return PRODUCTS.filter((p) => p.sub === sub && p.price != null && p.img && (!filter || filter(p))).sort((a, b) => a.price - b.price)[0];
   }
+  // Один товар на линейку — чтобы подборки не состояли из вариантов одной модели.
+  const picks = (list) => {
+    const seen = new Set();
+    return list.map(([s, f]) => pickCheapest(s, f)).filter((p) => p && !seen.has(p.sub + p.name.split(",")[0]) && seen.add(p.sub + p.name.split(",")[0]));
+  };
 
   function renderHome() {
-    const fresh = [
-      ["iPhone 18 Pro Max"], ["iPhone 17 Pro Max"], ["Galaxy S26 Ultra"], ["MacBook Neo"], ["iPhone 17 Air"], ["Galaxy Z Fold8"],
-      ["MacBook Air 13"], ["Apple Watch Ultra 4"], ["AirPods Pro"], ["iPad Air 11 M4"], ["PlayStation 5"], ["Стайлеры", (p) => /HS09/.test(p.name)],
-    ].map(([s, f]) => pickCheapest(s, f)).filter(Boolean);
-    const gifts = [
-      ["AirPods"], ["Instax", (p) => /Mini 12/.test(p.name)], ["Станция Мини 3"], ["Геймпады PS5"], ["AirTag"], ["Колонки Marshall"],
-      ["Plaud"], ["Galaxy Buds"], ["Дропс"], ["Наушники Marshall"], ["Kodak"], ["Клавиатуры, мыши и Pencil", (p) => /Mouse/.test(p.name)],
-    ].map(([s, f]) => pickCheapest(s, (p) => p.price <= 15000 && (!f || f(p)))).filter(Boolean);
+    const fresh = picks([
+      ["iPhone 18 Pro Max"], ["iPhone 17 Pro"], ["iPhone Air"], ["Galaxy S26 Ultra"], ["Galaxy Z Fold8"], ["MacBook Neo"],
+      ["MacBook Air 13"], ["iPad Pro 13"], ["Apple Watch Ultra"], ["AirPods Pro"], ["Google Pixel"], ["Стайлеры"],
+    ]);
+    const cheap = (p) => p.price <= 15000;
+    const gifts = picks([
+      ["AirPods", cheap], ["Моментальная печать", (p) => cheap(p) && /камер|фотоаппарат/i.test(p.name)], ["Умные колонки", cheap], ["Геймпады", cheap],
+      ["Трекеры", cheap], ["Колонки", cheap], ["Galaxy Buds", cheap], ["Фитнес-браслеты", cheap], ["Беспроводные наушники", cheap],
+      ["Клавиатуры и мыши", cheap], ["MagSafe", cheap], ["Электронные книги", cheap],
+    ]);
 
     const banners = [
       ["cat-iphone18.jpg", "iphone", "iPhone 18 Pro Max", "iPhone 18 Pro"],
@@ -433,7 +438,7 @@
     app.innerHTML = `
       <section class="hero"><div class="wrap"><div class="hero__box">
         <div class="hero__text">
-          <span class="hero__chip"><b>${updatedShort ? "Прайс " + updatedShort : "Новинки"}</b>Актуальные цены из нашего Telegram</span>
+          <span class="hero__chip"><b>${updatedShort || "Новинки"}</b>Цены обновляются каждый день</span>
           <h1>Гаджеты мечты <em>ждут!</em></h1>
           <p class="hero__lead">Ваш гид в мир техники: iPhone, Mac, Samsung, Dyson, PlayStation и аксессуары в павильоне на Горбушке — и с доставкой по Москве за 2 часа.</p>
           <div class="hero__cta">
@@ -441,7 +446,7 @@
             <a class="btn btn--glass" href="${ORDER_URL}" target="_blank" rel="noopener">${icon("telegram")}Написать менеджеру</a>
           </div>
           <div class="hero__stats">
-            <div><b>${PRODUCTS.length}</b><span>${plural(PRODUCTS.length, "позиция", "позиции", "позиций")} в прайсе</span></div>
+            <div><b>${PRODUCTS.length.toLocaleString("ru-RU")}</b><span>${plural(PRODUCTS.length, "товар", "товара", "товаров")} в каталоге</span></div>
             <div><b>2 часа</b><span>доставка по Москве</span></div>
             <div><b>12 мес.</b><span>гарантия на Apple</span></div>
           </div>
@@ -463,7 +468,7 @@
       <section class="section" style="padding-top:0"><div class="wrap">
         <div class="section__head"><div><h2 class="section__title">Каталог</h2><p class="section__sub">${CATS.length} категорий и ${PRODUCTS.length} позиций</p></div><a class="link-more" href="#/catalog">Все товары${icon("chev")}</a></div>
         <div class="cats">
-          ${CATS.map((c) => { const list = PRODUCTS.filter((p) => p.cat === c.id); const m = minPrice(list); return `<a class="cat" href="${catHref(c.id)}"><span><b>${esc(c.title)}</b><br><small>${list.length} ${plural(list.length, "товар", "товара", "товаров")}${m < Infinity ? " · от " + rub(m) : ""}</small></span>${ART.art(c.art)}</a>`; }).join("")}
+          ${CATS.map((c) => { const list = PRODUCTS.filter((p) => p.cat === c.id); const m = minPrice(list); const h = catPhoto(c); return `<a class="cat${h ? " cat--photo" : ""}" href="${catHref(c.id)}"><span><b>${esc(c.title)}</b><br><small>${list.length} ${plural(list.length, "товар", "товара", "товаров")}${m < Infinity ? " · от " + rub(m) : ""}</small></span>${h ? `<img src="${imgSrc(h)}" alt="" loading="lazy">` : ART.art(c.art)}</a>`; }).join("")}
           <a class="cat" href="#/catalog" style="background:var(--grad);color:#fff;border:0"><span><b>Все товары</b><br><small style="color:rgba(255,255,255,.8)">Фильтры, поиск, сравнение цен</small></span><svg class="i" style="position:absolute;right:16px;bottom:16px;width:36px;height:36px"><use href="#i-arrow"/></svg></a>
         </div>
       </div></section>
@@ -513,6 +518,11 @@
       </div></section>`;
   }
 
+  // Фото для плитки категории: самый недорогой товар «главной» линейки.
+  function catPhoto(c) {
+    return pickCheapest(c.hero) || PRODUCTS.find((p) => p.cat === c.id && p.img);
+  }
+
   const perk = (ico, title, text) => `<div class="perk card"><span class="perk__ico">${icon(ico)}</span><div><b>${title}</b><span>${text}</span></div></div>`;
 
   function mapFrame() {
@@ -543,12 +553,11 @@
   function faq() {
     const qa = [
       ["Как оформить заказ?", `Добавьте товары в корзину и нажмите «Отправить заказ в Telegram» — откроется чат с менеджером @${esc(ORDER_USER)} с готовым текстом заказа. Можно и просто написать менеджеру, какая модель нужна.`],
-      ["Цены на сайте актуальны?", `Цены взяты из прайса в нашем Telegram-канале${updatedText ? ` от ${updatedText}` : ""}. Наличие и стоимость могут меняться в течение дня, поэтому советуем сверить их у менеджера примерно за час до приезда.`],
-      ["Что значат eSIM, SIM + eSIM и 2 SIM у iPhone?", "eSIM — у модели нет слота под физическую SIM-карту, только электронные. SIM + eSIM — один слот nano-SIM и eSIM. 2 SIM — два слота под физические nano-SIM. Флаг рядом показывает страну, для которой выпущено устройство."],
-      ["Какая вилка у техники Dyson?", "Версии для Европы, Кореи и Таиланда идут с вилкой EU — подходят к нашим розеткам. Версии для Китая, Гонконга, Индии, Малайзии, Великобритании и Сингапура — с другой вилкой и переходником на наш стандарт. В карточке товара это указано."],
+      ["Цены на сайте актуальны?", `Цены обновляются автоматически каждый день${updatedText ? ` (последнее обновление — ${updatedText})` : ""}. Наличие и стоимость могут меняться в течение дня, поэтому менеджер подтвердит их перед покупкой.`],
+      ["Что значат eSIM и nano-SIM у iPhone?", "eSIM — у модели нет слота под физическую SIM-карту, только электронные. nano-SIM и eSIM — один слот под обычную SIM-карту и поддержка eSIM. Нужный вариант выбирается на странице товара — у них разная цена."],
+      ["Цена «от» — что это значит?", "У товара несколько вариантов (например, версии SIM или комплектации), и показана цена самого доступного. Точную цену нужного варианта назовёт менеджер."],
       ["Какая гарантия?", `12 месяцев — на устройства Apple (если не указано иное), 14 дней — на аксессуары и технику других брендов. На чехлы, плёнки и стёкла гарантия не действует, кроме явного брака при продаже. <a href="#/warranty" style="color:var(--brand);font-weight:700">Все условия</a>`],
       ["Отправляете в другие города?", "Да, через СДЭК, Boxberry и Яндекс.Доставку — только по 100% предоплате. По Москве доставляет наш курьер: в пределах ТТК и МКАД — от 500 ₽, за МКАД — от 1 000 ₽."],
-      ["Что значит «На подвозе»?", "Так отмечены позиции со значком 🚕 в прайсе канала: товар везут на точку. Уточните у менеджера, когда он будет в павильоне или у курьера."],
     ];
     return `<div class="faq">${qa.map(([q, a], i) => `<details${i === 0 ? " open" : ""}><summary>${q}${icon("chev")}</summary><p>${a}</p></details>`).join("")}</div>`;
   }
@@ -593,8 +602,8 @@
     renderCatalog(true);
   }
 
-  // Версия для фильтра: тип SIM у iPhone, вилка у Dyson.
-  const verFacet = (p) => (p.sim ? SIM_SHORT[p.sim] : p.plug ? (p.plug.startsWith("EU") ? "Вилка EU" : "С переходником") : null);
+  // Версия для фильтра: SIM у смартфонов, комплектация и т. п.
+  const verFacet = (p) => (p.ver ? shortVer(p.ver) : null);
 
   function renderCatalog(partial) {
     const st = catalogState();
@@ -644,7 +653,7 @@
     }
     if (brands.size > 1 || st.brand.length) groups.push(`<div class="fgroup"><h4>Бренд</h4><div class="fopts">${opts("brand", brands, st.brand, (a, b) => b[1] - a[1])}</div></div>`);
     if (mems.size > 1 || st.mem.length) groups.push(`<div class="fgroup"><h4>${MEM_LABEL[cat] || "Память"}</h4><div class="fopts">${opts("mem", mems, st.mem, (a, b) => memValue(a[0]) - memValue(b[0]))}</div></div>`);
-    if (vers.size > 1 || st.ver.length) groups.push(`<div class="fgroup"><h4>${cat === "dyson" ? "Вилка" : "SIM-карта"}</h4><div class="fopts">${opts("ver", vers, st.ver)}</div></div>`);
+    if ((vers.size > 1 && vers.size <= 16) || st.ver.length) groups.push(`<div class="fgroup"><h4>${/iphone|samsung|android/.test(cat) ? "SIM-карта и версия" : "Версия"}</h4><div class="fopts">${opts("ver", vers, st.ver, (a, b) => b[1] - a[1])}</div></div>`);
     if (fams.size > 1 || st.fam.length) groups.push(`<div class="fgroup"><h4>Цвет</h4><div class="fopts">${opts("color", fams, st.fam, (a, b) => b[1] - a[1], (v) => `<i class="swatch" style="background:${FAMILIES[v][1]}"></i>${FAMILIES[v][0]}`)}</div></div>`);
 
     const activeChips = [];
@@ -697,11 +706,11 @@
         <section class="cat-hero${banner ? "" : " cat-hero--plain"}">
           <div>
             <h1>${esc(heading)}</h1>
-            <p>${c ? esc(c.desc) : st.text ? `${inCat.length} ${plural(inCat.length, "товар", "товара", "товаров")} по вашему запросу` : "Вся техника из прайса OctoStore: смартфоны, ноутбуки, гаджеты, Dyson, консоли и аксессуары."}</p>
+            <p>${c ? esc(c.desc) : st.text ? `${inCat.length} ${plural(inCat.length, "товар", "товара", "товаров")} по вашему запросу` : "Вся техника OctoStore: смартфоны, ноутбуки, планшеты, часы, аудио, консоли, Dyson, гаджеты и аксессуары."}</p>
             <div class="cat-hero__meta">
               <span class="chip">${inCat.length} ${plural(inCat.length, "позиция", "позиции", "позиций")}</span>
               ${m < Infinity ? `<span class="chip">от ${rub(m)}</span>` : ""}
-              ${updatedShort ? `<span class="chip">прайс от ${updatedShort}</span>` : ""}
+              ${updatedShort ? `<span class="chip">цены на ${updatedShort}</span>` : ""}
             </div>
           </div>
           ${banner ? `<img src="assets/img/${banner}" alt="${esc(c.title)} в OctoStore" width="800" height="342">` : ""}
@@ -731,9 +740,9 @@
   function variants(p) {
     const sib = siblingsOf(p);
     const dims = [
-      ["_cfg", { iphone: "Память", samsung: "Память", mac: "Конфигурация", tablets: "Связь и память", watch: "Размер и ремешок", dyson: "Модель" }[p.cat] || "Модель"],
+      ["_cfg", { iphone: "Память", samsung: "Память", android: "Память", mac: "Конфигурация", tablets: "Конфигурация", watch: "Размер и ремешок" }[p.cat] || "Модель"],
       ["color", "Цвет"],
-      ["_ver", { dyson: "Версия", iphone: "SIM и регион", samsung: "Версия" }[p.cat] || "Версия"],
+      ["_ver", { iphone: "SIM-карта", samsung: "SIM-карта и версия", android: "Версия" }[p.cat] || "Вариант"],
     ];
     const order = (key, vals) => (key === "_cfg" ? vals.sort((a, b) => cfgValue(a) - cfgValue(b) || a.localeCompare(b, "ru")) : vals);
     return dims.map(([key, label]) => {
@@ -744,7 +753,7 @@
         const exact = sib.find((x) => x[key] === v && others.every((k) => x[k] === p[k]));
         const target = exact || sib.filter((x) => x[key] === v).sort((a, b) => others.reduce((s, k) => s + (b[k] === p[k]) - (a[k] === p[k]), 0) || (a.price ?? 1e12) - (b.price ?? 1e12))[0];
         const on = p[key] === v;
-        const sw = key === "color" ? ART.resolve(v) : null;
+        const sw = key === "color" ? ART.resolve(target.colorEn) || ART.resolve(v) : null;
         return `<a class="vopt${sw ? " vopt--color" : ""}${on ? " is-on" : ""}${!exact && !on ? " is-off" : ""}" href="#/product/${encodeURIComponent(target.id)}" aria-current="${on}">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(v)}${target.price != null && !on && key !== "color" ? ` <small>${rub(target.price)}</small>` : ""}</a>`;
       });
       return `<div class="variant"><div class="variant__label">${label}: <b>${esc(p[key])}</b></div><div class="variant__opts">${btns.join("")}</div></div>`;
@@ -752,22 +761,18 @@
   }
 
   function warrantyFact(p) {
-    if (p.kind === "glass" || p.kind === "case") return ["Гарантия", "не действует, кроме брака при продаже"];
+    if (/стекл|чехол|чехл|плёнк|пленк|накладк/i.test(p.name)) return ["Гарантия", "не действует, кроме брака при продаже"];
     if (p.brand === "Apple" && p.cat !== "accessories") return ["Гарантия 12 месяцев", "на устройства Apple"];
     return ["Гарантия 14 дней", "на аксессуары и технику других брендов"];
   }
 
+  const specRows = (rows) => rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("");
+
   function renderProduct(p) {
     const c = CAT[p.cat];
-    const specs = [["Категория", c.title], ["Линейка", p.sub]];
-    if (p.brand) specs.push(["Бренд", p.brand]);
-    for (const [k, v] of p.specs) if (!specs.some((s) => s[0] === k || s[1] === v)) specs.push([k, v]);
-    if (p.sim && !specs.some((s) => s[0] === "SIM")) specs.push(["SIM", p.sim]);
-    if (p.region && p.cat !== "dyson") specs.push(["Регион поставки", p.region.map((r) => `${flag(r)} ${REGION_NAMES[r] || r}`).join(", ")]);
-    if (p.transit) specs.push(["Наличие", "🚕 На подвозе — уточняйте срок"]);
-    if (p.stock === 1) specs.push(["Наличие", "Последний экземпляр"]);
+    const basic = [["Категория", c.title], ["Линейка", p.sub], ["Бренд", p.brand], [p.cat === "watch" ? "Размер корпуса" : "Память", p.mem], ["Цвет", p.color], ["Вариант", p.ver]].filter((r) => r[1]);
     const [wTitle, wText] = warrantyFact(p);
-    const similar = PRODUCTS.filter((x) => x.cat === p.cat && x.id !== p.id && x.sub !== p.sub && x.price != null)
+    const similar = PRODUCTS.filter((x) => x.cat === p.cat && x.id !== p.id && x.sub !== p.sub && x.price != null && x.img)
       .sort((a, b) => Math.abs((a.price || 0) - (p.price || 0)) - Math.abs((b.price || 0) - (p.price || 0)));
     const seenSub = new Set();
     const rail = similar.filter((x) => (seenSub.has(x.sub) ? false : seenSub.add(x.sub))).slice(0, 10);
@@ -778,17 +783,17 @@
         ${crumbs([["#/catalog", "Каталог"], [catHref(p.cat), c.title], [catHref(p.cat, p.sub), p.sub]])}
         <div class="product">
           <div class="gallery">
-            <div class="gallery__main" style="${tileBg(p)}"><span class="pcard__badges">${badges(p)}</span>${ART.art(p, { label: p.name })}</div>
-            <p class="gallery__note">${icon("info")}Иллюстрация. Внешний вид и комплектацию уточняйте у менеджера.</p>
+            <div class="gallery__main${p.img ? " gallery__main--photo" : ""}" style="${mediaStyle(p)}" id="gMain">${photo(p, { label: p.name, eager: true })}</div>
+            <div class="gallery__thumbs" id="gThumbs" hidden></div>
           </div>
           <div class="pinfo">
             <div class="pinfo__brand">${esc(p.brand || c.title)} · ${esc(p.sub)}</div>
             <h1>${esc(p.name)}</h1>
-            <div class="chips">${chips(p)}</div>
+            <div class="chips">${chips(p)}${p.ver ? `<span class="chip">${esc(shortVer(p.ver))}</span>` : ""}</div>
             ${variants(p)}
             <div class="buybox card">
-              <div class="buybox__price">${priceHtml(p)}${p.price != null ? `<span class="muted" style="font-size:14px">цена по прайсу${updatedShort ? " от " + updatedShort : ""}</span>` : ""}</div>
-              <p class="buybox__note">${icon("info")}Наличие и стоимость могут меняться в течение дня — менеджер подтвердит их перед покупкой.</p>
+              <div class="buybox__price">${priceHtml(p)}${updatedShort ? `<span class="muted" style="font-size:14px">цена на ${updatedShort}</span>` : ""}</div>
+              <p class="buybox__note">${icon("info")}${p.from ? "Цена указана за самый доступный вариант. " : ""}Наличие и стоимость могут меняться — менеджер подтвердит их перед покупкой.</p>
               <div class="buybox__actions">
                 ${buy(p, "lg")}
                 <a class="btn btn--tg" href="${tgLink(askText(p))}" target="_blank" rel="noopener">${icon("telegram")}Купить в 1 клик</a>
@@ -802,13 +807,49 @@
             </div>
             <div class="ptabs card">
               <h2>Характеристики</h2>
-              <table class="specs"><tbody>${specs.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</tbody></table>
+              <div id="specs"><table class="specs"><tbody>${specRows(basic)}</tbody></table></div>
+              <div id="equip"></div>
             </div>
           </div>
         </div>
         ${sameLine.length ? `<section class="section"><div class="section__head"><h2 class="section__title">Ещё в линейке ${esc(p.sub)}</h2><a class="link-more" href="${catHref(p.cat, p.sub)}">Все ${sameLine.length + 1}${icon("chev")}</a></div><div class="rail">${sameLine.slice(0, 12).map(card).join("")}</div></section>` : ""}
         ${rail.length ? `<section class="section" style="padding-top:0"><div class="section__head"><h2 class="section__title">Похожие товары</h2><a class="link-more" href="${catHref(p.cat)}">${esc(c.title)}${icon("chev")}</a></div><div class="rail">${rail.map(card).join("")}</div></section>` : ""}
       </div>`;
+    if (p.d) loadDetail(p, basic);
+  }
+
+  // Характеристики, комплектация и галерея — из отдельного файла товара.
+  async function loadDetail(p, basic) {
+    let d;
+    try {
+      const r = await fetch(`assets/data/p/${encodeURIComponent(p.d)}.json`);
+      if (!r.ok) return;
+      d = await r.json();
+    } catch (e) { return; }
+    if (route.p !== p) return;
+    if (d.specs && d.specs.length) {
+      const rows = d.specs.reduce((n, [, r]) => n + r.length, 0);
+      $("#specs").innerHTML = `<div class="specs-wrap${rows > 14 ? " is-collapsed" : ""}">
+        <table class="specs"><tbody>${specRows(basic.slice(0, 2))}</tbody></table>
+        ${d.specs.map(([g, r]) => `<h3 class="specs__group">${esc(g)}</h3><table class="specs"><tbody>${specRows(r)}</tbody></table>`).join("")}
+      </div>${rows > 14 ? `<button type="button" class="btn btn--ghost btn--sm" data-specs-toggle style="margin-top:12px">Все характеристики</button>` : ""}`;
+    }
+    if (d.equipment && d.equipment.length) {
+      $("#equip").innerHTML = `<h2 style="margin-top:22px">Комплектация</h2><ul class="equip">${d.equipment.map((e) => `<li>${icon("check")}${esc(e)}</li>`).join("")}</ul>`;
+    }
+    const gal = (d.gallery || []).slice(0, 8);
+    if (p.img && gal.length > 1) {
+      const thumbs = $("#gThumbs");
+      thumbs.innerHTML = gal.map((g, i) => `<button type="button" class="gthumb${i ? "" : " is-on"}" data-gal="${i}" aria-label="Фото ${i + 1}"><img src="${i ? cdn(g, 136) : imgSrc(p)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></button>`).join("");
+      thumbs.hidden = false;
+      thumbs.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-gal]");
+        if (!b) return;
+        const i = +b.dataset.gal;
+        $$(".gthumb", thumbs).forEach((x) => x.classList.toggle("is-on", x === b));
+        $("#gMain").innerHTML = i ? `<img class="photo" src="${cdn(gal[i], 870)}" alt="${esc(p.name)}" referrerpolicy="no-referrer">` : photo(p, { label: p.name });
+      });
+    }
   }
 
   // ------------------------------------------------------------------
@@ -826,7 +867,7 @@
     const form = store.get("octo-checkout", { delivery: "pickup" });
     if (!items.length) {
       app.innerHTML = `<div class="wrap">${crumbs([[null, "Корзина"]])}<h1 class="page-title">Корзина</h1>
-        <div class="empty card">${ART.art({ kind: "accessory", color: "Lavender" })}<h3>В корзине пока пусто</h3><p>Загляните в каталог — там ${PRODUCTS.length} позиций по актуальному прайсу.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}Перейти в каталог</a></div></div>`;
+        <div class="empty card">${ART.art({ kind: "accessory", color: "Lavender" })}<h3>В корзине пока пусто</h3><p>Загляните в каталог — там ${PRODUCTS.length.toLocaleString("ru-RU")} ${plural(PRODUCTS.length, "товар", "товара", "товаров")}.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}Перейти в каталог</a></div></div>`;
       return;
     }
     const sum = cartSum();
@@ -841,18 +882,18 @@
           <div style="display:grid;gap:14px">
             <div class="card">${items.map(({ p, qty }) => `
               <div class="citem">
-                <a class="citem__media" href="#/product/${encodeURIComponent(p.id)}" style="${tileBg(p)}">${ART.art(p)}</a>
+                <a class="citem__media" href="#/product/${encodeURIComponent(p.id)}" style="${mediaStyle(p)}">${photo(p)}</a>
                 <div>
                   <a class="citem__name" href="#/product/${encodeURIComponent(p.id)}">${esc(p.name)}</a>
-                  <div class="citem__meta">${chips(p)}${p.region && p.cat !== "dyson" ? `<span class="chip">${p.region.map(flag).join(" ")}</span>` : ""}${p.transit ? `<span class="chip" style="color:var(--warn)">🚕 на подвозе</span>` : ""}</div>
+                  <div class="citem__meta">${chips(p)}${p.ver ? `<span class="chip">${esc(shortVer(p.ver))}</span>` : ""}</div>
                 </div>
                 <div class="citem__side">
-                  <span class="price">${rub(p.price * qty)}</span>
+                  <span class="price">${p.from ? "<small>от</small> " : ""}${rub(p.price * qty)}</span>
                   <div style="display:flex;gap:6px;align-items:center">${buy(p)}<button type="button" class="icon-btn" data-remove="${esc(p.id)}" aria-label="Удалить ${esc(p.name)}">${icon("trash")}</button></div>
                 </div>
               </div>`).join("")}
             </div>
-            <div class="notice notice--info">${icon("info")}<div>Цены указаны по прайсу${updatedText ? ` от ${updatedText}` : ""}. Менеджер подтвердит наличие и итоговую стоимость в Telegram — заказ ни к чему не обязывает.</div></div>
+            <div class="notice notice--info">${icon("info")}<div>Цены указаны${updatedText ? ` на ${updatedText}` : ""}. Менеджер подтвердит наличие и итоговую стоимость в Telegram — заказ ни к чему не обязывает.</div></div>
           </div>
           <form class="checkout card" id="checkoutForm" novalidate>
             <h2>Оформление</h2>
@@ -893,7 +934,7 @@
   }
 
   function orderText(form) {
-    const lines = cartItems().map(({ p, qty }, i) => `${i + 1}. ${productLine(p)} — ${qty} шт. × ${rub(p.price)}`);
+    const lines = cartItems().map(({ p, qty }, i) => `${i + 1}. ${productLine(p)} — ${qty} шт. × ${p.from ? "от " : ""}${rub(p.price)}`);
     const d = DELIVERY.find((x) => x[0] === form.delivery) || DELIVERY[0];
     return [
       "Здравствуйте! Хочу оформить заказ на сайте OctoStore:",
@@ -1040,9 +1081,8 @@
         ${hoursCard()}
         <div class="contact-card card"><h3>Мы на связи</h3>
           <div class="contact-row">${icon("telegram")}<div><b><a href="${ORDER_URL}" target="_blank" rel="noopener">@${esc(ORDER_USER)}</a></b><span>Заказы и консультации</span></div></div>
-          <div class="contact-row">${icon("telegram")}<div><b><a href="${CHANNEL_URL}" target="_blank" rel="noopener">@${esc(CHANNEL_URL.split("/").pop())}</a></b><span>Канал с прайсом и новинками</span></div></div>
-          <div class="contact-row">${icon("instagram")}<div><b><a href="${esc(SOCIALS.instagram || "https://www.instagram.com/octostore46")}" target="_blank" rel="noopener">Instagram</a></b><span>@octostore46</span></div></div>
-          <div class="contact-row">${icon("tiktok")}<div><b><a href="${esc(SOCIALS.tiktok || "https://www.tiktok.com/@octostore46")}" target="_blank" rel="noopener">TikTok</a></b><span>@octostore46</span></div></div>
+          <div class="contact-row">${icon("instagram")}<div><b><a href="${SOCIALS.instagram}" target="_blank" rel="noopener">Instagram</a></b><span>@octostore46</span></div></div>
+          <div class="contact-row">${icon("tiktok")}<div><b><a href="${SOCIALS.tiktok}" target="_blank" rel="noopener">TikTok</a></b><span>@octostore46</span></div></div>
           <a class="btn btn--tg btn--block" style="margin-top:10px" href="${ORDER_URL}" target="_blank" rel="noopener">${icon("telegram")}Написать менеджеру</a>
         </div>
       </aside></div></div>`,
@@ -1065,7 +1105,7 @@
   }
 
   document.addEventListener("click", async (e) => {
-    const t = e.target.closest("[data-add],[data-inc],[data-dec],[data-remove],[data-f],[data-unf],[data-reset],[data-more],[data-open-filters],[data-close-filters],[data-copy-order]");
+    const t = e.target.closest("[data-add],[data-inc],[data-dec],[data-remove],[data-f],[data-unf],[data-reset],[data-more],[data-open-filters],[data-close-filters],[data-copy-order],[data-specs-toggle]");
     if (!t) return;
     if (t.dataset.add) {
       setQty(t.dataset.add, 1);
@@ -1096,7 +1136,11 @@
       document.body.appendChild(bd);
       document.body.style.overflow = "hidden";
     } else if (t.hasAttribute("data-close-filters")) closeFilters();
-    else if (t.hasAttribute("data-copy-order")) {
+    else if (t.hasAttribute("data-specs-toggle")) {
+      const w = $(".specs-wrap");
+      w.classList.toggle("is-collapsed");
+      t.textContent = w.classList.contains("is-collapsed") ? "Все характеристики" : "Свернуть";
+    } else if (t.hasAttribute("data-copy-order")) {
       const ok = await copy(orderText(readForm()));
       toast(ok ? `${icon("check")}Текст заказа скопирован` : "Не удалось скопировать — выделите текст вручную");
     }
