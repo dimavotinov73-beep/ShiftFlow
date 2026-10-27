@@ -1,5 +1,5 @@
 diff --git a/launcher/app/build.gradle b/launcher/app/build.gradle
-index 3ceec7b..16666f5 100644
+index 3ceec7b..37b2428 100644
 --- a/launcher/app/build.gradle
 +++ b/launcher/app/build.gradle
 @@ -11,8 +11,8 @@ android {
@@ -8,39 +8,70 @@ index 3ceec7b..16666f5 100644
          targetSdk 34
 -        versionCode 9
 -        versionName '3.0'
-+        versionCode 11
-+        versionName '3.0-sber2'
++        versionCode 12
++        versionName '3.0-sber3'
      }
  
      buildTypes {
-@@ -43,6 +43,10 @@ android {
+@@ -30,7 +30,8 @@ android {
+         resources {
+             // Kotlin metadata pulled in by AndroidX's dependencies. This launcher is plain Java and never reads it;
+             // leaving it out saves about 14 KB of every install.
+-            excludes += ['kotlin/**', 'META-INF/*.version', 'META-INF/*.kotlin_module', 'DebugProbesKt.bin']
++            // kotlin/*.kotlin_builtins stay: the Anthropic SDK (Jarvis) reads them through Kotlin reflection at run time.
++            excludes += ['META-INF/*.version', 'META-INF/*.kotlin_module', 'DebugProbesKt.bin']
+         }
+     }
+ 
+@@ -43,6 +44,13 @@ android {
  dependencies {
      implementation 'androidx.recyclerview:recyclerview:1.3.2'
      implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 +    // The QR code in Launcher settings that takes the phone to PhoneLink's page (encoder only; R8 drops the rest).
 +    implementation 'com.google.zxing:core:3.5.3'
++    // Jarvis, the voice assistant on the remote's assistant button: Claude through the official Java SDK. R8 keeps what it
++    // needs with the rules the SDK ships in its jar (META-INF/proguard).
++    implementation 'com.anthropic:anthropic-java:3.3.0'
      // Test only (never in the APK): plain JVM tests for the module card validators, src/test.
      testImplementation 'junit:junit:4.13.2'
 +    // The real org.json for HeaderExtrasTest and WeatherTest: android.jar's is a stub in JVM tests.
 +    testImplementation 'org.json:json:20240303'
  }
+diff --git a/launcher/app/proguard-rules.pro b/launcher/app/proguard-rules.pro
+index 7bb3d36..0b1faec 100644
+--- a/launcher/app/proguard-rules.pro
++++ b/launcher/app/proguard-rules.pro
+@@ -2,3 +2,8 @@
+ # AndroidX code, not from renaming, and readable stack traces matter more in a sideloaded app
+ # where crash reports arrive as screenshots.
+ -dontobfuscate
++
++# The Anthropic SDK (Jarvis) pulls in the OpenTelemetry API, whose classes carry AutoValue's compile-time-only
++# annotation; nothing reads it at run time.
++-dontwarn com.google.auto.value.AutoValue
++-dontwarn com.google.auto.value.AutoValue$CopyAnnotations
 diff --git a/launcher/app/src/main/AndroidManifest.xml b/launcher/app/src/main/AndroidManifest.xml
-index 701b5fe..07d8982 100644
+index 701b5fe..b062ee6 100644
 --- a/launcher/app/src/main/AndroidManifest.xml
 +++ b/launcher/app/src/main/AndroidManifest.xml
-@@ -21,6 +21,11 @@
+@@ -21,6 +21,16 @@
      <!-- YaOS (Yandex TV OS): HDMI, AV and the tuner all play in com.yandex.tv.live, whose activities require
           this permission (protection level normal, so it is granted at install). Ignored on other TVs. -->
      <uses-permission android:name="yandex.tv.permission.ACCESS_TV_SOURCE" />
 +    <!-- The weather line (weather_lat / weather_lon in a theme): one small request to api.open-meteo.com every half
 +         hour, and only while a theme turns the line on. -->
 +    <uses-permission android:name="android.permission.INTERNET" />
++    <!-- Jarvis, the voice assistant on the remote's assistant button: the microphone, only while his overlay is
++         listening (protection level dangerous, granted with pm grant by sber-tv.sh jarvis). -->
++    <uses-permission android:name="android.permission.RECORD_AUDIO" />
++    <!-- Not every TV has a microphone; without one Jarvis says so and the rest of the launcher is unchanged. -->
++    <uses-feature android:name="android.hardware.microphone" android:required="false" />
 +    <!-- vpn_toggle with WireGuard: its tunnel switch requires this (protection level dangerous, granted with pm grant). -->
 +    <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS" />
  
      <!-- Android 11+ package visibility: lets the launcher list the TV apps it shows as tiles, and the
           apps that declare a module card (docs/specs/card.md). -->
-@@ -68,6 +73,15 @@
+@@ -68,6 +78,15 @@
          <!-- Coocaa OS sources for the Inputs menu (coocaa_sources); see CoocaaSources. -->
          <provider android:authorities="com.skyworth.tv.provider" />
          <provider android:authorities="com.skyworth.tv.sdk.provider" />
@@ -56,6 +87,26 @@ index 701b5fe..07d8982 100644
      </queries>
  
      <application
+@@ -99,6 +118,19 @@
+             </intent-filter>
+         </activity>
+ 
++        <!-- Jarvis over whatever is playing; its own task, so the app behind stays put. Started by the remote's assistant
++             button (InputKeyService, same app) and by sber-tv.sh's voice check over adb, which holds
++             WRITE_SECURE_SETTINGS; other apps cannot start it. No screenOrientation: a translucent activity may not
++             request one on Android 8.0. -->
++        <activity
++            android:name=".JarvisActivity"
++            android:exported="true"
++            android:permission="android.permission.WRITE_SECURE_SETTINGS"
++            android:launchMode="singleTask"
++            android:taskAffinity=""
++            android:excludeFromRecents="true"
++            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
++
+         <activity
+             android:name=".LauncherSettingsActivity"
+             android:exported="false"
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/AppAdapter.java b/launcher/app/src/main/java/com/gathin/tvhome/AppAdapter.java
 index 3632d74..55898c0 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/AppAdapter.java
@@ -485,6 +536,226 @@ index e62db46..de96a32 100644
      private static final class Row extends RecyclerView.ViewHolder {
          Row(View view) { super(view); }
      }
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/AppMatch.java b/launcher/app/src/main/java/com/gathin/tvhome/AppMatch.java
+new file mode 100644
+index 0000000..4ec7dda
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/AppMatch.java
+@@ -0,0 +1,66 @@
++package com.gathin.tvhome;
++
++import java.util.Collection;
++import java.util.Locale;
++
++/** Which installed app a spoken or typed name means: exact, then contained, then the closest spelling. */
++final class AppMatch {
++
++    private AppMatch() {
++    }
++
++    /** The label in labels that name means, or null when none is close enough. */
++    static String best(String name, Collection<String> labels) {
++        String want = normalize(name);
++        if (want.isEmpty()) return null;
++        for (String l : labels) if (normalize(l).equals(want)) return l;
++        String contained = null;
++        for (String l : labels) {
++            String have = normalize(l);
++            if (have.isEmpty()) continue;
++            // "кинопоиск" in "Кинопоиск: фильмы", or "youtube" for "YouTube for Android TV": the shortest such label.
++            if ((have.contains(want) || want.contains(have)) && (contained == null || l.length() < contained.length())) {
++                contained = l;
++            }
++        }
++        if (contained != null) return contained;
++        String closest = null;
++        double bestScore = 0;
++        for (String l : labels) {
++            String have = normalize(l);
++            int longer = Math.max(have.length(), want.length());
++            if (longer == 0) continue;
++            double score = 1.0 - (double) distance(have, want) / longer;
++            if (score > bestScore) {
++                bestScore = score;
++                closest = l;
++            }
++        }
++        return bestScore >= 0.7 ? closest : null;
++    }
++
++    /** Lower case, ё as е, letters and digits only. */
++    static String normalize(String s) {
++        StringBuilder out = new StringBuilder();
++        for (char c : s.toLowerCase(new Locale("ru")).replace('ё', 'е').toCharArray()) {
++            if (Character.isLetterOrDigit(c)) out.append(c);
++        }
++        return out.toString();
++    }
++
++    private static int distance(String a, String b) {
++        int[] prev = new int[b.length() + 1], cur = new int[b.length() + 1];
++        for (int j = 0; j <= b.length(); j++) prev[j] = j;
++        for (int i = 1; i <= a.length(); i++) {
++            cur[0] = i;
++            for (int j = 1; j <= b.length(); j++) {
++                int cost = a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1;
++                cur[j] = Math.min(Math.min(cur[j - 1] + 1, prev[j] + 1), prev[j - 1] + cost);
++            }
++            int[] t = prev;
++            prev = cur;
++            cur = t;
++        }
++        return prev[b.length()];
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/ArcReactorView.java b/launcher/app/src/main/java/com/gathin/tvhome/ArcReactorView.java
+new file mode 100644
+index 0000000..2fbd043
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/ArcReactorView.java
+@@ -0,0 +1,142 @@
++package com.gathin.tvhome;
++
++import android.content.Context;
++import android.graphics.Canvas;
++import android.graphics.Matrix;
++import android.graphics.Paint;
++import android.graphics.RadialGradient;
++import android.graphics.RectF;
++import android.graphics.Shader;
++import android.os.SystemClock;
++import android.view.View;
++
++/**
++ * Jarvis on screen: a HUD ring in the films' cyan. Rings of segments turn at their own speeds; the core swells with the
++ * voice, the owner's while listening and Jarvis's own while he speaks. Thinking spins it faster; trouble turns it red.
++ * Drawn from a few arcs and two gradients made once per size and colour: no bitmaps, no blur, cheap on a TV's GPU.
++ */
++final class ArcReactorView extends View {
++
++    static final int IDLE = 0, LISTENING = 1, THINKING = 2, SPEAKING = 3, ERROR = 4;
++    private static final int CYAN = 0x4FD8FF, RED = 0xFF6B5A;
++
++    private final Paint stroke = new Paint(Paint.ANTI_ALIAS_FLAG);
++    private final Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
++    private final RectF oval = new RectF();
++    private final Matrix coreScale = new Matrix();
++    /** The glow and the core at full size, for the current colour; null until laid out or after the colour changes. */
++    private RadialGradient glow, core;
++    private final float density;
++    private int state = IDLE;
++    /** 0..1, eased towards the latest level so the core breathes instead of flickering. */
++    private float level, target;
++    private float spin1, spin2, spin3;
++    private long lastFrame;
++    private int rgb = CYAN;
++
++    ArcReactorView(Context ctx) {
++        super(ctx);
++        density = ctx.getResources().getDisplayMetrics().density;
++        stroke.setStyle(Paint.Style.STROKE);
++        stroke.setStrokeCap(Paint.Cap.BUTT);
++    }
++
++    void setState(int state) {
++        this.state = state;
++        int now = state == ERROR ? RED : CYAN;
++        if (now != rgb) glow = core = null;
++        rgb = now;
++        if (state == THINKING || state == IDLE || state == ERROR) target = 0;
++        invalidate();
++    }
++
++    /** From any thread. */
++    void setLevel(float level) {
++        target = Math.max(0f, Math.min(1f, level));
++    }
++
++    @Override
++    protected void onAttachedToWindow() {
++        super.onAttachedToWindow();
++        lastFrame = SystemClock.uptimeMillis();
++    }
++
++    @Override
++    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
++        glow = core = null;
++    }
++
++    @Override
++    protected void onDraw(Canvas c) {
++        long now = SystemClock.uptimeMillis();
++        float dt = Math.min(0.05f, (now - lastFrame) / 1000f);
++        lastFrame = now;
++        float speed = state == THINKING ? 3.2f : state == IDLE || state == ERROR ? 0.4f : 1f;
++        spin1 = (spin1 + 40 * speed * dt) % 360;
++        spin2 = (spin2 - 25 * speed * dt + 360) % 360;
++        spin3 = (spin3 + 70 * speed * dt) % 360;
++        level += (target - level) * Math.min(1f, dt * 14);
++        if (state == THINKING) level = 0.18f + 0.12f * (float) Math.sin(now / 160.0);
++
++        float cx = getWidth() / 2f, cy = getHeight() / 2f;
++        float r = Math.min(cx, cy) * 0.62f;
++        if (glow == null) {
++            glow = new RadialGradient(cx, cy, r * 1.6f, new int[]{argb(0x55, rgb), argb(0x18, rgb), 0},
++                    new float[]{0f, 0.55f, 1f}, Shader.TileMode.CLAMP);
++            core = new RadialGradient(cx, cy, r, new int[]{0xFFFFFFFF, argb(0xFF, rgb), argb(0x00, rgb)},
++                    new float[]{0f, 0.45f, 1f}, Shader.TileMode.CLAMP);
++        }
++
++        // Glow behind it all.
++        fill.setShader(glow);
++        c.drawCircle(cx, cy, r * 1.6f, fill);
++
++        // Outer hairline and a ring of ticks.
++        stroke.setStrokeWidth(1.5f * density);
++        stroke.setColor(argb(0x99, rgb));
++        c.drawCircle(cx, cy, r * 1.18f, stroke);
++        stroke.setStrokeWidth(2f * density);
++        for (int i = 0; i < 60; i++) {
++            double a = Math.toRadians(i * 6 + spin2);
++            float in = i % 5 == 0 ? r * 1.04f : r * 1.08f;
++            c.drawLine(cx + (float) Math.cos(a) * in, cy + (float) Math.sin(a) * in,
++                    cx + (float) Math.cos(a) * r * 1.13f, cy + (float) Math.sin(a) * r * 1.13f, stroke);
++        }
++
++        // Three long arcs, turning one way.
++        stroke.setStrokeWidth(3f * density);
++        stroke.setColor(argb(0xDD, rgb));
++        arc(c, cx, cy, r * 0.96f, spin1, 95);
++        arc(c, cx, cy, r * 0.96f, spin1 + 140, 60);
++        arc(c, cx, cy, r * 0.96f, spin1 + 230, 80);
++
++        // A ring of segments, turning the other.
++        stroke.setStrokeWidth(7f * density);
++        stroke.setColor(argb(0xB0, rgb));
++        for (int i = 0; i < 10; i++) arc(c, cx, cy, r * 0.78f, spin2 + i * 36, 22);
++
++        // A fast inner arc pair.
++        stroke.setStrokeWidth(2f * density);
++        stroke.setColor(argb(0xEE, rgb));
++        arc(c, cx, cy, r * 0.6f, spin3, 120);
++        arc(c, cx, cy, r * 0.6f, spin3 + 180, 120);
++
++        // The core: white at the heart, the voice making it swell.
++        float scale = 0.34f + 0.22f * level;
++        coreScale.setScale(scale, scale, cx, cy);
++        core.setLocalMatrix(coreScale);
++        fill.setShader(core);
++        c.drawCircle(cx, cy, r * scale, fill);
++
++        if (isAttachedToWindow()) postInvalidateOnAnimation();
++    }
++
++    private void arc(Canvas c, float cx, float cy, float radius, float start, float sweep) {
++        oval.set(cx - radius, cy - radius, cx + radius, cy + radius);
++        c.drawArc(oval, start, sweep, false, stroke);
++    }
++
++    private static int argb(int alpha, int rgb) {
++        return alpha << 24 | rgb;
++    }
++}
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/Config.java b/launcher/app/src/main/java/com/gathin/tvhome/Config.java
 index 71356ff..24d0d71 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/Config.java
@@ -684,11 +955,1441 @@ index 4b8f574..40882cc 100644
          // gamepad_passthrough, off by default. Only with key_filter on: off, the service never filters keys.
          if (config.gamepadPassthrough && config.keyFilter && gamepads == null) {
              gamepads = new GamepadPassthrough(this);
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisActivity.java
+new file mode 100644
+index 0000000..0ffa8e6
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisActivity.java
+@@ -0,0 +1,443 @@
++package com.gathin.tvhome;
++
++import android.Manifest;
++import android.app.Activity;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.graphics.drawable.GradientDrawable;
++import android.media.AudioAttributes;
++import android.media.AudioFocusRequest;
++import android.media.AudioManager;
++import android.os.Bundle;
++import android.os.Handler;
++import android.os.Looper;
++import android.os.SystemClock;
++import android.text.TextUtils;
++import android.util.Log;
++import android.util.TypedValue;
++import android.view.Gravity;
++import android.view.KeyEvent;
++import android.view.View;
++import android.widget.FrameLayout;
++import android.widget.LinearLayout;
++import android.widget.TextView;
++
++import java.time.ZonedDateTime;
++import java.time.format.DateTimeFormatter;
++import java.util.List;
++import java.util.Locale;
++import java.util.concurrent.ExecutorService;
++import java.util.concurrent.Executors;
++
++/**
++ * Jarvis: the remote's assistant button (mapped by {@code sber-tv.sh jarvis}) opens this over whatever is playing.
++ * He chimes and listens; SpeechKit writes the phrase down; Claude answers, searching the web or using the TV's tools;
++ * SpeechKit speaks the answer in a calm male voice. The button again ends the listening early, or asks again; OK after
++ * an answer asks again; Back closes. When an answer opened an app, he steps aside once he has spoken.
++ */
++public final class JarvisActivity extends Activity {
++
++    private static final String TAG = "Jarvis";
++    /** Speak this instead of listening (the setup script's voice check). */
++    static final String EXTRA_SAY = "com.gathin.tvhome.extra.JARVIS_SAY";
++    private static final int IDLE = 0, LISTENING = 1, THINKING = 2, SPEAKING = 3, DONE = 4;
++    private static final long CLOSE_AFTER_MS = 9_000;
++
++    /** One conversation for the whole process: a follow-up question finds the last one. */
++    private static JarvisBrain brain;
++    private static String brainKey;
++
++    private final Handler main = new Handler(Looper.getMainLooper());
++    private final ExecutorService worker = Executors.newSingleThreadExecutor();
++    private final Runnable close = this::finish;
++    private JarvisConfig cfg;
++    private JarvisTools tools;
++    private JarvisMic mic;
++    private int state = IDLE;
++    /** Bumped by each new question: a reply or a sound from an earlier one, still arriving, is ignored. */
++    private int turn;
++    /** Back or Home: whatever is still on its way is dropped. */
++    private volatile boolean cancelled;
++    private AudioFocusRequest focus;
++
++    private ArcReactorView reactor;
++    private TextView status, heard, answer, hint;
++    private LinearLayout column;
++
++    @Override
++    protected void attachBaseContext(Context base) {
++        super.attachBaseContext(LauncherLocale.wrap(base));
++    }
++
++    @Override
++    protected void onCreate(Bundle saved) {
++        super.onCreate(saved);
++        cfg = JarvisConfig.load(this);
++        HeaderExtras extras = HeaderExtras.load(this);
++        Config config = Config.load(this);
++        String vpnApp = config.vpnApp.isEmpty() ? VpnControl.firstVpnApp(this) : config.vpnApp;
++        tools = new JarvisTools(this, vpnApp, extras.vpnTunnel);
++        buildViews();
++        handle(getIntent(), true);
++    }
++
++    @Override
++    protected void onNewIntent(Intent intent) {
++        super.onNewIntent(intent);
++        handle(intent, false);
++    }
++
++    /** First opening: listen. The button again: finish listening early, or listen anew. */
++    private void handle(Intent intent, boolean fresh) {
++        main.removeCallbacks(close);
++        String say = intent == null ? null : intent.getStringExtra(EXTRA_SAY);
++        if (say != null) {
++            turn++;
++            if (mic != null) mic.cancel();
++            mic = null;   // so the phrase it was waiting for is dropped (heardPhrase)
++            cancelled = false;
++            speak(say, true);
++            return;
++        }
++        if (fresh || state != LISTENING && state != THINKING) {
++            listen();
++        } else if (state == LISTENING && mic != null) {
++            mic.finish();
++        }
++    }
++
++    // ---- listening -------------------------------------------------------------------------------------
++
++    private void listen() {
++        turn++;
++        JarvisVoice.stop();
++        cancelled = false;
++        heard.setText("");
++        answer.setText("");
++        hint.setVisibility(View.INVISIBLE);
++        if (!cfg.ready()) {
++            trouble(getString(R.string.jarvis_no_keys));
++            return;
++        }
++        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
++            trouble(getString(R.string.jarvis_no_permission));
++            return;
++        }
++        setState(LISTENING);
++        holdAudioFocus();
++        JarvisMic m = new JarvisMic();
++        mic = m;
++        JarvisVoice.chime(null);
++        worker.execute(() -> {
++            SystemClock.sleep(260);   // the chime first, so it is not heard as the start of a phrase
++            JarvisMic.Heard h = m.listen(reactor::setLevel);
++            main.post(() -> heardPhrase(m, h));
++        });
++    }
++
++    private void heardPhrase(JarvisMic m, JarvisMic.Heard h) {
++        if (cancelled || m != mic) return;
++        if (h.error != null) {
++            Log.w(TAG, "microphone: " + h.error + "; inputs " + JarvisMic.inputs(this));
++            trouble(getString(R.string.jarvis_no_mic) + "\n" + getString(R.string.jarvis_inputs, inputsText()));
++            return;
++        }
++        if (!h.speech()) {
++            if (h.peak < 30) {
++                // Not even room noise: nothing reaches this app from that microphone.
++                Log.w(TAG, "silent microphone, peak " + h.peak + "; inputs " + JarvisMic.inputs(this));
++                trouble(getString(R.string.jarvis_silent) + "\n" + getString(R.string.jarvis_inputs, inputsText()));
++            } else {
++                speak(getString(R.string.jarvis_not_heard), false);
++            }
++            return;
++        }
++        think(h.pcm);
++    }
++
++    private String inputsText() {
++        List<String> inputs = JarvisMic.inputs(this);
++        return inputs.isEmpty() ? "—" : TextUtils.join(", ", inputs);
++    }
++
++    // ---- thinking ------------------------------------------------------------------------------------
++
++    private void think(byte[] pcm) {
++        setState(THINKING);
++        worker.execute(() -> {
++            String question;
++            try {
++                question = SpeechKit.recognize(cfg.yandexKey, pcm);
++            } catch (Exception e) {
++                Log.w(TAG, "recognition: " + e.getMessage());
++                main.post(() -> trouble(getString(R.string.jarvis_err_stt, e.getMessage())));
++                return;
++            }
++            if (question.isEmpty()) {
++                main.post(() -> speak(getString(R.string.jarvis_not_heard), false));
++                return;
++            }
++            main.post(() -> heard.setText(getString(R.string.jarvis_heard, question)));
++            ensureVpn();
++            String reply;
++            try {
++                reply = brain(cfg.anthropicKey).ask(question, systemPrompt(), tools);
++            } catch (JarvisBrain.Trouble t) {
++                Log.w(TAG, "claude: " + t.kind + " " + t.getMessage());
++                main.post(() -> speak(getString(troubleText(t.kind)), false));
++                return;
++            }
++            String text = reply.isEmpty() ? getString(R.string.jarvis_refused) : reply;
++            main.post(() -> speak(text, false));
++        });
++    }
++
++    /**
++     * Anthropic does not serve requests from Russia, so the question goes through the VPN: if it is down and the VPN app
++     * can be switched from here, switch it on and give it a few seconds. Runs on the worker.
++     */
++    private void ensureVpn() {
++        if (JarvisTools.vpnUp(this)) return;
++        String vpnApp = Config.load(this).vpnApp;
++        if (vpnApp.isEmpty()) vpnApp = VpnControl.firstVpnApp(this);
++        if (vpnApp.isEmpty() || !VpnControl.send(this, vpnApp, true, HeaderExtras.load(this).vpnTunnel)) return;
++        main.post(() -> status.setText(R.string.jarvis_vpn));
++        for (int i = 0; i < 20 && !JarvisTools.vpnUp(this); i++) SystemClock.sleep(500);
++        main.post(() -> {
++            if (state == THINKING) status.setText(R.string.jarvis_thinking);
++        });
++    }
++
++    private static synchronized JarvisBrain brain(String key) {
++        if (brain == null || !key.equals(brainKey)) {
++            brain = new JarvisBrain(key);
++            brainKey = key;
++        }
++        return brain;
++    }
++
++    private static int troubleText(JarvisBrain.Trouble.Kind kind) {
++        switch (kind) {
++            case KEY: return R.string.jarvis_err_key;
++            case REGION: return R.string.jarvis_err_region;
++            case BUSY: return R.string.jarvis_err_busy;
++            case NETWORK: return R.string.jarvis_err_network;
++            default: return R.string.jarvis_err_other;
++        }
++    }
++
++    private String systemPrompt() {
++        HeaderExtras place = HeaderExtras.load(this);
++        String now = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy, HH:mm", new Locale("ru")));
++        return "Ты — Джарвис, голосовой ИИ-ассистент в телевизоре своего владельца. Манера — как у Джарвиса из фильмов "
++                + "о Железном человеке: безупречно вежлив, невозмутим, с лёгкой британской иронией; обращаешься к "
++                + "пользователю «сэр». Отвечаешь по-русски.\n"
++                + "Твои ответы читает вслух синтезатор речи, поэтому: одно–три коротких предложения; без списков, "
++                + "разметки, эмодзи, ссылок и адресов сайтов; не называй источники; числа, даты и единицы пиши так, "
++                + "как их естественно произнести.\n"
++                + "Всё, что могло измениться — новости, курсы валют, погоду на другие дни и в других местах, "
++                + "расписания, результаты матчей, цены, — ищи в интернете (web_search), не отвечай по памяти. "
++                + "Просьбы что-то сделать с телевизором — открыть приложение, найти видео, громкость, VPN, источник "
++                + "сигнала — выполняй инструментами и коротко подтверждай сделанное.\n"
++                + "Сейчас " + now + " (Europe/Moscow). Дом владельца: "
++                + (place.weatherCity.isEmpty() ? "Московская область" : place.weatherCity + ", Московская область") + ".\n"
++                + "Установленные приложения: " + TextUtils.join(", ", tools.labels(80)) + ".";
++    }
++
++    // ---- speaking --------------------------------------------------------------------------------------
++
++    /** Shows the words and says them; closes afterwards when asked to, or when an answer opened an app. */
++    private void speak(String text, boolean closeAfter) {
++        if (cancelled) return;
++        int mine = turn;
++        String words = JarvisSpeech.clean(text);
++        answer.setText(words);
++        setState(THINKING);
++        status.setText("");
++        worker.execute(() -> {
++            byte[] pcm;
++            try {
++                pcm = SpeechKit.synthesize(cfg.yandexKey, words, cfg.voice, cfg.role, 1.0);
++            } catch (Exception e) {
++                Log.w(TAG, "synthesis: " + e.getMessage());
++                main.post(() -> {
++                    if (mine != turn) return;
++                    // Stays on screen even when asked to close after speaking: the words could not be heard.
++                    spoken(false);
++                    status.setText(getString(R.string.jarvis_err_tts, e.getMessage()));
++                    reactor.setState(ArcReactorView.ERROR);
++                });
++                return;
++            }
++            if (cancelled) return;
++            main.post(() -> {
++                if (mine != turn || cancelled) return;
++                if (!isDestroyed()) setState(SPEAKING);
++                JarvisVoice.play(pcm, cfg.effect, new JarvisVoice.Listener() {
++                    @Override
++                    public void level(float level) {
++                        reactor.setLevel(level);
++                    }
++
++                    @Override
++                    public void done() {
++                        // Also called when a new question cut this answer short: that one is not over.
++                        main.post(() -> {
++                            if (mine == turn) spoken(closeAfter);
++                        });
++                    }
++                });
++            });
++        });
++    }
++
++    private void spoken(boolean closeAfter) {
++        releaseAudioFocus();
++        if (isDestroyed() || isFinishing()) return;
++        if (closeAfter || tools.openedApp) {
++            finish();
++            return;
++        }
++        setState(DONE);
++        hint.setVisibility(View.VISIBLE);
++        main.postDelayed(close, CLOSE_AFTER_MS);
++    }
++
++    /** Something keeps Jarvis from working: shown in plain words with a red ring; closes by itself. */
++    private void trouble(String message) {
++        releaseAudioFocus();
++        setState(DONE);
++        reactor.setState(ArcReactorView.ERROR);
++        answer.setText(message);
++        main.postDelayed(close, CLOSE_AFTER_MS + 4_000);
++    }
++
++    // ---- keys and lifecycle --------------------------------------------------------------------------
++
++    @Override
++    public boolean onKeyDown(int keyCode, KeyEvent event) {
++        if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER) && state == DONE) {
++            main.removeCallbacks(close);
++            listen();
++            return true;
++        }
++        return super.onKeyDown(keyCode, event);
++    }
++
++    @Override
++    public void onBackPressed() {
++        cancel();
++        finish();
++    }
++
++    @Override
++    protected void onStop() {
++        super.onStop();
++        // Home pressed, or the TV went to standby: drop it all. An app Jarvis opened himself does not count.
++        if (!tools.openedApp && !isChangingConfigurations()) {
++            cancel();
++            finish();
++        }
++    }
++
++    private void cancel() {
++        cancelled = true;
++        if (mic != null) mic.cancel();
++        JarvisVoice.stop();
++        releaseAudioFocus();
++        main.removeCallbacks(close);
++    }
++
++    @Override
++    protected void onDestroy() {
++        main.removeCallbacks(close);
++        if (mic != null && state == LISTENING) mic.cancel();
++        worker.shutdown();
++        super.onDestroy();
++    }
++
++    private void setState(int s) {
++        state = s;
++        reactor.setState(s == LISTENING ? ArcReactorView.LISTENING : s == THINKING ? ArcReactorView.THINKING
++                : s == SPEAKING ? ArcReactorView.SPEAKING : ArcReactorView.IDLE);
++        if (s == LISTENING) status.setText(R.string.jarvis_listening);
++        else if (s == THINKING) status.setText(R.string.jarvis_thinking);
++        else status.setText("");
++    }
++
++    /** Ducks or pauses what is playing while Jarvis listens and speaks. */
++    private void holdAudioFocus() {
++        AudioManager am = getSystemService(AudioManager.class);
++        if (am == null || focus != null) return;
++        focus = new AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
++                .setAudioAttributes(new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANT)
++                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
++                .build();
++        am.requestAudioFocus(focus);
++    }
++
++    private void releaseAudioFocus() {
++        AudioManager am = getSystemService(AudioManager.class);
++        if (am != null && focus != null) am.abandonAudioFocusRequest(focus);
++        focus = null;
++    }
++
++    // ---- the screen ------------------------------------------------------------------------------------
++
++    private void buildViews() {
++        float d = getResources().getDisplayMetrics().density;
++        FrameLayout root = new FrameLayout(this);
++        View shade = new View(this);
++        shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
++                new int[]{0xF2000610, 0xA6000610, 0x00000000}));
++        root.addView(shade, new FrameLayout.LayoutParams(-1, -1));
++
++        column = new LinearLayout(this);
++        column.setOrientation(LinearLayout.VERTICAL);
++        column.setGravity(Gravity.CENTER_HORIZONTAL);
++        reactor = new ArcReactorView(this);
++        column.addView(reactor, new LinearLayout.LayoutParams(Math.round(230 * d), Math.round(230 * d)));
++        status = text(14, 0xFF4FD8FF, R.string.font_medium);
++        status.setLetterSpacing(0.25f);
++        status.setAllCaps(true);
++        column.addView(status, wrap(0));
++        heard = text(19, 0xB3FFFFFF, R.string.font_light);
++        column.addView(heard, wrap(Math.round(14 * d)));
++        answer = text(25, 0xFFFFFFFF, R.string.font_medium);
++        answer.setMaxLines(6);
++        answer.setEllipsize(TextUtils.TruncateAt.END);
++        answer.setLineSpacing(4 * d, 1f);
++        answer.setMaxWidth(Math.round(getResources().getDisplayMetrics().widthPixels * 0.66f));
++        column.addView(answer, wrap(Math.round(10 * d)));
++        hint = text(14, 0x80FFFFFF, R.string.font_light);
++        hint.setText(R.string.jarvis_hint);
++        hint.setVisibility(View.INVISIBLE);
++        column.addView(hint, wrap(Math.round(18 * d)));
++        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(-1, -2, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
++        lp.bottomMargin = Math.round(44 * d);
++        root.addView(column, lp);
++        setContentView(root);
++
++        column.setAlpha(0f);
++        column.setTranslationY(40 * d);
++        column.animate().alpha(1f).translationY(0f).setDuration(320)
++                .setInterpolator(new android.view.animation.DecelerateInterpolator(1.8f)).start();
++    }
++
++    private TextView text(int sp, int color, int font) {
++        TextView t = new TextView(this);
++        t.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp);
++        t.setTextColor(color);
++        t.setGravity(Gravity.CENTER);
++        t.setTypeface(UiFont.get(this, font));
++        t.setShadowLayer(12, 0, 0, 0xCC000000);
++        return t;
++    }
++
++    private static LinearLayout.LayoutParams wrap(int top) {
++        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
++        lp.topMargin = top;
++        return lp;
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisBrain.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisBrain.java
+new file mode 100644
+index 0000000..e3be330
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisBrain.java
+@@ -0,0 +1,239 @@
++package com.gathin.tvhome;
++
++import com.anthropic.client.AnthropicClient;
++import com.anthropic.client.okhttp.AnthropicOkHttpClient;
++import com.anthropic.core.JsonValue;
++import com.anthropic.errors.AnthropicException;
++import com.anthropic.errors.AnthropicInvalidDataException;
++import com.anthropic.errors.AnthropicIoException;
++import com.anthropic.errors.AnthropicServiceException;
++import com.anthropic.errors.PermissionDeniedException;
++import com.anthropic.errors.RateLimitException;
++import com.anthropic.errors.UnauthorizedException;
++import com.anthropic.models.messages.ContentBlock;
++import com.anthropic.models.messages.ContentBlockParam;
++import com.anthropic.models.messages.Message;
++import com.anthropic.models.messages.MessageCreateParams;
++import com.anthropic.models.messages.MessageParam;
++import com.anthropic.models.messages.OutputConfig;
++import com.anthropic.models.messages.StopReason;
++import com.anthropic.models.messages.Tool;
++import com.anthropic.models.messages.ToolResultBlockParam;
++import com.anthropic.models.messages.ToolUseBlock;
++import com.anthropic.models.messages.UserLocation;
++import com.anthropic.models.messages.WebSearchTool20260209;
++import com.fasterxml.jackson.core.type.TypeReference;
++
++import java.time.Duration;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.LinkedHashMap;
++import java.util.List;
++import java.util.Map;
++
++/**
++ * Jarvis's mind: Claude with web search (run by Anthropic) and the TV's own tools (run here, by {@link Tools}), in one
++ * conversation that lasts while the owner keeps talking. The history is only ever appended to, as the API requires of
++ * a conversation with thinking; after a few minutes of silence, or a few questions, the next question starts a new one.
++ * Blocks on the network: call off the main thread.
++ */
++final class JarvisBrain {
++
++    static final String MODEL = "claude-opus-5-5";
++    /** A new conversation after this long without a question, or after this many questions in one. */
++    private static final long FORGET_AFTER_MS = 3 * 60_000L;
++    private static final int MAX_QUESTIONS = 6;
++    /** Rounds of tool calls (and resumed server-side searches) for one question. */
++    private static final int MAX_ROUNDS = 8;
++
++    /** The TV's side of the tools: runs one call and says what happened, in a sentence Claude can relay. */
++    interface Tools {
++        String run(String name, Map<String, Object> input) throws Exception;
++    }
++
++    /** Why a question got no answer, in words Jarvis can say. */
++    static final class Trouble extends Exception {
++        final Kind kind;
++
++        enum Kind { KEY, REGION, BUSY, NETWORK, OTHER }
++
++        Trouble(Kind kind, String message, Throwable cause) {
++            super(message, cause);
++            this.kind = kind;
++        }
++    }
++
++    private final AnthropicClient client;
++    private final List<MessageParam> history = new ArrayList<>();
++    private long lastAt;
++    private int questions;
++
++    JarvisBrain(String apiKey) {
++        this(AnthropicOkHttpClient.builder().apiKey(apiKey).timeout(Duration.ofSeconds(90)).maxRetries(1).build());
++    }
++
++    JarvisBrain(AnthropicClient client) {
++        this.client = client;
++    }
++
++    /** The reply to one spoken question; tools run as Claude asks for them. */
++    synchronized String ask(String question, String system, Tools tools) throws Trouble {
++        long now = System.currentTimeMillis();
++        if (now - lastAt > FORGET_AFTER_MS || questions >= MAX_QUESTIONS) forget();
++        lastAt = now;
++        questions++;
++        history.add(MessageParam.ofUser(question));
++        try {
++            for (int round = 0; round < MAX_ROUNDS; round++) {
++                Message reply = send(system);
++                StopReason stop = reply.stopReason().orElse(StopReason.END_TURN);
++                try {
++                    history.add(reply.toParam());
++                } catch (AnthropicInvalidDataException e) {
++                    // A block this SDK does not know (a newer API): the words can still be said, the turn not sent back.
++                    if (stop.equals(StopReason.TOOL_USE) || stop.equals(StopReason.PAUSE_TURN)) throw e;
++                    forget();
++                    return text(reply);
++                }
++                if (stop.equals(StopReason.REFUSAL)) return "";
++                if (stop.equals(StopReason.PAUSE_TURN)) continue;   // a long search: the API resumes from the history
++                if (!stop.equals(StopReason.TOOL_USE)) return text(reply);
++                List<ContentBlockParam> results = new ArrayList<>();
++                for (ContentBlock block : reply.content()) {
++                    if (!block.isToolUse()) continue;
++                    ToolUseBlock use = block.asToolUse();
++                    results.add(ContentBlockParam.ofToolResult(result(use, tools)));
++                }
++                history.add(MessageParam.ofUserOfContentBlockParams(results));
++            }
++            forget();   // ran out of rounds mid-task: the history ends on our turn, so the next question starts afresh
++            return "";
++        } catch (Trouble t) {
++            forget();   // the question went unanswered: start the next one afresh rather than after it
++            throw t;
++        } catch (AnthropicException e) {
++            // A reply the SDK could not read: never let it take the launcher down.
++            forget();
++            throw new Trouble(Trouble.Kind.OTHER, e.getMessage(), e);
++        }
++    }
++
++    private void forget() {
++        history.clear();
++        questions = 0;
++    }
++
++    private ToolResultBlockParam result(ToolUseBlock use, Tools tools) {
++        ToolResultBlockParam.Builder r = ToolResultBlockParam.builder().toolUseId(use.id());
++        try {
++            Map<String, Object> input = use._input().convert(new TypeReference<Map<String, Object>>() { });
++            return r.content(tools.run(use.name(), input == null ? Collections.emptyMap() : input)).build();
++        } catch (Exception e) {
++            return r.content("Не получилось: " + e.getMessage()).isError(true).build();
++        }
++    }
++
++    private Message send(String system) throws Trouble {
++        MessageCreateParams.Builder params = MessageCreateParams.builder()
++                .model(MODEL)
++                .maxTokens(16000L)
++                .system(system)
++                .messages(history)
++                // A spoken answer to an everyday question: low effort keeps the wait short.
++                .outputConfig(OutputConfig.builder().effort(OutputConfig.Effort.LOW).build())
++                // A declined request is retried on the model Anthropic recommends for it, server-side.
++                .putAdditionalHeader("anthropic-beta", "server-side-fallback-2026-07-01")
++                .putAdditionalBodyProperty("fallbacks", JsonValue.from("default"))
++                .addTool(WebSearchTool20260209.builder()
++                        .maxUses(3L)
++                        .userLocation(UserLocation.builder().country("RU").region("Московская область")
++                                .city("Москва").timezone("Europe/Moscow").build())
++                        .build());
++        for (Tool tool : TOOLS) params.addTool(tool);
++        try {
++            return client.messages().create(params.build());
++        } catch (UnauthorizedException e) {
++            throw new Trouble(Trouble.Kind.KEY, e.getMessage(), e);
++        } catch (PermissionDeniedException e) {
++            // Anthropic does not serve requests from Russia: the VPN is down, or routes this host around itself.
++            throw new Trouble(Trouble.Kind.REGION, e.getMessage(), e);
++        } catch (RateLimitException e) {
++            throw new Trouble(Trouble.Kind.BUSY, e.getMessage(), e);
++        } catch (AnthropicServiceException e) {
++            throw new Trouble(e.statusCode() >= 500 ? Trouble.Kind.BUSY : Trouble.Kind.OTHER, e.getMessage(), e);
++        } catch (AnthropicIoException e) {
++            throw new Trouble(Trouble.Kind.NETWORK, e.getMessage(), e);
++        }
++    }
++
++    /** The reply's words, in order; search results and thinking are not read out. */
++    static String text(Message reply) {
++        if (reply == null) return "";
++        StringBuilder out = new StringBuilder();
++        for (ContentBlock block : reply.content()) {
++            block.text().ifPresent(t -> out.append(t.text()));
++        }
++        return out.toString().trim();
++    }
++
++    // ---- the TV's tools ------------------------------------------------------------------------------
++
++    static final List<Tool> TOOLS = Arrays.asList(
++            tool("open_app", "Открывает приложение на телевизоре. Вызывай, когда просят открыть, запустить или "
++                            + "включить приложение или сервис (YouTube, Кинопоиск, браузер и т. п.). Название бери из "
++                            + "списка установленных приложений в системном сообщении.",
++                    props("name", prop("string", "Название приложения, как в списке установленных")), "name"),
++            tool("search_in_app", "Ищет фильм, сериал, видео или канал внутри приложения и открывает результаты. "
++                            + "Вызывай, когда просят найти или включить что-то конкретное в приложении "
++                            + "(например, «включи на YouTube обзор айфона»).",
++                    props("app", prop("string", "Название приложения из списка установленных"),
++                            "query", prop("string", "Что искать, коротко, как в строке поиска")), "app", "query"),
++            tool("set_volume", "Меняет громкость телевизора. Вызывай, когда просят сделать громче, тише, "
++                            + "выключить или вернуть звук, или поставить громкость на число.",
++                    props("action", enumProp("Что сделать", "up", "down", "set", "mute", "unmute"),
++                            "level", prop("integer", "Громкость в процентах 0–100, только для action=set")), "action"),
++            tool("vpn", "Включает или выключает VPN на телевизоре либо сообщает, включён ли он. Вызывай на просьбы "
++                            + "про VPN, защищённое соединение или обход блокировок.",
++                    props("action", enumProp("Что сделать", "on", "off", "status")), "action"),
++            tool("tv_action", "Действия с телевизором: home — главный экран, settings — настройки ТВ, "
++                            + "inputs — выбор источника (HDMI), wifi — настройки Wi-Fi, screensaver — заставка.",
++                    props("action", enumProp("Действие", "home", "settings", "inputs", "wifi", "screensaver")), "action"),
++            tool("get_weather", "Погода сейчас у пользователя дома. Для прогноза на часы или дни вперёд и для "
++                    + "других городов используй web_search.", props()));
++
++    private static Tool tool(String name, String description, Map<String, Object> properties, String... required) {
++        return Tool.builder()
++                .name(name)
++                .description(description)
++                .inputSchema(schema(properties, required))
++                .build();
++    }
++
++    private static Tool.InputSchema schema(Map<String, Object> properties, String... required) {
++        Tool.InputSchema.Properties.Builder p = Tool.InputSchema.Properties.builder();
++        for (Map.Entry<String, Object> e : properties.entrySet()) p.putAdditionalProperty(e.getKey(), JsonValue.from(e.getValue()));
++        Tool.InputSchema.Builder s = Tool.InputSchema.builder().properties(p.build());
++        if (required.length > 0) s.required(Arrays.asList(required));
++        return s.build();
++    }
++
++    private static Map<String, Object> props(Object... nameThenSchema) {
++        Map<String, Object> m = new LinkedHashMap<>();
++        for (int i = 0; i + 1 < nameThenSchema.length; i += 2) m.put((String) nameThenSchema[i], nameThenSchema[i + 1]);
++        return m;
++    }
++
++    private static Map<String, Object> prop(String type, String description) {
++        Map<String, Object> m = new LinkedHashMap<>();
++        m.put("type", type);
++        m.put("description", description);
++        return m;
++    }
++
++    private static Map<String, Object> enumProp(String description, String... values) {
++        Map<String, Object> m = prop("string", description);
++        m.put("enum", Arrays.asList(values));
++        return m;
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisConfig.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisConfig.java
+new file mode 100644
+index 0000000..fba2417
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisConfig.java
+@@ -0,0 +1,67 @@
++package com.gathin.tvhome;
++
++import android.content.Context;
++import android.content.SharedPreferences;
++
++import org.json.JSONObject;
++
++import java.io.File;
++
++/**
++ * Jarvis's settings. The keys come from jarvis.json next to the theme, which {@code sber-tv.sh jarvis} writes through
++ * ThemeProvider: {"anthropic_key": "sk-ant-...", "yandex_key": "AQVN..."}. A theme push leaves the file alone. The voice
++ * and its effect are chosen on the TV (Launcher settings) and kept in the app's own preferences.
++ */
++final class JarvisConfig {
++
++    static final String FILE_NAME = "jarvis.json";
++    static final String PREFS = "jarvis";
++
++    /** SpeechKit voices that suit a calm male assistant: voice, role ("" for none), label resource. */
++    static final String[][] VOICES = {
++            {"kirill", "strict"}, {"kirill", "neutral"}, {"alexander", "neutral"}, {"anton", "neutral"},
++            {"ermil", "neutral"}, {"filipp", ""}, {"zahar", "neutral"},
++    };
++    static final int[] VOICE_NAMES = {
++            R.string.jarvis_voice_kirill_strict, R.string.jarvis_voice_kirill, R.string.jarvis_voice_alexander,
++            R.string.jarvis_voice_anton, R.string.jarvis_voice_ermil, R.string.jarvis_voice_filipp,
++            R.string.jarvis_voice_zahar,
++    };
++
++    final String anthropicKey;
++    final String yandexKey;
++    final String voice;
++    final String role;
++    /** The light metallic room on the voice, as in the films; off plays SpeechKit's voice as it comes. */
++    final boolean effect;
++
++    JarvisConfig(String anthropicKey, String yandexKey, String voice, String role, boolean effect) {
++        this.anthropicKey = anthropicKey;
++        this.yandexKey = yandexKey;
++        this.voice = voice;
++        this.role = role;
++        this.effect = effect;
++    }
++
++    static JarvisConfig load(Context ctx) {
++        File dir = Config.dir(ctx);
++        return from(dir == null ? null : Config.read(new File(dir, FILE_NAME)), ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE));
++    }
++
++    static JarvisConfig from(JSONObject json, SharedPreferences prefs) {
++        String anthropic = json == null ? "" : json.optString("anthropic_key", "").trim();
++        String yandex = json == null ? "" : json.optString("yandex_key", "").trim();
++        return new JarvisConfig(anthropic, yandex, prefs.getString("voice", "kirill"), prefs.getString("role", "strict"),
++                prefs.getBoolean("effect", true));
++    }
++
++    boolean ready() {
++        return !anthropicKey.isEmpty() && !yandexKey.isEmpty();
++    }
++
++    /** The VOICES row of the chosen voice, or -1 for one set some other way. */
++    int voiceIndex() {
++        for (int i = 0; i < VOICES.length; i++) if (VOICES[i][0].equals(voice) && VOICES[i][1].equals(role)) return i;
++        return -1;
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisMic.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisMic.java
+new file mode 100644
+index 0000000..cadb28e
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisMic.java
+@@ -0,0 +1,194 @@
++package com.gathin.tvhome;
++
++import android.annotation.SuppressLint;
++import android.content.Context;
++import android.media.AudioDeviceInfo;
++import android.media.AudioFormat;
++import android.media.AudioManager;
++import android.media.AudioRecord;
++import android.media.MediaRecorder;
++import android.util.Log;
++
++import java.io.ByteArrayOutputStream;
++import java.util.ArrayDeque;
++import java.util.ArrayList;
++import java.util.List;
++
++/**
++ * One spoken phrase from the microphone: 16 kHz mono PCM, from just before the voice starts to a short pause after it
++ * (Vad decides), for SpeechKit. Blocks: run it off the main thread. The remote's own microphone is used when the
++ * firmware lets other apps record from it; a TV without one needs a USB or Bluetooth microphone.
++ */
++final class JarvisMic {
++
++    private static final String TAG = "Jarvis";
++    static final int FRAME_MS = 20;
++    private static final int FRAME = SpeechKit.STT_RATE * FRAME_MS / 1000;   // samples
++    /** Kept from before the voice crossed the threshold, so the first syllable is not cut. */
++    private static final int PREROLL_FRAMES = 15;
++
++    interface Levels {
++        /** 0..1, about fifty times a second, on the recording thread. */
++        void level(float level);
++    }
++
++    /** What was heard: the phrase (empty when nobody spoke) and how loud the room got at most (0..32767). */
++    static final class Heard {
++        final byte[] pcm;
++        final double peak;
++        final String error;
++
++        Heard(byte[] pcm, double peak, String error) {
++            this.pcm = pcm;
++            this.peak = peak;
++            this.error = error;
++        }
++
++        boolean speech() {
++            return pcm.length > 0;
++        }
++    }
++
++    private volatile boolean stopped, finishEarly;
++
++    /** Stops listening and keeps what was said so far (the assistant button pressed again). */
++    void finish() {
++        finishEarly = true;
++    }
++
++    /** Stops listening and drops it all (Back). */
++    void cancel() {
++        stopped = true;
++    }
++
++    @SuppressLint("MissingPermission")   // checked by the caller; without it AudioRecord fails to initialise
++    Heard listen(Levels levels) {
++        AudioRecord record = open(MediaRecorder.AudioSource.VOICE_RECOGNITION);
++        if (record == null) record = open(MediaRecorder.AudioSource.MIC);
++        if (record == null) return new Heard(new byte[0], 0, "no microphone");
++        Vad vad = new Vad();
++        ByteArrayOutputStream phrase = new ByteArrayOutputStream();
++        ArrayDeque<byte[]> preroll = new ArrayDeque<>();
++        short[] samples = new short[FRAME];
++        double peak = 0;
++        try {
++            record.startRecording();
++            while (!stopped) {
++                int n = 0;
++                while (n < FRAME) {
++                    int r = record.read(samples, n, FRAME - n);
++                    if (r <= 0) return new Heard(new byte[0], peak, "read " + r);
++                    n += r;
++                }
++                double rms = rms(samples);
++                peak = Math.max(peak, rms);
++                if (levels != null) levels.level((float) Math.min(1.0, rms / 6000.0));
++                byte[] frame = bytes(samples);
++                int state = vad.feed(rms);
++                if (state == Vad.WAITING) {
++                    preroll.addLast(frame);
++                    if (preroll.size() > PREROLL_FRAMES) preroll.removeFirst();
++                } else {
++                    while (!preroll.isEmpty()) phrase.write(preroll.removeFirst(), 0, frame.length);
++                    phrase.write(frame, 0, frame.length);
++                }
++                if (finishEarly) return new Heard(vad.heardVoice() ? phrase.toByteArray() : new byte[0], peak, null);
++                if (state == Vad.DONE) return new Heard(phrase.toByteArray(), peak, null);
++                if (state == Vad.TIMEOUT) return new Heard(new byte[0], peak, null);
++            }
++            return new Heard(new byte[0], peak, null);
++        } finally {
++            try {
++                record.stop();
++            } catch (IllegalStateException ignored) {
++                // never started
++            }
++            record.release();
++        }
++    }
++
++    @SuppressLint("MissingPermission")
++    private static AudioRecord open(int source) {
++        int min = AudioRecord.getMinBufferSize(SpeechKit.STT_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
++        if (min <= 0) return null;
++        try {
++            AudioRecord r = new AudioRecord(source, SpeechKit.STT_RATE, AudioFormat.CHANNEL_IN_MONO,
++                    AudioFormat.ENCODING_PCM_16BIT, Math.max(min, FRAME * 2 * 10));
++            if (r.getState() == AudioRecord.STATE_INITIALIZED) return r;
++            r.release();
++        } catch (IllegalArgumentException | SecurityException | UnsupportedOperationException e) {
++            Log.w(TAG, "microphone source " + source + ": " + e.getMessage());
++        }
++        return null;
++    }
++
++    /** The TV's microphones as Android lists them, for the "nobody heard" message and the log. */
++    static List<String> inputs(Context ctx) {
++        List<String> names = new ArrayList<>();
++        AudioManager am = ctx.getSystemService(AudioManager.class);
++        if (am == null) return names;
++        for (AudioDeviceInfo d : am.getDevices(AudioManager.GET_DEVICES_INPUTS)) {
++            names.add(d.getProductName() + " (" + d.getType() + ")");
++        }
++        return names;
++    }
++
++    static double rms(short[] s) {
++        double sum = 0;
++        for (short v : s) sum += (double) v * v;
++        return Math.sqrt(sum / s.length);
++    }
++
++    private static byte[] bytes(short[] s) {
++        byte[] b = new byte[s.length * 2];
++        for (int i = 0; i < s.length; i++) {
++            b[2 * i] = (byte) s[i];
++            b[2 * i + 1] = (byte) (s[i] >> 8);
++        }
++        return b;
++    }
++
++    /**
++     * Voice activity by loudness, one frame (FRAME_MS) at a time. The first frames measure the room; a phrase starts
++     * when several frames in a row are clearly louder, and ends after a pause. A quiet room never starts one.
++     */
++    static final class Vad {
++        static final int WAITING = 0, SPEAKING = 1, DONE = 2, TIMEOUT = 3;
++        private static final int CALIBRATE = 10;               // 200 ms of room noise
++        private static final int START_FRAMES = 3;             // 60 ms above the threshold starts a phrase
++        private static final int END_FRAMES = 45;              // 900 ms of quiet ends it
++        private static final int MAX_WAIT = 7_000 / FRAME_MS;  // nobody spoke for 7 s
++        private static final int MAX_PHRASE = 15_000 / FRAME_MS;
++        private static final double MIN_THRESHOLD = 350;
++
++        private int frames, loudRun, quietRun, phraseFrames;
++        private double noise;
++        private boolean speaking;
++
++        int feed(double rms) {
++            frames++;
++            if (frames <= CALIBRATE) {
++                noise += rms / CALIBRATE;
++                return WAITING;
++            }
++            double threshold = Math.max(MIN_THRESHOLD, noise * 2.5);
++            if (!speaking) {
++                loudRun = rms > threshold ? loudRun + 1 : 0;
++                if (loudRun >= START_FRAMES) {
++                    speaking = true;
++                    quietRun = 0;
++                    return SPEAKING;
++                }
++                return frames > MAX_WAIT ? TIMEOUT : WAITING;
++            }
++            phraseFrames++;
++            quietRun = rms < threshold * 0.7 ? quietRun + 1 : 0;
++            if (quietRun >= END_FRAMES || phraseFrames >= MAX_PHRASE) return DONE;
++            return SPEAKING;
++        }
++
++        boolean heardVoice() {
++            return speaking;
++        }
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisSpeech.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisSpeech.java
+new file mode 100644
+index 0000000..301edcc
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisSpeech.java
+@@ -0,0 +1,39 @@
++package com.gathin.tvhome;
++
++import java.util.regex.Pattern;
++
++/** A reply made fit to be read aloud: no links, markup or emoji, and not much longer than a few sentences. */
++final class JarvisSpeech {
++
++    private static final Pattern URL = Pattern.compile("https?://\\S+|www\\.\\S+");
++    private static final Pattern MARKDOWN_LINK = Pattern.compile("\\[([^\\]]*)\\]\\([^)]*\\)");
++    private static final Pattern MARKUP = Pattern.compile("[*_`#>|~]+");
++    private static final Pattern LIST_MARK = Pattern.compile("(?m)^\\s*(?:[-•–]|\\d+[.)])\\s+");
++    private static final Pattern SPACE = Pattern.compile("\\s+");
++    /** Enough for a full answer at the speed a person listens; longer text is cut at a sentence end. */
++    static final int MAX_CHARS = 600;
++
++    private JarvisSpeech() {
++    }
++
++    static String clean(String text) {
++        if (text == null) return "";
++        String s = MARKDOWN_LINK.matcher(text).replaceAll("$1");
++        s = URL.matcher(s).replaceAll("");
++        s = LIST_MARK.matcher(s).replaceAll("");
++        s = MARKUP.matcher(s).replaceAll("");
++        StringBuilder plain = new StringBuilder();
++        for (int i = 0; i < s.length(); ) {
++            int cp = s.codePointAt(i);
++            // Emoji and other pictographs are dropped; letters, digits and punctuation of any script stay.
++            if (Character.getType(cp) != Character.OTHER_SYMBOL && Character.getType(cp) != Character.SURROGATE) {
++                plain.appendCodePoint(cp);
++            }
++            i += Character.charCount(cp);
++        }
++        s = SPACE.matcher(plain).replaceAll(" ").replace(" ,", ",").replace(" .", ".").trim();
++        if (s.length() <= MAX_CHARS) return s;
++        int cut = Math.max(s.lastIndexOf(". ", MAX_CHARS), Math.max(s.lastIndexOf("! ", MAX_CHARS), s.lastIndexOf("? ", MAX_CHARS)));
++        return cut > MAX_CHARS / 3 ? s.substring(0, cut + 1) : s.substring(0, MAX_CHARS).trim() + "…";
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisTools.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisTools.java
+new file mode 100644
+index 0000000..6b58666
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisTools.java
+@@ -0,0 +1,245 @@
++package com.gathin.tvhome;
++
++import android.app.SearchManager;
++import android.content.ActivityNotFoundException;
++import android.content.ComponentName;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.content.pm.ResolveInfo;
++import android.media.AudioManager;
++import android.net.ConnectivityManager;
++import android.net.Network;
++import android.net.NetworkCapabilities;
++import android.net.Uri;
++import android.os.Handler;
++import android.os.Looper;
++import android.provider.Settings;
++
++import java.net.URLEncoder;
++import java.util.ArrayList;
++import java.util.LinkedHashMap;
++import java.util.List;
++import java.util.Locale;
++import java.util.Map;
++import java.util.concurrent.CountDownLatch;
++import java.util.concurrent.TimeUnit;
++import java.util.concurrent.atomic.AtomicReference;
++
++/**
++ * The TV end of Jarvis's tools (JarvisBrain.TOOLS). Each call runs on the main thread, as starting activities and the
++ * audio service expect (the weather, a network call, stays on the caller's thread), and answers with one short sentence
++ * for Claude to relay.
++ */
++final class JarvisTools implements JarvisBrain.Tools {
++
++    private final Context ctx;
++    private final String vpnApp;
++    private final String vpnTunnel;
++    private final Handler main = new Handler(Looper.getMainLooper());
++    /** An app was opened: once Jarvis has answered, his overlay steps aside. */
++    volatile boolean openedApp;
++
++    JarvisTools(Context ctx, String vpnApp, String vpnTunnel) {
++        this.ctx = ctx.getApplicationContext();
++        this.vpnApp = vpnApp;
++        this.vpnTunnel = vpnTunnel;
++    }
++
++    @Override
++    public String run(String name, Map<String, Object> input) throws Exception {
++        // The weather is a network call: it stays on the caller's (background) thread.
++        if ("get_weather".equals(name)) return weather();
++        AtomicReference<Object> out = new AtomicReference<>();
++        CountDownLatch done = new CountDownLatch(1);
++        main.post(() -> {
++            try {
++                out.set(runHere(name, input));
++            } catch (Exception e) {
++                out.set(e);
++            }
++            done.countDown();
++        });
++        if (!done.await(10, TimeUnit.SECONDS)) throw new Exception("телевизор не ответил");
++        if (out.get() instanceof Exception) throw (Exception) out.get();
++        return (String) out.get();
++    }
++
++    private String runHere(String name, Map<String, Object> in) throws Exception {
++        switch (name) {
++            case "open_app":
++                return openApp(str(in, "name"));
++            case "search_in_app":
++                return searchInApp(str(in, "app"), str(in, "query"));
++            case "set_volume":
++                return volume(str(in, "action"), in.get("level"));
++            case "vpn":
++                return vpn(str(in, "action"));
++            case "tv_action":
++                return tvAction(str(in, "action"));
++            default:
++                throw new Exception("нет такого инструмента: " + name);
++        }
++    }
++
++    // ---- apps ----------------------------------------------------------------------------------------
++
++    /** Label to launch component of every app with a TV or phone entry, TV entries first; this launcher left out. */
++    Map<String, ComponentName> apps() {
++        Map<String, ComponentName> found = new LinkedHashMap<>();
++        PackageManager pm = ctx.getPackageManager();
++        for (String category : new String[]{Intent.CATEGORY_LEANBACK_LAUNCHER, Intent.CATEGORY_LAUNCHER}) {
++            for (ResolveInfo r : pm.queryIntentActivities(new Intent(Intent.ACTION_MAIN).addCategory(category), 0)) {
++                if (r.activityInfo == null || r.activityInfo.packageName.equals(ctx.getPackageName())) continue;
++                String label = String.valueOf(r.loadLabel(pm)).trim();
++                boolean seen = false;
++                for (ComponentName c : found.values()) seen |= c.getPackageName().equals(r.activityInfo.packageName);
++                if (!seen && !label.isEmpty() && !found.containsKey(label)) {
++                    found.put(label, new ComponentName(r.activityInfo.packageName, r.activityInfo.name));
++                }
++            }
++        }
++        return found;
++    }
++
++    private String openApp(String name) throws Exception {
++        Map<String, ComponentName> apps = apps();
++        String label = AppMatch.best(name, apps.keySet());
++        if (label == null) throw new Exception("приложения «" + name + "» нет на телевизоре");
++        launch(apps.get(label));
++        return "Открыто приложение " + label + ".";
++    }
++
++    private String searchInApp(String appName, String query) throws Exception {
++        Map<String, ComponentName> apps = apps();
++        String label = AppMatch.best(appName, apps.keySet());
++        if (label == null) throw new Exception("приложения «" + appName + "» нет на телевизоре");
++        String pkg = apps.get(label).getPackageName();
++        PackageManager pm = ctx.getPackageManager();
++        Intent search = new Intent(Intent.ACTION_SEARCH).setPackage(pkg).putExtra(SearchManager.QUERY, query);
++        if (pm.resolveActivity(search, 0) != null && start(search)) {
++            openedApp = true;
++            return "В " + label + " открыт поиск: " + query + ".";
++        }
++        if (pkg.contains("youtube") || pkg.contains("smarttube")) {
++            Intent view = new Intent(Intent.ACTION_VIEW,
++                    Uri.parse("https://www.youtube.com/results?search_query=" + URLEncoder.encode(query, "UTF-8"))).setPackage(pkg);
++            if (pm.resolveActivity(view, 0) != null && start(view)) {
++                openedApp = true;
++                return "В " + label + " открыт поиск: " + query + ".";
++            }
++        }
++        launch(apps.get(label));
++        return "Приложение " + label + " открыто, но искать в нём само оно не позволяет: пусть пользователь найдёт «"
++                + query + "» сам.";
++    }
++
++    private void launch(ComponentName c) throws Exception {
++        Intent i = new Intent(Intent.ACTION_MAIN).setComponent(c);
++        if (!start(i)) throw new Exception("приложение не запустилось");
++        openedApp = true;
++    }
++
++    private boolean start(Intent i) {
++        try {
++            ctx.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED));
++            return true;
++        } catch (ActivityNotFoundException | SecurityException e) {
++            return false;
++        }
++    }
++
++    // ---- volume, VPN, TV ----------------------------------------------------------------------------------
++
++    private String volume(String action, Object level) throws Exception {
++        AudioManager am = ctx.getSystemService(AudioManager.class);
++        if (am == null) throw new Exception("звук недоступен");
++        int stream = AudioManager.STREAM_MUSIC, flags = AudioManager.FLAG_SHOW_UI;
++        int max = am.getStreamMaxVolume(stream);
++        switch (action) {
++            case "up":
++            case "down":
++                int step = Math.max(1, Math.round(max * 0.1f));
++                int now = am.getStreamVolume(stream) + ("up".equals(action) ? step : -step);
++                am.setStreamVolume(stream, Math.max(0, Math.min(max, now)), flags);
++                break;
++            case "set":
++                int percent = level instanceof Number ? ((Number) level).intValue() : 30;
++                am.setStreamVolume(stream, Math.round(max * Math.max(0, Math.min(100, percent)) / 100f), flags);
++                break;
++            case "mute":
++                am.adjustStreamVolume(stream, AudioManager.ADJUST_MUTE, flags);
++                return "Звук выключен.";
++            case "unmute":
++                am.adjustStreamVolume(stream, AudioManager.ADJUST_UNMUTE, flags);
++                break;
++            default:
++                throw new Exception("непонятное действие " + action);
++        }
++        return "Громкость " + Math.round(100f * am.getStreamVolume(stream) / Math.max(1, max)) + "%.";
++    }
++
++    static boolean vpnUp(Context ctx) {
++        ConnectivityManager cm = ctx.getSystemService(ConnectivityManager.class);
++        if (cm == null) return false;
++        for (Network n : cm.getAllNetworks()) {
++            NetworkCapabilities caps = cm.getNetworkCapabilities(n);
++            if (caps != null && caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) return true;
++        }
++        return false;
++    }
++
++    private String vpn(String action) throws Exception {
++        boolean up = vpnUp(ctx);
++        if ("status".equals(action)) return up ? "VPN включён." : "VPN выключен.";
++        boolean want = "on".equals(action);
++        if (want == up) return want ? "VPN уже включён." : "VPN уже выключен.";
++        if (vpnApp.isEmpty()) throw new Exception("на телевизоре нет VPN-приложения");
++        if (!VpnControl.send(ctx, vpnApp, want, vpnTunnel)) throw new Exception("VPN-приложение не принимает команды");
++        return want ? "Команда на включение VPN отправлена." : "Команда на выключение VPN отправлена.";
++    }
++
++    private String tvAction(String action) throws Exception {
++        switch (action) {
++            case "home":
++                start(new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setPackage(ctx.getPackageName()));
++                openedApp = true;
++                return "Открыт главный экран.";
++            case "settings":
++                if (!start(SystemSettings.intent(ctx, Settings.ACTION_SETTINGS))) throw new Exception("настройки не открылись");
++                openedApp = true;
++                return "Открыты настройки.";
++            case "wifi":
++                if (!start(SystemSettings.intent(ctx, Settings.ACTION_WIFI_SETTINGS))) throw new Exception("настройки не открылись");
++                openedApp = true;
++                return "Открыты настройки Wi-Fi.";
++            case "inputs":
++            case "screensaver":
++                RemoteKeys.launch(ctx, "inputs".equals(action) ? RemoteKeys.INPUTS : "screensaver");
++                openedApp = true;
++                return "inputs".equals(action) ? "Открыт выбор источника." : "Заставка запущена.";
++            default:
++                throw new Exception("непонятное действие " + action);
++        }
++    }
++
++    private String weather() throws Exception {
++        HeaderExtras place = HeaderExtras.load(ctx);
++        if (!place.weather()) throw new Exception("место для погоды не выбрано: его задают в настройках лаунчера");
++        Weather w = Weather.parse(Weather.fetch(place.weatherLat, place.weatherLon));
++        String where = place.weatherCity.isEmpty() ? "дома" : place.weatherCity;
++        return String.format(Locale.ROOT, "%s: %s, %s.", where, Weather.temperature(w.temperature),
++                ctx.getString(w.label()).toLowerCase(new Locale("ru")));
++    }
++
++    private static String str(Map<String, Object> in, String key) {
++        Object v = in.get(key);
++        return v == null ? "" : String.valueOf(v).trim();
++    }
++
++    /** App labels for the system prompt, at most this many. */
++    List<String> labels(int max) {
++        List<String> out = new ArrayList<>(apps().keySet());
++        return out.size() > max ? out.subList(0, max) : out;
++    }
++}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/JarvisVoice.java b/launcher/app/src/main/java/com/gathin/tvhome/JarvisVoice.java
+new file mode 100644
+index 0000000..757791d
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/JarvisVoice.java
+@@ -0,0 +1,161 @@
++package com.gathin.tvhome;
++
++import android.media.AudioAttributes;
++import android.media.AudioFormat;
++import android.media.AudioTrack;
++
++/**
++ * Plays Jarvis's speech and his activation chime: 16-bit mono PCM at SpeechKit.TTS_RATE through one AudioTrack on a
++ * thread of its own, so a reply finishes even after the activity has closed (an app it opened is in front by then).
++ * One sound at a time: a new one stops the last.
++ */
++final class JarvisVoice {
++
++    interface Listener {
++        /** 0..1 while playing, about fifty times a second, on the playback thread. */
++        void level(float level);
++
++        /** Finished or stopped, on the playback thread. */
++        void done();
++    }
++
++    /** One sound being played; its own stop flag, so a slow one never plays on after the next has started. */
++    private static final class Playback {
++        volatile boolean stop;
++        Thread thread;
++    }
++
++    private static Playback current;
++
++    private JarvisVoice() {
++    }
++
++    static synchronized void play(byte[] pcm, boolean effect, Listener listener) {
++        stop();
++        short[] samples = samples(pcm);
++        if (effect) samples = room(samples, SpeechKit.TTS_RATE);
++        short[] sound = samples;
++        Playback p = new Playback();
++        p.thread = new Thread(() -> run(sound, p, listener), "jarvis-voice");
++        current = p;
++        p.thread.start();
++    }
++
++    /** The activation sound: two soft rising tones, a little under a third of a second. */
++    static void chime(Listener listener) {
++        int rate = SpeechKit.TTS_RATE;
++        short[] a = tone(rate, 880, 0.09), b = tone(rate, 1318.5, 0.14);
++        short[] both = new short[a.length + b.length];
++        System.arraycopy(a, 0, both, 0, a.length);
++        System.arraycopy(b, 0, both, a.length, b.length);
++        byte[] pcm = new byte[both.length * 2];
++        for (int i = 0; i < both.length; i++) {
++            pcm[2 * i] = (byte) both[i];
++            pcm[2 * i + 1] = (byte) (both[i] >> 8);
++        }
++        play(pcm, false, listener);
++    }
++
++    static synchronized void stop() {
++        Playback p = current;
++        current = null;
++        if (p == null) return;
++        p.stop = true;
++        try {
++            p.thread.join(300);
++        } catch (InterruptedException e) {
++            Thread.currentThread().interrupt();
++        }
++    }
++
++    private static void run(short[] sound, Playback p, Listener listener) {
++        int rate = SpeechKit.TTS_RATE;
++        int min = AudioTrack.getMinBufferSize(rate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
++        AudioTrack track = new AudioTrack.Builder()
++                .setAudioAttributes(new AudioAttributes.Builder()
++                        .setUsage(AudioAttributes.USAGE_ASSISTANT)
++                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
++                .setAudioFormat(new AudioFormat.Builder().setSampleRate(rate)
++                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT).setChannelMask(AudioFormat.CHANNEL_OUT_MONO).build())
++                .setBufferSizeInBytes(Math.max(min, rate / 5 * 2))
++                .setTransferMode(AudioTrack.MODE_STREAM)
++                .build();
++        int chunk = rate / 50;   // 20 ms
++        try {
++            track.play();
++            for (int pos = 0; pos < sound.length && !p.stop; pos += chunk) {
++                int n = Math.min(chunk, sound.length - pos);
++                double sum = 0;
++                for (int i = pos; i < pos + n; i++) sum += (double) sound[i] * sound[i];
++                if (listener != null) listener.level((float) Math.min(1.0, Math.sqrt(sum / n) / 8000.0));
++                track.write(sound, pos, n);
++            }
++            if (!p.stop) {
++                // Let the last buffer play out before the track goes.
++                try {
++                    Thread.sleep(Math.max(0, track.getBufferSizeInFrames() * 1000L / rate));
++                } catch (InterruptedException ignored) {
++                    Thread.currentThread().interrupt();
++                }
++            }
++        } catch (IllegalStateException ignored) {
++            // the audio output went away (TV switched source); nothing to play to
++        } finally {
++            try {
++                track.stop();
++            } catch (IllegalStateException ignored) {
++                // never started
++            }
++            track.release();
++            if (listener != null) listener.done();
++        }
++    }
++
++    static short[] samples(byte[] pcm) {
++        short[] s = new short[pcm.length / 2];
++        for (int i = 0; i < s.length; i++) s[i] = (short) ((pcm[2 * i] & 0xFF) | (pcm[2 * i + 1] << 8));
++        return s;
++    }
++
++    /**
++     * The voice "through the suit": a gentle high-pass (thinner, like a small speaker) and two very short echoes that
++     * give it a faint metallic ring, then normalised so it is as loud as it came. Subtle on purpose: words stay clear.
++     */
++    static short[] room(short[] in, int rate) {
++        int d1 = rate * 7 / 1000, d2 = rate * 13 / 1000;
++        double[] y = new double[in.length];
++        // First-order high-pass at about 120 Hz.
++        double rc = 1.0 / (2 * Math.PI * 120), dt = 1.0 / rate, a = rc / (rc + dt);
++        double prevX = 0, prevY = 0, peakIn = 1, peakOut = 1;
++        double[] hp = new double[in.length];
++        for (int i = 0; i < in.length; i++) {
++            double x = in[i];
++            prevY = a * (prevY + x - prevX);
++            prevX = x;
++            hp[i] = prevY;
++            peakIn = Math.max(peakIn, Math.abs(x));
++        }
++        for (int i = 0; i < in.length; i++) {
++            double v = 0.86 * hp[i];
++            if (i >= d1) v += 0.24 * hp[i - d1];
++            if (i >= d2) v += 0.14 * hp[i - d2];
++            y[i] = v;
++            peakOut = Math.max(peakOut, Math.abs(v));
++        }
++        double gain = Math.min(32000.0, peakIn) / peakOut;
++        short[] out = new short[in.length];
++        for (int i = 0; i < in.length; i++) out[i] = (short) Math.max(-32768, Math.min(32767, Math.round(y[i] * gain)));
++        return out;
++    }
++
++    private static short[] tone(int rate, double hz, double seconds) {
++        int n = (int) (rate * seconds);
++        short[] s = new short[n];
++        for (int i = 0; i < n; i++) {
++            double t = (double) i / n;
++            double envelope = Math.min(1.0, t * 12) * Math.pow(1 - t, 1.6);   // quick rise, soft fade
++            s[i] = (short) (Math.sin(2 * Math.PI * hz * i / rate) * envelope * 6500);
++        }
++        return s;
++    }
++}
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
-index e4d1ab4..49810b3 100644
+index e4d1ab4..e863828 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
 +++ b/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
-@@ -3,208 +3,1009 @@ package com.gathin.tvhome;
+@@ -3,208 +3,1055 @@ package com.gathin.tvhome;
  import android.app.Activity;
  import android.app.AlertDialog;
  import android.content.ActivityNotFoundException;
@@ -1002,6 +2703,21 @@ index e4d1ab4..49810b3 100644
 +                ? getString(R.string.on) : extras.weatherCity : getString(R.string.off), true, () -> push(this::weatherPage));
 +        row(getString(R.string.language_label), languageName(), true, () -> push(this::languagePage));
 +
++        section(R.string.settings_section_jarvis);
++        JarvisConfig jarvis = JarvisConfig.load(this);
++        row(getString(R.string.jarvis_label), getString(jarvis.ready() ? R.string.jarvis_ready : R.string.jarvis_not_set),
++                false, () -> {
++                    if (jarvis.ready()) startActivity(new Intent(this, JarvisActivity.class));
++                    else Toast.makeText(this, R.string.jarvis_setup_hint, Toast.LENGTH_LONG).show();
++                });
++        int voice = jarvis.voiceIndex();
++        row(getString(R.string.jarvis_voice_label), voice >= 0 ? getString(JarvisConfig.VOICE_NAMES[voice]) : jarvis.voice,
++                true, () -> push(this::jarvisVoicePage));
++        toggle(getString(R.string.jarvis_effect_label), jarvis.effect, on ->
++                getSharedPreferences(JarvisConfig.PREFS, MODE_PRIVATE).edit().putBoolean("effect", on).apply());
++        if (jarvis.ready()) row(getString(R.string.jarvis_test), null, false, this::jarvisTest);
++        if (!jarvis.ready()) hint(R.string.jarvis_setup_hint);
++
 +        section(R.string.settings_section_screensaver);
 +        toggle(getString(R.string.screensaver_label), screensaverOn(), this::setScreensaver);
 +        row(getString(R.string.screensaver_style_label), getString(screensaverStyleName()), true,
@@ -1191,33 +2907,13 @@ index e4d1ab4..49810b3 100644
 -                        .setPositiveButton(R.string.enable, (dialog, which) -> setAdvanced(true))
 -                        .setNegativeButton(android.R.string.cancel, null)
 -                        .show();
--            }
--        });
--        openOnStartChoice = findViewById(R.id.openOnStartChoice);
--        if (config.openOnStartChoice) {
--            openOnStartChoice.setVisibility(View.VISIBLE);
--            openOnStartChoice.setOnClickListener(v -> showOpenOnStartPicker());
 +        focusRestored();
 +    }
 +
 +    private String colorName() {
 +        for (int i = 0; i < COLORS.length; i++) {
 +            if ((config.backgroundColor | 0xFF000000) == COLORS[i]) return getString(COLOR_NAMES[i]);
-         }
--        followThemeChoice = findViewById(R.id.followThemeChoice);
--        followThemeChoice.setOnClickListener(v -> {
--            if (!hasOnTvChoices()) return;
--            choices.edit().remove("columns").remove(Config.ROWS_BELOW_DOCK_KEY).remove("animations")
--                    .remove("advanced_effects").remove(Config.WALLPAPER_CHOICE_KEY)
--                    .remove(Config.DOCK_OPACITY_KEY).remove(OpenOnStart.KEY).commit();
--            Config current = Config.load(this);
--            columns = current.columns;
--            rowsBelowDock = current.rowsBelowDock;
--            dockOpacity = current.dockOpacity;
--            animations = current.animations;
--            advancedEffects = current.animations && current.advancedEffects;
--            changed();
--            refresh();
++        }
 +        return String.format(Locale.ROOT, "#%06X", config.backgroundColor & 0xFFFFFF);
 +    }
 +
@@ -1239,6 +2935,41 @@ index e4d1ab4..49810b3 100644
 +    private int highlightName() {
 +        if (config.ambientGlow) return R.string.highlight_ambient;
 +        return config.appGlow ? R.string.highlight_app : R.string.highlight_white;
++    }
++
++    private void jarvisVoicePage() {
++        listPage(R.string.jarvis_voice_label, R.drawable.ic_settings);
++        JarvisConfig jarvis = JarvisConfig.load(this);
++        for (int i = 0; i < JarvisConfig.VOICES.length; i++) {
++            String[] v = JarvisConfig.VOICES[i];
++            check(getString(JarvisConfig.VOICE_NAMES[i]), i == jarvis.voiceIndex(), () -> {
++                getSharedPreferences(JarvisConfig.PREFS, MODE_PRIVATE).edit()
++                        .putString("voice", v[0]).putString("role", v[1]).apply();
++                refresh();
++                jarvisTest();
++            });
++        }
++        focusRestored();
++    }
++
++    /** Jarvis's voice as it is set now, saying a line from the films' spirit. */
++    private void jarvisTest() {
++        JarvisConfig jarvis = JarvisConfig.load(this);
++        if (!jarvis.ready()) return;
++        String phrase = getString(R.string.jarvis_test_phrase);
++        worker.execute(() -> {
++            try {
++                byte[] pcm = SpeechKit.synthesize(jarvis.yandexKey, phrase, jarvis.voice, jarvis.role, 1.0);
++                JarvisVoice.play(pcm, jarvis.effect, null);
++            } catch (Exception e) {
++                main.post(() -> Toast.makeText(this, getString(R.string.jarvis_err_tts, e.getMessage()),
++                        Toast.LENGTH_LONG).show());
+             }
+         });
+-        openOnStartChoice = findViewById(R.id.openOnStartChoice);
+-        if (config.openOnStartChoice) {
+-            openOnStartChoice.setVisibility(View.VISIBLE);
+-            openOnStartChoice.setOnClickListener(v -> showOpenOnStartPicker());
 +    }
 +
 +    private void languagePage() {
@@ -1272,7 +3003,21 @@ index e4d1ab4..49810b3 100644
 +        if (extras.weather()) {
 +            info(extras.weatherCity.isEmpty() ? String.format(Locale.ROOT, "%.3f, %.3f", extras.weatherLat, extras.weatherLon)
 +                    : extras.weatherCity);
-+        }
+         }
+-        followThemeChoice = findViewById(R.id.followThemeChoice);
+-        followThemeChoice.setOnClickListener(v -> {
+-            if (!hasOnTvChoices()) return;
+-            choices.edit().remove("columns").remove(Config.ROWS_BELOW_DOCK_KEY).remove("animations")
+-                    .remove("advanced_effects").remove(Config.WALLPAPER_CHOICE_KEY)
+-                    .remove(Config.DOCK_OPACITY_KEY).remove(OpenOnStart.KEY).commit();
+-            Config current = Config.load(this);
+-            columns = current.columns;
+-            rowsBelowDock = current.rowsBelowDock;
+-            dockOpacity = current.dockOpacity;
+-            animations = current.animations;
+-            advancedEffects = current.animations && current.advancedEffects;
+-            changed();
+-            refresh();
 +        row(getString(R.string.weather_from_phone), null, true, () -> push(this::phonePage));
 +        row(getString(R.string.weather_search_tv), null, false, this::searchPlace);
 +        if (extras.weather()) {
@@ -1835,7 +3580,7 @@ index e4d1ab4..49810b3 100644
          PackageManager pm = getPackageManager();
          List<String[]> apps = new ArrayList<>();
          Intent tv = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
-@@ -216,30 +1017,21 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -216,30 +1063,21 @@ public final class LauncherSettingsActivity extends Activity {
              if (!seen) apps.add(new String[]{r.loadLabel(pm).toString(), pkg});
          }
          Collections.sort(apps, (a, b) -> a[0].compareToIgnoreCase(b[0]));
@@ -1877,7 +3622,7 @@ index e4d1ab4..49810b3 100644
      private String openOnStartLabel() {
          String pkg = choices.getString(OpenOnStart.KEY, "");
          if (pkg.isEmpty()) return getString(R.string.off);
-@@ -251,12 +1043,135 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -251,12 +1089,135 @@ public final class LauncherSettingsActivity extends Activity {
          }
      }
  
@@ -2019,7 +3764,7 @@ index e4d1ab4..49810b3 100644
      }
  
      /**
-@@ -269,45 +1184,6 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -269,45 +1230,6 @@ public final class LauncherSettingsActivity extends Activity {
                  choices.getLong(Config.SETTINGS_REVISION_KEY, 0) + 1).apply();
      }
  
@@ -3141,8 +4886,246 @@ index 0000000..4e93399
 +        return PixelFormat.OPAQUE;
 +    }
 +}
+diff --git a/launcher/app/src/main/java/com/gathin/tvhome/SpeechKit.java b/launcher/app/src/main/java/com/gathin/tvhome/SpeechKit.java
+new file mode 100644
+index 0000000..626ad86
+--- /dev/null
++++ b/launcher/app/src/main/java/com/gathin/tvhome/SpeechKit.java
+@@ -0,0 +1,232 @@
++package com.gathin.tvhome;
++
++import org.json.JSONArray;
++import org.json.JSONException;
++import org.json.JSONObject;
++
++import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.io.OutputStream;
++import java.net.HttpURLConnection;
++import java.net.URL;
++import java.net.URLEncoder;
++import java.nio.charset.StandardCharsets;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.Base64;
++import java.util.List;
++import java.util.Locale;
++
++/**
++ * Yandex SpeechKit over REST with a service account's API key ("Authorization: Api-Key ..."; the folder comes from the
++ * account, so none is sent). Recognition: API v1, a short phrase of raw 16 kHz PCM. Synthesis: API v3, which has the
++ * strict and calm male voices; API v1 with ermil if v3 refuses. Both return raw 16-bit PCM, so nothing needs decoding.
++ * Network I/O: call off the main thread.
++ */
++final class SpeechKit {
++
++    static final int STT_RATE = 16_000;
++    static final int TTS_RATE = 48_000;
++    private static final String STT_URL = "https://stt.api.cloud.yandex.net/speech/v1/stt:recognize";
++    private static final String TTS_V3_URL = "https://tts.api.cloud.yandex.net/tts/v3/utteranceSynthesis";
++    private static final String TTS_V1_URL = "https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize";
++    /** The voices API v1 also has; any other falls back to ermil there. */
++    private static final List<String> V1_VOICES = Arrays.asList("ermil", "filipp", "zahar", "madi_ru", "jane", "omazh", "marina");
++
++    private SpeechKit() {
++    }
++
++    /** A failed call, with SpeechKit's own reason when it gave one. */
++    static final class Failure extends IOException {
++        final int status;
++
++        Failure(int status, String message) {
++            super(message);
++            this.status = status;
++        }
++    }
++
++    /** The text of one short phrase (up to 30 s, 1 MB), "" when SpeechKit heard no words. */
++    static String recognize(String key, byte[] pcm16k) throws IOException {
++        HttpURLConnection c = open(STT_URL + "?lang=ru-RU&format=lpcm&sampleRateHertz=" + STT_RATE, key, 20_000);
++        c.setRequestProperty("Content-Type", "application/octet-stream");
++        c.setFixedLengthStreamingMode(pcm16k.length);
++        try {
++            try (OutputStream out = c.getOutputStream()) {
++                out.write(pcm16k);
++            }
++            String body = new String(read(c), StandardCharsets.UTF_8);
++            try {
++                return new JSONObject(body).optString("result", "").trim();
++            } catch (JSONException e) {
++                throw new IOException("unreadable answer from recognition: " + body);
++            }
++        } finally {
++            c.disconnect();
++        }
++    }
++
++    /** Speech for text as 16-bit mono PCM at TTS_RATE. */
++    static byte[] synthesize(String key, String text, String voice, String role, double speed) throws IOException {
++        try {
++            return synthesizeV3(key, text, voice, role, speed);
++        } catch (Failure e) {
++            if (e.status == 401 || e.status == 403) throw e;   // the key itself: v1 would refuse it too
++            return synthesizeV1(key, text, V1_VOICES.contains(voice) ? voice : "ermil", speed);
++        } catch (IOException e) {
++            return synthesizeV1(key, text, V1_VOICES.contains(voice) ? voice : "ermil", speed);
++        }
++    }
++
++    static String v3Request(String text, String voice, String role, double speed) {
++        try {
++            JSONArray hints = new JSONArray();
++            hints.put(new JSONObject().put("voice", voice));
++            if (role != null && !role.isEmpty()) hints.put(new JSONObject().put("role", role));
++            if (speed != 1.0) hints.put(new JSONObject().put("speed", speed));
++            return new JSONObject()
++                    .put("text", text)
++                    .put("hints", hints)
++                    .put("outputAudioSpec", new JSONObject().put("rawAudio", new JSONObject()
++                            .put("audioEncoding", "LINEAR16_PCM").put("sampleRateHertz", TTS_RATE)))
++                    .toString();
++        } catch (JSONException e) {
++            throw new IllegalArgumentException(e);
++        }
++    }
++
++    private static byte[] synthesizeV3(String key, String text, String voice, String role, double speed) throws IOException {
++        byte[] request = v3Request(text, voice, role, speed).getBytes(StandardCharsets.UTF_8);
++        HttpURLConnection c = open(TTS_V3_URL, key, 30_000);
++        c.setRequestProperty("Content-Type", "application/json");
++        c.setFixedLengthStreamingMode(request.length);
++        try {
++            try (OutputStream out = c.getOutputStream()) {
++                out.write(request);
++            }
++            byte[] audio = v3Audio(new String(read(c), StandardCharsets.UTF_8));
++            if (audio.length == 0) throw new IOException("no audio in the v3 answer");
++            return audio;
++        } finally {
++            c.disconnect();
++        }
++    }
++
++    /**
++     * The audio of a v3 answer: a run of JSON objects, one per chunk, each {"result": {"audioChunk": {"data": base64}}}
++     * (or the chunk at the top level), one per line or simply one after another. Chunks without audio are skipped.
++     */
++    static byte[] v3Audio(String body) throws IOException {
++        ByteArrayOutputStream audio = new ByteArrayOutputStream();
++        for (String object : jsonObjects(body)) {
++            JSONObject chunk;
++            try {
++                chunk = new JSONObject(object);
++            } catch (JSONException e) {
++                continue;
++            }
++            JSONObject result = chunk.optJSONObject("result");
++            JSONObject holder = result != null ? result : chunk;
++            if (holder.has("error") || chunk.has("error")) {
++                throw new IOException("synthesis error: " + object);
++            }
++            JSONObject audioChunk = holder.optJSONObject("audioChunk");
++            String data = audioChunk == null ? "" : audioChunk.optString("data", "");
++            if (!data.isEmpty()) audio.write(Base64.getMimeDecoder().decode(data));
++        }
++        return audio.toByteArray();
++    }
++
++    /** The top-level JSON objects in text, found by their braces (outside strings). */
++    static List<String> jsonObjects(String text) {
++        List<String> objects = new ArrayList<>();
++        int depth = 0, start = -1;
++        boolean inString = false, escaped = false;
++        for (int i = 0; i < text.length(); i++) {
++            char ch = text.charAt(i);
++            if (inString) {
++                if (escaped) escaped = false;
++                else if (ch == '\\') escaped = true;
++                else if (ch == '"') inString = false;
++                continue;
++            }
++            if (ch == '"') {
++                inString = true;
++            } else if (ch == '{') {
++                if (depth++ == 0) start = i;
++            } else if (ch == '}' && depth > 0) {
++                if (--depth == 0) objects.add(text.substring(start, i + 1));
++            }
++        }
++        return objects;
++    }
++
++    private static byte[] synthesizeV1(String key, String text, String voice, double speed) throws IOException {
++        String form = "text=" + enc(text) + "&lang=ru-RU&voice=" + enc(voice) + "&format=lpcm&sampleRateHertz=" + TTS_RATE
++                + "&speed=" + String.format(Locale.ROOT, "%.2f", speed);
++        byte[] body = form.getBytes(StandardCharsets.UTF_8);
++        HttpURLConnection c = open(TTS_V1_URL, key, 30_000);
++        c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
++        c.setFixedLengthStreamingMode(body.length);
++        try {
++            try (OutputStream out = c.getOutputStream()) {
++                out.write(body);
++            }
++            return read(c);
++        } finally {
++            c.disconnect();
++        }
++    }
++
++    private static HttpURLConnection open(String url, String key, int timeoutMs) throws IOException {
++        HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
++        c.setRequestMethod("POST");
++        c.setDoOutput(true);
++        c.setConnectTimeout(10_000);
++        c.setReadTimeout(timeoutMs);
++        c.setRequestProperty("Authorization", "Api-Key " + key);
++        return c;
++    }
++
++    /** The body of a 200 answer; any other status becomes a Failure carrying SpeechKit's message. */
++    private static byte[] read(HttpURLConnection c) throws IOException {
++        int status = c.getResponseCode();
++        InputStream in = status == 200 ? c.getInputStream() : c.getErrorStream();
++        byte[] body = in == null ? new byte[0] : readAll(in);
++        if (status != 200) throw new Failure(status, errorMessage(status, new String(body, StandardCharsets.UTF_8)));
++        return body;
++    }
++
++    static String errorMessage(int status, String body) {
++        try {
++            JSONObject json = new JSONObject(body);
++            String message = json.optString("error_message", json.optString("message", ""));
++            if (!message.isEmpty()) return "HTTP " + status + ": " + message;
++        } catch (JSONException ignored) {
++            // not JSON: the status says enough
++        }
++        return "HTTP " + status;
++    }
++
++    private static byte[] readAll(InputStream in) throws IOException {
++        try (InputStream stream = in) {
++            ByteArrayOutputStream out = new ByteArrayOutputStream();
++            byte[] buf = new byte[16 * 1024];
++            int n;
++            while ((n = stream.read(buf)) > 0) {
++                out.write(buf, 0, n);
++                if (out.size() > 8 * 1024 * 1024) throw new IOException("answer larger than 8 MB");
++            }
++            return out.toByteArray();
++        }
++    }
++
++    private static String enc(String s) {
++        try {
++            return URLEncoder.encode(s, "UTF-8");
++        } catch (java.io.UnsupportedEncodingException e) {
++            throw new IllegalStateException(e);
++        }
++    }
++}
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/ThemeFiles.java b/launcher/app/src/main/java/com/gathin/tvhome/ThemeFiles.java
-index 18fded9..f589ada 100644
+index 18fded9..6e49fcf 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/ThemeFiles.java
 +++ b/launcher/app/src/main/java/com/gathin/tvhome/ThemeFiles.java
 @@ -18,7 +18,7 @@ final class ThemeFiles {
@@ -3150,7 +5133,7 @@ index 18fded9..f589ada 100644
              String name = segments.get(0);
              return Config.FILE_NAME.equals(name) || "wallpaper.jpg".equals(name) || "theme_revision".equals(name)
 -                    ? name : null;
-+                    || RemoteKeyFile.FILE_NAME.equals(name) ? name : null;
++                    || RemoteKeyFile.FILE_NAME.equals(name) || JarvisConfig.FILE_NAME.equals(name) ? name : null;
          }
          if (segments.size() == 2 && WALLPAPERS.equals(segments.get(0))
                  && (collectionImage(segments.get(1)) || WallpaperCaptions.FILE_NAME.equals(segments.get(1)))) {
@@ -4218,10 +6201,10 @@ index 0000000..a071157
 +</html>
 diff --git a/launcher/app/src/main/res/values-ru/strings_sber.xml b/launcher/app/src/main/res/values-ru/strings_sber.xml
 new file mode 100644
-index 0000000..00d63f6
+index 0000000..29a56df
 --- /dev/null
 +++ b/launcher/app/src/main/res/values-ru/strings_sber.xml
-@@ -0,0 +1,80 @@
+@@ -0,0 +1,114 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
 +    <string name="weather_clear">Ясно</string>
@@ -4300,7 +6283,41 @@ index 0000000..00d63f6
 +    <string name="reset_label">Вернуть как в теме</string>
 +    <string name="reset_hint">Отменяет всё, что выбрано здесь; фото с телефона остаются.</string>
 +    <string name="dock_opacity_short">Непрозрачность дока</string>
-+    <string name="library_title_grid">Все приложения</string>
++    <string name="jarvis_listening">Слушаю</string>
++    <string name="jarvis_thinking">Думаю</string>
++    <string name="jarvis_vpn">Включаю защищённый канал</string>
++    <string name="jarvis_hint">OK — ещё вопрос · Назад — закрыть</string>
++    <string name="jarvis_not_heard">Простите, сэр, я вас не расслышал.</string>
++    <string name="jarvis_refused">Простите, сэр, с этим я помочь не могу.</string>
++    <string name="jarvis_no_keys">Джарвису нужны ключи Claude и Яндекса. На телефоне выполните: bash sber-tv.sh IP_ТВ jarvis</string>
++    <string name="jarvis_no_permission">Джарвису ещё не разрешён микрофон. На телефоне выполните: bash sber-tv.sh IP_ТВ jarvis</string>
++    <string name="jarvis_no_mic">Микрофон не найден. Пульт Сбера может отдавать звук только ассистенту Сбера — подключите USB- или Bluetooth-микрофон.</string>
++    <string name="jarvis_silent">Микрофон молчит. Пульт Сбера может отдавать звук только ассистенту Сбера — подключите USB- или Bluetooth-микрофон.</string>
++    <string name="jarvis_inputs">Микрофоны ТВ: %1$s</string>
++    <string name="jarvis_err_key">Сэр, ключ Claude не принят. Проверьте его на телефоне командой jarvis.</string>
++    <string name="jarvis_err_region">Сэр, серверы Claude недоступны из этой сети. Нужен включённый VPN.</string>
++    <string name="jarvis_err_busy">Серверы перегружены, сэр. Попробуйте через минуту.</string>
++    <string name="jarvis_err_network">Нет связи с сервером, сэр.</string>
++    <string name="jarvis_err_other">Что-то пошло не так, сэр.</string>
++    <string name="jarvis_err_stt">Распознать речь не удалось: %1$s</string>
++    <string name="jarvis_err_tts">Голос недоступен: %1$s</string>
++    <string name="jarvis_voice_kirill_strict">Кирилл, строгий</string>
++    <string name="jarvis_voice_kirill">Кирилл, спокойный</string>
++    <string name="jarvis_voice_alexander">Александр</string>
++    <string name="jarvis_voice_anton">Антон</string>
++    <string name="jarvis_voice_ermil">Ермил</string>
++    <string name="jarvis_voice_filipp">Филипп</string>
++    <string name="jarvis_voice_zahar">Захар</string>
++    <string name="settings_section_jarvis">Джарвис</string>
++    <string name="jarvis_label">Джарвис</string>
++    <string name="jarvis_ready">Готов</string>
++    <string name="jarvis_not_set">Не настроен</string>
++    <string name="jarvis_setup_hint">Ключи и кнопка ассистента на пульте: на телефоне выполните bash sber-tv.sh IP_ТВ jarvis</string>
++    <string name="jarvis_voice_label">Голос</string>
++    <string name="jarvis_effect_label">Эффект «как в фильме»</string>
++    <string name="jarvis_test">Прослушать голос</string>
++    <string name="jarvis_test_phrase">Добрый вечер, сэр. Все системы в норме.</string>
++    <string name="jarvis_heard">«%1$s»</string>
 +</resources>
 diff --git a/launcher/app/src/main/res/values/config.xml b/launcher/app/src/main/res/values/config.xml
 index a998742..09c9004 100644
@@ -4331,10 +6348,10 @@ index 0000000..661f1c5
 +</resources>
 diff --git a/launcher/app/src/main/res/values/strings_sber.xml b/launcher/app/src/main/res/values/strings_sber.xml
 new file mode 100644
-index 0000000..98492bf
+index 0000000..538ce7f
 --- /dev/null
 +++ b/launcher/app/src/main/res/values/strings_sber.xml
-@@ -0,0 +1,81 @@
+@@ -0,0 +1,115 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!-- Strings for the compact pills, the VPN switch, the weather line and the Launcher settings screen; Russian in values-ru. -->
 +<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
@@ -4414,7 +6431,41 @@ index 0000000..98492bf
 +    <string name="reset_label">Back to the theme</string>
 +    <string name="reset_hint">Undoes everything changed here; photos sent from the phone stay.</string>
 +    <string name="dock_opacity_short">Dock opacity</string>
-+    <string name="library_title_grid">All apps</string>
++    <string name="jarvis_listening">Listening</string>
++    <string name="jarvis_thinking">Thinking</string>
++    <string name="jarvis_vpn">Opening a secure channel</string>
++    <string name="jarvis_hint">OK — ask again · Back — close</string>
++    <string name="jarvis_not_heard">Forgive me, sir, I didn\'t catch that.</string>
++    <string name="jarvis_refused">Forgive me, sir, I can\'t help with that.</string>
++    <string name="jarvis_no_keys">Jarvis needs his Claude and Yandex keys. On the phone run: bash sber-tv.sh TV_IP jarvis</string>
++    <string name="jarvis_no_permission">Jarvis may not use the microphone yet. On the phone run: bash sber-tv.sh TV_IP jarvis</string>
++    <string name="jarvis_no_mic">No microphone. The Sber remote may keep its microphone to the Sber assistant: plug in a USB or Bluetooth microphone.</string>
++    <string name="jarvis_silent">The microphone is silent. The Sber remote may keep its microphone to the Sber assistant: plug in a USB or Bluetooth microphone.</string>
++    <string name="jarvis_inputs">Microphones on the TV: %1$s</string>
++    <string name="jarvis_err_key">Sir, the Claude key was not accepted. Check it on the phone with the jarvis command.</string>
++    <string name="jarvis_err_region">Sir, Claude\'s servers are out of reach from this network. The VPN has to be on.</string>
++    <string name="jarvis_err_busy">The servers are overloaded, sir. Try again in a minute.</string>
++    <string name="jarvis_err_network">No connection to the server, sir.</string>
++    <string name="jarvis_err_other">Something went wrong, sir.</string>
++    <string name="jarvis_err_stt">Speech recognition failed: %1$s</string>
++    <string name="jarvis_err_tts">No voice: %1$s</string>
++    <string name="jarvis_voice_kirill_strict">Kirill, strict</string>
++    <string name="jarvis_voice_kirill">Kirill, calm</string>
++    <string name="jarvis_voice_alexander">Alexander</string>
++    <string name="jarvis_voice_anton">Anton</string>
++    <string name="jarvis_voice_ermil">Ermil</string>
++    <string name="jarvis_voice_filipp">Filipp</string>
++    <string name="jarvis_voice_zahar">Zahar</string>
++    <string name="settings_section_jarvis">Jarvis</string>
++    <string name="jarvis_label">Jarvis</string>
++    <string name="jarvis_ready">Ready</string>
++    <string name="jarvis_not_set">Not set up</string>
++    <string name="jarvis_setup_hint">Keys and the remote\'s assistant button: on the phone run bash sber-tv.sh TV_IP jarvis</string>
++    <string name="jarvis_voice_label">Voice</string>
++    <string name="jarvis_effect_label">Voice effect, as in the films</string>
++    <string name="jarvis_test">Hear the voice</string>
++    <string name="jarvis_test_phrase">Good evening, sir. All systems are online.</string>
++    <string name="jarvis_heard">“%1$s”</string>
 +</resources>
 diff --git a/launcher/app/src/main/res/values/styles.xml b/launcher/app/src/main/res/values/styles.xml
 index 2508912..c727af9 100644
@@ -4511,6 +6562,373 @@ index 0000000..b5a59e7
 +        assertFalse(HeaderExtras.from(new JSONObject("{\"weather_lat\":55.7}")).weather());
 +        assertTrue(HeaderExtras.from(new JSONObject("{\"weather_lat\":-33.9,\"weather_lon\":-180}")).weather());
 +        assertTrue(HeaderExtras.from(new JSONObject("{\"weather_lat\":0,\"weather_lon\":0}")).weather());
++    }
++}
+diff --git a/launcher/app/src/test/java/com/gathin/tvhome/JarvisBrainTest.java b/launcher/app/src/test/java/com/gathin/tvhome/JarvisBrainTest.java
+new file mode 100644
+index 0000000..1304361
+--- /dev/null
++++ b/launcher/app/src/test/java/com/gathin/tvhome/JarvisBrainTest.java
+@@ -0,0 +1,244 @@
++package com.gathin.tvhome;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertTrue;
++import static org.junit.Assert.fail;
++
++import com.anthropic.client.okhttp.AnthropicOkHttpClient;
++
++import org.json.JSONArray;
++import org.json.JSONObject;
++import org.junit.After;
++import org.junit.Before;
++import org.junit.Test;
++
++import java.io.ByteArrayOutputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.io.OutputStream;
++import java.net.InetAddress;
++import java.net.ServerSocket;
++import java.net.Socket;
++import java.nio.charset.StandardCharsets;
++import java.util.ArrayDeque;
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.Deque;
++import java.util.List;
++import java.util.Locale;
++
++/** JarvisBrain's loop against a local stand-in for the Messages API: the requests it sends and the replies it reads. */
++public class JarvisBrainTest {
++
++    private ServerSocket server;
++    private final Deque<Object[]> replies = new ArrayDeque<>();   // {status, body}
++    private final List<JSONObject> requests = Collections.synchronizedList(new ArrayList<>());
++    private final List<String> betaHeaders = Collections.synchronizedList(new ArrayList<>());
++    private JarvisBrain brain;
++
++    @Before
++    public void start() throws Exception {
++        server = new ServerSocket(0, 50, InetAddress.getLoopbackAddress());
++        Thread t = new Thread(() -> {
++            while (!server.isClosed()) {
++                try (Socket s = server.accept()) {
++                    answer(s);
++                } catch (IOException ignored) {
++                    // closed by stop(), or a client that went away
++                }
++            }
++        }, "fake-messages-api");
++        t.setDaemon(true);
++        t.start();
++        brain = new JarvisBrain(AnthropicOkHttpClient.builder()
++                .baseUrl("http://127.0.0.1:" + server.getLocalPort())
++                .apiKey("sk-ant-test").maxRetries(0).build());
++    }
++
++    @After
++    public void stop() throws IOException {
++        server.close();
++    }
++
++    /** One HTTP/1.1 exchange: records the JSON body and the beta header, answers with the next queued reply. */
++    private void answer(Socket s) throws IOException {
++        InputStream in = s.getInputStream();
++        String beta = null;
++        int length = 0;
++        for (String line = line(in); !line.isEmpty(); line = line(in)) {
++            int colon = line.indexOf(':');
++            if (colon < 0) continue;
++            String name = line.substring(0, colon).trim().toLowerCase(Locale.ROOT), value = line.substring(colon + 1).trim();
++            if (name.equals("content-length")) length = Integer.parseInt(value);
++            if (name.equals("anthropic-beta")) beta = value;
++        }
++        byte[] body = in.readNBytes(length);
++        try {
++            requests.add(new JSONObject(new String(body, StandardCharsets.UTF_8)));
++        } catch (Exception e) {
++            throw new IOException(e);
++        }
++        betaHeaders.add(beta);
++        Object[] reply;
++        synchronized (replies) {
++            reply = replies.isEmpty() ? new Object[]{500, "{}"} : replies.removeFirst();
++        }
++        byte[] out = ((String) reply[1]).getBytes(StandardCharsets.UTF_8);
++        OutputStream o = s.getOutputStream();
++        o.write(("HTTP/1.1 " + reply[0] + " X\r\nContent-Type: application/json\r\nContent-Length: " + out.length
++                + "\r\nConnection: close\r\n\r\n").getBytes(StandardCharsets.US_ASCII));
++        o.write(out);
++        o.flush();
++    }
++
++    private static String line(InputStream in) throws IOException {
++        ByteArrayOutputStream b = new ByteArrayOutputStream();
++        for (int c = in.read(); c >= 0 && c != '\n'; c = in.read()) if (c != '\r') b.write(c);
++        return b.toString(StandardCharsets.US_ASCII);
++    }
++
++    private static String message(String stopReason, String contentJson) {
++        return "{\"id\":\"msg_1\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-opus-5-5\","
++                + "\"content\":" + contentJson + ",\"stop_reason\":\"" + stopReason + "\",\"stop_sequence\":null,"
++                + "\"usage\":{\"input_tokens\":12,\"output_tokens\":7}}";
++    }
++
++    @Test
++    public void runsATvToolAndSpeaksTheAnswer() throws Exception {
++        replies.add(new Object[]{200, message("tool_use",
++                "[{\"type\":\"thinking\",\"thinking\":\"\",\"signature\":\"sig\"},"
++                        + "{\"type\":\"text\",\"text\":\"Сейчас открою.\"},"
++                        + "{\"type\":\"tool_use\",\"id\":\"toolu_1\",\"name\":\"open_app\",\"input\":{\"name\":\"YouTube\"}}]")});
++        replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Открываю YouTube, сэр.\"}]")});
++        List<String> calls = new ArrayList<>();
++        String answer = brain.ask("Открой ютуб", "system prompt", (name, input) -> {
++            calls.add(name + ":" + input.get("name"));
++            return "Открыто приложение YouTube.";
++        });
++        assertEquals("Открываю YouTube, сэр.", answer);
++        assertEquals(List.of("open_app:YouTube"), calls);
++
++        JSONObject first = requests.get(0);
++        assertEquals("claude-opus-5-5", first.getString("model"));
++        assertEquals("system prompt", first.getString("system"));
++        assertEquals("low", first.getJSONObject("output_config").getString("effort"));
++        assertEquals("default", first.getString("fallbacks"));
++        assertEquals("server-side-fallback-2026-07-01", betaHeaders.get(0));
++        JSONArray tools = first.getJSONArray("tools");
++        assertEquals("web_search_20260209", tools.getJSONObject(0).getString("type"));
++        assertEquals("RU", tools.getJSONObject(0).getJSONObject("user_location").getString("country"));
++        List<String> names = new ArrayList<>();
++        for (int i = 1; i < tools.length(); i++) names.add(tools.getJSONObject(i).getString("name"));
++        assertEquals(List.of("open_app", "search_in_app", "set_volume", "vpn", "tv_action", "get_weather"), names);
++        JSONObject volume = tools.getJSONObject(3).getJSONObject("input_schema");
++        assertEquals("object", volume.getString("type"));
++        assertEquals("up", volume.getJSONObject("properties").getJSONObject("action").getJSONArray("enum").getString(0));
++        assertEquals("action", volume.getJSONArray("required").getString(0));
++
++        // The second request carries the whole first reply back (thinking included) and the tool's result.
++        JSONArray messages = requests.get(1).getJSONArray("messages");
++        assertEquals(3, messages.length());
++        JSONArray assistant = messages.getJSONObject(1).getJSONArray("content");
++        assertEquals("thinking", assistant.getJSONObject(0).getString("type"));
++        assertEquals("sig", assistant.getJSONObject(0).getString("signature"));
++        JSONObject result = messages.getJSONObject(2).getJSONArray("content").getJSONObject(0);
++        assertEquals("tool_result", result.getString("type"));
++        assertEquals("toolu_1", result.getString("tool_use_id"));
++        assertEquals("Открыто приложение YouTube.", result.getString("content"));
++    }
++
++    @Test
++    public void aFailingToolIsReportedAsAnError() throws Exception {
++        replies.add(new Object[]{200, message("tool_use",
++                "[{\"type\":\"tool_use\",\"id\":\"toolu_2\",\"name\":\"vpn\",\"input\":{\"action\":\"on\"}}]")});
++        replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Не вышло, сэр.\"}]")});
++        brain.ask("Включи VPN", "s", (name, input) -> {
++            throw new Exception("VPN-приложение не принимает команды");
++        });
++        JSONObject result = requests.get(1).getJSONArray("messages").getJSONObject(2).getJSONArray("content").getJSONObject(0);
++        assertTrue(result.getBoolean("is_error"));
++        assertTrue(result.getString("content").contains("не принимает команды"));
++    }
++
++    @Test
++    public void aPausedSearchIsResumedAndOnlyTheWordsAreSpoken() throws Exception {
++        replies.add(new Object[]{200, message("pause_turn",
++                "[{\"type\":\"server_tool_use\",\"id\":\"srvtoolu_1\",\"name\":\"web_search\",\"input\":{\"query\":\"курс доллара\"}}]")});
++        replies.add(new Object[]{200, message("end_turn",
++                "[{\"type\":\"web_search_tool_result\",\"tool_use_id\":\"srvtoolu_1\",\"content\":[{\"type\":\"web_search_result\","
++                        + "\"url\":\"https://cbr.ru\",\"title\":\"ЦБ\",\"encrypted_content\":\"x\",\"page_age\":null}]},"
++                        + "{\"type\":\"text\",\"text\":\"Курс — восемьдесят два рубля, сэр.\",\"citations\":null}]")});
++        String answer = brain.ask("Какой курс доллара?", "s", (n, i) -> "");
++        assertEquals("Курс — восемьдесят два рубля, сэр.", answer);
++        // Resumed with the paused turn as the last message and no extra user message.
++        JSONArray messages = requests.get(1).getJSONArray("messages");
++        assertEquals(2, messages.length());
++        assertEquals("assistant", messages.getJSONObject(1).getString("role"));
++    }
++
++    @Test
++    public void aRefusalIsAnEmptyAnswer() throws Exception {
++        replies.add(new Object[]{200, message("refusal", "[]")});
++        assertEquals("", brain.ask("?", "s", (n, i) -> ""));
++    }
++
++    @Test
++    public void troublesAreNamed() {
++        replies.add(new Object[]{401, "{\"type\":\"error\",\"error\":{\"type\":\"authentication_error\",\"message\":\"invalid x-api-key\"}}"});
++        expect(JarvisBrain.Trouble.Kind.KEY);
++        replies.add(new Object[]{403, "{\"type\":\"error\",\"error\":{\"type\":\"permission_error\",\"message\":\"Request not allowed\"}}"});
++        expect(JarvisBrain.Trouble.Kind.REGION);
++        replies.add(new Object[]{429, "{\"type\":\"error\",\"error\":{\"type\":\"rate_limit_error\",\"message\":\"slow down\"}}"});
++        expect(JarvisBrain.Trouble.Kind.BUSY);
++        replies.add(new Object[]{529, "{\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}"});
++        expect(JarvisBrain.Trouble.Kind.BUSY);
++    }
++
++    @Test
++    public void aFailedQuestionIsNotCarriedIntoTheNext() throws Exception {
++        replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Да, сэр.\"}]")});
++        brain.ask("Первый", "s", (n, i) -> "");
++        replies.add(new Object[]{529, "{\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"}}"});
++        expect(JarvisBrain.Trouble.Kind.BUSY);
++        replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Да, сэр.\"}]")});
++        brain.ask("Третий", "s", (n, i) -> "");
++        JSONArray messages = requests.get(2).getJSONArray("messages");
++        assertEquals(1, messages.length());
++        assertEquals("Третий", messages.getJSONObject(0).getString("content"));
++    }
++
++    @Test
++    public void aBlockFromANewerApiIsSpokenAroundNotFatal() throws Exception {
++        replies.add(new Object[]{200, message("end_turn",
++                "[{\"type\":\"text\",\"text\":\"Готово, сэр.\"},{\"type\":\"block_from_the_future\",\"x\":1}]")});
++        assertEquals("Готово, сэр.", brain.ask("Первый", "s", (n, i) -> ""));
++        replies.add(new Object[]{200, message("tool_use",
++                "[{\"type\":\"block_from_the_future\"},{\"type\":\"tool_use\",\"id\":\"t\",\"name\":\"vpn\",\"input\":{}}]")});
++        expect(JarvisBrain.Trouble.Kind.OTHER);
++        // Neither reply could be sent back, so each next question starts a new conversation.
++        replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Да.\"}]")});
++        brain.ask("Третий", "s", (n, i) -> "");
++        assertEquals(1, requests.get(1).getJSONArray("messages").length());
++        assertEquals(1, requests.get(2).getJSONArray("messages").length());
++    }
++
++    private void expect(JarvisBrain.Trouble.Kind kind) {
++        try {
++            brain.ask("?", "s", (n, i) -> "");
++            fail("no trouble");
++        } catch (JarvisBrain.Trouble t) {
++            assertEquals(kind, t.kind);
++        }
++    }
++
++    @Test
++    public void aLongTalkStartsAfreshNotEditsTheOldOne() throws Exception {
++        for (int i = 0; i < 7; i++) {
++            replies.add(new Object[]{200, message("end_turn", "[{\"type\":\"text\",\"text\":\"Да, сэр.\"}]")});
++            brain.ask("Вопрос " + i, "s", (n, in) -> "");
++        }
++        // Questions 1-6 grow one conversation; the seventh opens a new one rather than trimming the old.
++        assertEquals(11, requests.get(5).getJSONArray("messages").length());
++        assertEquals(1, requests.get(6).getJSONArray("messages").length());
++    }
++}
+diff --git a/launcher/app/src/test/java/com/gathin/tvhome/JarvisPartsTest.java b/launcher/app/src/test/java/com/gathin/tvhome/JarvisPartsTest.java
+new file mode 100644
+index 0000000..7dff89e
+--- /dev/null
++++ b/launcher/app/src/test/java/com/gathin/tvhome/JarvisPartsTest.java
+@@ -0,0 +1,111 @@
++package com.gathin.tvhome;
++
++import static org.junit.Assert.assertArrayEquals;
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertNull;
++import static org.junit.Assert.assertTrue;
++
++import org.json.JSONObject;
++import org.junit.Test;
++
++import java.util.Arrays;
++import java.util.Base64;
++import java.util.List;
++
++public class JarvisPartsTest {
++
++    @Test
++    public void v3AudioJoinsTheChunksOfAStream() throws Exception {
++        String a = Base64.getEncoder().encodeToString(new byte[]{1, 2, 3});
++        String b = Base64.getEncoder().encodeToString(new byte[]{4, 5});
++        String body = "{\"result\":{\"audioChunk\":{\"data\":\"" + a + "\"},\"textChunk\":{\"text\":\"при{вет}\"}}}\n"
++                + "{\"result\":{\"lengthMs\":\"40\"}}\n"
++                + "{\"result\":{\"audioChunk\":{\"data\":\"" + b + "\"}}}";
++        assertArrayEquals(new byte[]{1, 2, 3, 4, 5}, SpeechKit.v3Audio(body));
++        // Also without line breaks, and with the chunk at the top level.
++        assertArrayEquals(new byte[]{1, 2, 3, 4, 5},
++                SpeechKit.v3Audio("{\"audioChunk\":{\"data\":\"" + a + "\"}}{\"audioChunk\":{\"data\":\"" + b + "\"}}"));
++    }
++
++    @Test
++    public void v3RequestNamesTheVoiceRoleAndRawPcm() throws Exception {
++        JSONObject r = new JSONObject(SpeechKit.v3Request("Добрый вечер, сэр.", "kirill", "strict", 1.0));
++        assertEquals("Добрый вечер, сэр.", r.getString("text"));
++        assertEquals("kirill", r.getJSONArray("hints").getJSONObject(0).getString("voice"));
++        assertEquals("strict", r.getJSONArray("hints").getJSONObject(1).getString("role"));
++        assertEquals(2, r.getJSONArray("hints").length());   // speed 1.0 is the default and is not sent
++        JSONObject raw = r.getJSONObject("outputAudioSpec").getJSONObject("rawAudio");
++        assertEquals("LINEAR16_PCM", raw.getString("audioEncoding"));
++        assertEquals(48000, raw.getInt("sampleRateHertz"));
++        assertEquals(1, new JSONObject(SpeechKit.v3Request("x", "filipp", "", 1.0)).getJSONArray("hints").length());
++    }
++
++    @Test
++    public void jsonObjectsIgnoreBracesInStrings() {
++        List<String> found = SpeechKit.jsonObjects("{\"a\":\"}{\"}\n{\"b\":{\"c\":1}} trailing");
++        assertEquals(Arrays.asList("{\"a\":\"}{\"}", "{\"b\":{\"c\":1}}"), found);
++    }
++
++    @Test
++    public void speechKitErrorsKeepTheirMessage() {
++        assertEquals("HTTP 401: Unknown api key", SpeechKit.errorMessage(401,
++                "{\"error_code\":\"UNAUTHORIZED\",\"error_message\":\"Unknown api key\"}"));
++        assertEquals("HTTP 502", SpeechKit.errorMessage(502, "<html>"));
++    }
++
++    @Test
++    public void appNamesMatchHowPeopleSayThem() {
++        List<String> apps = Arrays.asList("YouTube", "Кинопоиск: фильмы и сериалы", "Happ", "Aurora Store", "Браузер");
++        assertEquals("YouTube", AppMatch.best("youtube", apps));
++        assertEquals("Кинопоиск: фильмы и сериалы", AppMatch.best("Кинопоиск", apps));
++        assertEquals("Happ", AppMatch.best("Hap", apps));
++        assertNull(AppMatch.best("Okko", apps));
++        assertNull(AppMatch.best("", apps));
++    }
++
++    @Test
++    public void speechIsCleanedForTheVoice() {
++        // A link keeps its words and loses its address; a bare address goes entirely.
++        assertEquals("Курс доллара 82 рубля по данным ЦБ, сэр.",
++                JarvisSpeech.clean("**Курс доллара** 82 рубля по данным [ЦБ](https://cbr.ru), сэр. 💵 https://cbr.ru/x"));
++        assertEquals("Первое. Второе.", JarvisSpeech.clean("- Первое.\n- Второе."));
++        StringBuilder longText = new StringBuilder();
++        for (int i = 0; i < 60; i++) longText.append("Это предложение номер ").append(i).append(". ");
++        String cut = JarvisSpeech.clean(longText.toString());
++        assertTrue(cut.length() <= JarvisSpeech.MAX_CHARS);
++        assertTrue(cut.endsWith("."));
++    }
++
++    @Test
++    public void vadHearsAPhraseAndItsEnd() {
++        JarvisMic.Vad vad = new JarvisMic.Vad();
++        for (int i = 0; i < 20; i++) assertEquals(JarvisMic.Vad.WAITING, vad.feed(80));    // the room
++        assertEquals(JarvisMic.Vad.WAITING, vad.feed(3000));
++        assertEquals(JarvisMic.Vad.WAITING, vad.feed(3000));
++        assertEquals(JarvisMic.Vad.SPEAKING, vad.feed(3000));
++        for (int i = 0; i < 30; i++) assertEquals(JarvisMic.Vad.SPEAKING, vad.feed(2500));
++        int state = JarvisMic.Vad.SPEAKING;
++        for (int i = 0; i < 45; i++) state = vad.feed(90);
++        assertEquals(JarvisMic.Vad.DONE, state);
++    }
++
++    @Test
++    public void vadGivesUpOnSilenceAndIgnoresAClick() {
++        JarvisMic.Vad vad = new JarvisMic.Vad();
++        int state = JarvisMic.Vad.WAITING;
++        for (int i = 0; i < 400 && state == JarvisMic.Vad.WAITING; i++) state = vad.feed(i == 100 ? 9000 : 60);
++        assertEquals(JarvisMic.Vad.TIMEOUT, state);
++        assertTrue(!vad.heardVoice());
++    }
++
++    @Test
++    public void theRoomEffectKeepsLoudnessAndLength() {
++        short[] in = new short[4800];
++        for (int i = 0; i < in.length; i++) in[i] = (short) (Math.sin(i * 2 * Math.PI * 440 / 48000) * 10000);
++        short[] out = JarvisVoice.room(in, 48000);
++        assertEquals(in.length, out.length);
++        int peak = 0;
++        for (short s : out) peak = Math.max(peak, Math.abs(s));
++        assertTrue("peak " + peak, peak >= 9000 && peak <= 10100);
 +    }
 +}
 diff --git a/launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java b/launcher/app/src/test/java/com/gathin/tvhome/WeatherTest.java

@@ -7,7 +7,7 @@
 # Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
 # собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — компактные кнопки
 # сверху, VPN одной кнопкой, погода, плитка «Настройки лаунчера», библиотека плитками, отключение
-# кнопок Сбера на пульте (sha256 проверяется).
+# кнопок Сбера на пульте, голосовой ассистент Джарвис (sha256 проверяется).
 #
 # Использование (TV_IP — адрес телевизора в домашней сети):
 #   bash sber-tv.sh TV_IP              проверить ТВ и сделать всё (= install)
@@ -23,6 +23,9 @@
 #   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет, погода, кнопка VPN
 #   bash sber-tv.sh TV_IP keys         отключить кнопки Сбера на пульте (Okko, ИВИ...), ассистент → Алиса
 #   bash sber-tv.sh TV_IP keys-reset   вернуть кнопкам пульта их обычную работу
+#   bash sber-tv.sh TV_IP jarvis       Джарвис: голосовой ИИ на кнопке ассистента (Claude + голос Яндекса)
+#   bash sber-tv.sh TV_IP jarvis-log   журнал Джарвиса, если он не слышит или молчит
+#   bash sber-tv.sh TV_IP jarvis-off   убрать Джарвиса с кнопки и стереть его ключи с ТВ
 #   bash sber-tv.sh TV_IP update-launcher   обновить домашний экран до версии из этого набора
 #   bash sber-tv.sh TV_IP look-reset   вернуть оформление, которое ставит чистка
 #   bash sber-tv.sh TV_IP shell 'КОМАНДА'   выполнить одну shell-команду на ТВ
@@ -30,9 +33,9 @@ set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0-sber2.apk
-APK_SHA256=4cde8d7b2b241f1d70b11d933e0379f1e8d787b93c048f1eb5a8f6e34bfd32b6
-APK_VERSION_CODE=11
+APK_NAME=tvhome-3.0-sber3.apk
+APK_SHA256=ab7c346e588c52e992182c35cd1217a22f0b2637a4c5db298ec05882b016f1fa
+APK_VERSION_CODE=12
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -229,6 +232,7 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
       say "Домашний экран обновлён"
       echo "На ТВ среди приложений появилась плитка «Настройки лаунчера»: стиль (Apple TV), обои с телефона"
       echo "по QR-коду, цвет, погода, язык, заставка. Кнопки Сбера на пульте: bash $0 $TV_HOST keys"
+      echo "Голосовой ассистент Джарвис на кнопке ассистента: bash $0 $TV_HOST jarvis"
     fi
     return 0
   fi
@@ -633,12 +637,17 @@ keys() {
 
   say "Кнопка ассистента"
   mapfile -t apps < <(tv 'pm list packages -e' | tr -d '\r' | sed -n 's/^package://p' | grep -i -E 'alice|yandex' | sort)
+  if jarvis_ready; then apps=("$JARVIS_TARGET" "${apps[@]}"); fi
   if [ ${#apps[@]} -eq 0 ]; then
     echo "Приложения Алисы (Яндекса) на ТВ нет — кнопку ассистента не меняю. Поставьте его (например, через"
     echo "Aurora Store или: bash $0 $TV_HOST apk файл.apk) и выполните keys ещё раз."
+    echo "Или повесьте на неё Джарвиса, голосового ИИ: bash $0 $TV_HOST jarvis"
   else
-    echo "Какое приложение открывать кнопкой ассистента (Салют):"
-    for i in "${!apps[@]}"; do printf '  %d) %s\n' "$((i + 1))" "${apps[$i]}"; done
+    echo "Что открывать кнопкой ассистента (Салют):"
+    for i in "${!apps[@]}"; do
+      if [ "${apps[$i]}" = "$JARVIS_TARGET" ]; then printf '  %d) Джарвис — голосовой ИИ\n' "$((i + 1))"
+      else printf '  %d) %s\n' "$((i + 1))" "${apps[$i]}"; fi
+    done
     printf '  %d) оставить кнопку как есть\n' "$((${#apps[@]} + 1))"
     read -r -p "Номер [1]: " i
     i=${i:-1}
@@ -650,7 +659,8 @@ keys() {
         echo "  Кнопку ассистента поймать не удалось — оставляю как есть."
       else
         entries+=("scan:$code:$alice")
-        echo "  Ассистент (код $code) будет открывать $alice"
+        if [ "$alice" = "$JARVIS_TARGET" ]; then echo "  Ассистент (код $code) будет открывать Джарвиса"
+        else echo "  Ассистент (код $code) будет открывать $alice"; fi
       fi
     fi
   fi
@@ -677,6 +687,174 @@ keys_reset() {
   tv "content delete --uri $KEYS_URI" >/dev/null 2>&1 || true
   key_service_restart
   say "Кнопки пульта снова работают как раньше"
+  if jarvis_ready; then echo "Джарвис с кнопки тоже снят (его ключи на ТВ остались). Вернуть: bash $0 $TV_HOST jarvis"; fi
+}
+
+JARVIS_URI=content://com.gathin.tvhome.theme/jarvis.json
+JARVIS_TARGET=com.gathin.tvhome/.JarvisActivity
+
+tv_json() {   # tv_json URI → JSON-файл лаунчера с ТВ одной строкой, или ничего, если файла нет
+  tv "content read --uri $1 2>/dev/null" | tr -d '\r' | "$PY" -I -c 'import json, sys
+try:
+    print(json.dumps(json.loads(sys.stdin.read())))
+except ValueError:
+    pass'
+}
+
+jarvis_ready() {   # на ТВ сохранены оба ключа Джарвиса
+  tv_json "$JARVIS_URI" | "$PY" -I -c 'import json, sys
+d = json.loads(sys.stdin.read() or "{}")
+sys.exit(0 if d.get("anthropic_key") and d.get("yandex_key") else 1)'
+}
+
+push_theme_file() {   # push_theme_file ЛОКАЛЬНЫЙ_ФАЙЛ URI: записать файл в папку лаунчера через его ThemeProvider
+  local tmp="/data/local/tmp/cyt-theme-${2##*/}"
+  tv --push "$1" "$tmp" >/dev/null
+  tv "content write --uri $2 < $tmp; rm -f $tmp" >/dev/null
+}
+
+http_code() {   # http_code ЗАГОЛОВОК [аргументы curl...]: код ответа; заголовок с ключом идёт через stdin, не в списке процессов
+  local code
+  code="$(printf 'header = "%s"\n' "$1" | curl -s -o /dev/null -w '%{http_code}' --max-time 25 -K - "${@:2}")" || code=000
+  echo "${code:-000}"
+}
+
+ask_yes() {   # ask_yes "Вопрос": да → 0
+  local ans
+  read -r -p "$1 [y/N] " ans
+  case "$ans" in [yYдД]*) return 0 ;; *) return 1 ;; esac
+}
+
+jarvis() {
+  probe
+  local version old old_a old_y a y code keys tmp out
+  version="$(launcher_version)"
+  [ "$version" -gt 0 ] || die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST"
+  if [ "$version" -lt "$APK_VERSION_CODE" ]; then update_launcher quiet; fi
+
+  say "Джарвис — голосовой ассистент на кнопке ассистента"
+  echo "Отвечает Claude (Anthropic) с поиском в интернете, говорит голосом Яндекса (SpeechKit)."
+  echo "Нужны два ключа, как их получить — в README, раздел «Джарвис»:"
+  echo "  1) Claude: console.anthropic.com → API Keys, начинается с sk-ant-"
+  echo "  2) Яндекс: API-ключ сервисного аккаунта Yandex Cloud с ролями ai.speechkit-stt.user и"
+  echo "     ai.speechkit-tts.user, обычно начинается с AQVN"
+  echo "Ключи хранятся только на телевизоре, в папке лаунчера. Ввод не виден на экране."
+  old="$(tv_json "$JARVIS_URI")"
+  old_a="$("$PY" -I -c 'import json, sys; print(json.loads(sys.argv[1] or "{}").get("anthropic_key", ""))' "$old")"
+  old_y="$("$PY" -I -c 'import json, sys; print(json.loads(sys.argv[1] or "{}").get("yandex_key", ""))' "$old")"
+  read -r -s -p "Ключ Claude${old_a:+ (Enter — оставить прежний …${old_a: -4})}: " a; echo
+  a="$(printf '%s' "${a:-$old_a}" | tr -d '[:space:]')"
+  [[ "$a" == sk-ant-* ]] || die "ключ Claude должен начинаться с sk-ant- (console.anthropic.com → API Keys)"
+  read -r -s -p "Ключ Яндекса${old_y:+ (Enter — оставить прежний …${old_y: -4})}: " y; echo
+  y="$(printf '%s' "${y:-$old_y}" | tr -d '[:space:]')"
+  [ ${#y} -ge 20 ] || die "ключ Яндекса слишком короткий — нужен API-ключ сервисного аккаунта (AQVN…)"
+  [[ "$y" == AQVN* ]] || echo "  Ключ Яндекса не начинается с AQVN: проверьте, что это API-ключ, а не IAM-токен (тот живёт 12 часов)."
+
+  say "Проверяю ключи"
+  tmp="$(mktemp)"
+  head -c 6400 /dev/zero > "$tmp"   # 0,2 с тишины: распознавание должно ответить пустой строкой
+  code="$(http_code "Authorization: Api-Key $y" --data-binary @"$tmp" -H 'Content-Type: application/octet-stream' \
+    'https://stt.api.cloud.yandex.net/speech/v1/stt:recognize?lang=ru-RU&format=lpcm&sampleRateHertz=16000')"
+  rm -f "$tmp"
+  case "$code" in
+    200) echo "  Яндекс, распознавание речи: работает" ;;
+    401) echo "  Яндекс не принял ключ (401): ключ с ошибкой или удалён"; ask_yes "Сохранить всё равно?" || exit 1 ;;
+    403) echo "  Яндекс: у сервисного аккаунта нет роли ai.speechkit-stt.user (403)"; ask_yes "Сохранить всё равно?" || exit 1 ;;
+    000) echo "  Яндекс не ответил — нет интернета на телефоне? Проверку пропускаю." ;;
+    *) echo "  Яндекс ответил кодом $code — проверку пропускаю." ;;
+  esac
+  code="$(http_code "Authorization: Api-Key $y" --data-urlencode 'text=Проверка' -d lang=ru-RU -d voice=ermil \
+    -d format=lpcm -d sampleRateHertz=48000 https://tts.api.cloud.yandex.net/speech/v1/tts:synthesize)"
+  case "$code" in
+    200) echo "  Яндекс, синтез речи: работает" ;;
+    401) echo "  Яндекс не принял ключ (401)"; ask_yes "Сохранить всё равно?" || exit 1 ;;
+    403) echo "  Яндекс: у сервисного аккаунта нет роли ai.speechkit-tts.user (403)"; ask_yes "Сохранить всё равно?" || exit 1 ;;
+    *) echo "  Синтез речи не проверен (код $code)." ;;
+  esac
+  code="$(http_code "x-api-key: $a" -H 'anthropic-version: 2023-06-01' https://api.anthropic.com/v1/models)"
+  case "$code" in
+    200) echo "  Claude: ключ принят" ;;
+    401) echo "  Anthropic не принял ключ Claude (401): ключ с ошибкой или отозван"; ask_yes "Сохранить всё равно?" || exit 1 ;;
+    403) echo "  Claude из этой сети недоступен (403): Anthropic не работает из России без VPN. Ключ не проверен;"
+         echo "  на ТВ Джарвис перед вопросом сам включает VPN." ;;
+    000) echo "  api.anthropic.com не ответил — ключ не проверен. На ТВ запросы к Claude идут через VPN." ;;
+    *) echo "  Claude ответил кодом $code — ключ не проверен." ;;
+  esac
+
+  say "Сохраняю на ТВ"
+  (umask 077 && "$PY" -I -c 'import json, sys; json.dump({"anthropic_key": sys.argv[2], "yandex_key": sys.argv[3]}, open(sys.argv[1], "w"))' \
+    "$DIR/jarvis.json" "$a" "$y")
+  push_theme_file "$DIR/jarvis.json" "$JARVIS_URI"
+  rm -f "$DIR/jarvis.json"
+  # Микрофон: разрешение «опасного» уровня, ADB выдаёт его без вопросов на экране.
+  out="$(tv 'pm grant com.gathin.tvhome android.permission.RECORD_AUDIO' | tr -d '\r')"
+  [ -z "$out" ] || echo "  ТВ не выдал доступ к микрофону ($out) — Джарвис скажет об этом на экране."
+
+  say "Кнопка для Джарвиса"
+  echo "Обычно это кнопка ассистента (Салют). Подойдёт и ненужная кнопка, например Okko."
+  code="$(capture_key "кнопка для Джарвиса")"
+  if [ -z "$code" ] || [[ "$NAV_KEYS" == *" $code "* ]]; then
+    echo "  Кнопку поймать не удалось${code:+ (код $code — кнопка навигации)}. Если ТВ не видит кнопку ассистента"
+    echo "  (её забирает система Сбера), повторите и нажмите другую: bash $0 $TV_HOST jarvis — ключи вводить"
+    echo "  заново не нужно, Enter. Пока Джарвиса можно открыть из «Настроек лаунчера» → Джарвис."
+  else
+    keys="$(tv_json "$KEYS_URI")"
+    "$PY" -I -c 'import json, sys
+out, old, code, target = sys.argv[1:5]
+d = json.loads(old or "{}")
+keys = [k for k in d.get("app_keys", []) if not k.startswith("scan:%s:" % code) and not k.endswith(":" + target)]
+d["app_keys"] = keys + ["scan:%s:%s" % (code, target)]
+json.dump(d, open(out, "w"), indent=1)' "$DIR/remote_keys.json" "$keys" "$code" "$JARVIS_TARGET"
+    push_theme_file "$DIR/remote_keys.json" "$KEYS_URI"
+    key_service_restart
+    echo "  Кнопка (код $code) теперь открывает Джарвиса; остальные настройки кнопок пульта сохранены."
+  fi
+
+  say "Проверка голоса"
+  tv "am start -n $JARVIS_TARGET --es com.gathin.tvhome.extra.JARVIS_SAY 'Джарвис на связи, сэр. Все системы в норме.'" >/dev/null
+  echo "Телевизор должен сказать: «Джарвис на связи, сэр. Все системы в норме.»"
+  echo "Тишина или красное кольцо на экране — посмотрите журнал: bash $0 $TV_HOST jarvis-log"
+
+  say "Готово. Как пользоваться"
+  echo "- кнопка → короткий сигнал → говорите: «Какая погода завтра?», «Включи на ютубе обзор айфона»,"
+  echo "  «Сделай погромче», «Сколько стоит биткоин?», «Открой Кинопоиск», «Включи VPN»;"
+  echo "- кнопка ещё раз — закончить фразу сразу; OK после ответа — спросить ещё; «Назад» — закрыть;"
+  echo "- голос (несколько мужских голосов Яндекса) и эффект «как в фильме»: Настройки лаунчера → Джарвис;"
+  echo "- Claude из России работает только через VPN: перед вопросом Джарвис сам включает VPN-приложение"
+  echo "  (Happ, v2rayNG, WireGuard), если оно выключено;"
+  echo "- Джарвис слушает микрофон, только пока на экране кольцо. Если ТВ отдаёт микрофон пульта только Сберу,"
+  echo "  Джарвис так и скажет — тогда нужен USB- или Bluetooth-микрофон."
+  echo "Убрать Джарвиса и стереть ключи с ТВ: bash $0 $TV_HOST jarvis-off"
+}
+
+jarvis_log() {
+  probe
+  say "Журнал Джарвиса (последние записи)"
+  tv 'logcat -d -v time -s Jarvis:V AndroidRuntime:E 2>/dev/null | tail -n 40' | tr -d '\r'
+  echo
+  echo "Что значит:"
+  echo "- microphone / silent microphone — звук с микрофона не приходит (в строке есть список входов ТВ);"
+  echo "- recognition / synthesis с HTTP 401 или 403 — ключ Яндекса или роли сервисного аккаунта;"
+  echo "- claude: REGION — Anthropic не пускает без VPN; claude: KEY — неверный ключ: bash $0 $TV_HOST jarvis;"
+  echo "- claude: BUSY — Anthropic перегружен, спросите позже."
+}
+
+jarvis_off() {
+  probe
+  local keys
+  keys="$(tv_json "$KEYS_URI")"
+  if [ -n "$keys" ]; then
+    "$PY" -I -c 'import json, sys
+out, old, target = sys.argv[1:4]
+d = json.loads(old)
+d["app_keys"] = [k for k in d.get("app_keys", []) if not k.endswith(":" + target)]
+json.dump(d, open(out, "w"), indent=1)' "$DIR/remote_keys.json" "$keys" "$JARVIS_TARGET"
+    push_theme_file "$DIR/remote_keys.json" "$KEYS_URI"
+    key_service_restart
+  fi
+  tv "content delete --uri $JARVIS_URI" >/dev/null 2>&1 || true
+  tv 'pm revoke com.gathin.tvhome android.permission.RECORD_AUDIO' >/dev/null 2>&1 || true
+  say "Джарвис отключён: ключи стёрты с ТВ, доступ к микрофону отозван, кнопка работает как раньше"
 }
 
 prepare
@@ -697,6 +875,9 @@ case "$CMD" in
   look) shift 2; look "$@" ;;
   keys) keys ;;
   keys-reset) keys_reset ;;
+  jarvis) jarvis ;;
+  jarvis-log) jarvis_log ;;
+  jarvis-off) jarvis_off ;;
   update-launcher) update_launcher ;;
   look-reset) probe && bash "$DIR/tools/theme.sh" "$DIR/$PROFILE" ;;
   shell) shift 2; [ $# -gt 0 ] || die "укажите команду: shell 'pm list packages -d'"; tv "$*" ;;
