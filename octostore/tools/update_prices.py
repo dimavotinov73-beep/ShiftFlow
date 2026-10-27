@@ -749,13 +749,12 @@ def main():
     if m:
         y = m.group(3)
         date = f"{'20' + y if len(y) == 2 else y}-{int(m.group(2)):02d}-{int(m.group(1)):02d}"
-    order = next((b["href"] for b in price["buttons"] if "заказ" in b["label"].lower()), None)
     socials = {l["label"].strip().lower(): html.unescape(l["href"]) for l in price["links"]}
 
+    # Контакт для заказов задаётся на сайте (ORDER_URL в assets/js/app.js), а не берётся из канала.
     data = {
         "updated": date,
         "channel": f"https://t.me/{CHANNEL}",
-        "order": order.replace("http://", "https://") if order else None,
         "socials": socials,
         "products": [{"id": p.pop("id"), **p} for p in products],
     }

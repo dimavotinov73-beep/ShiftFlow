@@ -4,7 +4,7 @@
 
   const DATA = window.OCTO_CATALOG || { products: [] };
   const ART = window.OctoArt;
-  const ORDER_URL = (DATA.order || "https://t.me/lint_26").replace(/\/$/, "");
+  const ORDER_URL = "https://t.me/VotinovDM"; // контакт для заказов
   const ORDER_USER = ORDER_URL.split("/").pop();
   const CHANNEL_URL = DATA.channel || "https://t.me/OctoStore46";
   const SOCIALS = DATA.socials || {};
