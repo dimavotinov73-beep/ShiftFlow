@@ -239,7 +239,7 @@
   const shortVer = (v) => v.replace(/^SIM-карта:\s*/i, "").replace(/nano-SIM и eSIM/i, "SIM + eSIM").replace(/2 nano-SIM/i, "2 SIM");
   function chips(p) {
     const out = [];
-    const sw = ART.resolve(p.colorEn) || ART.resolve(p.color);
+    const sw = p.hex || ART.resolve(p.colorEn) || ART.resolve(p.color);
     if (p.mem && p.cat !== "watch") out.push(`<span class="chip">${esc(p.mem)}</span>`);
     if (p.color && out.length < 2) out.push(`<span class="chip">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(p.color.length > 18 ? p.color.slice(0, 17) + "…" : p.color)}</span>`);
     return out.join("");
@@ -766,7 +766,7 @@
         const exact = sib.find((x) => x[key] === v && others.every((k) => x[k] === p[k]));
         const target = exact || sib.filter((x) => x[key] === v).sort((a, b) => others.reduce((s, k) => s + (b[k] === p[k]) - (a[k] === p[k]), 0) || (a.price ?? 1e12) - (b.price ?? 1e12))[0];
         const on = p[key] === v;
-        const sw = key === "color" ? ART.resolve(target.colorEn) || ART.resolve(v) : null;
+        const sw = key === "color" ? target.hex || ART.resolve(target.colorEn) || ART.resolve(v) : null;
         return `<a class="vopt${sw ? " vopt--color" : ""}${on ? " is-on" : ""}${!exact && !on ? " is-off" : ""}" href="#/product/${encodeURIComponent(target.id)}" aria-current="${on}">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(v)}${target.price != null && !on && key !== "color" ? ` <small>${rub(target.price)}</small>` : ""}</a>`;
       });
       return `<div class="variant"><div class="variant__label">${label}: <b>${esc(p[key])}</b></div><div class="variant__opts">${btns.join("")}</div></div>`;
@@ -806,7 +806,7 @@
             ${variants(p)}
             <div class="buybox card">
               <div class="buybox__price">${priceHtml(p)}${updatedShort ? `<span class="muted" style="font-size:14px">цена на ${updatedShort}</span>` : ""}</div>
-              <p class="buybox__note">${icon("info")}${p.from ? "Цена указана за самый доступный вариант. " : ""}Наличие и стоимость могут меняться — менеджер подтвердит их перед покупкой.</p>
+              <p class="buybox__note">${icon("info")}${p.from ? "Цена указана за самый доступный вариант. " : ""}${p.hex ? "Фото общее для всех цветов — выбранный цвет может отличаться. " : ""}Наличие и стоимость могут меняться — менеджер подтвердит их перед покупкой.</p>
               <div class="buybox__actions">
                 ${buy(p, "lg")}
                 <a class="btn btn--tg" href="${tgLink(askText(p))}" target="_blank" rel="noopener">${icon("telegram")}Купить в 1 клик</a>

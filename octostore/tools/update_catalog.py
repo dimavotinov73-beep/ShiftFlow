@@ -177,7 +177,10 @@ def parse_details(page):
     labels = {}
     for c in picker.get("characteristics") or []:
         for v in c.get("values") or []:
-            labels[(str(c.get("id")), str(v.get("id")))] = (c.get("name") or "", (v.get("label") or v.get("name") or "").strip(), bool(c.get("isColor")))
+            hexm = re.search(r"#([0-9a-fA-F]{6})", v.get("colorStyle") or "")
+            labels[(str(c.get("id")), str(v.get("id")))] = (
+                c.get("name") or "", (v.get("label") or v.get("name") or "").strip(), bool(c.get("isColor")),
+                "#" + hexm.group(1).lower() if hexm else None)
     variants = []
     for row in picker.get("variantsMatrix") or []:
         if row.get("isNoOrder") or row.get("isAvailable") is False or not row.get("price"):
@@ -352,17 +355,19 @@ def main():
         variants = d.get("variants") or []
         if len(variants) > 1:
             for v in variants:
-                labels = [lbl for (_, lbl, is_color) in v["parts"] if not is_color]
-                colors = [lbl for (_, lbl, is_color) in v["parts"] if is_color]
-                p = dict(base, id=f"{s}--{v['vid']}", price=our_price(v["price"]))
+                labels = [lbl for (_, lbl, is_color, _) in v["parts"] if not is_color]
+                colors = [(lbl, hx) for (_, lbl, is_color, hx) in v["parts"] if is_color]
+                p = dict(base, id=f"{pid}-{v['vid']}", price=our_price(v["price"]))
                 if colors:
-                    p["color"] = colors[0]
-                    p["name"] = f"{split_title(c['title'], c['cat'])[0].split(', ')[0]}, {colors[0]}"
+                    # «Чёрный | Black» → цвет, английское название и образец; фото у всех цветов общее
+                    ru, _, en = colors[0][0].partition("|")
+                    p["color"], p["colorEn"], p["hex"] = ru.strip(), en.strip() or ru.strip(), colors[0][1]
+                    p["name"] = f"{name.rsplit(', ', 1)[0] if color_ru else name}, {ru.strip()}"
                 p["ver"] = ", ".join(x for x in labels + ([note] if note else []) if x) or None
                 products.append({k: v_ for k, v_ in p.items() if v_ not in (None, "", [])})
         else:
             price = variants[0]["price"] if variants else c["price"]
-            p = dict(base, id=s, price=our_price(price), ver=note)
+            p = dict(base, id=pid, price=our_price(price), ver=note)
             if c["from"] and not variants:
                 p["from"] = True
             products.append({k: v_ for k, v_ in p.items() if v_ not in (None, "", [])})
