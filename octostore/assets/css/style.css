@@ -361,6 +361,7 @@ main { min-height: 60vh; outline: none; }
 .more { display: flex; justify-content: center; margin-top: 26px; }
 .empty { text-align: center; padding: 64px 20px; }
 .empty .art { width: 140px; height: 140px; margin: 0 auto 10px; }
+.empty__logo { width: 88px; height: 88px; margin: 0 auto 18px; }
 .empty h3 { font-size: 22px; margin-bottom: 8px; }
 .empty p { color: var(--muted); margin-bottom: 20px; }
 

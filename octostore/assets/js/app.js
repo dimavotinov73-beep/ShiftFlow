@@ -678,7 +678,7 @@
         </div>
       </div>
       ${activeChips.length ? `<div class="active-filters">${activeChips.map(([k, v, t]) => `<button type="button" data-unf="${k}" data-v="${esc(v)}">${esc(t)}${icon("close")}</button>`).join("")}<button type="button" data-reset style="background:none;color:var(--muted)">Сбросить всё</button></div>` : ""}
-      ${items.length ? `<div class="grid">${shown.map(card).join("")}</div>` : `<div class="empty card">${ART.art({ kind: "accessory", color: "Silver" })}<h3>Ничего не нашлось</h3><p>Попробуйте изменить фильтры или спросите менеджера — подберём под запрос.</p><a class="btn btn--tg" href="${tgLink("Здравствуйте! Ищу: " + (st.text || (c ? c.title : "")))}" target="_blank" rel="noopener">${icon("telegram")}Спросить в Telegram</a></div>`}
+      ${items.length ? `<div class="grid">${shown.map(card).join("")}</div>` : `<div class="empty card"><img class="empty__logo" src="assets/img/logo.svg" alt="" width="88" height="88"><h3>Ничего не нашлось</h3><p>Попробуйте изменить фильтры или спросите менеджера — подберём под запрос.</p><a class="btn btn--tg" href="${tgLink("Здравствуйте! Ищу: " + (st.text || (c ? c.title : "")))}" target="_blank" rel="noopener">${icon("telegram")}Спросить в Telegram</a></div>`}
       ${items.length > shown.length ? `<div class="more"><button type="button" class="btn btn--ghost" data-more>Показать ещё ${Math.min(PAGE, items.length - shown.length)} из ${items.length - shown.length}</button></div>` : ""}`;
 
     const filtersHtml = `
@@ -880,7 +880,7 @@
     const form = store.get("octo-checkout", { delivery: "pickup" });
     if (!items.length) {
       app.innerHTML = `<div class="wrap">${crumbs([[null, "Корзина"]])}<h1 class="page-title">Корзина</h1>
-        <div class="empty card">${ART.art({ kind: "accessory", color: "Lavender" })}<h3>В корзине пока пусто</h3><p>Загляните в каталог — там ${PRODUCTS.length.toLocaleString("ru-RU")} ${plural(PRODUCTS.length, "товар", "товара", "товаров")}.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}Перейти в каталог</a></div></div>`;
+        <div class="empty card"><img class="empty__logo" src="assets/img/logo.svg" alt="" width="88" height="88"><h3>В корзине пока пусто</h3><p>Загляните в каталог — там ${PRODUCTS.length.toLocaleString("ru-RU")} ${plural(PRODUCTS.length, "товар", "товара", "товаров")}.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}Перейти в каталог</a></div></div>`;
       return;
     }
     const sum = cartSum();
@@ -1102,7 +1102,7 @@
   };
 
   function renderNotFound() {
-    app.innerHTML = `<div class="wrap" style="padding:40px 0"><div class="empty card">${ART.art({ kind: "phone", color: "Lavender" })}<h3>Страница не найдена</h3><p>Возможно, товар уже распродан или ссылка устарела.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}В каталог</a></div></div>`;
+    app.innerHTML = `<div class="wrap" style="padding:40px 0"><div class="empty card"><img class="empty__logo" src="assets/img/logo.svg" alt="" width="88" height="88"><h3>Страница не найдена</h3><p>Возможно, товар уже распродан или ссылка устарела.</p><a class="btn btn--brand" href="#/catalog">${icon("grid")}В каталог</a></div></div>`;
   }
 
   // ------------------------------------------------------------------
