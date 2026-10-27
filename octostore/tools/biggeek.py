@@ -9,7 +9,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BASE = "https://biggeek.ru"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
@@ -51,19 +51,21 @@ def fetch(url, binary=False, tries=4):
     return None
 
 
-def fetch_many(urls, workers=3, progress=None):
-    """Загружает страницы в несколько потоков; результаты в том же порядке, что и urls."""
-    done = [0]
+def fetch_many(urls, workers=3, progress=None, on_result=None):
+    """Загружает страницы в несколько потоков.
 
-    def one(u):
-        r = fetch(u)
-        done[0] += 1
-        if progress and done[0] % progress == 0:
-            print(f"  загружено {done[0]} из {len(urls)}", flush=True)
-        return r
-
+    on_result(i, page) вызывается сразу по готовности каждой страницы (в основном потоке),
+    чтобы результаты сохранялись постепенно и прерванный запуск не терял работу.
+    """
+    done = 0
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        return list(pool.map(one, urls))
+        futures = {pool.submit(fetch, u): i for i, u in enumerate(urls)}
+        for f in as_completed(futures):
+            done += 1
+            if on_result:
+                on_result(futures[f], f.result())
+            if progress and done % progress == 0:
+                print(f"  загружено {done} из {len(urls)}", flush=True)
 
 
 def _num(s):

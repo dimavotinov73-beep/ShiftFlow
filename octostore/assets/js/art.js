@@ -141,7 +141,7 @@
         <g opacity=".25" fill="${shade(band, -0.4)}"><rect x="76" y="124" width="8" height="3" rx="1.5"/><rect x="76" y="132" width="8" height="3" rx="1.5"/></g>
         <rect x="48" y="40" width="64" height="80" rx="20" fill="url(#${x.id}b)" stroke="${x.d}" stroke-width="1.2"/>
         <rect x="53" y="45" width="54" height="70" rx="16" fill="${S}"/>
-        <text x="80" y="90" text-anchor="middle" font-family="Manrope,system-ui,sans-serif" font-weight="700" font-size="16" fill="#fff">10:09</text>
+        <text x="80" y="90" text-anchor="middle" font-family="Onest,system-ui,sans-serif" font-weight="700" font-size="16" fill="#fff">10:09</text>
         <circle cx="68" cy="60" r="5" fill="none" stroke="#ff5a7a" stroke-width="2.4"/><circle cx="92" cy="60" r="5" fill="none" stroke="#5ad1ff" stroke-width="2.4"/>
         <rect x="112" y="60" width="5" height="14" rx="2.5" fill="${x.d}"/>`;
     },
@@ -151,7 +151,7 @@
         <rect x="60" y="108" width="40" height="44" rx="8" fill="${shade(x.c, -0.15)}"/>
         <circle cx="80" cy="80" r="36" fill="url(#${x.id}b)" stroke="${x.d}" stroke-width="1.2"/>
         <circle cx="80" cy="80" r="29" fill="${S}"/>
-        <text x="80" y="86" text-anchor="middle" font-family="Manrope,system-ui,sans-serif" font-weight="700" font-size="15" fill="#fff">10:09</text>
+        <text x="80" y="86" text-anchor="middle" font-family="Onest,system-ui,sans-serif" font-weight="700" font-size="15" fill="#fff">10:09</text>
         <rect x="114" y="68" width="6" height="9" rx="2" fill="${x.d}"/><rect x="114" y="84" width="6" height="9" rx="2" fill="${x.d}"/>`;
     },
     earbuds(x) {
@@ -252,7 +252,7 @@
         <defs><linearGradient id="${x.id}art" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>
         <rect x="40" y="14" width="80" height="132" rx="6" fill="#0d3d91"/>
         <rect x="40" y="14" width="80" height="18" rx="6" fill="#0070d1"/>
-        <text x="48" y="27" font-family="Manrope,system-ui,sans-serif" font-weight="800" font-size="10" fill="#fff">PS5</text>
+        <text x="48" y="27" font-family="Onest,system-ui,sans-serif" font-weight="800" font-size="10" fill="#fff">PS5</text>
         <rect x="44" y="34" width="72" height="108" rx="2" fill="url(#${x.id}art)"/>
         <circle cx="96" cy="70" r="22" fill="#fff" opacity=".12"/><path d="M44 120 L72 92 L92 110 L104 100 L116 112 V142 H44 Z" fill="#000" opacity=".25"/>`;
     },

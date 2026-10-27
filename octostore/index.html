@@ -5,17 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>OctoStore — техника Apple, Samsung, Dyson и Sony на Горбушке</title>
   <meta name="description" content="OctoStore — магазин техники в ТК «Горбушкин Двор»: iPhone, MacBook, iPad, Apple Watch, AirPods, Samsung Galaxy, Google Pixel, Dyson, игровые консоли и аксессуары. Доставка по Москве за 2 часа, отправка в регионы, Trade-in и ремонт.">
-  <meta name="theme-color" content="#0a0f2e">
+  <meta name="theme-color" content="#f4f4f6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090c" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OctoStore">
   <meta property="og:title" content="OctoStore — гаджеты мечты ждут!">
   <meta property="og:description" content="iPhone, Mac, Samsung, Dyson, консоли и аксессуары с фото и характеристиками. Ежедневно 11:00–20:00, доставка по Москве за 2 часа.">
-  <meta property="og:image" content="assets/img/hero.jpg">
+  <meta property="og:image" content="assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script type="application/ld+json">
   {
@@ -23,8 +25,7 @@
     "@type": "ElectronicsStore",
     "name": "OctoStore",
     "description": "Магазин техники Apple, Samsung, Dyson, Sony и аксессуаров. Доставка по Москве за 2 часа, Trade-in, ремонт.",
-    "image": "assets/img/hero.jpg",
-    "logo": "assets/img/logo.jpg",
+    "logo": "assets/img/logo.svg",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Багратионовский проезд, 7к3, ТК «Горбушкин Двор», 2 этаж, VIP-сектор, павильон Vip2-46",
@@ -64,8 +65,8 @@
   <header class="header" id="header">
     <div class="wrap header__in">
       <a class="logo" href="#/" aria-label="OctoStore — на главную">
-        <img src="assets/img/logo.jpg" alt="" width="40" height="40">
-        <span class="logo__text"><b>OctoStore</b><small>Electronics &amp; Tech</small></span>
+        <img class="logo__mark" src="assets/img/logo.svg" alt="" width="40" height="40">
+        <span class="logo__word">octo<span>store</span></span>
       </a>
       <button class="btn btn--brand catalog-btn" id="catalogBtn" aria-expanded="false" aria-controls="mega">
         <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span><span>Каталог</span>
@@ -102,9 +103,9 @@
   <footer class="footer">
     <div class="wrap footer__grid">
       <div class="footer__brand">
-        <a class="logo logo--light" href="#/">
-          <img src="assets/img/logo.jpg" alt="" width="44" height="44">
-          <span class="logo__text"><b>OctoStore</b><small>Electronics &amp; Tech</small></span>
+        <a class="logo logo--light" href="#/" aria-label="OctoStore">
+          <img class="logo__mark" src="assets/img/logo.svg" alt="" width="40" height="40">
+          <span class="logo__word">octo<span>store</span></span>
         </a>
         <p>Ваш гид в мир техники. Смартфоны, ноутбуки, гаджеты, Dyson и игровые консоли — в павильоне на Горбушке и с доставкой.</p>
         <div class="socials">

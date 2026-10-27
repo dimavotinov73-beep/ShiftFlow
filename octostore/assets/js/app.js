@@ -17,18 +17,18 @@
   // Категории сайта. hero — линейка, чьё фото показывается на плитке категории.
   // ------------------------------------------------------------------
   const CATS = [
-    { id: "iphone", title: "iPhone", desc: "iPhone 18 Pro, 17 Pro, Air, 17e и предыдущие поколения — с eSIM и с физической SIM.", art: { kind: "phone", color: "Orange" }, hero: "iPhone 17 Pro Max", banner: (s) => (/^iPhone 18/.test(s) ? "cat-iphone18.jpg" : /^iPhone 1[3-6]/.test(s) ? "cat-iphone16.jpg" : "cat-iphone17.jpg") },
-    { id: "samsung", title: "Samsung Galaxy", short: "Samsung", desc: "Флагманы Galaxy S26 и S25, складные Z Fold и Z Flip, Galaxy A.", art: { kind: "fold", color: "Cobalt Violet" }, hero: "Galaxy S26 Ultra", banner: () => "cat-samsung.jpg" },
-    { id: "android", title: "Android-смартфоны", short: "Android", desc: "Google Pixel, Xiaomi, REDMI, POCO, OnePlus, Nothing, HONOR, Huawei и другие.", art: { kind: "phone", color: "Sage" }, hero: "Google Pixel", banner: () => null },
-    { id: "mac", title: "Mac и ноутбуки", short: "Mac", desc: "MacBook Air и Pro, MacBook Neo, iMac, Mac mini, Mac Studio и мониторы.", art: { kind: "laptop", color: "Sky Blue" }, hero: "MacBook Air 13", banner: (s) => (/iMac/.test(s) ? "cat-imac.jpg" : /^(Mac|$)/.test(s) ? "cat-mac.jpg" : null) },
-    { id: "tablets", title: "Планшеты", desc: "iPad Pro, iPad Air, iPad mini и iPad, Galaxy Tab, Xiaomi Pad и электронные книги.", art: { kind: "tablet", color: "Purple" }, hero: "iPad Air 11", banner: (s) => (!s || /^iPad/.test(s) ? "cat-ipad.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
-    { id: "watch", title: "Часы и браслеты", short: "Часы", desc: "Apple Watch Ultra, Series и SE, Galaxy Watch, Pixel Watch, Garmin, фитнес-браслеты и умные кольца.", art: { kind: "watch", color: "Orange" }, hero: "Apple Watch Ultra", banner: (s) => (!s || /Apple Watch/.test(s) ? "cat-watch.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
-    { id: "audio", title: "Аудио и ТВ", short: "Аудио", desc: "AirPods, Beats, Galaxy Buds, наушники, колонки, умные колонки, телевизоры и медиаплееры.", art: { kind: "headphones", color: "Sky Blue" }, hero: "AirPods Pro", banner: (s) => (!s || /AirPods/.test(s) ? "cat-airpods.jpg" : /Умные колонки/.test(s) ? "cat-yandex.jpg" : /Galaxy/.test(s) ? "cat-samsung.jpg" : null) },
-    { id: "gaming", title: "Игры и консоли", short: "Консоли", desc: "Игровые приставки и портативные консоли, геймпады, игры, VR и аксессуары.", art: { kind: "gamepad", color: "Cosmic Red" }, hero: "Приставки", banner: () => "cat-gaming.jpg" },
-    { id: "dyson", title: "Dyson", desc: "Стайлеры, фены, выпрямители, пылесосы, очистители воздуха и аксессуары Dyson.", art: { kind: "styler", color: "Ceramic Pink" }, hero: "Стайлеры", banner: () => "cat-dyson.jpg" },
-    { id: "home", title: "Для дома", desc: "Роботы-пылесосы, умный дом, свет, климат, кухня, красота и здоровье.", art: { kind: "vacuum", color: "White" }, hero: "Роботы-пылесосы", banner: () => null },
-    { id: "gadgets", title: "Фото и гаджеты", short: "Гаджеты", desc: "Камеры моментальной печати, экшн-камеры, DJI, умные очки, трекеры, накопители и другие гаджеты.", art: { kind: "instant", color: "Candy Pink" }, hero: "Моментальная печать", banner: (s) => (!s || /Моментальная|Фото|Экшн|DJI|Стабилиз|очки/.test(s) ? "cat-gadgets.jpg" : null) },
-    { id: "accessories", title: "Аксессуары", desc: "Чехлы и стёкла, зарядки и аккумуляторы, кабели, клавиатуры и мыши, MagSafe.", art: { kind: "charger", color: "White" }, hero: "Для iPhone", banner: () => null },
+    { id: "iphone", title: "iPhone", desc: "iPhone 18 Pro, 17 Pro, Air, 17e и предыдущие поколения — с eSIM и с физической SIM.", art: { kind: "phone", color: "Orange" }, hero: "iPhone 17 Pro Max" },
+    { id: "samsung", title: "Samsung Galaxy", short: "Samsung", desc: "Флагманы Galaxy S26 и S25, складные Z Fold и Z Flip, Galaxy A.", art: { kind: "fold", color: "Cobalt Violet" }, hero: "Galaxy S26 Ultra" },
+    { id: "android", title: "Android-смартфоны", short: "Android", desc: "Google Pixel, Xiaomi, REDMI, POCO, OnePlus, Nothing, HONOR, Huawei и другие.", art: { kind: "phone", color: "Sage" }, hero: "Google Pixel" },
+    { id: "mac", title: "Mac и ноутбуки", short: "Mac", desc: "MacBook Air и Pro, MacBook Neo, iMac, Mac mini, Mac Studio и мониторы.", art: { kind: "laptop", color: "Sky Blue" }, hero: "MacBook Air 13" },
+    { id: "tablets", title: "Планшеты", desc: "iPad Pro, iPad Air, iPad mini и iPad, Galaxy Tab, Xiaomi Pad и электронные книги.", art: { kind: "tablet", color: "Purple" }, hero: "iPad Air 11" },
+    { id: "watch", title: "Часы и браслеты", short: "Часы", desc: "Apple Watch Ultra, Series и SE, Galaxy Watch, Pixel Watch, Garmin, фитнес-браслеты и умные кольца.", art: { kind: "watch", color: "Orange" }, hero: "Apple Watch Ultra" },
+    { id: "audio", title: "Аудио и ТВ", short: "Аудио", desc: "AirPods, Beats, Galaxy Buds, наушники, колонки, умные колонки, телевизоры и медиаплееры.", art: { kind: "headphones", color: "Sky Blue" }, hero: "AirPods Pro" },
+    { id: "gaming", title: "Игры и консоли", short: "Консоли", desc: "Игровые приставки и портативные консоли, геймпады, игры, VR и аксессуары.", art: { kind: "gamepad", color: "Cosmic Red" }, hero: "Приставки" },
+    { id: "dyson", title: "Dyson", desc: "Стайлеры, фены, выпрямители, пылесосы, очистители воздуха и аксессуары Dyson.", art: { kind: "styler", color: "Ceramic Pink" }, hero: "Стайлеры" },
+    { id: "home", title: "Для дома", desc: "Роботы-пылесосы, умный дом, свет, климат, кухня, красота и здоровье.", art: { kind: "vacuum", color: "White" }, hero: "Роботы-пылесосы" },
+    { id: "gadgets", title: "Фото и гаджеты", short: "Гаджеты", desc: "Камеры моментальной печати, экшн-камеры, DJI, умные очки, трекеры, накопители и другие гаджеты.", art: { kind: "instant", color: "Candy Pink" }, hero: "Моментальная печать" },
+    { id: "accessories", title: "Аксессуары", desc: "Чехлы и стёкла, зарядки и аккумуляторы, кабели, клавиатуры и мыши, MagSafe.", art: { kind: "charger", color: "White" }, hero: "Для iPhone" },
   ];
   const CAT = Object.fromEntries(CATS.map((c) => [c.id, c]));
   const SUBS = {};
@@ -295,16 +295,17 @@
       `<button class="icon-btn mega__close" type="button" data-close-mega aria-label="Закрыть">${icon("close")}</button>` +
       CATS.map((c) => {
         const n = PRODUCTS.filter((p) => p.cat === c.id).length;
-        return `<a class="mega__cat" href="${catHref(c.id)}" data-mega="${c.id}"><span class="ico">${ART.art(c.art)}</span><span>${esc(c.title)}</span><span>${n}</span></a>`;
+        const h = catPhoto(c);
+        return `<a class="mega__cat" href="${catHref(c.id)}" data-mega="${c.id}"><span class="ico">${h ? `<img src="${imgSrc(h)}" alt="" loading="lazy">` : ART.art(c.art)}</span><span>${esc(c.title)}</span><span>${n}</span></a>`;
       }).join("") +
       `<a class="mega__cat" href="#/catalog"><span class="ico">${icon("grid")}</span><span>Все товары</span><span>${PRODUCTS.length}</span></a>`;
     const showSubs = (id) => {
       const c = CAT[id];
       $$(".mega__cat").forEach((el) => el.classList.toggle("is-active", el.dataset.mega === id));
-      const img = c.banner("");
+      const tops = SUBS[id].slice(0, 4).map((x) => [x.name, pickCheapest(x.name)]).filter((x) => x[1]);
       $("#megaSubs").innerHTML = `<h3>${esc(c.title)}</h3><p class="muted">${esc(c.desc)}</p>
         <div class="mega__grid">${SUBS[id].map((s) => `<a href="${catHref(id, s.name)}"><span>${esc(s.name)}</span><small>${s.count}</small></a>`).join("")}</div>
-        ${img ? `<a class="mega__banner" href="${catHref(id)}"><img src="assets/img/${img}" alt="${esc(c.title)} в OctoStore" loading="lazy"></a>` : ""}`;
+        ${tops.length ? `<div class="mega__photos">${tops.map(([n, p]) => `<a href="${catHref(id, n)}" title="${esc(n)}"><img src="${imgSrc(p)}" alt="${esc(n)}" loading="lazy"></a>`).join("")}</div>` : ""}`;
     };
     showSubs(CATS[0].id);
     $("#megaCats").addEventListener("mouseover", (e) => { const a = e.target.closest("[data-mega]"); if (a) showSubs(a.dataset.mega); });
@@ -421,29 +422,33 @@
     ]);
     const cheap = (p) => p.price <= 15000;
     const gifts = picks([
-      ["AirPods", cheap], ["Моментальная печать", (p) => cheap(p) && /камер|фотоаппарат/i.test(p.name)], ["Умные колонки", cheap], ["Геймпады", cheap],
+      ["AirPods", (p) => cheap(p) && /^Беспроводные наушники/.test(p.name)], ["Моментальная печать", (p) => cheap(p) && /камер|фотоаппарат/i.test(p.name)],
+      ["Умные колонки", cheap], ["Геймпады", (p) => cheap(p) && /геймпад|контроллер/i.test(p.name)],
       ["Трекеры", cheap], ["Колонки", cheap], ["Galaxy Buds", cheap], ["Фитнес-браслеты", cheap], ["Беспроводные наушники", cheap],
       ["Клавиатуры и мыши", cheap], ["MagSafe", cheap], ["Электронные книги", cheap],
     ]);
 
-    const banners = [
-      ["cat-iphone18.jpg", "iphone", "iPhone 18 Pro Max", "iPhone 18 Pro"],
-      ["cat-iphone17.jpg", "iphone", "iPhone 17 Pro Max", "iPhone 17"],
-      ["cat-samsung.jpg", "samsung", "", "Samsung Galaxy"],
-      ["cat-mac.jpg", "mac", "", "MacBook и Mac mini"],
-      ["cat-dyson.jpg", "dyson", "", "Dyson"],
-      ["cat-gaming.jpg", "gaming", "", "PlayStation, Xbox, Quest"],
-    ];
+    // Плитки-витрины рядом с главным блоком: самая доступная модель линейки.
+    // Берём первую линейку из списка, у которой есть фото.
+    const feature = (subs, cls, label) => {
+      const sub = subs.find((x) => pickCheapest(x));
+      const p = sub && pickCheapest(sub);
+      if (!p) return "";
+      const m = minPrice(PRODUCTS.filter((x) => x.sub === sub));
+      return `<a class="btile ${cls}" href="${catHref(p.cat, sub)}"><small>${label}</small><h3>${esc(sub)}</h3><span class="price-from">от ${rub(m)}${icon("arrow")}</span><img src="${imgSrc(p)}" alt="${esc(sub)}" loading="eager"></a>`;
+    };
 
     app.innerHTML = `
-      <section class="hero"><div class="wrap"><div class="hero__box">
-        <div class="hero__text">
-          <span class="hero__chip"><b>${updatedShort || "Новинки"}</b>Цены обновляются каждый день</span>
-          <h1>Гаджеты мечты <em>ждут!</em></h1>
-          <p class="hero__lead">Ваш гид в мир техники: iPhone, Mac, Samsung, Dyson, PlayStation и аксессуары в павильоне на Горбушке — и с доставкой по Москве за 2 часа.</p>
-          <div class="hero__cta">
-            <a class="btn btn--light" href="#/catalog">${icon("grid")}Перейти в каталог</a>
-            <a class="btn btn--glass" href="${ORDER_URL}" target="_blank" rel="noopener">${icon("telegram")}Написать менеджеру</a>
+      <section class="hero"><div class="wrap"><div class="bento">
+        <div class="bento__main">
+          <div>
+            <span class="hero__chip"><b>${updatedShort || "Новинки"}</b>Цены обновляются каждый день</span>
+            <h1>Техника, которую <em>хочется</em></h1>
+            <p class="hero__lead">iPhone, Mac, Samsung, Dyson и ещё тысячи гаджетов — в павильоне на Горбушке и с доставкой по Москве за 2 часа.</p>
+            <div class="hero__cta">
+              <a class="btn btn--light" href="#/catalog">${icon("grid")}Каталог</a>
+              <a class="btn btn--glass" href="${ORDER_URL}" target="_blank" rel="noopener">${icon("telegram")}Написать менеджеру</a>
+            </div>
           </div>
           <div class="hero__stats">
             <div><b>${PRODUCTS.length.toLocaleString("ru-RU")}</b><span>${plural(PRODUCTS.length, "товар", "товара", "товаров")} в каталоге</span></div>
@@ -451,36 +456,32 @@
             <div><b>12 мес.</b><span>гарантия на Apple</span></div>
           </div>
         </div>
-        <div class="hero__media">
-          <img src="assets/img/hero.jpg" alt="Техника в OctoStore: ноутбук, iPad, наушники, iPhone" width="783" height="800">
-          <div class="hero__float hero__float--a"><span class="dot">${icon("truck")}</span><span>Доставка за 2 часа<small>по Москве, от 500 ₽</small></span></div>
-          <div class="hero__float hero__float--b"><span class="dot">${icon("swap")}</span><span>Trade-in<small>обновляйтесь с выгодой</small></span></div>
+        ${feature(["iPhone 18 Pro Max", "iPhone 18 Pro", "iPhone 17 Pro Max", "iPhone 17 Pro"], "btile--violet", "Новинка")}
+        <div class="btile__row">
+          ${feature(["MacBook Air 13", "MacBook Neo", "MacBook Air 15"], "btile--mint", "Ноутбуки")}
+          ${feature(["AirPods Pro", "AirPods", "AirPods Max"], "btile--sand", "Аудио")}
         </div>
       </div></div></section>
 
-      <section class="section"><div class="wrap perks">
-        ${perk("truck", "Доставка за 2 часа", "Курьером по Москве и области")}
-        ${perk("plane", "Отправка в регионы", "СДЭК, Boxberry, Яндекс.Доставка")}
-        ${perk("swap", "Trade-in", "Сдайте старое устройство в зачёт нового")}
-        ${perk("wrench", "Ремонт", "Любой сложности — решим любую задачу")}
-      </div></section>
-
-      <section class="section" style="padding-top:0"><div class="wrap">
-        <div class="section__head"><div><h2 class="section__title">Каталог</h2><p class="section__sub">${CATS.length} категорий и ${PRODUCTS.length} позиций</p></div><a class="link-more" href="#/catalog">Все товары${icon("chev")}</a></div>
-        <div class="cats">
-          ${CATS.map((c) => { const list = PRODUCTS.filter((p) => p.cat === c.id); const m = minPrice(list); const h = catPhoto(c); return `<a class="cat${h ? " cat--photo" : ""}" href="${catHref(c.id)}"><span><b>${esc(c.title)}</b><br><small>${list.length} ${plural(list.length, "товар", "товара", "товаров")}${m < Infinity ? " · от " + rub(m) : ""}</small></span>${h ? `<img src="${imgSrc(h)}" alt="" loading="lazy">` : ART.art(c.art)}</a>`; }).join("")}
-          <a class="cat" href="#/catalog" style="background:var(--grad);color:#fff;border:0"><span><b>Все товары</b><br><small style="color:rgba(255,255,255,.8)">Фильтры, поиск, сравнение цен</small></span><svg class="i" style="position:absolute;right:16px;bottom:16px;width:36px;height:36px"><use href="#i-arrow"/></svg></a>
+      <section class="section"><div class="wrap">
+        <div class="section__head"><div><h2 class="section__title">Категории</h2></div><a class="link-more" href="#/catalog">Все товары${icon("chev")}</a></div>
+        <div class="shelf">
+          ${CATS.map((c) => { const h = catPhoto(c); const n = PRODUCTS.filter((p) => p.cat === c.id).length; return `<a class="shelf__item" href="${catHref(c.id)}"><span class="shelf__img">${h ? `<img src="${imgSrc(h)}" alt="" loading="lazy">` : ART.art(c.art)}</span><span>${esc(c.short || c.title)}<small>${n.toLocaleString("ru-RU")}</small></span></a>`; }).join("")}
+          <a class="shelf__item shelf__all" href="#/catalog"><span class="shelf__img">${icon("arrow")}</span><span>Все товары<small>${PRODUCTS.length.toLocaleString("ru-RU")}</small></span></a>
         </div>
-      </div></section>
-
-      <section class="section" style="padding-top:0"><div class="wrap">
-        <div class="banners">${banners.map(([img, cat, sub, label]) => `<a class="banner" href="${catHref(cat, sub)}"><img src="assets/img/${img}" alt="${esc(label)}" loading="lazy" width="800" height="342"><span class="banner__label">${esc(label)}${icon("chev")}</span></a>`).join("")}</div>
       </div></section>
 
       <section class="section"><div class="wrap">
         <div class="section__head"><div><span class="eyebrow">${icon("spark")}Новинки</span><h2 class="section__title">Свежие модели</h2></div><a class="link-more" href="#/catalog">Смотреть всё${icon("chev")}</a></div>
         <div class="rail">${fresh.map(card).join("")}</div>
       </div></section>
+
+      <section class="section" style="padding-top:8px"><div class="wrap"><div class="perks">
+        ${perk("truck", "Доставка за 2 часа", "Курьером по Москве и области")}
+        ${perk("plane", "Отправка в регионы", "СДЭК, Boxberry, Яндекс.Доставка")}
+        ${perk("swap", "Trade-in", "Старое устройство в зачёт нового")}
+        ${perk("wrench", "Ремонт", "Любой сложности — решим задачу")}
+      </div></div></section>
 
       <section class="section"><div class="wrap">
         <div class="section__head"><div><span class="eyebrow">${icon("box")}Идеи для подарка</span><h2 class="section__title">До 15 000 ₽</h2></div><a class="link-more" href="#/catalog?max=15000">Все до 15 000 ₽${icon("chev")}</a></div>
@@ -489,12 +490,12 @@
 
       <section class="section"><div class="wrap duo">
         <div class="promo promo--trade">
-          <div><span class="eyebrow" style="color:#fff">${icon("swap")}Trade-in</span><h3 style="margin-top:10px">Обновляйте технику с выгодой</h3><p>Сдайте своё устройство и получите его стоимость в зачёт новой покупки. Предварительно оценим по фото в Telegram.</p></div>
+          <div><span class="eyebrow">${icon("swap")}Trade-in</span><h3 style="margin-top:10px">Обновляйте технику с выгодой</h3><p>Сдайте своё устройство и получите его стоимость в зачёт новой покупки. Предварительно оценим по фото в Telegram.</p></div>
           <div><a class="btn btn--light" href="#/services">Как это работает${icon("arrow")}</a></div>
           <svg class="promo__ico"><use href="#i-swap"/></svg>
         </div>
         <div class="promo promo--repair">
-          <div><span class="eyebrow" style="color:#b9a6ff">${icon("wrench")}Сервис</span><h3 style="margin-top:10px">Ремонт любой сложности</h3><p>Не включается, разбит экран или барахлит батарея — опишите проблему, и мы подскажем решение.</p></div>
+          <div><span class="eyebrow">${icon("wrench")}Сервис</span><h3 style="margin-top:10px">Ремонт любой сложности</h3><p>Не включается, разбит экран или барахлит батарея — опишите проблему, и мы подскажем решение.</p></div>
           <div><a class="btn btn--glass" href="#/services#repair">Подробнее${icon("arrow")}</a></div>
           <svg class="promo__ico"><use href="#i-wrench"/></svg>
         </div>
@@ -523,7 +524,7 @@
     return pickCheapest(c.hero) || PRODUCTS.find((p) => p.cat === c.id && p.img);
   }
 
-  const perk = (ico, title, text) => `<div class="perk card"><span class="perk__ico">${icon(ico)}</span><div><b>${title}</b><span>${text}</span></div></div>`;
+  const perk = (ico, title, text) => `<div class="perk"><span class="perk__ico">${icon(ico)}</span><div><b>${title}</b><span>${text}</span></div></div>`;
 
   function mapFrame() {
     return `<div class="map__ph">${icon("pin")}<b>Горбушкин Двор</b><span>Багратионовский проезд, 7к3</span></div><iframe src="https://yandex.ru/map-widget/v1/?mode=search&text=${encodeURIComponent(ADDRESS)}&z=16" title="OctoStore на карте" loading="lazy" allowfullscreen></iframe>`;
@@ -696,14 +697,26 @@
       return;
     }
 
-    const banner = c && c.banner(st.sub);
+    // Фото в шапке раздела: по одной модели из первых линеек (или из выбранной линейки).
+    const heroPhotos = (() => {
+      const pool = st.sub ? [st.sub] : cat ? SUBS[cat].map((x) => x.name) : CATS.map((x) => x.hero);
+      const out = [], seen = new Set();
+      for (const name of pool) {
+        for (const p of PRODUCTS.filter((x) => x.sub === name && x.img && (!cat || x.cat === cat)).sort((a, b) => a.price - b.price)) {
+          const key = p.name.split(",")[0];
+          if (!seen.has(key)) { seen.add(key); out.push(p); break; }
+        }
+        if (out.length === 3) break;
+      }
+      return out;
+    })();
     const subs = cat ? SUBS[cat].filter((s) => !st.text || inCat.some((p) => p.sub === s.name)) : [];
     const m = minPrice(inCat);
     const heading = c ? c.title : st.text ? `Поиск: «${st.text}»` : "Все товары";
     app.innerHTML = `
       <div class="wrap">
         ${crumbs(c ? [["#/catalog", "Каталог"], [null, c.title]] : [[null, st.text ? "Поиск" : "Каталог"]])}
-        <section class="cat-hero${banner ? "" : " cat-hero--plain"}">
+        <section class="cat-hero${heroPhotos.length ? "" : " cat-hero--plain"}">
           <div>
             <h1>${esc(heading)}</h1>
             <p>${c ? esc(c.desc) : st.text ? `${inCat.length} ${plural(inCat.length, "товар", "товара", "товаров")} по вашему запросу` : "Вся техника OctoStore: смартфоны, ноутбуки, планшеты, часы, аудио, консоли, Dyson, гаджеты и аксессуары."}</p>
@@ -713,7 +726,7 @@
               ${updatedShort ? `<span class="chip">цены на ${updatedShort}</span>` : ""}
             </div>
           </div>
-          ${banner ? `<img src="assets/img/${banner}" alt="${esc(c.title)} в OctoStore" width="800" height="342">` : ""}
+          ${heroPhotos.length ? `<div class="cat-hero__photos" aria-hidden="true">${heroPhotos.map((p) => `<img src="${imgSrc(p)}" alt="">`).join("")}</div>` : ""}
         </section>
         ${subs.length > 1 ? `<div class="subs" role="tablist"><a class="pill${st.sub ? "" : " is-active"}" href="${catHref(cat)}" data-sub="">Все <small>${inCat.length}</small></a>${subs.map((s) => `<a class="pill${st.sub === s.name ? " is-active" : ""}" href="${catHref(cat, s.name)}" data-sub="${esc(s.name)}">${esc(s.name)} <small>${inCat.filter((p) => p.sub === s.name).length}</small></a>`).join("")}</div>` : ""}
         <div class="catalog">
@@ -963,7 +976,7 @@
   const INFO = {
     delivery: () => `<div class="wrap">${crumbs([[null, "Доставка"]])}<h1 class="page-title">Доставка</h1>
       <div class="info"><div class="info__main">
-        <div class="hero-img"><img src="assets/img/delivery.jpg" alt="Доставка OctoStore" width="800" height="600"></div>
+        <div class="info-head">${icon("truck")}<b>Привезём за 2 часа по Москве и отправим в любой регион</b><span>Курьер OctoStore, СДЭК, Boxberry и Яндекс.Доставка.</span></div>
         <div class="tiles">
           <div class="tile">${icon("truck")}<span class="tile__big">2 часа</span><span>Доставка по Москве нашим курьером</span></div>
           <div class="tile">${icon("pin")}<span class="tile__big">от 500 ₽</span><span>В пределах ТТК и МКАД</span></div>
@@ -994,7 +1007,7 @@
 
     warranty: () => `<div class="wrap">${crumbs([[null, "Гарантия"]])}<h1 class="page-title">Гарантия</h1>
       <div class="info"><div class="info__main">
-        <div class="hero-img"><img src="assets/img/warranty.jpg" alt="Гарантия OctoStore" width="800" height="600"></div>
+        <div class="info-head">${icon("shield")}<b>Гарантия на всю технику</b><span>14 дней на проверку, международная гарантия производителя и дополнительные 12 месяцев от магазина.</span></div>
         <div class="tiles">
           <div class="tile">${icon("shield")}<b>От магазина</b><span>14 дней на проверку устройства</span></div>
           <div class="tile">${icon("check")}<b>Международная гарантия</b><span>От производителя — 1 год с момента активации устройства</span></div>
@@ -1033,7 +1046,7 @@
     services: () => `<div class="wrap">${crumbs([[null, "Trade-in и ремонт"]])}<h1 class="page-title">Trade-in и ремонт</h1>
       <div class="info"><div class="info__main">
         <div class="promo promo--trade" id="tradein">
-          <div><span class="eyebrow" style="color:#fff">${icon("swap")}Trade-in</span><h3 style="margin-top:10px">Обновляйте технику с выгодой</h3><p>Сдайте своё устройство — его стоимость пойдёт в зачёт покупки новой техники в OctoStore.</p></div>
+          <div><span class="eyebrow">${icon("swap")}Trade-in</span><h3 style="margin-top:10px">Обновляйте технику с выгодой</h3><p>Сдайте своё устройство — его стоимость пойдёт в зачёт покупки новой техники в OctoStore.</p></div>
           <div><a class="btn btn--light" href="${tgLink("Здравствуйте! Хочу сдать в Trade-in: ")}" target="_blank" rel="noopener">${icon("telegram")}Оценить устройство</a></div>
           <svg class="promo__ico"><use href="#i-swap"/></svg>
         </div>
@@ -1048,7 +1061,7 @@
           <div class="notice notice--info" style="margin-top:16px">${icon("info")}<div>Перед сдачей сделайте резервную копию, выйдите из iCloud / аккаунта и сбросьте устройство до заводских настроек.</div></div>
         </div>
         <div class="promo promo--repair" id="repair">
-          <div><span class="eyebrow" style="color:#b9a6ff">${icon("wrench")}Ремонт</span><h3 style="margin-top:10px">Ремонт любой сложности? Решим любую задачу!</h3><p>Опишите, что случилось с устройством, — подскажем по срокам и стоимости и договоримся о визите.</p></div>
+          <div><span class="eyebrow">${icon("wrench")}Ремонт</span><h3 style="margin-top:10px">Ремонт любой сложности? Решим любую задачу!</h3><p>Опишите, что случилось с устройством, — подскажем по срокам и стоимости и договоримся о визите.</p></div>
           <div><a class="btn btn--glass" href="${tgLink("Здравствуйте! Нужен ремонт: ")}" target="_blank" rel="noopener">${icon("telegram")}Описать проблему</a></div>
           <svg class="promo__ico"><use href="#i-wrench"/></svg>
         </div>

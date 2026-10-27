@@ -39,6 +39,8 @@ DETAILS = ROOT / "assets" / "data" / "p"
 IMAGES = ROOT / "assets" / "img" / "p"
 
 DISCOUNT = 0.02
+# Товары собственной марки источника: их нельзя купить у других поставщиков.
+OWN_BRAND = re.compile(r"big\s*geek", re.I)
 DETAILS_MAX_AGE = 30  # дней
 SKIP_SPECS = {"Артикул", "Гарантийный срок", "Гарантия"}
 
@@ -278,7 +280,7 @@ def main():
             found = saved.get(f"{cat}|{src_slug}|{sub}", []) if saved else biggeek.crawl_category(src_slug)
             fresh = 0
             for c in found:
-                if c["slug"] in cards or not c["buy"] or not c["price"]:
+                if c["slug"] in cards or not c["buy"] or not c["price"] or OWN_BRAND.search(c["title"]):
                     continue
                 c["cat"], c["sub"] = cat, sub or guess_sub(cat, c["title"])
                 cards[c["slug"]] = c
@@ -305,16 +307,17 @@ def main():
             optional.append(s)
     todo = must + optional[:max(args.details, 0)]
     print(f"Карточки товаров: обязательных {len(must)}, новых {min(len(optional), max(args.details, 0))} из {len(optional)}")
-    pages = biggeek.fetch_many([f"{biggeek.BASE}/products/{s}" for s in todo], workers=3, progress=100)
-    for s, page in zip(todo, pages):
+    def store_detail(i, page):
         if not page:
-            continue
-        c = cards[s]
+            return
+        c = cards[todo[i]]
         d = parse_details(page)
         d["fetched"] = today
         d["multi"] = len(d["variants"]) > 1
-        save_detail(c["pid"] or slug(s), d)
+        save_detail(c["pid"] or slug(todo[i]), d)
         c["detail"] = d
+
+    biggeek.fetch_many([f"{biggeek.BASE}/products/{s}" for s in todo], workers=4, progress=200, on_result=store_detail)
 
     # 3. Фото (в несколько потоков; уже скачанные пропускаются)
     images = {}
