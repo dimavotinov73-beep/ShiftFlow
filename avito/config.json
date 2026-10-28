@@ -1,0 +1,10 @@
+{
+  "channel": "BigSaleApple",
+  "markup_percent": 0,
+  "markup_rub": 0,
+  "round_to": 100,
+  "round": "up",
+  "max_change_percent": 15,
+  "max_price_age_days": 3,
+  "min_items_ratio": 0.6
+}
