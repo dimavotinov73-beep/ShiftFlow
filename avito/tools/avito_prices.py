@@ -170,6 +170,8 @@ def cmd_match(args, cfg):
             row = {"avito_id": aid, "checked": "", "rule": ""}
             if found:
                 row["score"], row["source_key"] = found[0]
+                if row["score"] >= cfg.get("auto_check_score", 2):
+                    row["checked"] = "да"
                 for i, (score, key) in enumerate(found[1:3], 1):
                     row[f"alt_{i}"] = f"{key} ({prices[key]['price']})"
             mapping[aid] = row
