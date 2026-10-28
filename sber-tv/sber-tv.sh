@@ -6,8 +6,9 @@
 # с готовым профилем examples/sber-salute-tv-at30a6 — теми же командами, что и на ПК.
 # Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
 # собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — компактные кнопки
-# сверху, VPN одной кнопкой, погода, плитка «Настройки лаунчера», библиотека плитками, отключение
-# кнопок Сбера на пульте, голосовой ассистент Джарвис (sha256 проверяется).
+# сверху, VPN одной кнопкой, погода, вид Apple TV со стандартными обоями по категориям, плитка
+# «Настройки лаунчера», библиотека плитками, отключение кнопок Сбера на пульте, голосовой ассистент
+# Джарвис (sha256 проверяется).
 #
 # Использование (TV_IP — адрес телевизора в домашней сети):
 #   bash sber-tv.sh TV_IP              проверить ТВ и сделать всё (= install)
@@ -20,7 +21,7 @@
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
-#   bash sber-tv.sh TV_IP look         оформление: стиль, обои (свои фото тоже), цвет, погода, кнопка VPN
+#   bash sber-tv.sh TV_IP look         свои фото для обоев, место для погоды, кнопка VPN
 #   bash sber-tv.sh TV_IP keys         отключить кнопки Сбера на пульте (Okko, ИВИ...), ассистент → Алиса
 #   bash sber-tv.sh TV_IP keys-reset   вернуть кнопкам пульта их обычную работу
 #   bash sber-tv.sh TV_IP jarvis       Джарвис: голосовой ИИ на кнопке ассистента (Claude + голос Яндекса)
@@ -33,9 +34,9 @@ set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0-sber3.apk
-APK_SHA256=ab7c346e588c52e992182c35cd1217a22f0b2637a4c5db298ec05882b016f1fa
-APK_VERSION_CODE=12
+APK_NAME=tvhome-3.0-sber4.apk
+APK_SHA256=0bc36b1e98e76fe58e7bb80367de46fa8ae4e82d25b0dbab339fa281f536345e
+APK_VERSION_CODE=13
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -229,10 +230,10 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
     grant_settings
     if [ "${1:-}" = quiet ]; then say "Домашний экран обновлён"
     else
-      say "Домашний экран обновлён"
-      echo "На ТВ среди приложений появилась плитка «Настройки лаунчера»: стиль (Apple TV), обои с телефона"
-      echo "по QR-коду, цвет, погода, язык, заставка. Кнопки Сбера на пульте: bash $0 $TV_HOST keys"
-      echo "Голосовой ассистент Джарвис на кнопке ассистента: bash $0 $TV_HOST jarvis"
+      say "Домашний экран обновлён: вид Apple TV, 20 стандартных обоев по категориям, погода"
+      echo "Обои, погода, язык, заставка — плитка «Настройки лаунчера» на ТВ."
+      echo "Свои фото для обоев, другое место для погоды, кнопка VPN: bash $0 $TV_HOST look"
+      echo "Кнопки Сбера на пульте: bash $0 $TV_HOST keys; голосовой ассистент: bash $0 $TV_HOST jarvis"
     fi
     return 0
   fi
@@ -338,65 +339,22 @@ choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "в
   printf -v "$var" '%s' "$ans"
 }
 
-look() {   # look [стиль обои цвет подсветка [в_ряду]] [фото...]: собрать тему из ответов и отправить на ТВ
-  local style wall color glow hex src photos=() out="$DIR/look" city vpn pkg tunnel=""
-  local colors=("#000000" "#070A14" "#14161C" "#06140E" "#1A0A0E" "#120A1F") vpns=() labels=() receivers
+look() {   # look [обои] [фото...]: обои, погода и кнопка VPN. Вид всегда как у Apple TV, стили не выбираются
+  local wall src photos=() out="$DIR/look" city vpn pkg tunnel="" vpns=() labels=() receivers version
   probe
-  local version
   version="$(launcher_version)"
   [ "$version" -gt 0 ] || die "на ТВ нет домашнего экрана CleanYourTV: сначала выполните bash $0 $TV_HOST"
-  if [ "$version" -lt "$APK_VERSION_CODE" ]; then
-    say "Домашний экран на ТВ старой версии: без обновления не будет компактных кнопок, VPN и погоды"
-    update_launcher quiet
-  fi
-  LOOK_ANSWERS=("${@:1:4}")
-  choose style "Стиль домашнего экрана" \
-    "Apple TV — стеклянный док, плитка приподнимается на свечении своего цвета" \
-    "Классика — тёмная полоса с приложениями и крупное название" \
-    "Стекло — матовая полупрозрачная полоса, кнопки-иконки" \
-    "Кино — сверху большая обложка выбранного приложения" \
-    "Минимал — без полосы, только тонкая рамка вокруг выбранного" \
-    "Плитки — иконки на карточках своего цвета, подписи под всеми"
-  choose wall "Обои (любую картинку из набора потом можно выбрать на ТВ)" \
-    "Галерея — все 35 картинок ниже, меняются раз в час" \
-    "Рисованные пейзажи — 14 штук" \
-    "Природа — 12 фотографий" \
-    "Швеция — 3 фотографии" \
-    "Утро, день и ночь — картинка по времени суток" \
-    "Северное сияние" \
-    "Тёмное стекло" \
-    "Осеннее озеро" \
-    "Свои фото с телефона" \
-    "Без обоев, только цвет фона"
-  choose color "Цвет фона (заметен, когда обоев нет или картинка ещё грузится)" \
-    "Чёрный" "Ночной синий" "Графит" "Тёмно-зелёный" "Бордовый" "Фиолетовый" "Свой цвет (#RRGGBB)"
-  if [ "$color" -le ${#colors[@]} ]; then
-    hex=${colors[$((color - 1))]}
-  else
-    read -r -p "Цвет в виде #RRGGBB: " hex
-    [[ "$hex" =~ ^#[0-9A-Fa-f]{6}$ ]] || die "цвет должен быть вида #1A2B3C"
-  fi
-  choose glow "Выделение выбранного приложения" "Свечение в цвет приложения" "Белая рамка"
-
-  # Приложений в ряду — само число, не номер варианта. В командной строке это пятый ответ, если он число.
-  local columns first_photo=5
-  if [[ "${5:-}" =~ ^[0-9]+$ ]]; then
-    columns=$5
-    first_photo=6
-  elif [ -n "${LOOK_COLUMNS:-}" ]; then
-    columns=$LOOK_COLUMNS
-  else
-    printf '\n\033[1m%s\033[0m\n' "Приложений в ряду: от 4 (крупные плитки) до 8 (мелкие)"
-    read -r -p "Сколько [5]: " columns
-    columns=${columns:-5}
-  fi
-  [[ "$columns" =~ ^[4-8]$ ]] || die "приложений в ряду может быть от 4 до 8, а не «$columns»"
+  if [ "$version" -lt "$APK_VERSION_CODE" ]; then update_launcher quiet; fi
+  LOOK_ANSWERS=("${@:1:1}")
+  choose wall "Обои (картинку потом можно выбрать на ТВ: Настройки лаунчера → Обои)" \
+    "Стандартные: 20 картинок по 4 в категории (в стиле iPhone, горы, побережья, города, космос)" \
+    "Стандартные и свои фото с телефона"
 
   # Погода: место превращается в координаты здесь, на телефоне (Open-Meteo, без ключа и регистрации).
   if [ -n "${LOOK_CITY+x}" ]; then city=$LOOK_CITY; else
     printf '\n\033[1m%s\033[0m\n' "Погода вверху справа"
     echo "Город или посёлок; область — после запятой (Глухово, Московская). Или координаты: 55.772,37.253 Глухово"
-    read -r -p "Место (Enter — без погоды): " city
+    read -r -p "Место (Enter — Глухово): " city
   fi
   if [ -n "$city" ]; then
     pick_place "$city"
@@ -434,10 +392,10 @@ look() {   # look [стиль обои цвет подсветка [в_ряду]
     fi
   fi
 
-  if [ "$wall" = 9 ]; then
+  if [ "$wall" = 2 ]; then
     local sources=()
-    if [ $# -ge "$first_photo" ]; then
-      sources=("${@:$first_photo}")
+    if [ $# -ge 2 ]; then
+      sources=("${@:2}")
     else
       read -r -p "Файл или папка с фото [~/storage/downloads]: " src
       sources=("${src:-$HOME/storage/downloads}")
@@ -462,25 +420,12 @@ look() {   # look [стиль обои цвет подсветка [в_ряду]
 
   say "Собираю тему"
   cat > "$DIR/look_build.py" <<'PYEOF'
-import json, os, re, shutil, sys
-kit, out, style, wall, color, glow, columns, *photos = sys.argv[1:]
-themes = os.path.join(kit, "themes")
+import json, os, shutil, sys
+kit, out, wall, *photos = sys.argv[1:]
 with open(os.path.join(kit, "examples/sber-salute-tv-at30a6/config.json"), encoding="utf-8") as f:
     cfg = json.load(f)   # скрытые служебные приложения, русские названия, библиотека приложений
-cfg.update({
-    # Apple TV: стеклянный док, выбранная плитка приподнимается, вокруг неё свечение её цвета.
-    "1": {"dock_glass": True, "glass_style": "halo", "focus_overshoot": False, "advanced_effects": True, "animations": True},
-    "2": {},
-    "3": {"dock_glass": True, "icon_only_buttons": True, "glow_style": "horizon", "focus_overshoot": False},
-    "4": {"cinematic_home": True, "dock_glass": True, "icon_only_buttons": True, "focus_overshoot": False},
-    "5": {"dock_band": False, "glass_style": "rim", "dock_title": False,
-          "icon_only_buttons": True, "icon_only_inputs": True},
-    "6": {"uniform_tiles": True, "always_show_names": True, "dock_glass": True},
-}[style])
-cfg["background_color"] = color
-cfg["columns"] = int(columns)  # приложений в ряду; на ТВ меняется в «Настройках лаунчера»
-cfg["app_glow"] = glow == "1"  # выделение в цвет приложения или белое
-cfg["ambient_glow"] = False    # обои цветом выбранного приложения не окрашиваются
+# Вид — всегда Apple TV (так собран лаунчер); здесь только то, что выбирают: обои, погода, кнопка VPN.
+cfg["columns"] = 5             # приложений в ряду; на ТВ меняется в «Настройках лаунчера»
 cfg["tile_menu"] = True        # удержать OK на плитке: Переместить, Убрать с главного, О приложении
 cfg["reorder_button"] = False  # переставлять — через меню плитки или «Настройки лаунчера»
 cfg["compact_pills"] = True    # кнопки сверху — кружки, раскрываются с подписью при наведении
@@ -495,99 +440,27 @@ if os.environ.get("LOOK_VPN_APP"):
 shutil.rmtree(out, ignore_errors=True)
 walls = os.path.join(out, "wallpapers")
 os.makedirs(walls)
-captions = []
-
-def slug(text):
-    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:40] or "x"
-
-def caption_map(folder):
-    path = os.path.join(themes, folder, "wallpapers", "captions.txt")
-    result = {}
-    if os.path.exists(path):
-        for line in open(path, encoding="utf-8"):
-            if "\t" in line and not line.startswith("#"):
-                name, text = line.rstrip("\n").split("\t", 1)
-                result[name] = text
-    return result
-
-def add(src, name, caption=None):
-    shutil.copyfile(src, os.path.join(walls, name))
-    if caption:
-        captions.append(f"{name}\t{caption}")
-
-def scenes():
-    caps = caption_map("scenes")
-    for name in sorted(os.listdir(os.path.join(themes, "scenes", "wallpapers"))):
-        if name.endswith(".jpg"):
-            add(os.path.join(themes, "scenes", "wallpapers", name), "scene-" + name, caps.get(name))
-
-def photos_of(folder, prefix, sep):
-    caps = caption_map(folder)
-    for i, name in enumerate(sorted(n for n in os.listdir(os.path.join(themes, folder, "wallpapers")) if n.endswith(".jpg")), 1):
-        text = caps.get(name, "")
-        add(os.path.join(themes, folder, "wallpapers", name), f"{prefix}-{i:02d}-{slug(text.split(sep)[0])}.jpg", text or None)
-
-DAYTIME = {"morning": ("6am_4pm.jpg", "daytime-1-day.jpg"), "evening": ("4pm_9pm.jpg", "daytime-2-evening.jpg"),
-           "night": ("9pm_6am.jpg", "daytime-3-night.jpg")}
-
-def daytime():
-    for src, name in DAYTIME.values():
-        add(os.path.join(themes, "retro", "wallpapers", src), name)
-
-SINGLES = {"6": ("aurora", "aurora.jpg"), "7": ("glass", "dark-glass.jpg"), "8": ("ruska", "autumn-lake.jpg")}
-
-def single(key):
-    folder, name = SINGLES[key]
-    add(os.path.join(themes, folder, "wallpaper.jpg"), name)
-
-collection = {"wallpaper": True, "wallpaper_rotation_minutes": 60, "wallpaper_order": "shuffle", "wallpaper_dim": 10}
-if wall == "1":
-    scenes(); photos_of("nature-calm", "nature", " - "); photos_of("sweden", "sweden", " · "); daytime()
-    for key in SINGLES:
-        single(key)
-    cfg.update(collection)
-elif wall == "2":
-    scenes(); cfg.update(collection)
-elif wall == "3":
-    photos_of("nature-calm", "nature", " - "); cfg.update(collection, wallpaper_dim=14)
-elif wall == "4":
-    photos_of("sweden", "sweden", " · "); cfg.update(collection)
-elif wall == "5":
-    daytime()
-    cfg.update(collection, wallpaper_order="sequential",
-               wallpaper_moods={mood: [name] for mood, (_, name) in DAYTIME.items()})
-elif wall in SINGLES:
-    # Одна картинка, но тоже в наборе: так на ТВ её можно выключить и включить в настройках лаунчера.
-    single(wall); cfg.update(collection)
-elif wall == "9":
+# Стандартные обои лаунчер ставит сам (они встроены); первая из них на экране, пока на ТВ не выбрано другое.
+if wall == "2":
     from PIL import Image, ImageOps
     for i, path in enumerate(photos, 1):
         image = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
         image = ImageOps.fit(image, (1920, 1080), Image.LANCZOS)   # по размеру экрана, лишнее обрезается по краям
         image.save(os.path.join(walls, f"photo-{i:02d}.jpg"), "JPEG", quality=85)
-    cfg.update(collection)
-else:
-    cfg["wallpaper"] = False
-
-if captions:
-    with open(os.path.join(walls, "captions.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(captions) + "\n")
 if not os.listdir(walls):
     os.rmdir(walls)
 with open(os.path.join(out, "config.json"), "w", encoding="utf-8") as f:
     json.dump(cfg, f, ensure_ascii=False, indent=2)
 count = len([n for n in os.listdir(walls) if n.endswith(".jpg")]) if os.path.isdir(walls) else 0
-print(f"тема собрана: обоев {count}")
+print(f"тема собрана: своих фото {count} (и 20 стандартных обоев в лаунчере)")
 PYEOF
-  "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$style" "$wall" "$hex" "$glow" "$columns" "${photos[@]}"
-  say "Отправляю тему на ТВ (обои копируются по одной, это может занять пару минут)"
+  "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$wall" "${photos[@]}"
+  say "Отправляю на ТВ"
   bash "$DIR/tools/theme.sh" "$out"
   say "Готово. На ТВ:"
+  echo "- обои: Настройки лаунчера → Обои — по категориям, «Все по очереди», свои с телефона по QR-коду;"
   echo "- переставить приложение: удержите OK на плитке → «Переместить», стрелки, «Назад» — поставить;"
-  echo "- плитка «Настройки лаунчера» среди приложений: стиль, обои (свои фото — по QR-коду с телефона),"
-  echo "  цвет, приложений в ряду, погода, язык, заставка;"
-  echo "- отключить кнопки Сбера на пульте: bash $0 $TV_HOST keys;"
-  echo "- вернуть оформление после чистки: bash $0 $TV_HOST look-reset"
+  echo "- кнопки Сбера на пульте: bash $0 $TV_HOST keys; голосовой ассистент: bash $0 $TV_HOST jarvis"
 }
 
 KEYS_URI=content://com.gathin.tvhome.theme/remote_keys.json
