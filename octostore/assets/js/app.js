@@ -163,8 +163,10 @@
     const catOrder = (p) => CATS.findIndex((c) => c.id === p.cat);
     // По умолчанию: категория → линейка → цена по возрастанию (позиции без цены — в конце линейки).
     const byPrice = PRODUCTS.slice().sort((a, b) => (a.price ?? 1e12) - (b.price ?? 1e12) || a._i - b._i);
-    byPrice.forEach((p, i) => (p._pr = i));
-    PRODUCTS.forEach((p) => (p._ord = catOrder(p) * 1e7 + subOrder(p) * 1e4 + p._pr));
+    // Отдельные наушники, футляры и OEM-запчасти — в конце линейки, чтобы первыми шли полные комплекты.
+    const part = (p) => /^(Левый|Правый) наушник|^Зарядный футляр|\(OEM\)/.test(p.name);
+    byPrice.forEach((p, i) => (p._pr = i + (part(p) ? 9000 : 0)));
+    PRODUCTS.forEach((p) => (p._ord = catOrder(p) * 1e8 + subOrder(p) * 1e5 + p._pr));
   }
 
   // ------------------------------------------------------------------
@@ -761,15 +763,20 @@
     return dims.map(([key, label]) => {
       const vals = order(key, [...new Set(sib.map((x) => x[key]).filter(Boolean))]);
       if (vals.length < 2 || vals.length > 14) return "";
+      // Общее начало названий («Стайлер Dyson …») не повторяем в каждой кнопке.
+      const words = vals.map((v) => v.split(" "));
+      let common = 0;
+      while (common < words[0].length - 1 && words.every((w) => w.length > common + 1 && w[common] === words[0][common])) common++;
+      const short = (v) => v.split(" ").slice(common).join(" ");
       const others = dims.map((d) => d[0]).filter((k) => k !== key);
       const btns = vals.map((v) => {
         const exact = sib.find((x) => x[key] === v && others.every((k) => x[k] === p[k]));
         const target = exact || sib.filter((x) => x[key] === v).sort((a, b) => others.reduce((s, k) => s + (b[k] === p[k]) - (a[k] === p[k]), 0) || (a.price ?? 1e12) - (b.price ?? 1e12))[0];
         const on = p[key] === v;
         const sw = key === "color" ? target.hex || ART.resolve(target.colorEn) || ART.resolve(v) : null;
-        return `<a class="vopt${sw ? " vopt--color" : ""}${on ? " is-on" : ""}${!exact && !on ? " is-off" : ""}" href="#/product/${encodeURIComponent(target.id)}" aria-current="${on}">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(v)}${target.price != null && !on && key !== "color" ? ` <small>${rub(target.price)}</small>` : ""}</a>`;
+        return `<a class="vopt${sw ? " vopt--color" : ""}${on ? " is-on" : ""}${!exact && !on ? " is-off" : ""}" href="#/product/${encodeURIComponent(target.id)}" aria-current="${on}">${sw ? `<i class="swatch" style="background:${sw}"></i>` : ""}${esc(short(v))}${target.price != null && !on && key !== "color" ? ` <small>${rub(target.price)}</small>` : ""}</a>`;
       });
-      return `<div class="variant"><div class="variant__label">${label}: <b>${esc(p[key])}</b></div><div class="variant__opts">${btns.join("")}</div></div>`;
+      return `<div class="variant"><div class="variant__label">${label}: <b>${esc(short(p[key]))}</b></div><div class="variant__opts">${btns.join("")}</div></div>`;
     }).join("");
   }
 
