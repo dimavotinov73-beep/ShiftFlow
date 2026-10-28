@@ -73,6 +73,19 @@ class Avito:
             page += 1
             time.sleep(2.5)
 
+    def last_feed(self):
+        """XML последнего файла Автозагрузки (в нём описания и цвета объявлений) или None."""
+        try:
+            report = self._call("GET", "/autoload/v2/reports/last_completed_report")
+        except AvitoError:
+            return None
+        url = report.get("feed_url")
+        if not url:
+            return None
+        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {self.token}"})
+        with urllib.request.urlopen(req, timeout=180) as r:
+            return r.read()
+
     def update_price(self, item_id, price):
         """Новая цена объявления (целые рубли). Лимит Авито — 150 запросов в минуту."""
         resp = self._call("POST", f"/core/v1/items/{int(item_id)}/update_price",

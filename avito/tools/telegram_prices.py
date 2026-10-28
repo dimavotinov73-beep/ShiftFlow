@@ -45,7 +45,7 @@ SYNONYMS = {
     "зеленый": "green", "мятный": "mint", "фиолетовый": "purple", "лавандовый": "lavender",
     "красный": "red", "оранжевый": "orange", "графит": "graphite", "графитовый": "graphite",
     "кремовый": "cream", "бежевый": "beige", "титановый": "titanium", "cellular": "lte",
-    "ipro": "ipad pro",
+    "индиго": "indigo", "цитрусовый": "citrus", "ipro": "ipad pro",
 }
 SYNONYM_RE = re.compile(r"(?<!\w)(" + "|".join(map(re.escape, SYNONYMS)) + r")(?!\w)")
 

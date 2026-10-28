@@ -25,11 +25,13 @@
 import argparse
 import csv
 import datetime as dt
+import html
 import json
 import math
 import os
 import re
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -64,7 +66,7 @@ def avito_client():
 def load_items(args):
     if args.items_json:  # для проверки без доступа к API
         return json.loads(Path(args.items_json).read_text(encoding="utf-8"))
-    return avito_client().items()
+    return avito_client_cached().items()
 
 
 # ---------------------------------------------------------------------------
@@ -155,18 +157,50 @@ def write_mapping(rows):
             w.writerow(row)
 
 
+def feed_details(xml):
+    """{avito_id: «первая строка описания, цвет»} из файла Автозагрузки — в названиях объявлений часто нет цвета."""
+    details = {}
+    for ad in ET.fromstring(xml).iter("Ad"):
+        aid = (ad.findtext("AvitoId") or "").strip()
+        if not aid:
+            continue
+        desc = html.unescape(ad.findtext("Description") or "")
+        first = re.split(r"<br|<p|\n", desc, maxsplit=1)[0]
+        details[aid] = f"{html.unescape(re.sub(r'<[^>]+>', ' ', first))} {ad.findtext('Color') or ''}".strip()
+    return details
+
+
+def load_details(args):
+    if args.items_json:
+        return {}
+    xml = avito_client_cached().last_feed()
+    return feed_details(xml) if xml else {}
+
+
+_client = None
+
+
+def avito_client_cached():
+    global _client
+    _client = _client or avito_client()
+    return _client
+
+
 def cmd_match(args, cfg):
     prices = load_price_list(cfg)
     save_price_list(prices)
     items = load_items(args)
+    details = load_details(args)
     index = [(key, set(key.split())) for key in prices]
     mapping = read_mapping()
     added = 0
     for item in items:
         aid = str(item["id"])
         row = mapping.get(aid)
+        if row is not None and args.rematch and row.get("checked", "").strip().lower() not in YES:
+            row = None
         if row is None:
-            found = best_matches(item["title"], index)
+            found = best_matches(f"{item['title']} {details.get(aid, '')}", index)
             row = {"avito_id": aid, "checked": "", "rule": ""}
             if found:
                 row["score"], row["source_key"] = found[0]
@@ -307,6 +341,8 @@ def main():
     for name in ("match", "sync"):
         s = sub.add_parser(name)
         s.add_argument("--items-json", help=argparse.SUPPRESS)
+        if name == "match":
+            s.add_argument("--rematch", action="store_true", help="заново подобрать непроверенные строки")
         if name == "sync":
             s.add_argument("--apply", action="store_true", help="на самом деле поменять цены на Авито")
             s.add_argument("--force", action="store_true", help="менять и цены, которые сильно скачут")
