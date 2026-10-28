@@ -37,6 +37,17 @@ SKIP_LINE_RE = re.compile(r"🛡|гаранти|\+\s*\d+\s*мес", re.I)
 
 # Кириллица, которую поставщик путает с латиницей в моделях («М5» вместо «M5»).
 LOOKALIKE = str.maketrans("авекмнорстухё", "abekmhopctyxe")
+# Цвета и слова, которые в объявлениях пишут по-русски, а в прайсе — по-английски (и наоборот).
+SYNONYMS = {
+    "черный": "black", "черная": "black", "белый": "white", "белая": "white", "серый": "gray", "grey": "gray",
+    "серебристый": "silver", "серебристая": "silver", "золотой": "gold", "золотистый": "gold",
+    "голубой": "blue", "синий": "blue", "темно-синий": "navy", "розовый": "pink", "желтый": "yellow",
+    "зеленый": "green", "мятный": "mint", "фиолетовый": "purple", "лавандовый": "lavender",
+    "красный": "red", "оранжевый": "orange", "графит": "graphite", "графитовый": "graphite",
+    "кремовый": "cream", "бежевый": "beige", "титановый": "titanium", "cellular": "lte",
+    "ipro": "ipad pro",
+}
+SYNONYM_RE = re.compile(r"(?<!\w)(" + "|".join(map(re.escape, SYNONYMS)) + r")(?!\w)")
 
 
 def fetch_posts(channel, pages=MAX_PAGES):
@@ -106,6 +117,8 @@ def strip_emoji(s):
 def normalize(s):
     """Строка для сравнения: нижний регистр, без эмодзи, «256 ГБ» → «256», «М5» → «m5»."""
     s = strip_emoji(s).lower().replace("ё", "е")
+    s = SYNONYM_RE.sub(lambda m: SYNONYMS[m.group(1)], s)
+    s = re.sub(r"(?<=[a-z]{3})(?=\d)", " ", s)  # «Fold8» = «Fold 8»
     s = re.sub(r"\s*/\s*", "/", s)
     s = re.sub(r"(\d)\s*(?:gb|гб)\b", r"\1", s)
     s = re.sub(r"(\d)\s*(?:tb|тб)\b", r"\1tb", s)

@@ -104,13 +104,33 @@ def _weights(tokens):
     return {t: (2.0 if re.search(r"\d", t) else 1.0) for t in tokens}
 
 
+COLORS = set(tp.SYNONYMS.values()) | {"midnight", "starlight", "natural", "silver", "violet", "sky", "space",
+                                      "jet", "rose", "slate", "obsidian", "porcelain", "cosmic", "deep"}
+# Слова, которые отличают модель: если оно есть только с одной стороны — это другой товар.
+VARIANTS = {"lte", "pro", "max", "ultra", "mini", "plus", "air", "fe", "lite", "nano", "edge", "flip", "fold"}
+
+
 def similarity(avito_tokens, source_tokens):
     """0…1: какая доля позиции прайса есть в названии объявления (и наоборот, с меньшим весом)."""
     a, s = _weights(avito_tokens), _weights(source_tokens)
     common = sum(s[t] for t in s if t in a)
     if not common:
         return 0.0
-    return 0.7 * common / sum(s.values()) + 0.3 * common / sum(a.values())
+    score = 0.7 * common / sum(s.values()) + 0.3 * common / sum(a.values())
+    a_colors, s_colors = avito_tokens & COLORS, source_tokens & COLORS
+    if a_colors and s_colors and not (a_colors & s_colors):
+        score *= 0.5
+    score *= 0.7 ** len((avito_tokens ^ source_tokens) & VARIANTS)
+    for kind in (MEMORY_RE, CHIP_RE):  # разная память или процессор — другой товар
+        a_k = {t for t in avito_tokens if kind.match(t)}
+        s_k = {t for t in source_tokens if kind.match(t)}
+        if a_k and s_k and not (a_k & s_k):
+            score *= 0.4
+    return score
+
+
+MEMORY_RE = re.compile(r"^(?:\d+/)?(?:32|64|128|256|512|\d+tb)$")
+CHIP_RE = re.compile(r"^m\d$")
 
 
 def best_matches(title, index, n=3):

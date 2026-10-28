@@ -23,7 +23,7 @@ Garmin Cirqa Mauve S-M;;;22500;2026-10-28;Garmin CIRQA;garmin cirqa mauve s m
 GoPro 4K;;;19000;2026-10-28;GoPro;gopro gopro 4k
 GoPro HERO 13 Accessory Bundle;;;38000;2026-10-28;GoPro Hero 13 White Edition -;gopro hero 13 accessory bundle
 GoPro HERO 13 Creator Edition;;;51000;2026-10-28;GoPro Hero 13 White Edition -;gopro hero 13 creator edition
-GoPro HERO13;;;30500;2026-10-28;GoPro;gopro gopro hero13
+GoPro HERO13;;;30500;2026-10-28;GoPro;gopro hero 13
 GoPro Hero 12;;;25500;2026-10-28;GoPro;gopro hero 12
 GoPro Hero 12 (кейс + SanDisk 64GB);;;27500;2026-10-28;GoPro;gopro hero 12 keйc + sandisk 64
 GoPro MAX 2;;;33000;2026-10-28;GoPro;gopro max 2
@@ -150,7 +150,7 @@ Partybox Ultimate 1100;;;116500;2026-10-28;;partybox ultimate 1100
 Яндекс Лампа цветная;;RU;3000;2026-10-28;;яhдekc лamпa цbethaя
 Яндекс Станция 2 Blue;;RU;24000;2026-10-28;;яhдekc ctahция 2 blue
 Яндекс Станция 3 Black;;RU;24000;2026-10-28;;яhдekc ctahция 3 black
-Яндекс Станция 3 Grey;;RU;24000;2026-10-28;;яhдekc ctahция 3 grey
+Яндекс Станция 3 Grey;;RU;24000;2026-10-28;;яhдekc ctahция 3 gray
 Яндекс Станция 3 Purple;;RU;24000;2026-10-28;;яhдekc ctahция 3 purple
 Яндекс Станция Дуо с экраном Green;;RU;43000;2026-10-28;;яhдekc ctahция дyo c эkpahom green
 Яндекс Станция Лайт 1-го поколения Purple;;RU;6500;2026-10-28;;яhдekc ctahция лaйt 1 гo пokoлehия purple
@@ -176,14 +176,14 @@ Partybox Ultimate 1100;;;116500;2026-10-28;;partybox ultimate 1100
 Яндекс Станция Мини 3 Про Black;;RU;11200;2026-10-28;;яhдekc ctahция mиhи 3 пpo black
 Яндекс Станция Мини 3 Про Blue;;RU;11000;2026-10-28;;яhдekc ctahция mиhи 3 пpo blue
 Яндекс Станция Мини 3 Про Green;;RU;11000;2026-10-28;;яhдekc ctahция mиhи 3 пpo green
-Яндекс Станция Мини 3 Про Grey;;RU;11200;2026-10-28;;яhдekc ctahция mиhи 3 пpo grey
+Яндекс Станция Мини 3 Про Grey;;RU;11200;2026-10-28;;яhдekc ctahция mиhи 3 пpo gray
 Яндекс Станция Мини 3 с часами Black;;RU;9500;2026-10-28;;яhдekc ctahция mиhи 3 c чacamи black
 Яндекс Станция Мини 3 с часами Green;;RU;9500;2026-10-28;;яhдekc ctahция mиhи 3 c чacamи green
-Яндекс Станция Мини 3 с часами Grey;;RU;9200;2026-10-28;;яhдekc ctahция mиhи 3 c чacamи grey
+Яндекс Станция Мини 3 с часами Grey;;RU;9200;2026-10-28;;яhдekc ctahция mиhи 3 c чacamи gray
 Яндекс Станция Мини 3 с часами Purple;;RU;9500;2026-10-28;;яhдekc ctahция mиhи 3 c чacamи purple
 Яндекс Станция Стрит Black;;RU;12000;2026-10-28;;яhдekc ctahция ctpиt black
 Яндекс Станция Стрит Green;;RU;12000;2026-10-28;;яhдekc ctahция ctpиt green
-Яндекс Станция Стрит Grey;;RU;12000;2026-10-28;;яhдekc ctahция ctpиt grey
+Яндекс Станция Стрит Grey;;RU;12000;2026-10-28;;яhдekc ctahция ctpиt gray
 Яндекс Хаб;;RU;6000;2026-10-28;;яhдekc xaб
 Яндекс Эмби Лампа;;RU;6800;2026-10-28;;яhдekc эmби лamпa
 Anker Soundcore Boom 3i Brown;;;9400;;;anker soundcore boom 3i brown
@@ -296,7 +296,7 @@ PS5 Sackboy: BA;(рус);;4000;2026-10-28;PlayStation 4/5 / Игры на PS 4/5
 PS5 Slim Disk 1tb GHOST of YOTEI Limited Edition GOLD (без игры);;;75000;2026-10-28;PS DISK;ps5 slim disk 1tb ghost of yotei limited edition gold бeз игpы
 PS5 Spider-Man 2;(рус);;5000;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 spider man 2 pyc
 PS5 UFC 6;(без);;6500;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 ufc 6 бeз
-PS5 UFC5;(без);;3700;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 ufc5 бeз
+PS5 UFC5;(без);;3700;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 ufc 5 бeз
 PS5 VR2;;;34000;2026-10-28;PS5 VR2;ps5 vr2 ps5 vr2
 PS5 Wukong;(рус);;6000;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 wukong pyc
 PS5 Wukong Deluxe;(суб);;6300;2026-10-28;PlayStation 4/5 / Игры на PS 4/5;ps5 wukong deluxe cyб
@@ -411,12 +411,12 @@ Nothing Phone 4b 8/128 Black;;EU;30000;2026-10-29;Huawei/Honor;nothing phone 4b 
 OnePlus 13s 12/512Gb Black Velvet;;;47000;2026-10-29;Huawei/Honor;oneplus 13s 12/512 black velvet
 OnePlus 13s 16/512Gb Black Velvet;;;47500;2026-10-29;Huawei/Honor;oneplus 13s 16/512 black velvet
 OnePlus 13s 16/512Gb Silk Green;;;47500;2026-10-29;Huawei/Honor;oneplus 13s 16/512 silk green
-OnePlus 15 5G 12/256Gb CPH2749 Infinite Black;;;76800;2026-10-29;Huawei/Honor;oneplus 15 5g 12/256 cph2749 infinite black
-OnePlus 15 5G 16/512Gb CPH2749 Infinite Black;;;85300;2026-10-29;Huawei/Honor;oneplus 15 5g 16/512 cph2749 infinite black
-OnePlus 15 5G 16/512Gb CPH2749 Ultra Violet;;;85300;2026-10-29;Huawei/Honor;oneplus 15 5g 16/512 cph2749 ultra violet
-OnePlus 15R 12/256Gb CPH2769 Mint Breezeбез зарядки;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph2769 mint breezeбeз зapядkи
-OnePlus 15R 12/256Gb CPH2771 Black;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph2771 black
-OnePlus 15R 12/256Gb CPH2771 Mint Breeze;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph2771 mint breeze
+OnePlus 15 5G 12/256Gb CPH2749 Infinite Black;;;76800;2026-10-29;Huawei/Honor;oneplus 15 5g 12/256 cph 2749 infinite black
+OnePlus 15 5G 16/512Gb CPH2749 Infinite Black;;;85300;2026-10-29;Huawei/Honor;oneplus 15 5g 16/512 cph 2749 infinite black
+OnePlus 15 5G 16/512Gb CPH2749 Ultra Violet;;;85300;2026-10-29;Huawei/Honor;oneplus 15 5g 16/512 cph 2749 ultra violet
+OnePlus 15R 12/256Gb CPH2769 Mint Breezeбез зарядки;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph 2769 mint breezeбeз зapядkи
+OnePlus 15R 12/256Gb CPH2771 Black;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph 2771 black
+OnePlus 15R 12/256Gb CPH2771 Mint Breeze;;;51700;2026-10-29;Huawei/Honor;oneplus 15r 12/256 cph 2771 mint breeze
 OnePlus Nord 5 5G 8/256Gb Phantom Grayбез зарядки;;;31000;2026-10-29;Huawei/Honor;oneplus nord 5 5g 8/256 phantom grayбeз зapядkи
 OnePlus Nord 6 5G 8/256Gb Pitch Blackбез зарядки;;;38500;2026-10-29;Huawei/Honor;oneplus nord 6 5g 8/256 pitch blackбeз зapядkи
 OnePlus Nord CE5 8/256Gb Black Infinityбез зарядки;;;26900;2026-10-29;Huawei/Honor;oneplus nord ce5 8/256 black infinityбeз зapядkи
@@ -586,32 +586,32 @@ S26+ 12/512GB White;;AE;80300;2026-10-29;;s26+ 12/512 white
 Z Flip 7 FE 8/256GB Black;;AE;61500;2026-10-29;;z flip 7 fe 8/256 black
 Z Flip 8 12/512 Cream;;TH;79900;2026-10-29;Z Flip 8 12/512 Graphite;z flip 8 12/512 cream
 Z Flip 8 12/512Gb Graphite;;RU;86000;2026-10-29;Z Flip 8 12/512 Graphite;z flip 8 12/512 graphite
-Z Flip 8 SM-F776B 12/256Gb Графит;;RU;76000;2026-10-29;Z Flip 8 12/256 Pink —;z flip 8 sm f776b 12/256 гpaфиt
-Z Flip 8 SM-F776B 12/256Gb Кремовый;;RU;76000;2026-10-29;Z Flip 8 12/256 Pink —;z flip 8 sm f776b 12/256 kpemobый
+Z Flip 8 SM-F776B 12/256Gb Графит;;RU;76000;2026-10-29;Z Flip 8 12/256 Pink —;z flip 8 sm f776b 12/256 graphite
+Z Flip 8 SM-F776B 12/256Gb Кремовый;;RU;76000;2026-10-29;Z Flip 8 12/256 Pink —;z flip 8 sm f776b 12/256 cream
 Z Fold 6 12/512GB Pink;;AE;93500;2026-10-29;;z fold 6 12/512 pink
 Z Fold 7 12/256GB Blue;;AE;101500;2026-10-29;;z fold 7 12/256 blue
 Z Fold 7 12/256GB Gray;;RU;102000;2026-10-29;;z fold 7 12/256 gray
 Z Fold 7 12/256GB Jet Black;;AE;101500;2026-10-29;;z fold 7 12/256 jet black
-Z Fold 8 SM-F971B 12/512Gb Лавандовый;;RU;130000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 sm f971b 12/512 лabahдobый
+Z Fold 8 SM-F971B 12/512Gb Лавандовый;;RU;130000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 sm f971b 12/512 lavender
 Z Fold 8 Ultra 12/256Gb (SM-F976B) Purple;;RU;125000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/256 sm f976b purple
 Z Fold 8 Ultra 12/256Gb Graphite;;RU;129000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/256 graphite
-Z Fold8 12/256GB Cream;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/256 cream
-Z Fold8 12/256GB Graphite;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/256 graphite
-Z Fold8 12/256GB Lavender;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/256 lavender
-Z Fold8 12/512GB Cream;;AE;129000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/512 cream
-Z Fold8 12/512GB Graphite;;AE;132000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/512 graphite
-Z Fold8 12/512GB Lavender;;AE;126000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 12/512 lavender
-Z Fold8 16/1TB Cream;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 16/1tb cream
-Z Fold8 16/1TB Graphite;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 16/1tb graphite
-Z Fold8 16/1TB Lavender;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 16/1tb lavender
-Z Fold8 Ultra 12/256GB Black;;AE;126500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/256 black
-Z Fold8 Ultra 12/256GB Cream;;AE;126500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/256 cream
-Z Fold8 Ultra 12/256GB Violet Shadow;;AE;127000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/256 violet shadow
-Z Fold8 Ultra 12/512GB Cream;;AE;138500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/512 cream
-Z Fold8 Ultra 12/512GB Graphite;;AE;160000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/512 graphite
-Z Fold8 Ultra 12/512GB Violet Shadow;;AE;145500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 12/512 violet shadow
-Z Fold8 Ultra 16/1TB Cream;;AE;197000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 16/1tb cream
-Z Fold8 Ultra 16/1TB Violet Shadow;;AE;197000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold8 ultra 16/1tb violet shadow
+Z Fold8 12/256GB Cream;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/256 cream
+Z Fold8 12/256GB Graphite;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/256 graphite
+Z Fold8 12/256GB Lavender;;AE;117500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/256 lavender
+Z Fold8 12/512GB Cream;;AE;129000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/512 cream
+Z Fold8 12/512GB Graphite;;AE;132000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/512 graphite
+Z Fold8 12/512GB Lavender;;AE;126000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 12/512 lavender
+Z Fold8 16/1TB Cream;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 16/1tb cream
+Z Fold8 16/1TB Graphite;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 16/1tb graphite
+Z Fold8 16/1TB Lavender;;AE;176000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 16/1tb lavender
+Z Fold8 Ultra 12/256GB Black;;AE;126500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/256 black
+Z Fold8 Ultra 12/256GB Cream;;AE;126500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/256 cream
+Z Fold8 Ultra 12/256GB Violet Shadow;;AE;127000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/256 violet shadow
+Z Fold8 Ultra 12/512GB Cream;;AE;138500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/512 cream
+Z Fold8 Ultra 12/512GB Graphite;;AE;160000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/512 graphite
+Z Fold8 Ultra 12/512GB Violet Shadow;;AE;145500;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 12/512 violet shadow
+Z Fold8 Ultra 16/1TB Cream;;AE;197000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 16/1tb cream
+Z Fold8 Ultra 16/1TB Violet Shadow;;AE;197000;2026-10-29;Z Flip 8 12/512Gb Pink;z fold 8 ultra 16/1tb violet shadow
 Poco C85 6/128 Purple;;EU;15200;2026-10-29;POCO;poco c85 6/128 purple
 Poco C85 8/256 Black;;EU;17200;2026-10-29;POCO;poco c85 8/256 black
 Poco C85 8/256 Green;;KZ;17300;2026-10-29;POCO;poco c85 8/256 green
@@ -928,7 +928,7 @@ Forerunner 965 Yellow;;;39000;;;forerunner 965 yellow
 Forerunner 970 47 Black;;;53300;;;forerunner 970 47 black
 Forerunner 970 47 Soft Gold;;;53700;;;forerunner 970 47 soft gold
 Forerunner 970 47 White;;;53700;;;forerunner 970 47 white
-Forerunner 970 Carbon Grey DLC Titanium / Black-Translucent Whitestone;;;53000;;;forerunner 970 carbon grey dlc titanium/black translucent whitestone
+Forerunner 970 Carbon Grey DLC Titanium / Black-Translucent Whitestone;;;53000;;;forerunner 970 carbon gray dlc titanium/black translucent whitestone
 Garmin Venu 3S Soft Gold Ivory;;;34500;;;garmin venu 3s soft gold ivory
 Venu 3 (45mm) Slate Gray wt Black Silicone Band;;;31300;;;venu 3 45mm slate gray wt black silicone band
 Venu 3 Silver / White Stone;;;32500;;;venu 3 silver/white stone
@@ -1000,7 +1000,7 @@ Garmin MARQ ATHLETE GEN 2 | 010-02648-41;;;125000;2026-10-29;Линейка Quat
 Garmin RALLY RS200;;;68000;2026-10-29;Вело-компьютеры и аксессуары;garmin rally rs200
 Garmin RALLY RS210;;;77500;2026-10-29;Вело-компьютеры и аксессуары;garmin rally rs210
 Garmin RALLY XC200;;;75000;2026-10-29;Вело-компьютеры и аксессуары;garmin rally xc200
-Garmin Varia RCT715;;;31500;2026-10-29;Вело-компьютеры и аксессуары;garmin varia rct715
+Garmin Varia RCT715;;;31500;2026-10-29;Вело-компьютеры и аксессуары;garmin varia rct 715
 Garmin Varia UT800;;;17500;2026-10-29;Вело-компьютеры и аксессуары;garmin varia ut800
 HRM 600 XS-S;;;14700;2026-10-29;Весы, пульсометры, трекеры сна и прочее;hrm 600 xs s
 HRM FIT;;;14300;2026-10-29;Весы, пульсометры, трекеры сна и прочее;becы пyльcometpы tpekepы cha и пpoчee hrm fit
@@ -1032,9 +1032,9 @@ Instinct Crossover Solar Tidal Blue;;;40000;2026-10-29;Весы, пульсом�
 Instinct E (40mm) Black;;;20700;2026-10-29;Весы, пульсометры, трекеры сна и прочее;instinct e 40mm black
 Instinct E (40mm) Electric Lime;;;20700;2026-10-29;Весы, пульсометры, трекеры сна и прочее;instinct e 40mm electric lime
 Instinct E (45mm) Electric Lime;;;22300;2026-10-29;Весы, пульсометры, трекеры сна и прочее;instinct e 45mm electric lime
-Kospet ORB Graphite Grey;;;5500;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet orb graphite grey
+Kospet ORB Graphite Grey;;;5500;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet orb graphite gray
 Kospet ORB Icy Silver;;;5500;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet orb icy silver
-Kospet Pulse Graphite Grey;;;5800;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet pulse graphite grey
+Kospet Pulse Graphite Grey;;;5800;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet pulse graphite gray
 Kospet Pulse Icy Silver;;;5800;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet pulse icy silver
 Kospet Tank M3 Ultra Black;;;6850;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet tank m3 ultra black
 Kospet Tank M3 Ultra Silver;;;6850;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;kospet tank m3 ultra silver
@@ -1055,8 +1055,8 @@ MARQ Athlete Gen 2 (46mm);;;130000;2026-10-29;Линейка Quatix;marq athlete
 MARQ Aviator Gen 2 (46mm);;;171000;2026-10-29;Линейка Quatix;marq aviator gen 2 46mm
 MARQ Golfer Gen 2 (46mm);;;155000;2026-10-29;Линейка Quatix;marq golfer gen 2 46mm
 Quatix 8 47mm Amoled Sapphire Marine;;;80500;2026-10-29;Линейка Quatix;quatix 8 47mm amoled sapphire marine
-Quatix 8 47mm Amoled Sapphire Titanium Grey with Blue Band;;;77300;2026-10-29;Линейка Quatix;quatix 8 47mm amoled sapphire titanium grey with blue band
-Quatix 8 51mm Amoled Sapphire Titanium Grey with Blue Band;;;84300;2026-10-29;Линейка Quatix;quatix 8 51mm amoled sapphire titanium grey with blue band
+Quatix 8 47mm Amoled Sapphire Titanium Grey with Blue Band;;;77300;2026-10-29;Линейка Quatix;quatix 8 47mm amoled sapphire titanium gray with blue band
+Quatix 8 51mm Amoled Sapphire Titanium Grey with Blue Band;;;84300;2026-10-29;Линейка Quatix;quatix 8 51mm amoled sapphire titanium gray with blue band
 Quatix 8 51mm Captain Blue Silicone Band;;;82500;2026-10-29;Линейка Quatix;quatix 8 51mm captain blue silicone band
 Quatix 8 Pro 47mm Amoled Sapphire Marine;;;105500;2026-10-29;Линейка Quatix;quatix 8 pro 47mm amoled sapphire marine
 Samsung Galaxy Watch 9 SM-L345 40mm LTE Cream (EAC);;;25000;2026-10-29;ПО ПРЕДЗАКАЗУ !!!;samsung galaxy watch 9 sm l345 40mm lte cream eac
@@ -1131,34 +1131,34 @@ AirTag;;;3700;2026-10-29;Pencil;pencil airtag
 AirTag (2026);;;4200;2026-10-29;Pencil;pencil airtag 2026
 AirTag (2026) 4 pack;;;9300;2026-10-29;Pencil;airtag 2026 4 pack
 AirTag 4 pack;;;8200;2026-10-29;Pencil;airtag 4 pack
-Apple MagSafe Duo MHXF3;;;10500;2026-10-29;Зарядка Apple;apple magsafe duo mhxf3
+Apple MagSafe Duo MHXF3;;;10500;2026-10-29;Зарядка Apple;apple magsafe duo mhxf 3
 Apple Pencil Pro;;;10500;2026-10-29;Pencil;apple pencil pro
-Apple Power Adapter 140W USB-C MLYU3;;US;8500;2026-10-29;Pencil;apple power adapter 140w usb c mlyu3
-Apple Power Adapter 35W Dual USB-C Port MNWM3;;US;4500;2026-10-29;Pencil;apple power adapter 35w dual usb c port mnwm3
+Apple Power Adapter 140W USB-C MLYU3;;US;8500;2026-10-29;Pencil;apple power adapter 140w usb c mlyu 3
+Apple Power Adapter 35W Dual USB-C Port MNWM3;;US;4500;2026-10-29;Pencil;apple power adapter 35w dual usb c port mnwm 3
 Apple Power Adapter 35W Dual USB-C Port MW2K3;;RU;6000;2026-10-29;Pencil;apple power adapter 35w dual usb c port mw2k3
 Apple Power Adapter 96W USB-C MX0J2;;US;7000;2026-10-29;Pencil;apple power adapter 96w usb c mx0j2
 Apple TV 4K 128 2022;;US;25000;2026-10-29;Зарядка Apple;apple tv 4k 128 2022
 Apple TV 4K 64 2022;;US;21000;2026-10-29;Зарядка Apple;apple tv 4k 64 2022
 Apple TV Siri Remote MW5G3;;;8500;2026-10-29;Зарядка Apple;apple tv siri remote mw5g3
 Apple Watch Magnetic Charger USB C;;;4000;2026-10-29;Зарядка Apple;apple watch magnetic charger usb c
-Apple Мультипорт USB-C to Digital MUF82;;;6000;2026-10-29;Зарядка Apple;apple myльtипopt usb c to digital muf82
-Apple кабель USB-C to MagSafe 3 Midnight 2m MPL43;;;5500;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 midnight 2m mpl43
-Apple кабель USB-C to MagSafe 3 Silver 2m MLYV3;;;4000;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 silver 2m mlyv3
-Apple кабель USB-C to MagSafe 3 Space Gray 2m MPL23;;;5500;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 space gray 2m mpl23
+Apple Мультипорт USB-C to Digital MUF82;;;6000;2026-10-29;Зарядка Apple;apple myльtипopt usb c to digital muf 82
+Apple кабель USB-C to MagSafe 3 Midnight 2m MPL43;;;5500;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 midnight 2m mpl 43
+Apple кабель USB-C to MagSafe 3 Silver 2m MLYV3;;;4000;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 silver 2m mlyv 3
+Apple кабель USB-C to MagSafe 3 Space Gray 2m MPL23;;;5500;2026-10-29;Зарядка Apple;apple kaбeль usb c to magsafe 3 space gray 2m mpl 23
 Box;;;5000;2026-10-29;AirPods 4 ANC;airpods 4 anc box
 EarPods с разъёмом USB-C;;;3000;2026-10-29;AirPods;earpods c paзъemom usb c
 MacBook Pro 16 Leather Sleeve;;;20000;2026-10-29;Зарядка Apple;macbook pro 16 leather sleeve
 MagSafe Battery Case iPhone Air;;;9700;2026-10-29;Зарядка Apple;magsafe battery case iphone air
-MagSafe Charger 1m 2025г MGD74;;;4500;2026-10-29;Зарядка Apple;magsafe charger 1m 2025г mgd74
-MagSafe Charger 2m 2025г MGDM4;;;5500;2026-10-29;Зарядка Apple;magsafe charger 2m 2025г mgdm4
-Magic Keyboard Touch ID Numeric USB-C Black MXK83;;US;19900;2026-10-29;Зарядка Apple;magic keyboard touch id numeric usb c black mxk83
+MagSafe Charger 1m 2025г MGD74;;;4500;2026-10-29;Зарядка Apple;magsafe charger 1m 2025г mgd 74
+MagSafe Charger 2m 2025г MGDM4;;;5500;2026-10-29;Зарядка Apple;magsafe charger 2m 2025г mgdm 4
+Magic Keyboard Touch ID Numeric USB-C Black MXK83;;US;19900;2026-10-29;Зарядка Apple;magic keyboard touch id numeric usb c black mxk 83
 Magic TrackPad Silver (MK2D3);;;11500;2026-10-29;Magic Keyboard Touch ID;magic trackpad silver mk2d3
-Magic Trackpad Black MXKA3;;US;13200;2026-10-29;Зарядка Apple;magic trackpad black mxka3
-Magic Trackpad White MXK93;;US;13500;2026-10-29;Зарядка Apple;magic trackpad white mxk93
-Numeric White USB-C(MXK73);;;16500;2026-10-29;Magic Keyboard Touch ID;numeric white usb c mxk73
+Magic Trackpad Black MXKA3;;US;13200;2026-10-29;Зарядка Apple;magic trackpad black mxka 3
+Magic Trackpad White MXK93;;US;13500;2026-10-29;Зарядка Apple;magic trackpad white mxk 93
+Numeric White USB-C(MXK73);;;16500;2026-10-29;Magic Keyboard Touch ID;numeric white usb c mxk 73
 Pencil;- USB-C;;7000;2026-10-29;Pencil;pencil usb c
-Кабель Apple (плетёный) USB-C / USB-C, 1м, 60W белый;;;2000;2026-10-29;Зарядка Apple;kaбeль apple плetehый usb c/usb c 1m 60w бeлый
-Кабель Apple (плетёный) USB-C / USB-C, 2м, 160W белый;;;2500;2026-10-29;Зарядка Apple;kaбeль apple плetehый usb c/usb c 2m 160w бeлый
+Кабель Apple (плетёный) USB-C / USB-C, 1м, 60W белый;;;2000;2026-10-29;Зарядка Apple;kaбeль apple плetehый usb c/usb c 1m 60w white
+Кабель Apple (плетёный) USB-C / USB-C, 2м, 160W белый;;;2500;2026-10-29;Зарядка Apple;kaбeль apple плetehый usb c/usb c 2m 160w white
 Левое ухо;;;7000;2026-10-29;AirPods 4 ANC;airpods 4 anc лeboe yxo
 От 10;;;2000;2026-10-29;Оригинальные блоки;opигиhaльhыe блokи ot 10
 От 100 шт;;;1200;2026-10-29;Оригинальные блоки;ot 100 шt
@@ -1178,7 +1178,7 @@ Beats Powerbeats Pro 2 Purple;;US;19000;2026-10-29;BEATS;beats powerbeats pro 2 
 Beats Powerbeats Pro 2 Sand;;US;19000;2026-10-29;BEATS;beats powerbeats pro 2 sand
 Beats Solo 4 Black;;US;16000;2026-10-29;BEATS;beats solo 4 black
 Beats Solo 4 Cloud Pink;;US;16000;2026-10-29;BEATS;beats solo 4 cloud pink
-Beats Solo 4 Grey;;US;15500;2026-10-29;BEATS;beats solo 4 grey
+Beats Solo 4 Grey;;US;15500;2026-10-29;BEATS;beats solo 4 gray
 Beats Solo Buds Arctic Purple;;US;9000;2026-10-29;BEATS;beats solo buds arctic purple
 Beats Solo Buds Matte Black;;US;9000;2026-10-29;BEATS;beats solo buds matte black
 Beats Solo Buds Red;;US;9000;2026-10-29;BEATS;beats solo buds red
@@ -1280,15 +1280,15 @@ Sony WH-CH720 White;;;9000;2026-10-29;Наушники;sony wh ch720 white
 Яндекс Дропс Black AI;;RU;6500;2026-10-29;Наушники;яhдekc дpoпc black ai
 Яндекс Дропс Purple AI;;RU;6500;2026-10-29;Наушники;яhдekc дpoпc purple ai
 Яндекс Дропс White AI;;RU;6500;2026-10-29;Наушники;яhдekc дpoпc white ai
-Magic Keyboard iPad Air 13 М2/M3/М4 2024 -2026 Белый (MDFW4);;US;28000;2026-10-29;Magic Keyboard 2024;magic keyboard ipad air 13 m2/m3/m4 2024 2026 бeлый mdfw4
-Magic Keyboard iPad Air 13 М2/M3/М4 2024 -2026 Черный (MGYY4);;US;30500;2026-10-29;Magic Keyboard 2024;magic keyboard ipad air 13 m2/m3/m4 2024 2026 чephый mgyy4
-iPad Air 11 (M2) 2024 512 LTE Grey;;US;71500;2026-10-29;Magic Keyboard 2024;ipad air 11 m2 2024 512 lte grey
+Magic Keyboard iPad Air 13 М2/M3/М4 2024 -2026 Белый (MDFW4);;US;28000;2026-10-29;Magic Keyboard 2024;magic keyboard ipad air 13 m2/m3/m4 2024 2026 white mdfw 4
+Magic Keyboard iPad Air 13 М2/M3/М4 2024 -2026 Черный (MGYY4);;US;30500;2026-10-29;Magic Keyboard 2024;magic keyboard ipad air 13 m2/m3/m4 2024 2026 black mgyy 4
+iPad Air 11 (M2) 2024 512 LTE Grey;;US;71500;2026-10-29;Magic Keyboard 2024;ipad air 11 m2 2024 512 lte gray
 iPad Air 11 (M4) 2026 128 LTE Blue;;US;77000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 lte blue
-iPad Air 11 (M4) 2026 128 LTE Grey;;US;77000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 lte grey
+iPad Air 11 (M4) 2026 128 LTE Grey;;US;77000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 lte gray
 iPad Air 11 (M4) 2026 128 LTE Purple;;US;77000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 lte purple
 iPad Air 11 (M4) 2026 128 LTE Starlight;;US;77000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 lte starlight
 iPad Air 11 (M4) 2026 128 Wi-Fi Blue;;US;59500;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 wi fi blue
-iPad Air 11 (M4) 2026 128 Wi-Fi Grey;;US;59500;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 wi fi grey
+iPad Air 11 (M4) 2026 128 Wi-Fi Grey;;US;59500;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 wi fi gray
 iPad Air 11 (M4) 2026 128 Wi-Fi Purple;;US;61500;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 wi fi purple
 iPad Air 11 (M4) 2026 128 Wi-Fi Starlight;;US;61000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 128 wi fi starlight
 iPad Air 11 M2 128 Blue LTE;;US;55000;2026-10-29;Magic Keyboard 2024;ipad air 11 m2 128 blue lte
@@ -1318,9 +1318,9 @@ iPad Air 11 M4 2026 512GB Purple WiFi;;US;111000;2026-10-29;iPad Air 11 M4 (2026
 iPad Air 11 M4 2026 512GB Starlight LTE;;US;125000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 512 starlight lte
 iPad Air 11 M4 2026 512GB Starlight WiFi;;US;106000;2026-10-29;iPad Air 11 M4 (2026);ipad air 11 m4 2026 512 starlight wifi
 iPad Air 13 (M4) 2026 128 LTE Blue;;US;90000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 lte blue
-iPad Air 13 (M4) 2026 128 LTE Grey;;US;90000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 lte grey
+iPad Air 13 (M4) 2026 128 LTE Grey;;US;90000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 lte gray
 iPad Air 13 (M4) 2026 128 Wi-Fi Blue;;US;83000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 wi fi blue
-iPad Air 13 (M4) 2026 128 Wi-Fi Grey;;US;83000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 wi fi grey
+iPad Air 13 (M4) 2026 128 Wi-Fi Grey;;US;83000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 wi fi gray
 iPad Air 13 (M4) 2026 128 Wi-Fi Purple;;US;83000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 128 wi fi purple
 iPad Air 13 M4 2026 1TB Blue LTE;;US;164000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 1tb blue lte
 iPad Air 13 M4 2026 1TB Blue WiFi;;US;140000;2026-10-29;iPad Air 13 M4 (2026);ipad air 13 m4 2026 1tb blue wifi
@@ -1349,10 +1349,10 @@ iPad Air 13 M4 2026 512GB Starlight WiFi;;US;122000;2026-10-29;iPad Air 13 M4 (2
 Apple Pencil 2;;;7000;2026-10-29;Pencil -7.000 USB-C;apple pencil 2
 Pad Air 11 (M2) 2024 512 Wi-Fi Blue;;US/PH;68500;2026-10-29;Air 11 M2 (2024);pad air 11 m2 2024 512 wi fi blue
 iPad Air 11 (M2) 2024 128 LTE Blue;;AU;57500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 128 lte blue
-iPad Air 11 (M2) 2024 128 LTE Grey;;US;57500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 128 lte grey
+iPad Air 11 (M2) 2024 128 LTE Grey;;US;57500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 128 lte gray
 iPad Air 11 (M2) 2024 128 LTE Starlight;;AU;57500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 128 lte starlight
 iPad Air 11 (M2) 2024 1TB LTE Blue;;US/HK/PH;80000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb lte blue
-iPad Air 11 (M2) 2024 1TB LTE Grey;;US/HK/PH;82000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb lte grey
+iPad Air 11 (M2) 2024 1TB LTE Grey;;US/HK/PH;82000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb lte gray
 iPad Air 11 (M2) 2024 1TB LTE Purple;;US/HK/PH;81000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb lte purple
 iPad Air 11 (M2) 2024 1TB LTE Starlight;;US/HK/PH;79500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb lte starlight
 iPad Air 11 (M2) 2024 1TB Wi-Fi Blue;;PH;76000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 1tb wi fi blue
@@ -1361,47 +1361,47 @@ iPad Air 11 (M2) 2024 1TB Wi-Fi Starlight;;US/PH;76000;2026-10-29;Air 11 M2 (202
 iPad Air 11 (M2) 2024 512 LTE Blue;;PH;74000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 lte blue
 iPad Air 11 (M2) 2024 512 LTE Purple;;US;73500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 lte purple
 iPad Air 11 (M2) 2024 512 LTE Starlight;;US;73500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 lte starlight
-iPad Air 11 (M2) 2024 512 Wi-Fi Grey;;US/PH;68500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 wi fi grey
+iPad Air 11 (M2) 2024 512 Wi-Fi Grey;;US/PH;68500;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 wi fi gray
 iPad Air 11 (M2) 2024 512 Wi-Fi Purple;;US/PH;69000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 wi fi purple
 iPad Air 11 (M2) 2024 512 Wi-Fi Starlight;;US/PH;69000;2026-10-29;Air 11 M2 (2024);ipad air 11 m2 2024 512 wi fi starlight
 iPad Air 11 (M3) 2025 128 LTE Blue;;US;64000;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 128 lte blue
 iPad Air 11 (M3) 2025 128 LTE Purple;;HK;65000;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 128 lte purple
-iPad Air 11 (M3) 2025 1TB LTE Grey;;US;100500;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 1tb lte grey
+iPad Air 11 (M3) 2025 1TB LTE Grey;;US;100500;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 1tb lte gray
 iPad Air 11 (M3) 2025 1TB LTE Starlight;;US;100500;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 1tb lte starlight
 iPad Air 11 (M3) 2025 512 LTE Blue;;HK;84000;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 512 lte blue
 iPad Air 11 (M3) 2025 512 LTE Purple;;HK;84000;2026-10-29;"iPad Air 11"" (M3)";ipad air 11 m3 2025 512 lte purple
 iPad Air 13 (M2) 2024 1TB LTE Blue;;US;89500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb lte blue
-iPad Air 13 (M2) 2024 1TB LTE Grey;;US/AE/BR;89500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb lte grey
+iPad Air 13 (M2) 2024 1TB LTE Grey;;US/AE/BR;89500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb lte gray
 iPad Air 13 (M2) 2024 1TB LTE Purple;;US/AE;90500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb lte purple
 iPad Air 13 (M2) 2024 1TB LTE Starlight;;US;90500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb lte starlight
 iPad Air 13 (M2) 2024 1TB Wi-Fi Blue;;US/HK;86500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb wi fi blue
 iPad Air 13 (M2) 2024 1TB Wi-Fi Purple;;US/HK;86500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb wi fi purple
 iPad Air 13 (M2) 2024 1TB Wi-Fi Starlight;;US/HK;87500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 1tb wi fi starlight
-iPad Air 13 (M2) 2024 256 LTE Grey;;PH/AU;73500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 lte grey
+iPad Air 13 (M2) 2024 256 LTE Grey;;PH/AU;73500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 lte gray
 iPad Air 13 (M2) 2024 256 LTE Purple;;PH/AU;74000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 lte purple
 iPad Air 13 (M2) 2024 256 LTE Starlight;;PH;74000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 lte starlight
 iPad Air 13 (M2) 2024 256 Wi-Fi Blue;;US/PH;70500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 wi fi blue
-iPad Air 13 (M2) 2024 256 Wi-Fi Grey;;US/PH;70500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 wi fi grey
+iPad Air 13 (M2) 2024 256 Wi-Fi Grey;;US/PH;70500;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 wi fi gray
 iPad Air 13 (M2) 2024 256 Wi-Fi Starlight;;US/PH;71000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 256 wi fi starlight
 iPad Air 13 (M2) 2024 512 LTE Blue;;US;82000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 lte blue
-iPad Air 13 (M2) 2024 512 LTE Grey;;US;82000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 lte grey
+iPad Air 13 (M2) 2024 512 LTE Grey;;US;82000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 lte gray
 iPad Air 13 (M2) 2024 512 LTE Purple;;US;82000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 lte purple
 iPad Air 13 (M2) 2024 512 LTE Starlight;;US;82000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 lte starlight
 iPad Air 13 (M2) 2024 512 Wi-Fi Blue;;US/PH;75000;2026-10-29;Air 13 M2;ipad air 13 m2 2024 512 wi fi blue
 iPad Air 13 (M3) 2025 128 LTE Blue;;HK;75000;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 lte blue
-iPad Air 13 (M3) 2025 128 LTE Grey;;HK;75000;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 lte grey
+iPad Air 13 (M3) 2025 128 LTE Grey;;HK;75000;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 lte gray
 iPad Air 13 (M3) 2025 128 LTE Purple;;HK;75000;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 lte purple
 iPad Air 13 (M3) 2025 128 LTE Starlight;;HK;75000;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 lte starlight
-iPad Air 13 (M3) 2025 128 Wi-Fi Grey;;US;72500;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 wi fi grey
+iPad Air 13 (M3) 2025 128 Wi-Fi Grey;;US;72500;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 128 wi fi gray
 iPad Air 13 (M3) 2025 1TB LTE Starlight;;JP;105500;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 1tb lte starlight
 iPad Air 13 (M3) 2025 256 Wi-Fi Blue;;CN;78500;2026-10-29;"iPad Air 13"" (M3)";ipad air 13 m3 2025 256 wi fi blue
 Magic Keyboard Black iPad Pro 11;;US;28000;2026-10-28;Magic Keyboard 2024;magic keyboard black ipad pro 11
 Magic Keyboard Black iPad Pro 13;;US;39000;2026-10-28;Magic Keyboard 2024;magic keyboard black ipad pro 13
 Magic Keyboard White iPad Pro 11;;US;26200;2026-10-28;Magic Keyboard 2024;magic keyboard white ipad pro 11
 Magic Keyboard White iPad Pro 13;;US;33500;2026-10-28;Magic Keyboard 2024;magic keyboard white ipad pro 13
-iPad Pro 11 (M1) 256 Wi-Fi Grey;;US;63000;2026-10-28;M1 (2021);ipad pro 11 m1 256 wi fi grey
+iPad Pro 11 (M1) 256 Wi-Fi Grey;;US;63000;2026-10-28;M1 (2021);ipad pro 11 m1 256 wi fi gray
 iPad Pro 11 (M2) 128 Wi-Fi Silver;;US;65500;2026-10-28;M2 (2022);ipad pro 11 m2 128 wi fi silver
-iPad Pro 11 (M2) 2TB Wi-Fi Grey;;US;96500;2026-10-28;M2 (2022);ipad pro 11 m2 2tb wi fi grey
+iPad Pro 11 (M2) 2TB Wi-Fi Grey;;US;96500;2026-10-28;M2 (2022);ipad pro 11 m2 2tb wi fi gray
 iPad Pro 11 (M4) 1TB LTE Black;;IN;125500;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 1tb lte black
 iPad Pro 11 (M4) 1TB LTE Silver NANO;;IN;127000;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 1tb lte silver nano
 iPad Pro 11 (M4) 2TB LTE Black;;IN;130000;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 2tb lte black
@@ -1411,7 +1411,7 @@ iPad Pro 11 (M4) 2TB LTE Silver NANO;;IN;130000;2026-10-28;iPad Pro 11 M4 (2024)
 iPad Pro 11 (M4) 2TB Wi-Fi Black;;US;122500;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 2tb wi fi black
 iPad Pro 11 (M4) 512 Wi-Fi Black;;US;105000;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 512 wi fi black
 iPad Pro 11 (M4) 512 Wi-Fi Silver;;US;105000;2026-10-28;iPad Pro 11 M4 (2024);ipad pro 11 m4 512 wi fi silver
-iPad Pro 12.9 (M2) 128 Wi-Fi Grey;;US;74500;2026-10-28;M2 (2022);ipad pro 12.9 m2 128 wi fi grey
+iPad Pro 12.9 (M2) 128 Wi-Fi Grey;;US;74500;2026-10-28;M2 (2022);ipad pro 12.9 m2 128 wi fi gray
 iPad Pro 12.9 (M2) 128 Wi-Fi Silver;;US;74500;2026-10-28;M2 (2022);ipad pro 12.9 m2 128 wi fi silver
 iPad Pro 13 (M4) 1TB LTE Black NANO;;IN;129500;2026-10-28;iPad Pro 13 M4 (2024);ipad pro 13 m4 1tb lte black nano
 iPad Pro 13 (M4) 1TB LTE Silver NANO;;HK/IN;127000;2026-10-28;iPad Pro 13 M4 (2024);ipad pro 13 m4 1tb lte silver nano
@@ -1433,22 +1433,22 @@ iPad Pro 13 m5 2TB Black LTE;;US;159000;2026-10-28;iPad Pro 13 m5 1TB Black Wi-F
 iPad Pro 13 m5 2TB Black LTE Nano;;US;192000;2026-10-28;iPad Pro 13 m5 1TB Black Wi-Fi -;ipad pro 13 m5 2tb black lte nano
 iPad Pro 13 m5 2TB Silver LTE;;US;157000;2026-10-28;iPad Pro 13 m5 1TB Black Wi-Fi -;ipad pro 13 m5 2tb silver lte
 iPad Pro 13 m5 2TB Silver LTE Nano;;US;173000;2026-10-28;iPad Pro 13 m5 1TB Black Wi-Fi -;ipad pro 13 m5 2tb silver lte nano
-iPro 11 M5 256 Black LTE;;US;118000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 256 black lte
-iPro 11 M5 256 Black Wi-Fi;;US;94500;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 256 black wi fi
-iPro 11 M5 256 Silver LTE;;US;122000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 256 silver lte
-iPro 11 M5 256 Silver Wi-Fi;;US;98300;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 256 silver wi fi
-iPro 11 M5 512 Black LTE;;US;150000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 512 black lte
-iPro 11 M5 512 Black Wi-Fi;;US;127000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 512 black wi fi
-iPro 11 M5 512 Silver LTE;;US;150000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 512 silver lte
-iPro 11 M5 512 Silver Wi-Fi;;US;131000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipro 11 m5 512 silver wi fi
-iPro 13 M5 256 Black LTE;;US;115000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 256 black lte
-iPro 13 M5 256 Black Wi-Fi;;US;111500;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 256 black wi fi
-iPro 13 M5 256 Silver LTE;;US;122500;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 256 silver lte
-iPro 13 M5 256 Silver Wi-Fi;;US;118000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 256 silver wi fi
-iPro 13 M5 512 Black LTE;;US;141000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 512 black lte
-iPro 13 M5 512 Black Wi-Fi;;US;135000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 512 black wi fi
-iPro 13 M5 512 Silver LTE;;US;146000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 512 silver lte
-iPro 13 M5 512 Silver Wi-Fi;;US;141000;2026-10-28;iPad Pro 13 M5 2025;ipro 13 m5 512 silver wi fi
+iPro 11 M5 256 Black LTE;;US;118000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 256 black lte
+iPro 11 M5 256 Black Wi-Fi;;US;94500;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 256 black wi fi
+iPro 11 M5 256 Silver LTE;;US;122000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 256 silver lte
+iPro 11 M5 256 Silver Wi-Fi;;US;98300;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 256 silver wi fi
+iPro 11 M5 512 Black LTE;;US;150000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 512 black lte
+iPro 11 M5 512 Black Wi-Fi;;US;127000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 512 black wi fi
+iPro 11 M5 512 Silver LTE;;US;150000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 512 silver lte
+iPro 11 M5 512 Silver Wi-Fi;;US;131000;2026-10-28;"iPad Pro 11"" (M5) 2025";ipad pro 11 m5 512 silver wi fi
+iPro 13 M5 256 Black LTE;;US;115000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 256 black lte
+iPro 13 M5 256 Black Wi-Fi;;US;111500;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 256 black wi fi
+iPro 13 M5 256 Silver LTE;;US;122500;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 256 silver lte
+iPro 13 M5 256 Silver Wi-Fi;;US;118000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 256 silver wi fi
+iPro 13 M5 512 Black LTE;;US;141000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 512 black lte
+iPro 13 M5 512 Black Wi-Fi;;US;135000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 512 black wi fi
+iPro 13 M5 512 Silver LTE;;US;146000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 512 silver lte
+iPro 13 M5 512 Silver Wi-Fi;;US;141000;2026-10-28;iPad Pro 13 M5 2025;ipad pro 13 m5 512 silver wi fi
 IPad 11 512 Blue WIFI 2025;;US;67000;2026-10-29;iPad 11 2025 128 Pink LTE-;ipad 11 512 blue wifi 2025
 iPad 10 64 Silver LTE;;US;34000;2026-10-29;iPad 10;ipad 10 64 silver lte
 iPad 11 2025 128 Blue LTE;;US;47500;2026-10-29;iPad 11 2025 128 Pink Wi-Fi-38.0000;ipad 11 2025 128 blue lte
@@ -1465,17 +1465,17 @@ iPad 11 2025 256 Yellow Wi-Fi;;US;49000;2026-10-29;iPad 11 2025 128 Pink LTE-;ip
 iPad Mini 7 128 Blue LTE;;US;65900;2026-10-29;iPad Mini 7;ipad mini 7 128 blue lte
 iPad Mini 7 128 Blue Wi fi;;US;52000;2026-10-29;iPad Mini 7;ipad mini 7 128 blue wi fi
 iPad Mini 7 128 Gray LTE;;US;65200;2026-10-29;iPad Mini 7;ipad mini 7 128 gray lte
-iPad Mini 7 128 Grey WiFi;;US;52000;2026-10-29;iPad Mini 7;ipad mini 7 128 grey wifi
+iPad Mini 7 128 Grey WiFi;;US;52000;2026-10-29;iPad Mini 7;ipad mini 7 128 gray wifi
 iPad Mini 7 128 Purple LTE;;US;65900;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 128 purple lte
 iPad Mini 7 128 Purple WiFi;;US;52000;2026-10-29;iPad Mini 7;ipad mini 7 128 purple wifi
 iPad Mini 7 128 Starlight WiFi;;US;52000;2026-10-29;iPad Mini 7;ipad mini 7 128 starlight wifi
 iPad Mini 7 256 Blue WiFi;;US;56500;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 blue wifi
-iPad Mini 7 256 Grey WiFi;;US;56500;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 grey wifi
+iPad Mini 7 256 Grey WiFi;;US;56500;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 gray wifi
 iPad Mini 7 256 LTE Gray;;US;83900;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 lte gray
 iPad Mini 7 256 LTE Starlight;;US;82900;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 lte starlight
 iPad Mini 7 256 Purple WiFi;;US;56500;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 purple wifi
 iPad Mini 7 256 Starlight WiFi;;US;57000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 starlight wifi
-iPad mini 5 256 LTE Grey;;IN;32000;2026-10-29;iPad Mini 5/6;ipad mini 5 256 lte grey
+iPad mini 5 256 LTE Grey;;IN;32000;2026-10-29;iPad Mini 5/6;ipad mini 5 256 lte gray
 iPad mini 6 256 Wi-Fi Purple;;US;45000;2026-10-29;iPad Mini 5/6;ipad mini 6 256 wi fi purple
 iPad mini 6 64 LTE Pink;;IN;38500;2026-10-29;iPad Mini 5/6;ipad mini 6 64 lte pink
 iPad mini 6 64 LTE Purple;;IN;39000;2026-10-29;iPad Mini 5/6;ipad mini 6 64 lte purple
@@ -1485,48 +1485,48 @@ iPad mini 6 64 Wi-Fi Purple;;US/CA;35500;2026-10-29;iPad Mini 5/6;ipad mini 6 64
 iPad mini 7 256 LTE Blue;;US;81900;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 lte blue
 iPad mini 7 256 LTE Purple;;US;83900;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 256 lte purple
 iPad mini 7 512 Wi-Fi Blue;;US;75000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 512 wi fi blue
-iPad mini 7 512 Wi-Fi Grey;;US;75000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 512 wi fi grey
+iPad mini 7 512 Wi-Fi Grey;;US;75000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 512 wi fi gray
 iPad mini 7 512 Wi-Fi Purple;;US;75000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 512 wi fi purple
 iPad mini 7 512 Wi-Fi Starlight;;US;75000;2026-10-29;iPad Mini 7 128 Starlight LTE-;ipad mini 7 512 wi fi starlight
-Apple Pro Display XDR 32 Standard Glass | MYLH3;;RU;605000;2026-10-29;• без ножки, с креплением VESA;apple pro display xdr 32 standard glass mylh3
+Apple Pro Display XDR 32 Standard Glass | MYLH3;;RU;605000;2026-10-29;• без ножки, с креплением VESA;apple pro display xdr 32 standard glass mylh 3
 Apple Pro Stand | MX5N3;;RU;128000;2026-10-29;• без ножки, с креплением VESA;apple pro stand mx5n3
 Apple VESA Mount Adapter | MX5M3;;RU;39000;2026-10-29;• без ножки, с креплением VESA;apple vesa mount adapter mx5m3
-MHL64 Mac Studio Silver (M5 Max, 18 CPU, 32 GPU, 36GB 512GB);;US;265000;2026-10-29;MacMini M6 2026;mhl64 mac studio silver m5 max 18 cpu 32 gpu 36 512
-MHQK4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 16GB, 256GB);;US;85500;2026-10-29;MacMini M6 2026;mhqk4 mac mini silver m6 12 cpu 12 gpu 16 256
-MHQL4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 16GB, 512GB);;US;122500;2026-10-29;MacMini M6 2026;mhql4 mac mini silver m6 12 cpu 12 gpu 16 512
-MHQM4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 24GB, 512GB);;US;145500;2026-10-29;MacMini M6 2026;mhqm4 mac mini silver m6 12 cpu 12 gpu 24 512
+MHL64 Mac Studio Silver (M5 Max, 18 CPU, 32 GPU, 36GB 512GB);;US;265000;2026-10-29;MacMini M6 2026;mhl 64 mac studio silver m5 max 18 cpu 32 gpu 36 512
+MHQK4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 16GB, 256GB);;US;85500;2026-10-29;MacMini M6 2026;mhqk 4 mac mini silver m6 12 cpu 12 gpu 16 256
+MHQL4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 16GB, 512GB);;US;122500;2026-10-29;MacMini M6 2026;mhql 4 mac mini silver m6 12 cpu 12 gpu 16 512
+MHQM4 Mac Mini Silver (M6, 12 CPU, 12 GPU, 24GB, 512GB);;US;145500;2026-10-29;MacMini M6 2026;mhqm 4 mac mini silver m6 12 cpu 12 gpu 24 512
 Mac Mini M4 Pro 14/20/48GB/1TB/1 TB;;LR;293500;2026-10-29;MacMini M6 2026;mac mini m4 pro 14/20/48/1tb/1tb
 Magic Keyboard MK2A3;;RU;12200;2026-10-29;iMac;magic keyboard mk2a3
 Magic Keyboard MK2A3RS/A;;RU;13300;2026-10-29;iMac;magic keyboard mk2a3rs/a
 Magic Keyboard Numeric MQ052;;RU;14800;2026-10-29;iMac;magic keyboard numeric mq052
 Magic Keyboard с Touch ID MK293RS/A;;RU;16600;2026-10-29;iMac;magic keyboard c touch id mk293rs/a
-Studio Display Nano Glass Tilt Stand | MMYW3;;US;200000;2026-10-29;• регулировка наклона;studio display nano glass tilt stand mmyw3
-Studio Display Nano Glass Tilt Stand | MYJK3;;RU;203000;2026-10-29;• регулировка наклона;studio display nano glass tilt stand myjk3
-Studio Display Nano Glass VESA Mount Adapter MYJL3;;RU;208000;2026-10-29;• без ножки, с креплением VESA;studio display nano glass vesa mount adapter myjl3
-Studio Display Standart Glass Tilt Stand | MYJG3R;;RU;189000;2026-10-29;• регулировка наклона;studio display standart glass tilt stand myjg3r
-Studio Display Standart Glass VESA Mount Adapter | MYJH3;;RU;200000;2026-10-29;• без ножки, с креплением VESA;studio display standart glass vesa mount adapter myjh3
+Studio Display Nano Glass Tilt Stand | MMYW3;;US;200000;2026-10-29;• регулировка наклона;studio display nano glass tilt stand mmyw 3
+Studio Display Nano Glass Tilt Stand | MYJK3;;RU;203000;2026-10-29;• регулировка наклона;studio display nano glass tilt stand myjk 3
+Studio Display Nano Glass VESA Mount Adapter MYJL3;;RU;208000;2026-10-29;• без ножки, с креплением VESA;studio display nano glass vesa mount adapter myjl 3
+Studio Display Standart Glass Tilt Stand | MYJG3R;;RU;189000;2026-10-29;• регулировка наклона;studio display standart glass tilt stand myjg 3r
+Studio Display Standart Glass VESA Mount Adapter | MYJH3;;RU;200000;2026-10-29;• без ножки, с креплением VESA;studio display standart glass vesa mount adapter myjh 3
 Z1CF00099Mac Mini Silver (M4, 10 CPU, 10 GPU, 16GB, 1TB);;US;99500;2026-10-29;MacMini M6 2026;z1cf00099mac mini silver m4 10 cpu 10 gpu 16 1tb
 Z1JX00065 Mac Mini Silver (M4, 10 CPU, 10 GPU, 24GB, 1TB);;US;160500;2026-10-29;MacMini M6 2026;z1jx00065 mac mini silver m4 10 cpu 10 gpu 24 1tb
-[MCX44] Mac Mini M4 Pro (24/512);;US;175000;2026-10-29;MacMini M6 2026;mcx44 mac mini m4 pro 24/512
-[MCYT4] Mac Mini M4 (24/512);;US;129000;2026-10-29;MacMini M6 2026;mcyt4 mac mini m4 24/512
+[MCX44] Mac Mini M4 Pro (24/512);;US;175000;2026-10-29;MacMini M6 2026;mcx 44 mac mini m4 pro 24/512
+[MCYT4] Mac Mini M4 (24/512);;US;129000;2026-10-29;MacMini M6 2026;mcyt 4 mac mini m4 24/512
 [MD2Q4] iMac M4 (10/10/24/512) Green;;HK;216000;2026-10-29;• без ножки, с креплением VESA;md2q4 imac m4 10/10/24/512 green
 [MD2U4] iMac M4 (10/10/24/512) Pink;;HK;216000;2026-10-29;• без ножки, с креплением VESA;md2u4 imac m4 10/10/24/512 pink
-[MFEL4] Studio Display XDR 2026 (Standard glass, tilt & height);;RU;336000;2026-10-29;Apple Display 27;mfel4 studio display xdr 2026 standard glass tilt height
-[MFEP4] Studio Display XDR 2026 (Nano-texture glass, tilt & height);;RU;365000;2026-10-29;Apple Display 27;mfep4 studio display xdr 2026 nano texture glass tilt height
-[MFEW4] Studio Display 2026 (Standard glass, tilt & height);;US;206500;2026-10-29;Apple Display 27;mfew4 studio display 2026 standard glass tilt height
-[MFEX4] Studio Display 2026 (Standard glass, tilt);;RU;167500;2026-10-29;Apple Display 27;mfex4 studio display 2026 standard glass tilt
-[MFF04] Studio Display 2026 (Nano-texture glass, tilt & height);;RU;237000;2026-10-29;Apple Display 27;mff04 studio display 2026 nano texture glass tilt height
-[MHQN4] Mac Mini M5 Pro (15c CPU/16c GPU/24/512);;HK;172000;2026-10-29;MacMini M6 2026;mhqn4 mac mini m5 pro 15c cpu/16c gpu/24/512
+[MFEL4] Studio Display XDR 2026 (Standard glass, tilt & height);;RU;336000;2026-10-29;Apple Display 27;mfel 4 studio display xdr 2026 standard glass tilt height
+[MFEP4] Studio Display XDR 2026 (Nano-texture glass, tilt & height);;RU;365000;2026-10-29;Apple Display 27;mfep 4 studio display xdr 2026 nano texture glass tilt height
+[MFEW4] Studio Display 2026 (Standard glass, tilt & height);;US;206500;2026-10-29;Apple Display 27;mfew 4 studio display 2026 standard glass tilt height
+[MFEX4] Studio Display 2026 (Standard glass, tilt);;RU;167500;2026-10-29;Apple Display 27;mfex 4 studio display 2026 standard glass tilt
+[MFF04] Studio Display 2026 (Nano-texture glass, tilt & height);;RU;237000;2026-10-29;Apple Display 27;mff 04 studio display 2026 nano texture glass tilt height
+[MHQN4] Mac Mini M5 Pro (15c CPU/16c GPU/24/512);;HK;172000;2026-10-29;MacMini M6 2026;mhqn 4 mac mini m5 pro 15c cpu/16c gpu/24/512
 [MU9D3] Mac Mini M4 (16/256);;US;73000;2026-10-29;MacMini M6 2026;mu9d3 mac mini m4 16/256
 [MU9E3] Mac Mini M4 (16/512);;US;77500;2026-10-29;MacMini M6 2026;mu9e3 mac mini m4 16/512
-[MWUE3] iMac M4 (8/8/16/256) Green;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwue3 imac m4 8/8/16/256 green
-[MWUF3] iMac M4 (8/8/16/256) Blue;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwuf3 imac m4 8/8/16/256 blue
-[MWUG3] iMac M4 (8/8/16/256) Pink;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwug3 imac m4 8/8/16/256 pink
-[MWUU3] iMac M4 (10/10/16/256) Silver;;US;175500;2026-10-29;• без ножки, с креплением VESA;mwuu3 imac m4 10/10/16/256 silver
-[MWUY3] iMac M4 (10/10/16/256) Green;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwuy3 imac m4 10/10/16/256 green
-[MWV13] iMac M4 (10/10/16/256) Blue;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwv13 imac m4 10/10/16/256 blue
-[MWV33][Z1EP000WP] iMac M4 (10/10/16/512) Blue;;RU;195500;2026-10-29;• без ножки, с креплением VESA;mwv33 z1ep000wp imac m4 10/10/16/512 blue
-[MWV43] iMac M4 (10/10/16/256) Pink;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwv43 imac m4 10/10/16/256 pink
+[MWUE3] iMac M4 (8/8/16/256) Green;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwue 3 imac m4 8/8/16/256 green
+[MWUF3] iMac M4 (8/8/16/256) Blue;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwuf 3 imac m4 8/8/16/256 blue
+[MWUG3] iMac M4 (8/8/16/256) Pink;;RU;159000;2026-10-29;• без ножки, с креплением VESA;mwug 3 imac m4 8/8/16/256 pink
+[MWUU3] iMac M4 (10/10/16/256) Silver;;US;175500;2026-10-29;• без ножки, с креплением VESA;mwuu 3 imac m4 10/10/16/256 silver
+[MWUY3] iMac M4 (10/10/16/256) Green;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwuy 3 imac m4 10/10/16/256 green
+[MWV13] iMac M4 (10/10/16/256) Blue;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwv 13 imac m4 10/10/16/256 blue
+[MWV33][Z1EP000WP] iMac M4 (10/10/16/512) Blue;;RU;195500;2026-10-29;• без ножки, с креплением VESA;mwv 33 z1ep000wp imac m4 10/10/16/512 blue
+[MWV43] iMac M4 (10/10/16/256) Pink;;RU;176000;2026-10-29;• без ножки, с креплением VESA;mwv 43 imac m4 10/10/16/256 pink
 [Z1E200002] iMac M4 (8/8/16/512) Silver;;HK;177000;2026-10-29;• без ножки, с креплением VESA;z1e200002 imac m4 8/8/16/512 silver
 [Z1E2000KJ] iMac M4 (8/8/16/512) Silver;;RU;178000;2026-10-29;• без ножки, с креплением VESA;z1e2000kj imac m4 8/8/16/512 silver
 [Z1E30005L] iMac M4 (8/8/16/256) Yellow Рус;;SG;159000;2026-10-29;• без ножки, с креплением VESA;z1e30005l imac m4 8/8/16/256 yellow pyc
@@ -1609,21 +1609,21 @@ Air 15 Midnight (M4, 16GB, 1TB) Z1DH000Q5;;IN;150800;2026-10-29;MacBook Air 15 M
 Air 15 Sky Blue (M4, 16GB, 1TB) Z1HE0004Z;;IN;155300;2026-10-29;MacBook Air 15 M4 CUSTOM;air 15 sky blue m4 16 1tb z1he0004z
 Air 15 Sky Blue (M4, 24GB, 1TB) Z1HF001EF;;IN;170300;2026-10-29;MacBook Air 15 M4 CUSTOM;air 15 sky blue m4 24 1tb z1hf001ef
 Air 15 Starlight (M4, 16GB, 1TB) Z1DF0004Z;;IN;155300;2026-10-29;MacBook Air 15 M4 CUSTOM;air 15 starlight m4 16 1tb z1df0004z
-MDV94 Air 15 Silver (M5, 16GB, 512GB);;US;129000;2026-10-29;Air 13 M4;mdv94 air 15 silver m5 16 512
-MDVA4 Air 15 Silver (M5, 16GB, 1TB);;US;162000;2026-10-29;Air 13 M4;mdva4 air 15 silver m5 16 1tb
-MDVC4 Air 15 Silver (M5, 24GB, 1TB);;US;176500;2026-10-29;Air 13 M4;mdvc4 air 15 silver m5 24 1tb
-MDVD4 Air 15 Starlight (M5, 16GB, 512GB);;US;126000;2026-10-29;Air 13 M4;mdvd4 air 15 starlight m5 16 512
-MDVE4 Air 15 Starlight (M5, 16GB, 1TB);;US;156500;2026-10-29;Air 13 M4;mdve4 air 15 starlight m5 16 1tb
-MDVF4 Air 15 Starlight (M5, 24GB, 1TB);;US;175500;2026-10-29;Air 13 M4;mdvf4 air 15 starlight m5 24 1tb
-MDVH4 Air 15 Midnight (M5, 16GB, 512GB);;US;127000;2026-10-29;Air 13 M4;mdvh4 air 15 midnight m5 16 512
-MDVK4 Air 15 Midnight (M5, 16GB, 1TB);;US;157000;2026-10-29;Air 13 M4;mdvk4 air 15 midnight m5 16 1tb
-MDVN4 Air 15 Midnight (M5, 24GB, 1TB);;US;175000;2026-10-29;Air 13 M4;mdvn4 air 15 midnight m5 24 1tb
-MDVQ4 Air 15 Sky Blue (M5, 16GB, 512GB);;US;126000;2026-10-29;Air 13 M4;mdvq4 air 15 sky blue m5 16 512
-MDVT4 Air 15 Sky Blue (M5, 16GB, 1TB);;US;157000;2026-10-29;Air 13 M4;mdvt4 air 15 sky blue m5 16 1tb
-MDVU4 Air 15 Sky Blue M5, 24GB, 1TB);;US;175500;2026-10-29;Air 13 M4;mdvu4 air 15 sky blue m5 24 1tb
-Magic Keyboard Touch ID Numeric USB-C White MXK73;;US;18000;2026-10-29;Air 15 M4;magic keyboard touch id numeric usb c white mxk73
-Magic Keyboard Touch ID USB-C White MXCK3;;US;15800;2026-10-29;Air 15 M4;magic keyboard touch id usb c white mxck3
-Magic Keyboard USB-C White MXCL3;;US;11200;2026-10-29;Air 15 M4;magic keyboard usb c white mxcl3
+MDV94 Air 15 Silver (M5, 16GB, 512GB);;US;129000;2026-10-29;Air 13 M4;mdv 94 air 15 silver m5 16 512
+MDVA4 Air 15 Silver (M5, 16GB, 1TB);;US;162000;2026-10-29;Air 13 M4;mdva 4 air 15 silver m5 16 1tb
+MDVC4 Air 15 Silver (M5, 24GB, 1TB);;US;176500;2026-10-29;Air 13 M4;mdvc 4 air 15 silver m5 24 1tb
+MDVD4 Air 15 Starlight (M5, 16GB, 512GB);;US;126000;2026-10-29;Air 13 M4;mdvd 4 air 15 starlight m5 16 512
+MDVE4 Air 15 Starlight (M5, 16GB, 1TB);;US;156500;2026-10-29;Air 13 M4;mdve 4 air 15 starlight m5 16 1tb
+MDVF4 Air 15 Starlight (M5, 24GB, 1TB);;US;175500;2026-10-29;Air 13 M4;mdvf 4 air 15 starlight m5 24 1tb
+MDVH4 Air 15 Midnight (M5, 16GB, 512GB);;US;127000;2026-10-29;Air 13 M4;mdvh 4 air 15 midnight m5 16 512
+MDVK4 Air 15 Midnight (M5, 16GB, 1TB);;US;157000;2026-10-29;Air 13 M4;mdvk 4 air 15 midnight m5 16 1tb
+MDVN4 Air 15 Midnight (M5, 24GB, 1TB);;US;175000;2026-10-29;Air 13 M4;mdvn 4 air 15 midnight m5 24 1tb
+MDVQ4 Air 15 Sky Blue (M5, 16GB, 512GB);;US;126000;2026-10-29;Air 13 M4;mdvq 4 air 15 sky blue m5 16 512
+MDVT4 Air 15 Sky Blue (M5, 16GB, 1TB);;US;157000;2026-10-29;Air 13 M4;mdvt 4 air 15 sky blue m5 16 1tb
+MDVU4 Air 15 Sky Blue M5, 24GB, 1TB);;US;175500;2026-10-29;Air 13 M4;mdvu 4 air 15 sky blue m5 24 1tb
+Magic Keyboard Touch ID Numeric USB-C White MXK73;;US;18000;2026-10-29;Air 15 M4;magic keyboard touch id numeric usb c white mxk 73
+Magic Keyboard Touch ID USB-C White MXCK3;;US;15800;2026-10-29;Air 15 M4;magic keyboard touch id usb c white mxck 3
+Magic Keyboard USB-C White MXCL3;;US;11200;2026-10-29;Air 15 M4;magic keyboard usb c white mxcl 3
 USB-C to MagSafe 3 Cable (2 m) Midnight;;;5000;2026-10-29;MacBook Air;usb c to magsafe 3 cable 2 m midnight
 USB-C to MagSafe 3 Cable (2 m) Silver;;;5000;2026-10-29;MacBook Air;usb c to magsafe 3 cable 2 m silver
 USB-C to MagSafe 3 Cable (2 m) Sky Blue;;;6000;2026-10-29;MacBook Air;usb c to magsafe 3 cable 2 m sky blue
@@ -1632,27 +1632,27 @@ USB-C to MagSafe 3 Cable (2 m) Starlight;;;5000;2026-10-29;MacBook Air;usb c to 
 [MC6A4] Air 13 (M4 24/512GB) Starlight;;US;145000;2026-10-29;Air 13 M4;mc6a4 air 13 m4 24/512 starlight
 [MC6V4] Air 13 (M4 24/512GB) Sky Blue;;US;150000;2026-10-29;Air 13 M4;mc6v4 air 13 m4 24/512 sky blue
 [MC7C4] Air 15 Sky Blue (16GB, 512GB);;US;138000;2026-10-29;Air 15 M4;mc7c4 air 15 sky blue 16 512
-[MDH74] Air 13 (M5 16/512GB) Silver;;US;110000;2026-10-29;MacBook Air;mdh74 air 13 m5 16/512 silver
-[MDH84] Air 13 (M5 16/1TB) Silver;;US;133000;2026-10-29;MacBook Air;mdh84 air 13 m5 16/1tb silver
-[MDH94] Air 13 (M5 24/1TB) Silver;;US;147000;2026-10-29;MacBook Air;mdh94 air 13 m5 24/1tb silver
-[MDHA4] Air 13 (M5 16/512GB) Starlight;;US;105500;2026-10-29;MacBook Air;mdha4 air 13 m5 16/512 starlight
-[MDHC4] Air 13 (M5 16/1TB) Starlight;;US;131000;2026-10-29;MacBook Air;mdhc4 air 13 m5 16/1tb starlight
-[MDHD4] Air 13 (M5 24/1TB) Starlight;;US;147000;2026-10-29;MacBook Air;mdhd4 air 13 m5 24/1tb starlight
-[MDHE4] Air 13 (M5 16/512GB) Midnight;;US;104000;2026-10-29;MacBook Air;mdhe4 air 13 m5 16/512 midnight
-[MDHF4] Air 13 (M5 16/1TB) Midnight;;US;130000;2026-10-29;MacBook Air;mdhf4 air 13 m5 16/1tb midnight
-[MDHG4] Air 13 (M5 24/1TB) Midnight;;US;147000;2026-10-29;MacBook Air;mdhg4 air 13 m5 24/1tb midnight
-[MDHH4] Air 13 (M5 16/512GB) Sky Blue;;US;105000;2026-10-29;MacBook Air;mdhh4 air 13 m5 16/512 sky blue
-[MDHJ4] Air 13 (M5 16/1TB) Sky Blue;;US;130000;2026-10-29;MacBook Air;mdhj4 air 13 m5 16/1tb sky blue
-[MDHK4] Air 13 (M5 24/1TB) Sky Blue;;US;147000;2026-10-29;MacBook Air;mdhk4 air 13 m5 24/1tb sky blue
-[MHFA4] NEO (8/256) Silver;;HK/US;63000;2026-10-29;MacBook Air;mhfa4 neo 8/256 silver
-[MHFC4] NEO (8/512/Touch ID) Silver;;IN/US;73000;2026-10-29;MacBook Air;mhfc4 neo 8/512/touch id silver
-[MHFD4] NEO (8/256) Citrus;;HK/US;62000;2026-10-29;MacBook Air;mhfd4 neo 8/256 citrus
-[MHFE4] NEO (8/512/Touch ID) Citrus;;IN/US;70000;2026-10-29;MacBook Air;mhfe4 neo 8/512/touch id citrus
-[MHFF4] NEO (8/256) Indigo;;HK/US;62500;2026-10-29;MacBook Air;mhff4 neo 8/256 indigo
-[MHFG4] NEO (8/512/Touch ID) Indigo;;IN/US;73500;2026-10-29;MacBook Air;mhfg4 neo 8/512/touch id indigo
-[MHFH4] NEO (8/256) Blush;;HK/US;66000;2026-10-29;MacBook Air;mhfh4 neo 8/256 blush
-[MHFJ4] NEO (8/512/Touch ID) Blush;;IN/US;73500;2026-10-29;MacBook Air;mhfj4 neo 8/512/touch id blush
-[MRYP3] Air 15 Silver (M3, 8GB, 256GB);(с гравировкой);US;102000;2026-10-29;Air 13 M4;mryp3 air 15 silver m3 8 256 c гpabиpobkoй
+[MDH74] Air 13 (M5 16/512GB) Silver;;US;110000;2026-10-29;MacBook Air;mdh 74 air 13 m5 16/512 silver
+[MDH84] Air 13 (M5 16/1TB) Silver;;US;133000;2026-10-29;MacBook Air;mdh 84 air 13 m5 16/1tb silver
+[MDH94] Air 13 (M5 24/1TB) Silver;;US;147000;2026-10-29;MacBook Air;mdh 94 air 13 m5 24/1tb silver
+[MDHA4] Air 13 (M5 16/512GB) Starlight;;US;105500;2026-10-29;MacBook Air;mdha 4 air 13 m5 16/512 starlight
+[MDHC4] Air 13 (M5 16/1TB) Starlight;;US;131000;2026-10-29;MacBook Air;mdhc 4 air 13 m5 16/1tb starlight
+[MDHD4] Air 13 (M5 24/1TB) Starlight;;US;147000;2026-10-29;MacBook Air;mdhd 4 air 13 m5 24/1tb starlight
+[MDHE4] Air 13 (M5 16/512GB) Midnight;;US;104000;2026-10-29;MacBook Air;mdhe 4 air 13 m5 16/512 midnight
+[MDHF4] Air 13 (M5 16/1TB) Midnight;;US;130000;2026-10-29;MacBook Air;mdhf 4 air 13 m5 16/1tb midnight
+[MDHG4] Air 13 (M5 24/1TB) Midnight;;US;147000;2026-10-29;MacBook Air;mdhg 4 air 13 m5 24/1tb midnight
+[MDHH4] Air 13 (M5 16/512GB) Sky Blue;;US;105000;2026-10-29;MacBook Air;mdhh 4 air 13 m5 16/512 sky blue
+[MDHJ4] Air 13 (M5 16/1TB) Sky Blue;;US;130000;2026-10-29;MacBook Air;mdhj 4 air 13 m5 16/1tb sky blue
+[MDHK4] Air 13 (M5 24/1TB) Sky Blue;;US;147000;2026-10-29;MacBook Air;mdhk 4 air 13 m5 24/1tb sky blue
+[MHFA4] NEO (8/256) Silver;;HK/US;63000;2026-10-29;MacBook Air;mhfa 4 neo 8/256 silver
+[MHFC4] NEO (8/512/Touch ID) Silver;;IN/US;73000;2026-10-29;MacBook Air;mhfc 4 neo 8/512/touch id silver
+[MHFD4] NEO (8/256) Citrus;;HK/US;62000;2026-10-29;MacBook Air;mhfd 4 neo 8/256 citrus
+[MHFE4] NEO (8/512/Touch ID) Citrus;;IN/US;70000;2026-10-29;MacBook Air;mhfe 4 neo 8/512/touch id citrus
+[MHFF4] NEO (8/256) Indigo;;HK/US;62500;2026-10-29;MacBook Air;mhff 4 neo 8/256 indigo
+[MHFG4] NEO (8/512/Touch ID) Indigo;;IN/US;73500;2026-10-29;MacBook Air;mhfg 4 neo 8/512/touch id indigo
+[MHFH4] NEO (8/256) Blush;;HK/US;66000;2026-10-29;MacBook Air;mhfh 4 neo 8/256 blush
+[MHFJ4] NEO (8/512/Touch ID) Blush;;IN/US;73500;2026-10-29;MacBook Air;mhfj 4 neo 8/512/touch id blush
+[MRYP3] Air 15 Silver (M3, 8GB, 256GB);(с гравировкой);US;102000;2026-10-29;Air 13 M4;mryp 3 air 15 silver m3 8 256 c гpabиpobkoй
 [MW1K3] Air 15 Starlight (16GB, 512GB);;US;136000;2026-10-29;Air 15 M4;mw1k3 air 15 starlight 16 512
 [MW1М3] Air 15 Midnight (16GB, 512GB);;US;138000;2026-10-29;Air 15 M4;mw1m3 air 15 midnight 16 512
 [Z1L0000Y5] Air 13 (M5 32/512/70w) Silver;;HK;169500;2026-10-29;Air 13 M4;z1l0000y5 air 13 m5 32/512/70w silver
@@ -1702,30 +1702,30 @@ USB-C to MagSafe 3 Cable (2 m) Starlight;;;5000;2026-10-29;MacBook Air;usb c to 
 Magic Mouse Black USB-C;;US;9000;2026-10-29;;magic mouse black usb c
 Magic Mouse White USB-C;;US;7700;2026-10-29;;magic mouse white usb c
 Pro 16 Space Black (M5 Max, 128GB, 8TB, 18 CPU, 40 GPU) Z1N2001RW Nano Glass;;IN;999000;2026-10-29;MACBOOK PRO 16 M5 CUSTOM;pro 16 space black m5 max 128 8tb 18 cpu 40 gpu z1n2001rw nano glass
-[MDE04] Pro 14 (M5 16/512) Black;;IN/US;164000;2026-10-29;MACBOOK PRO 14 M5;mde04 pro 14 m5 16/512 black
-[MDE14] Pro 14 (М5 16/1TB) Black;;IN/US;174500;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde14 pro 14 m5 16/1tb black
-[MDE34] Pro 14 (М5 24/1TB) Black;;IN/US;199000;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde34 pro 14 m5 24/1tb black
-[MDE54] Pro 14 (М5 16/1TB) Silver;;IN/US;174500;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde54 pro 14 m5 16/1tb silver
-[MDE64] Pro 14 (М5 24/1TB) Silver;;IN/US;192000;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde64 pro 14 m5 24/1tb silver
-[MGDN4] Pro 14 (M5 Pro 24/1TB) Silver;;IN/US;215500;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdn4 pro 14 m5 pro 24/1tb silver
-[MGDN4] Pro 14 (M5 Pro 24/1TB) Silver;(С пленкой/ гравировкой);IN/US;215000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdn4 pro 14 m5 pro 24/1tb silver c плehkoй/гpabиpobkoй
-[MGDP4] Pro 14 (M5 Pro 24/2TB) Silver;;IN/US;256000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdp4 pro 14 m5 pro 24/2tb silver
-[MGDQ4] Pro 14 (M5 Max 36/2TB) Silver;;IN/US;321000;2026-10-29;MACBOOK PRO 14 M5 MAX;mgdq4 pro 14 m5 max 36/2tb silver
-[MGDR4] Pro 14 (M5 Pro 24/ 1TB) Black;;IN/US;209000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdr4 pro 14 m5 pro 24/1tb black
-[MGDR4] Pro 14 (M5 Pro 24/ 1TB) Black;(Актив);IN/US;208000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdr4 pro 14 m5 pro 24/1tb black aktиb
-[MGDT4] Pro 14 (M5 Pro 24/2TB) Black;;IN/US;251000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdt4 pro 14 m5 pro 24/2tb black
-[MGDU4] Pro 14 (M5 Max 36/2TB) Black;;IN/US;321000;2026-10-29;MACBOOK PRO 14 M5 MAX;mgdu4 pro 14 m5 max 36/2tb black
-[MGE44] Pro 16 (M5 Pro 24/1TB) Silver;;IN/US;242000;2026-10-29;MACBOOK PRO 16 M5 PRO;mge44 pro 16 m5 pro 24/1tb silver
-[MGE64] Pro 16 (M5 Pro 48/1TB) Silver;;IN/US;310000;2026-10-29;MACBOOK PRO 16 M5 PRO;mge64 pro 16 m5 pro 48/1tb silver
-[MGE74] Pro 16 (M5 Max 36/2TB) Silver;;IN/US;312000;2026-10-29;MACBOOK PRO 16 M5 MAX;mge74 pro 16 m5 max 36/2tb silver
-[MGE94] Pro 16 (M5 Max 48/2TB) Silver;;IN/US;388000;2026-10-29;MACBOOK PRO 16 M5 MAX;mge94 pro 16 m5 max 48/2tb silver
-[MGEA4] Pro 16 (M5 Pro 24/1TB) Black;;IN/US;233000;2026-10-29;MACBOOK PRO 16 M5 PRO;mgea4 pro 16 m5 pro 24/1tb black
-[MGEC4] Pro 16 (M5 Pro 48/1TB) Black;;IN/US;297000;2026-10-29;MACBOOK PRO 16 M5 PRO;mgec4 pro 16 m5 pro 48/1tb black
-[MGED4] Pro 16 (M5 Max 36/2TB) Black;;IN/US;312000;2026-10-29;MACBOOK PRO 16 M5 MAX;mged4 pro 16 m5 max 36/2tb black
-[MGEE4] Pro 16 M5 Max 48/2TB) Black;;IN/US;383000;2026-10-29;MACBOOK PRO 16 M5 MAX;mgee4 pro 16 m5 max 48/2tb black
+[MDE04] Pro 14 (M5 16/512) Black;;IN/US;164000;2026-10-29;MACBOOK PRO 14 M5;mde 04 pro 14 m5 16/512 black
+[MDE14] Pro 14 (М5 16/1TB) Black;;IN/US;174500;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde 14 pro 14 m5 16/1tb black
+[MDE34] Pro 14 (М5 24/1TB) Black;;IN/US;199000;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde 34 pro 14 m5 24/1tb black
+[MDE54] Pro 14 (М5 16/1TB) Silver;;IN/US;174500;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde 54 pro 14 m5 16/1tb silver
+[MDE64] Pro 14 (М5 24/1TB) Silver;;IN/US;192000;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mde 64 pro 14 m5 24/1tb silver
+[MGDN4] Pro 14 (M5 Pro 24/1TB) Silver;;IN/US;215500;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdn 4 pro 14 m5 pro 24/1tb silver
+[MGDN4] Pro 14 (M5 Pro 24/1TB) Silver;(С пленкой/ гравировкой);IN/US;215000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdn 4 pro 14 m5 pro 24/1tb silver c плehkoй/гpabиpobkoй
+[MGDP4] Pro 14 (M5 Pro 24/2TB) Silver;;IN/US;256000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdp 4 pro 14 m5 pro 24/2tb silver
+[MGDQ4] Pro 14 (M5 Max 36/2TB) Silver;;IN/US;321000;2026-10-29;MACBOOK PRO 14 M5 MAX;mgdq 4 pro 14 m5 max 36/2tb silver
+[MGDR4] Pro 14 (M5 Pro 24/ 1TB) Black;;IN/US;209000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdr 4 pro 14 m5 pro 24/1tb black
+[MGDR4] Pro 14 (M5 Pro 24/ 1TB) Black;(Актив);IN/US;208000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdr 4 pro 14 m5 pro 24/1tb black aktиb
+[MGDT4] Pro 14 (M5 Pro 24/2TB) Black;;IN/US;251000;2026-10-29;MACBOOK PRO 14 M5 PRO;mgdt 4 pro 14 m5 pro 24/2tb black
+[MGDU4] Pro 14 (M5 Max 36/2TB) Black;;IN/US;321000;2026-10-29;MACBOOK PRO 14 M5 MAX;mgdu 4 pro 14 m5 max 36/2tb black
+[MGE44] Pro 16 (M5 Pro 24/1TB) Silver;;IN/US;242000;2026-10-29;MACBOOK PRO 16 M5 PRO;mge 44 pro 16 m5 pro 24/1tb silver
+[MGE64] Pro 16 (M5 Pro 48/1TB) Silver;;IN/US;310000;2026-10-29;MACBOOK PRO 16 M5 PRO;mge 64 pro 16 m5 pro 48/1tb silver
+[MGE74] Pro 16 (M5 Max 36/2TB) Silver;;IN/US;312000;2026-10-29;MACBOOK PRO 16 M5 MAX;mge 74 pro 16 m5 max 36/2tb silver
+[MGE94] Pro 16 (M5 Max 48/2TB) Silver;;IN/US;388000;2026-10-29;MACBOOK PRO 16 M5 MAX;mge 94 pro 16 m5 max 48/2tb silver
+[MGEA4] Pro 16 (M5 Pro 24/1TB) Black;;IN/US;233000;2026-10-29;MACBOOK PRO 16 M5 PRO;mgea 4 pro 16 m5 pro 24/1tb black
+[MGEC4] Pro 16 (M5 Pro 48/1TB) Black;;IN/US;297000;2026-10-29;MACBOOK PRO 16 M5 PRO;mgec 4 pro 16 m5 pro 48/1tb black
+[MGED4] Pro 16 (M5 Max 36/2TB) Black;;IN/US;312000;2026-10-29;MACBOOK PRO 16 M5 MAX;mged 4 pro 16 m5 max 36/2tb black
+[MGEE4] Pro 16 M5 Max 48/2TB) Black;;IN/US;383000;2026-10-29;MACBOOK PRO 16 M5 MAX;mgee 4 pro 16 m5 max 48/2tb black
 [MJ3D4] Pro 14 (M5 32/1TB);;IN/US;244000;2026-10-29;[MDE44] Pro 14 (M5 16/512) Silver —;mj3d4 pro 14 m5 32/1tb
-[MJLV4] Pro 14 (M5 Pro 24/2TB) Silver;;IN/US;228000;2026-10-29;MACBOOK PRO 14 M5 PRO;mjlv4 pro 14 m5 pro 24/2tb silver
-[MJLW4] Pro 14 (M5 Pro 24/2TB) Black;;IN/US;226000;2026-10-29;MACBOOK PRO 14 M5 PRO;mjlw4 pro 14 m5 pro 24/2tb black
+[MJLV4] Pro 14 (M5 Pro 24/2TB) Silver;;IN/US;228000;2026-10-29;MACBOOK PRO 14 M5 PRO;mjlv 4 pro 14 m5 pro 24/2tb silver
+[MJLW4] Pro 14 (M5 Pro 24/2TB) Black;;IN/US;226000;2026-10-29;MACBOOK PRO 14 M5 PRO;mjlw 4 pro 14 m5 pro 24/2tb black
 [MX2K3] Pro 14 (M4 Max 36/1TB) Black;;US;259000;2026-10-29;MACBOOK PRO 14 M4 MAX;mx2k3 pro 14 m4 max 36/1tb black
 [Z1KH1] Pro 14 (M5 24/512) Black;;IN/US;165000;2026-10-29;MACBOOK PRO 14 M5;z1kh1 pro 14 m5 24/512 black
 [Z1MH004AG] Pro 14 M5 Pro (18c CPU/20c GPU/48/1Tb) Silver Рус;;SG;357000;2026-10-29;MACBOOK PRO 14 M5 CUSTOM;z1mh004ag pro 14 m5 pro 18c cpu/20c gpu/48/1tb silver pyc
@@ -1762,14 +1762,14 @@ MX313 Space Black M4 Max 16-Core, GPU 40-Core, 48GB, 1TB;;IN/US;353000;2026-10-2
 "Z1CM0000E MacBook Pro 16"" M3 Max 16/40 128 8Tb Space Black";;;596000;2026-10-29;APPLE MACBOOK PRO 16 STANDARD DISPLAY;z1cm0000e macbook pro 16 m3 max 16/40 128 8tb space black
 "Z1CM0000J MacBook Pro 16"" M3 Max 16/40 128 4Tb Space Black";;;526000;2026-10-29;APPLE MACBOOK PRO 16 STANDARD DISPLAY;z1cm0000j macbook pro 16 m3 max 16/40 128 4tb space black
 "Z1FD000J1 MacBook Pro 14"" M4 Max 16/40 128 4TB Nano-Texture Display Silver";;;642000;2026-10-29;NANO-TEXTURE DISPLAY;z1fd000j1 macbook pro 14 m4 max 16/40 128 4tb nano texture display silver
-[MNWA3] Pro 16 M2 Max (12c CPU/38c GPU/32/1Tb) Grey;;US/HK;242000;2026-10-29;Pro 16 M2;mnwa3 pro 16 m2 max 12c cpu/38c gpu/32/1tb grey
-[MPHE3] Pro 14 M2 Pro (10c CPU/16c GPU/16/512) Grey;;IN;144000;2026-10-29;PRO 13 M1;mphe3 pro 14 m2 pro 10c cpu/16c gpu/16/512 grey
-[MPHH3] Pro 14 M2 Pro (10c CPU/16c GPU/16/512) Silver;;IN;144000;2026-10-29;PRO 13 M1;mphh3 pro 14 m2 pro 10c cpu/16c gpu/16/512 silver
+[MNWA3] Pro 16 M2 Max (12c CPU/38c GPU/32/1Tb) Grey;;US/HK;242000;2026-10-29;Pro 16 M2;mnwa 3 pro 16 m2 max 12c cpu/38c gpu/32/1tb gray
+[MPHE3] Pro 14 M2 Pro (10c CPU/16c GPU/16/512) Grey;;IN;144000;2026-10-29;PRO 13 M1;mphe 3 pro 14 m2 pro 10c cpu/16c gpu/16/512 gray
+[MPHH3] Pro 14 M2 Pro (10c CPU/16c GPU/16/512) Silver;;IN;144000;2026-10-29;PRO 13 M1;mphh 3 pro 14 m2 pro 10c cpu/16c gpu/16/512 silver
 [MR7K3] Pro 14 M3 (8c CPU/10c GPU/8/1Tb) Silver;;IN;119000;2026-10-29;PRO 13 M1;mr7k3 pro 14 m3 8c cpu/10c gpu/8/1tb silver
-[MTL73] Pro 14 M3 (8c CPU/10c GPU/8/512) Grey;;IN;112000;2026-10-29;PRO 13 M1;mtl73 pro 14 m3 8c cpu/10c gpu/8/512 grey
+[MTL73] Pro 14 M3 (8c CPU/10c GPU/8/512) Grey;;IN;112000;2026-10-29;PRO 13 M1;mtl 73 pro 14 m3 8c cpu/10c gpu/8/512 gray
 [MX2V3] Pro 16 M4 Max (14c CPU/32c GPU/36/1Tb) Silver;;VN;290000;2026-10-29;Pro 16 M2;mx2v3 pro 16 m4 max 14c cpu/32c gpu/36/1tb silver
 [MX303] Pro 16 M4 Max (14c CPU/32c GPU/36/1Tb) Black;;VN;288000;2026-10-29;Pro 16 M2;mx303 pro 16 m4 max 14c cpu/32c gpu/36/1tb black
-[Z11B000EM] Pro 13 TB (M1 8c CPU/8c GPU/16/512) Grey;;US;89000;2026-10-29;PRO 13 M1;z11b000em pro 13tb m1 8c cpu/8c gpu/16/512 grey
+[Z11B000EM] Pro 13 TB (M1 8c CPU/8c GPU/16/512) Grey;;US;89000;2026-10-29;PRO 13 M1;z11b000em pro 13tb m1 8c cpu/8c gpu/16/512 gray
 Honor Pad X7 4/128GB Wi-Fi Black;;RU;12700;2026-10-28;Samsung Phone;honor pad x7 4/128 wi fi black
 Huawei MatePad SE 11 4/128GB LTE Gray;;RU;19300;2026-10-28;Samsung Phone;huawei matepad se 11 4/128 lte gray
 Huawei MatePad SE 11 4/128GB Wi-Fi Gray;;RU;17300;2026-10-28;Samsung Phone;huawei matepad se 11 4/128 wi fi gray
@@ -1780,8 +1780,7 @@ Poco Pad C1 Wi-Fi 4/64GB Gray;;RU;13900;2026-10-28;Samsung Phone;poco pad c1 wi 
 Redmi Pad 2 Pro Wi-Fi 8/256GB Gray;;EU;27500;2026-10-28;Samsung Phone;redmi pad 2 pro wi fi 8/256 gray
 Redmi Pad 2 Pro Wi-Fi 8/256GB Lavender;;EU;27500;2026-10-28;Samsung Phone;redmi pad 2 pro wi fi 8/256 lavender
 Redmi Pad 2 Pro Wi-Fi 8/256GB Silver;;EU;27500;2026-10-28;Samsung Phone;redmi pad 2 pro wi fi 8/256 silver
-Redmi Pad 2 Wi-Fi 4/256 Grey;;RU;19500;2026-10-28;Samsung Phone;redmi pad 2 wi fi 4/256 grey
-Redmi Pad 2 Wi-Fi 8/256 Grey;;RU;21700;2026-10-28;Samsung Phone;redmi pad 2 wi fi 8/256 grey
+Redmi Pad 2 Wi-Fi 4/256 Grey;;RU;19500;2026-10-28;Samsung Phone;redmi pad 2 wi fi 4/256 gray
 Redmi Pad 2 Wi-Fi 8/256GB Gray;;EU;21500;2026-10-28;Samsung Phone;redmi pad 2 wi fi 8/256 gray
 Redmi Pad 2 Wi-Fi 8/256GB Lavender Purple;;EU;21500;2026-10-28;Samsung Phone;redmi pad 2 wi fi 8/256 lavender purple
 Redmi Pad 2 Wi-Fi 8/256GB Mint Green;;EU;21700;2026-10-28;Samsung Phone;redmi pad 2 wi fi 8/256 mint green
@@ -1874,15 +1873,15 @@ Samsung HW-S801D/RU 3.1.2 White;;RU;36900;;Все саундбары тольк�
 "100"" Hisense 100UR8S 2026";;;285300;2026-10-28;Саундбары;100 hisense 100ur8s 2026
 "100"" Hisense 100UXQ 2026";;;435300;2026-10-28;Саундбары;100 hisense 100uxq 2026
 "32"" Hisense 32A4S 2026";;;17200;2026-10-28;Саундбары;32 hisense 32a4s 2026
-"32"" Hyundai H-LED32BS5012";;;17000;2026-10-28;Проекторы;32 hyundai h led32bs5012
+"32"" Hyundai H-LED32BS5012";;;17000;2026-10-28;Проекторы;32 hyundai h led 32bs5012
 "32"" Toshiba 32V37SE";;;21200;2026-10-28;Проекторы;32 toshiba 32v37se
 "40"" Hisense 40A4S 2026";;;21300;2026-10-28;Саундбары;40 hisense 40a4s 2026
 "40"" Toshiba 40V37SE";;;24200;2026-10-28;Проекторы;40 toshiba 40v37se
 "43"" Hisense 43E7S 2026";;;30700;2026-10-28;Саундбары;43 hisense 43e7s 2026
 "43"" Hisense 43S5Q 2026";;;40400;2026-10-28;Саундбары;43 hisense 43s5q 2026
 "50"" Hisense 50E7S 2026";;;33200;2026-10-28;Саундбары;50 hisense 50e7s 2026
-"50"" Hyundai H-LED50BU7011";;;30800;2026-10-28;Проекторы;50 hyundai h led50bu7011
-"50"" Hyundai H-LED50BU7012";;;31600;2026-10-28;Проекторы;50 hyundai h led50bu7012
+"50"" Hyundai H-LED50BU7011";;;30800;2026-10-28;Проекторы;50 hyundai h led 50bu7011
+"50"" Hyundai H-LED50BU7012";;;31600;2026-10-28;Проекторы;50 hyundai h led 50bu7012
 "50"" Toshiba 50C350RE";;;30800;2026-10-28;Проекторы;50 toshiba 50c350re
 "50"" Toshiba 50M450RE";;;32500;2026-10-28;Проекторы;50 toshiba 50m450re
 "55"" Haier 55 OLED S9 Pro";;;110800;2026-10-28;Саундбары;55 haier 55 oled s9 pro
@@ -1940,57 +1939,57 @@ Hisense M2 PRO;;;74500;2026-10-28;Проекторы;hisense m2 pro
 Hisense PT1;;;124500;2026-10-28;Проекторы;пpoektopы hisense pt1
 Hisense PX3SE-PRO;;;148500;2026-10-28;Проекторы;hisense px3se pro
 Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
-"100"" LG 100QNED85B6.ARUG 2026";;;303300;;Все телевизоры только по предзаказу;100 lg 100qned85b6.arug 2026
+"100"" LG 100QNED85B6.ARUG 2026";;;303300;;Все телевизоры только по предзаказу;100 lg 100qned 85b6.arug 2026
 "32"" LG 32LB650B6LA.ARU 2026";;;21700;;Все телевизоры только по предзаказу;32 lg 32lb650b6la.aru 2026
 "32"" LG 32LQ63006LA.ARU";;;23700;;Все телевизоры только по предзаказу;32 lg 32lq63006la.aru
 "32"" LG 32LQ63006LA.ARUG";;;23700;;Все телевизоры только по предзаказу;32 lg 32lq63006la.arug
 "32"" LG 32LQ63506LA.ARU";;;24700;;Все телевизоры только по предзаказу;32 lg 32lq63506la.aru
 "32"" LG 32LQ63806LC.ARU";;;23700;;Все телевизоры только по предзаказу;32 lg 32lq63806lc.aru
 "32"" LG 32LQ63806LC.ARUG";;;23700;;Все телевизоры только по предзаказу;32 lg 32lq63806lc.arug
-"42"" LG OLED42C6RLA.ARU 2026";;;74500;;Все телевизоры только по предзаказу;42 lg oled42c6rla.aru 2026
+"42"" LG OLED42C6RLA.ARU 2026";;;74500;;Все телевизоры только по предзаказу;42 lg oled 42c6rla.aru 2026
 "43"" LG 43NU800B6LC.ARUQ 2026";;;27500;;Все телевизоры только по предзаказу;43 lg 43nu800b6lc.aruq 2026
 "43"" LG 43NU900B6LA.ARU 2026";;;31500;;Все телевизоры только по предзаказу;43 lg 43nu900b6la.aru 2026
-"43"" LG 43QNED70B6C.ARU 2026";;;35000;;Все телевизоры только по предзаказу;43 lg 43qned70b6c.aru 2026
-"48"" LG OLED48B6RLA.ARU 2026";;;82500;;Все телевизоры только по предзаказу;48 lg oled48b6rla.aru 2026
-"48"" LG OLED48B6RLA.ARUG 2026";;;82500;;Все телевизоры только по предзаказу;48 lg oled48b6rla.arug 2026
-"48"" LG OLED48C6RLA.ARU 2026";;;94500;;Все телевизоры только по предзаказу;48 lg oled48c6rla.aru 2026
+"43"" LG 43QNED70B6C.ARU 2026";;;35000;;Все телевизоры только по предзаказу;43 lg 43qned 70b6c.aru 2026
+"48"" LG OLED48B6RLA.ARU 2026";;;82500;;Все телевизоры только по предзаказу;48 lg oled 48b6rla.aru 2026
+"48"" LG OLED48B6RLA.ARUG 2026";;;82500;;Все телевизоры только по предзаказу;48 lg oled 48b6rla.arug 2026
+"48"" LG OLED48C6RLA.ARU 2026";;;94500;;Все телевизоры только по предзаказу;48 lg oled 48c6rla.aru 2026
 "50"" LG 50NU900B6LA.ARU 2026";;;37700;;Все телевизоры только по предзаказу;50 lg 50nu900b6la.aru 2026
-"50"" LG 50QNED70B6C.ARU 2026";;;40500;;Все телевизоры только по предзаказу;50 lg 50qned70b6c.aru 2026
-"50"" LG 50QNED85B6A.ARUG 2026";;;54000;;Все телевизоры только по предзаказу;50 lg 50qned85b6a.arug 2026
-"55"" LG 55MRGB86B6A.ARUG 2026";;;80200;;Все телевизоры только по предзаказу;55 lg 55mrgb86b6a.arug 2026
+"50"" LG 50QNED70B6C.ARU 2026";;;40500;;Все телевизоры только по предзаказу;50 lg 50qned 70b6c.aru 2026
+"50"" LG 50QNED85B6A.ARUG 2026";;;54000;;Все телевизоры только по предзаказу;50 lg 50qned 85b6a.arug 2026
+"55"" LG 55MRGB86B6A.ARUG 2026";;;80200;;Все телевизоры только по предзаказу;55 lg 55mrgb 86b6a.arug 2026
 "55"" LG 55NU900B6LA.ARU 2026";;;43500;;Все телевизоры только по предзаказу;55 lg 55nu900b6la.aru 2026
-"55"" LG 55QNED70B6C.ARU 2026";;;44800;;Все телевизоры только по предзаказу;55 lg 55qned70b6c.aru 2026
-"55"" LG 55QNED80A6A.ARUG 2025";;;59000;;Все телевизоры только по предзаказу;55 lg 55qned80a6a.arug 2025
-"55"" LG 55QNED80B6B.ARUG 2026";;;45900;;Все телевизоры только по предзаказу;55 lg 55qned80b6b.arug 2026
-"55"" LG 55QNED83B6A.ARU 2026";;;56300;;Все телевизоры только по предзаказу;55 lg 55qned83b6a.aru 2026
-"55"" LG 55QNED85B6C.ARUG 2026";;;62500;;Все телевизоры только по предзаказу;55 lg 55qned85b6c.arug 2026
-"55"" LG OLED55B6RLA.ARU 2026";;;104500;;Все телевизоры только по предзаказу;55 lg oled55b6rla.aru 2026
-"55"" LG OLED55C6RLA.ARU 2026";;;118000;;Все телевизоры только по предзаказу;55 lg oled55c6rla.aru 2026
-"55"" LG OLED55G6RLA.ARU 2026";;;160400;;Все телевизоры только по предзаказу;55 lg oled55g6rla.aru 2026
-"65"" LG 65MRGB86B6A.ARU 2026";;;101300;;Все телевизоры только по предзаказу;65 lg 65mrgb86b6a.aru 2026
-"65"" LG 65MRGB86B6A.ARUG 2026";;;101300;;Все телевизоры только по предзаказу;65 lg 65mrgb86b6a.arug 2026
-"65"" LG 65QNED70B6C.ARU 2026";;;60800;;Все телевизоры только по предзаказу;65 lg 65qned70b6c.aru 2026
-"65"" LG 65QNED80B6B.ARUG 2026";;;68300;;Все телевизоры только по предзаказу;65 lg 65qned80b6b.arug 2026
-"65"" LG 65QNED85B6C.ARUG 2026";;;85800;;Все телевизоры только по предзаказу;65 lg 65qned85b6c.arug 2026
-"65"" LG OLED65B6RLA.ARU 2026";;;147300;;Все телевизоры только по предзаказу;65 lg oled65b6rla.aru 2026
-"65"" LG OLED65B6RLA.ARUG 2026";;;147300;;Все телевизоры только по предзаказу;65 lg oled65b6rla.arug 2026
-"65"" LG OLED65C6RLA.ARU 2026";;;165200;;Все телевизоры только по предзаказу;65 lg oled65c6rla.aru 2026
-"65"" LG OLED65G6RLA.ARU 2026";;;218300;;Все телевизоры только по предзаказу;65 lg oled65g6rla.aru 2026
-"75"" LG 75MRGB86B6A.ARUG 2026";;;136300;;Все телевизоры только по предзаказу;75 lg 75mrgb86b6a.arug 2026
-"75"" LG 75QNED70B6A.ARUG 2026";;;86800;;Все телевизоры только по предзаказу;75 lg 75qned70b6a.arug 2026
-"75"" LG 75QNED83B6A.ARUG 2026";;;101300;;Все телевизоры только по предзаказу;75 lg 75qned83b6a.arug 2026
-"75"" LG 75QNED85B6C.ARUG 2026";;;120800;;Все телевизоры только по предзаказу;75 lg 75qned85b6c.arug 2026
-"75"" LG 75QNED8MB6A.ARUG 2026";;;92300;;Все телевизоры только по предзаказу;75 lg 75qned8mb6a.arug 2026
-"77"" LG OLED77C6RLA.ARU 2026";;;250800;;Все телевизоры только по предзаказу;77 lg oled77c6rla.aru 2026
-"83"" LG OLED83B6RLA.ARUG 2026";;;310800;;Все телевизоры только по предзаказу;83 lg oled83b6rla.arug 2026
-"83"" LG OLED83C6RLA.ARUG 2026";;;355800;;Все телевизоры только по предзаказу;83 lg oled83c6rla.arug 2026
-"83"" LG OLED83G6RLA.ARUG 2026";;;478300;;Все телевизоры только по предзаказу;83 lg oled83g6rla.arug 2026
+"55"" LG 55QNED70B6C.ARU 2026";;;44800;;Все телевизоры только по предзаказу;55 lg 55qned 70b6c.aru 2026
+"55"" LG 55QNED80A6A.ARUG 2025";;;59000;;Все телевизоры только по предзаказу;55 lg 55qned 80a6a.arug 2025
+"55"" LG 55QNED80B6B.ARUG 2026";;;45900;;Все телевизоры только по предзаказу;55 lg 55qned 80b6b.arug 2026
+"55"" LG 55QNED83B6A.ARU 2026";;;56300;;Все телевизоры только по предзаказу;55 lg 55qned 83b6a.aru 2026
+"55"" LG 55QNED85B6C.ARUG 2026";;;62500;;Все телевизоры только по предзаказу;55 lg 55qned 85b6c.arug 2026
+"55"" LG OLED55B6RLA.ARU 2026";;;104500;;Все телевизоры только по предзаказу;55 lg oled 55b6rla.aru 2026
+"55"" LG OLED55C6RLA.ARU 2026";;;118000;;Все телевизоры только по предзаказу;55 lg oled 55c6rla.aru 2026
+"55"" LG OLED55G6RLA.ARU 2026";;;160400;;Все телевизоры только по предзаказу;55 lg oled 55g6rla.aru 2026
+"65"" LG 65MRGB86B6A.ARU 2026";;;101300;;Все телевизоры только по предзаказу;65 lg 65mrgb 86b6a.aru 2026
+"65"" LG 65MRGB86B6A.ARUG 2026";;;101300;;Все телевизоры только по предзаказу;65 lg 65mrgb 86b6a.arug 2026
+"65"" LG 65QNED70B6C.ARU 2026";;;60800;;Все телевизоры только по предзаказу;65 lg 65qned 70b6c.aru 2026
+"65"" LG 65QNED80B6B.ARUG 2026";;;68300;;Все телевизоры только по предзаказу;65 lg 65qned 80b6b.arug 2026
+"65"" LG 65QNED85B6C.ARUG 2026";;;85800;;Все телевизоры только по предзаказу;65 lg 65qned 85b6c.arug 2026
+"65"" LG OLED65B6RLA.ARU 2026";;;147300;;Все телевизоры только по предзаказу;65 lg oled 65b6rla.aru 2026
+"65"" LG OLED65B6RLA.ARUG 2026";;;147300;;Все телевизоры только по предзаказу;65 lg oled 65b6rla.arug 2026
+"65"" LG OLED65C6RLA.ARU 2026";;;165200;;Все телевизоры только по предзаказу;65 lg oled 65c6rla.aru 2026
+"65"" LG OLED65G6RLA.ARU 2026";;;218300;;Все телевизоры только по предзаказу;65 lg oled 65g6rla.aru 2026
+"75"" LG 75MRGB86B6A.ARUG 2026";;;136300;;Все телевизоры только по предзаказу;75 lg 75mrgb 86b6a.arug 2026
+"75"" LG 75QNED70B6A.ARUG 2026";;;86800;;Все телевизоры только по предзаказу;75 lg 75qned 70b6a.arug 2026
+"75"" LG 75QNED83B6A.ARUG 2026";;;101300;;Все телевизоры только по предзаказу;75 lg 75qned 83b6a.arug 2026
+"75"" LG 75QNED85B6C.ARUG 2026";;;120800;;Все телевизоры только по предзаказу;75 lg 75qned 85b6c.arug 2026
+"75"" LG 75QNED8MB6A.ARUG 2026";;;92300;;Все телевизоры только по предзаказу;75 lg 75qned 8mb6a.arug 2026
+"77"" LG OLED77C6RLA.ARU 2026";;;250800;;Все телевизоры только по предзаказу;77 lg oled 77c6rla.aru 2026
+"83"" LG OLED83B6RLA.ARUG 2026";;;310800;;Все телевизоры только по предзаказу;83 lg oled 83b6rla.arug 2026
+"83"" LG OLED83C6RLA.ARUG 2026";;;355800;;Все телевизоры только по предзаказу;83 lg oled 83c6rla.arug 2026
+"83"" LG OLED83G6RLA.ARUG 2026";;;478300;;Все телевизоры только по предзаказу;83 lg oled 83g6rla.arug 2026
 "85"" LG 85NU900B6LA.ARUG 2026";;;111300;;Все телевизоры только по предзаказу;85 lg 85nu900b6la.arug 2026
-"85"" LG 85QNED70B6A.ARUG 2026";;;114300;;Все телевизоры только по предзаказу;85 lg 85qned70b6a.arug 2026
-"85"" LG 85QNED80B6A.ARUG 2026";;;116300;;Все телевизоры только по предзаказу;85 lg 85qned80b6a.arug 2026
-"86"" LG 86MRGB86B6A.ARUG 2026";;;211200;;Все телевизоры только по предзаказу;86 lg 86mrgb86b6a.arug 2026
-"86"" LG 86QNED80A6A.ARUG 2025";;;131300;;Все телевизоры только по предзаказу;86 lg 86qned80a6a.arug 2025
-"86"" LG 86QNED85B6C.ARUG 2026";;;150800;;Все телевизоры только по предзаказу;86 lg 86qned85b6c.arug 2026
+"85"" LG 85QNED70B6A.ARUG 2026";;;114300;;Все телевизоры только по предзаказу;85 lg 85qned 70b6a.arug 2026
+"85"" LG 85QNED80B6A.ARUG 2026";;;116300;;Все телевизоры только по предзаказу;85 lg 85qned 80b6a.arug 2026
+"86"" LG 86MRGB86B6A.ARUG 2026";;;211200;;Все телевизоры только по предзаказу;86 lg 86mrgb 86b6a.arug 2026
+"86"" LG 86QNED80A6A.ARUG 2025";;;131300;;Все телевизоры только по предзаказу;86 lg 86qned 80a6a.arug 2025
+"86"" LG 86QNED85B6C.ARUG 2026";;;150800;;Все телевизоры только по предзаказу;86 lg 86qned 85b6c.arug 2026
 "32"" Samsung UE32H5000FUXRU 2025";;;20200;;Все телевизоры только по предзаказу;32 samsung ue32h5000fuxru 2025
 "32"" TCL 32S4K-UZ";;;20400;;Все телевизоры только по предзаказу;32 tcl 32s4k uz
 "32"" TCL 32S5K-UZ";;;21600;;Все телевизоры только по предзаказу;32 tcl 32s5k uz
@@ -2003,7 +2002,7 @@ Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
 "43"" Samsung QE43QN70HAUXPY 2026";;;50200;;Все телевизоры только по предзаказу;43 samsung qe43qn70hauxpy 2026
 "43"" Samsung UE43F6000FUXRU 2025";;;27500;;Все телевизоры только по предзаказу;43 samsung ue43f6000fuxru 2025
 "43"" Samsung UE43M1EHAUXPY 2026";;;33000;;Все телевизоры только по предзаказу;43 samsung ue43m1ehauxpy 2026
-"43"" TCL 43P7L-RU черный";;;34800;;Все телевизоры только по предзаказу;43 tcl 43p7l ru чephый
+"43"" TCL 43P7L-RU черный";;;34800;;Все телевизоры только по предзаказу;43 tcl 43p7l ru black
 "43"" Xiaomi TV A43 4K 2026 RU";;;24700;;Все телевизоры только по предзаказу;43 xiaomi tv a43 4k 2026 ru
 "43"" Xiaomi TV A43 FHD 2026 RU";;;24100;;Все телевизоры только по предзаказу;43 xiaomi tv a43 fhd 2026 ru
 "43"" Xiaomi TV X Mini LED 43 2026 RU";;;30300;;Все телевизоры только по предзаказу;43 xiaomi tv x mini led 43 2026 ru
@@ -2013,11 +2012,11 @@ Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
 "50"" Samsung QE50QN70HAUXPY 2026";;;56000;;Все телевизоры только по предзаказу;50 samsung qe50qn70hauxpy 2026
 "50"" Samsung UE50M1EHAUXPY 2026";;;40900;;Все телевизоры только по предзаказу;50 samsung ue50m1ehauxpy 2026
 "50"" Samsung UE50U8000HUXPY 2026";;;39300;;Все телевизоры только по предзаказу;50 samsung ue50u8000huxpy 2026
-"50"" TCL 50P7L черный";;;40800;;Все телевизоры только по предзаказу;50 tcl 50p7l чephый
+"50"" TCL 50P7L черный";;;40800;;Все телевизоры только по предзаказу;50 tcl 50p7l black
 "50"" Xiaomi TV A Pro 50 2026 RU";;;32200;;Все телевизоры только по предзаказу;50 xiaomi tv a pro 50 2026 ru
 "50"" Xiaomi TV A50 2026 RU";;;29000;;Все телевизоры только по предзаказу;50 xiaomi tv a50 2026 ru
 "55"" SBER SDF-55UQ7000MBA";;;35900;;Все телевизоры только по предзаказу;55 sber sdf 55uq7000mba
-"55"" Samsung MRE55R85HAUXPY 2026";;;129500;;Все телевизоры только по предзаказу;55 samsung mre55r85hauxpy 2026
+"55"" Samsung MRE55R85HAUXPY 2026";;;129500;;Все телевизоры только по предзаказу;55 samsung mre 55r85hauxpy 2026
 "55"" Samsung QE55LS03HAUXPY 2026";;;113000;;Все телевизоры только по предзаказу;55 samsung qe55ls03hauxpy 2026
 "55"" Samsung QE55QN70FAUXRU 2025";;;71700;;Все телевизоры только по предзаказу;55 samsung qe55qn70fauxru 2025
 "55"" Samsung QE55QN70HAUXPY 2026";;;67500;;Все телевизоры только по предзаказу;55 samsung qe55qn70hauxpy 2026
@@ -2030,26 +2029,26 @@ Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
 "55"" Samsung UE55U8000FUXRU 2025";;;42200;;Все телевизоры только по предзаказу;55 samsung ue55u8000fuxru 2025
 "55"" Samsung UE55U8000HUXPY 2026";;;42500;;Все телевизоры только по предзаказу;55 samsung ue55u8000huxpy 2026
 "55"" TCL 55C6K";;;57900;;Все телевизоры только по предзаказу;55 tcl 55c6k
-"55"" TCL 55C7L черный";;;77700;;Все телевизоры только по предзаказу;55 tcl 55c7l чephый
-"55"" TCL 55P7L черный";;;44700;;Все телевизоры только по предзаказу;55 tcl 55p7l чephый
-"55"" TCL 55P8L черный";;;56300;;Все телевизоры только по предзаказу;55 tcl 55p8l чephый
-"55"" Topdevice TDTV55DQ08U_BK (4K 3840x2160, SmartTV) черный";;;36500;;Все телевизоры только по предзаказу;55 topdevice tdtv55dq08u_bk 4k 3840x2160 smarttv чephый
+"55"" TCL 55C7L черный";;;77700;;Все телевизоры только по предзаказу;55 tcl 55c7l black
+"55"" TCL 55P7L черный";;;44700;;Все телевизоры только по предзаказу;55 tcl 55p7l black
+"55"" TCL 55P8L черный";;;56300;;Все телевизоры только по предзаказу;55 tcl 55p8l black
+"55"" Topdevice TDTV55DQ08U_BK (4K 3840x2160, SmartTV) черный";;;36500;;Все телевизоры только по предзаказу;55 topdevice tdtv 55dq08u_bk 4k 3840x2160 smarttv black
 "55"" Xiaomi TV A Pro 55 2026 RU";;;33900;;Все телевизоры только по предзаказу;55 xiaomi tv a pro 55 2026 ru
 "55"" Xiaomi TV A55 2026 RU";;;33800;;Все телевизоры только по предзаказу;55 xiaomi tv a55 2026 ru
 "55"" Xiaomi TV S Mini LED 55 2026 RU";;;41500;;Все телевизоры только по предзаказу;55 xiaomi tv s mini led 55 2026 ru
 "55"" Xiaomi TV S Pro Mini LED 55 2026 RU";;;53800;;Все телевизоры только по предзаказу;55 xiaomi tv s pro mini led 55 2026 ru
 "65"" SBER SDF-65UQ7000MBA";;;53500;;Все телевизоры только по предзаказу;65 sber sdf 65uq7000mba
-"65"" Samsung MRE65R85HAUXPY 2026";;;157800;;Все телевизоры только по предзаказу;65 samsung mre65r85hauxpy 2026
-"65"" Samsung MRE65R95HAUXPY 2026";;;270800;;Все телевизоры только по предзаказу;65 samsung mre65r95hauxpy 2026
+"65"" Samsung MRE65R85HAUXPY 2026";;;157800;;Все телевизоры только по предзаказу;65 samsung mre 65r85hauxpy 2026
+"65"" Samsung MRE65R95HAUXPY 2026";;;270800;;Все телевизоры только по предзаказу;65 samsung mre 65r95hauxpy 2026
 "65"" Samsung QE65Q7F5AUXRU 2025";;;72300;;Все телевизоры только по предзаказу;65 samsung qe65q7f5auxru 2025
 "65"" Samsung QE65QN70HAUXPY 2026";;;97100;;Все телевизоры только по предзаказу;65 samsung qe65qn70hauxpy 2026
 "65"" Samsung QE65QN90FAUXRU 2025";;;186700;;Все телевизоры только по предзаказу;65 samsung qe65qn90fauxru 2025
 "65"" Samsung QE65S95HAUXPY 2026";;;252300;;Все телевизоры только по предзаказу;65 samsung qe65s95hauxpy 2026
 "65"" Samsung UE65M1EHAUXPY 2026";;;59800;;Все телевизоры только по предзаказу;65 samsung ue65m1ehauxpy 2026
 "65"" Samsung UE65U8000HUXPY 2026";;;61300;;Все телевизоры только по предзаказу;65 samsung ue65u8000huxpy 2026
-"65"" TCL 65C8L черный";;;130900;;Все телевизоры только по предзаказу;65 tcl 65c8l чephый
+"65"" TCL 65C8L черный";;;130900;;Все телевизоры только по предзаказу;65 tcl 65c8l black
 "65"" TCL 65P6K";;;55100;;Все телевизоры только по предзаказу;65 tcl 65p6k
-"65"" TCL 65P7L черный";;;64800;;Все телевизоры только по предзаказу;65 tcl 65p7l чephый
+"65"" TCL 65P7L черный";;;64800;;Все телевизоры только по предзаказу;65 tcl 65p7l black
 "65"" Xiaomi TV A65 2026 RU";;;48000;;Все телевизоры только по предзаказу;65 xiaomi tv a65 2026 ru
 "65"" Xiaomi TV S Mini LED 65 2026 RU";;;62300;;Все телевизоры только по предзаказу;65 xiaomi tv s mini led 65 2026 ru
 "65"" Xiaomi TV S Pro Mini LED 65 2026 RU";;;77800;;Все телевизоры только по предзаказу;65 xiaomi tv s pro mini led 65 2026 ru
@@ -2059,10 +2058,10 @@ Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
 "75"" Samsung QE75QN90FAUXRU 2025";;;228300;;Все телевизоры только по предзаказу;75 samsung qe75qn90fauxru 2025
 "75"" Samsung UE75M1EHAUXPY 2026";;;78300;;Все телевизоры только по предзаказу;75 samsung ue75m1ehauxpy 2026
 "75"" Samsung UE75U8000HUXPY 2026";;;74800;;Все телевизоры только по предзаказу;75 samsung ue75u8000huxpy 2026
-"75"" TCL 75C6K черный";;;98900;;Все телевизоры только по предзаказу;75 tcl 75c6k чephый
-"75"" TCL 75C8L черный";;;180000;;Все телевизоры только по предзаказу;75 tcl 75c8l чephый
+"75"" TCL 75C6K черный";;;98900;;Все телевизоры только по предзаказу;75 tcl 75c6k black
+"75"" TCL 75C8L черный";;;180000;;Все телевизоры только по предзаказу;75 tcl 75c8l black
 "75"" TCL 75P6K";;;70300;;Все телевизоры только по предзаказу;75 tcl 75p6k
-"75"" TCL 75P7L черный";;;81600;;Все телевизоры только по предзаказу;75 tcl 75p7l чephый
+"75"" TCL 75P7L черный";;;81600;;Все телевизоры только по предзаказу;75 tcl 75p7l black
 "75"" Xiaomi TV A Pro 75 2026 RU";;;67000;;Все телевизоры только по предзаказу;75 xiaomi tv a pro 75 2026 ru
 "75"" Xiaomi TV S Mini LED 75 2026 RU";;;77300;;Все телевизоры только по предзаказу;75 xiaomi tv s mini led 75 2026 ru
 "75"" Xiaomi TV S Pro Mini LED 75 2026 RU";;;92300;;Все телевизоры только по предзаказу;75 xiaomi tv s pro mini led 75 2026 ru
@@ -2076,7 +2075,7 @@ Hisense PX4PRO;;;180400;2026-10-28;Проекторы;пpoektopы hisense px4pro
 "83"" Samsung QE83S85HAEXPY 2026";;;273300;;Все телевизоры только по предзаказу;83 samsung qe83s85haexpy 2026
 "83"" Samsung QE83S90HAEXPY 2026";;;353800;;Все телевизоры только по предзаказу;83 samsung qe83s90haexpy 2026
 "83"" Samsung QE83S95HAEXPY 2026";;;455800;;Все телевизоры только по предзаказу;83 samsung qe83s95haexpy 2026
-"85"" Samsung MRE85R85HAUXPY 2026";;;329800;;Все телевизоры только по предзаказу;85 samsung mre85r85hauxpy 2026
+"85"" Samsung MRE85R85HAUXPY 2026";;;329800;;Все телевизоры только по предзаказу;85 samsung mre 85r85hauxpy 2026
 "85"" Samsung QE85QN70FAUXRU 2025";;;171200;;Все телевизоры только по предзаказу;85 samsung qe85qn70fauxru 2025
 "85"" Samsung QE85QN70HAUXPY 2026";;;142300;;Все телевизоры только по предзаказу;85 samsung qe85qn70hauxpy 2026
 "85"" Samsung UE85M70HAUXPY 2026";;;103300;;Все телевизоры только по предзаказу;85 samsung ue85m70hauxpy 2026
@@ -2089,10 +2088,10 @@ Deerma DEM-VX300 Mix;;;23300;2026-10-28;Вертикальные пылесос�
 Deerma DEM-VX900 Ultra;;;27000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;deerma dem vx900 ultra
 Dreame G10 Combo Black RU;;;26000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g10 combo black ru
 Dreame G10 Pro Black;;;17000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g10 pro black
-Dreame G12 Dual Grey RU;;;45000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 dual grey ru
-Dreame G12 Grey RU;;;30500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 grey ru
-Dreame G12 Pro Grey RU;;;35000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 pro grey ru
-Dreame G14 Grey RU;;;26500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g14 grey ru
+Dreame G12 Dual Grey RU;;;45000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 dual gray ru
+Dreame G12 Grey RU;;;30500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 gray ru
+Dreame G12 Pro Grey RU;;;35000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g12 pro gray ru
+Dreame G14 Grey RU;;;26500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame g14 gray ru
 Dreame H12 Dual FlexReach Black RU;;;43000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h12 dual flexreach black ru
 Dreame H12 GT Black RU;;;31500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h12 gt black ru
 Dreame H12S AE Black;;;16900;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h12s ae black
@@ -2101,16 +2100,16 @@ Dreame H15 Pro Heat Black;;;43000;2026-10-28;Вертикальные пылес
 Dreame H15S RU;;;33000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h15s ru
 Dreame H16 Pro Steam EU;;;63500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h16 pro steam eu
 Dreame H16 Steam RU;;;57800;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame h16 steam ru
-Dreame R20 Aqua Grey;;;27100;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame r20 aqua grey
+Dreame R20 Aqua Grey;;;27100;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame r20 aqua gray
 Dreame T16 Pro TriForce RU;;;63000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame t16 pro triforce ru
-Dreame Z10 Vortech Station Grey EU;;;28000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z10 vortech station grey eu
+Dreame Z10 Vortech Station Grey EU;;;28000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z10 vortech station gray eu
 Dreame Z20 EU;;;36000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z20 eu
 Dreame Z30 EU;;;42000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z30 eu
 Dreame Z40 AquaCycle Pro RU;;;46500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z40 aquacycle pro ru
 Dreame Z40 CE Station RU;;;37500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z40 ce station ru
 Dreame Z40 TangleCut Flex RU;;;39000;2026-10-28;Вертикальные пылесосы Dreame / Roborock;dreame z40 tanglecut flex ru
 Dyson Ball Animal Multi-floor;;GB;53000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson ball animal multi floor
-Dyson Big Ball Absolute CY26 2;(красный);EU;51000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson big ball absolute cy26 2 kpachый
+Dyson Big Ball Absolute CY26 2;(красный);EU;51000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson big ball absolute cy26 2 red
 Dyson Big Ball Absolute CY28 2;;EU;46000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson big ball absolute cy28 2
 Dyson Big Ball Multifloor 2;;EU;44000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson big ball multifloor 2
 Dyson Big Ball Parquet 2;;EU;44000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson big ball parquet 2
@@ -2119,10 +2118,10 @@ Dyson V16 DS60 Piston Animal SV53-A(с подставкой);;EU;91000;2026-10-2
 Dyson V16 DS60 Piston Animal+Proffesional Kit SV53-A;;EU;87000;2026-10-28;Dyson Увлажнитель;dyson v16 ds60 piston animal+proffesional kit sv53 a
 Dyson V16 Piston Animal SV53-A (MatBlack/Copp);;HK;62500;2026-10-28;Dyson Увлажнитель;dyson v16 piston animal sv53 a matblack/copp
 Dyson Wash G1;;GB;38500;2026-10-28;Gen5 SV23 Absolute Copper/Blue;dyson wash g1
-Gen5 SV23 Absolute Vacuum Copper/Blue;;GB;74000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen5 sv23 absolute vacuum copper/blue
-Gen5 SV23 Absolute Vacuum Purple;;EU;65500;2026-10-28;Dyson Увлажнитель;gen5 sv23 absolute vacuum purple
-Gen5 SV23 Detect Absolute Purple;;GB;64000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen5 sv23 detect absolute purple
-Pencil Wash;;EU;39000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen5 sv23 absolute copper/blue pencil wash
+Gen5 SV23 Absolute Vacuum Copper/Blue;;GB;74000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen 5 sv23 absolute vacuum copper/blue
+Gen5 SV23 Absolute Vacuum Purple;;EU;65500;2026-10-28;Dyson Увлажнитель;gen 5 sv23 absolute vacuum purple
+Gen5 SV23 Detect Absolute Purple;;GB;64000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen 5 sv23 detect absolute purple
+Pencil Wash;;EU;39000;2026-10-28;Gen5 SV23 Absolute Copper/Blue;gen 5 sv23 absolute copper/blue pencil wash
 Pencilvac Vacuum Cleaner SV50 FC Black;;HK;43500;2026-10-28;Gen5 SV23 Absolute Copper/Blue;pencilvac vacuum cleaner sv50 fc black
 Roborock H60;;;15500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;beptиkaльhыe пылecocы dreame/roborock roborock h60
 Roborock H60 Hub;;;21500;2026-10-28;Вертикальные пылесосы Dreame / Roborock;roborock h60 hub
@@ -2195,10 +2194,10 @@ Xiaomi Vacuum Cleaner P30;;;5000;2026-10-28;Вертикальные пылес�
 Робот-пылесос Xiaomi Robot Vacuum 6;;;53000;2026-10-28;Роботы-пылесосы Dreame;poбot пылecoc xiaomi robot vacuum 6
 Робот-пылесос Xiaomi Robot Vacuum H50 Pro;;;33000;2026-10-28;Роботы-пылесосы Dreame;poбot пылecoc xiaomi robot vacuum h50 pro
 Робот-пылесос Xiaomi Robot Vacuum S40 Pro;;;22000;2026-10-28;Роботы-пылесосы Dreame;poбot пылecoc xiaomi robot vacuum s40 pro
-Bosch BGC05AAA2;;;9300;;;bosch bgc05aaa2
-Bosch BGL8PRO5;;;21000;;;bosch bgl8pro5
-Bosch BWD421PET;;;25000;;;bosch bwd421pet
-Bosch BWD421PRO;;;26500;;;bosch bwd421pro
+Bosch BGC05AAA2;;;9300;;;bosch bgc 05aaa 2
+Bosch BGL8PRO5;;;21000;;;bosch bgl 8pro 5
+Bosch BWD421PET;;;25000;;;bosch bwd 421pet
+Bosch BWD421PRO;;;26500;;;bosch bwd 421pro
 Karcher EasyFix SC 2 1.512-600.0;;;15000;;Парогенераторы;karcher easyfix sc 2 1.512 600.0
 Karcher EasyFix SC 2 Deluxe 1.513-400.0;;;16800;;Парогенераторы;karcher easyfix sc 2 deluxe 1.513 400.0
 Karcher EasyFix SC 3 Deluxe 1.513-430.0;;;20600;;Парогенераторы;karcher easyfix sc 3 deluxe 1.513 430.0
@@ -2221,105 +2220,105 @@ Karcher WD 6 P S V-30/6/22/T 1.628-360.0;;;27000;;Пылесосы промыш�
 Гладильная станция Laurastar S Pure plus;;;145000;;;глaдильhaя ctahция laurastar s pure plus
 Очиститель воздуха Dreame PM10;;;51000;;Очиститель / Увлажнитель Воздуха;oчиctиteль boздyxa dreame pm10
 Очиститель воздуха Dreame PM20;;;60000;;Очиститель / Увлажнитель Воздуха;oчиctиteль boздyxa dreame pm20
-ASUS GeForce RTX 5060 Ti 16GB Dual OC (Dual-RTX5060TI-O16G);;;88000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 dual oc dual rtx5060ti o16g
-ASUS GeForce RTX 5060 Ti 16GB Dual OC White (Dual-RTX5060TI-O16G-White);;;79500;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 dual oc white dual rtx5060ti o16g white
-ASUS GeForce RTX 5060 Ti 16GB Prime OC (Prime-RTX5060TI-O16G);;;83000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 prime oc prime rtx5060ti o16g
-ASUS GeForce RTX 5060 Ti 8GB Dual (Dual-RTX5060TI-8G);;;54000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 8 dual dual rtx5060ti 8g
-ASUS GeForce RTX 5060 Ti 8GB Dual OC (Dual-RTX5060TI-O8G);;;55000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 8 dual oc dual rtx5060ti o8g
-ASUS GeForce RTX 5070 12GB Prime OC (Prime-RTX5070-O12G);;;87000;2026-10-28;Мониторы;asus geforce rtx 5070 12 prime oc prime rtx5070 o12g
-ASUS GeForce RTX 5070 Ti 16GB Prime OC (Prime-RTX5070TI-O16G);;;137000;2026-10-28;Мониторы;asus geforce rtx 5070 ti 16 prime oc prime rtx5070ti o16g
-ASUS GeForce RTX 5090 32GB ROG Astral OC (ROG-Astral-RTX5090-O32G-Gaming);;;832900;2026-10-28;Мониторы;asus geforce rtx 5090 32 rog astral oc rog astral rtx5090 o32g gaming
+ASUS GeForce RTX 5060 Ti 16GB Dual OC (Dual-RTX5060TI-O16G);;;88000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 dual oc dual rtx 5060ti o16g
+ASUS GeForce RTX 5060 Ti 16GB Dual OC White (Dual-RTX5060TI-O16G-White);;;79500;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 dual oc white dual rtx 5060ti o16g white
+ASUS GeForce RTX 5060 Ti 16GB Prime OC (Prime-RTX5060TI-O16G);;;83000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 16 prime oc prime rtx 5060ti o16g
+ASUS GeForce RTX 5060 Ti 8GB Dual (Dual-RTX5060TI-8G);;;54000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 8 dual dual rtx 5060ti 8g
+ASUS GeForce RTX 5060 Ti 8GB Dual OC (Dual-RTX5060TI-O8G);;;55000;2026-10-28;Мониторы;asus geforce rtx 5060 ti 8 dual oc dual rtx 5060ti o8g
+ASUS GeForce RTX 5070 12GB Prime OC (Prime-RTX5070-O12G);;;87000;2026-10-28;Мониторы;asus geforce rtx 5070 12 prime oc prime rtx 5070 o12g
+ASUS GeForce RTX 5070 Ti 16GB Prime OC (Prime-RTX5070TI-O16G);;;137000;2026-10-28;Мониторы;asus geforce rtx 5070 ti 16 prime oc prime rtx 5070ti o16g
+ASUS GeForce RTX 5090 32GB ROG Astral OC (ROG-Astral-RTX5090-O32G-Gaming);;;832900;2026-10-28;Мониторы;asus geforce rtx 5090 32 rog astral oc rog astral rtx 5090 o32g gaming
 Gigabyte GeForce RTX 5060 8GB Windforce Max OC (GV-N5060WF2MAX OC-8GD);;;49000;2026-10-28;Мониторы;gigabyte geforce rtx 5060 8 windforce max oc gv n5060wf2max oc 8gd
-Gigabyte GeForce RTX 5070 Ti 16GB Windforce OC SFF (GV-N507TWF3OC-16GD);;;134000;2026-10-28;Мониторы;gigabyte geforce rtx 5070 ti 16 windforce oc sff gv n507twf3oc 16gd
-Inno3D GeForce RTX 3050 8GB Twin X2 OC (N30502-08D6X-1711VA41);;;32000;2026-10-28;Мониторы;inno3d geforce rtx 3050 8 twin x2 oc n30502 08d6x 1711va41
-Inno3D GeForce RTX 5080 16GB X3 OC (N50803-16D7X-17603930);;;159000;2026-10-28;Мониторы;inno3d geforce rtx 5080 16 x3 oc n50803 16d7x 17603930
+Gigabyte GeForce RTX 5070 Ti 16GB Windforce OC SFF (GV-N507TWF3OC-16GD);;;134000;2026-10-28;Мониторы;gigabyte geforce rtx 5070 ti 16 windforce oc sff gv n507twf 3oc 16gd
+Inno3D GeForce RTX 3050 8GB Twin X2 OC (N30502-08D6X-1711VA41);;;32000;2026-10-28;Мониторы;inno 3d geforce rtx 3050 8 twin x2 oc n30502 08d6x 1711va41
+Inno3D GeForce RTX 5080 16GB X3 OC (N50803-16D7X-17603930);;;159000;2026-10-28;Мониторы;inno 3d geforce rtx 5080 16 x3 oc n50803 16d7x 17603930
 MSI GeForce RTX 5060 8GB Shadow 2X OC Max;;;46100;2026-10-28;Мониторы;msi geforce rtx 5060 8 shadow 2x oc max
 MSI GeForce RTX 5070 12GB Shadow 2X;;;86000;2026-10-28;Мониторы;msi geforce rtx 5070 12 shadow 2x
 MSI GeForce RTX 5070 12GB Shadow 2X OC;;;86000;2026-10-28;Мониторы;msi geforce rtx 5070 12 shadow 2x oc
 Palit GeForce RTX 5060 Ti 16GB Infinity 3 (NE7506T019T1-GB2061S);;;72500;2026-10-28;Мониторы;palit geforce rtx 5060 ti 16 infinity 3 ne7506t019t1 gb2061s
 Palit GeForce RTX 5080 16GB Infinity 3 OC (NE75080U19T2-GB2035S);;;157000;2026-10-28;Мониторы;palit geforce rtx 5080 16 infinity 3 oc ne75080u19t2 gb2035s
-"1000Gb A-Data Ultimate SU650 ASU650SS-1TT-R SATA3 2.5""";;;13500;2026-01-25;Мониторы;1000 a data ultimate su650 asu650ss 1tt r sata3 2.5
-1000Gb Kingston NV3 SNV3S/1000G M.2 2280 PCIe NVMe 4.0 x4;;;15400;2026-01-25;Мониторы;1000 kingston nv3 snv3s/1000g m.2 2280 pcie nvme 4.0 x4
-1000Gb Patriot Memory P320P1TBM28 P300 M.2 2280 PCIe NVMe 3.0 x4;;;15600;2026-01-25;Мониторы;1000 patriot memory p320p1tbm28 p300 m.2 2280 pcie nvme 3.0 x4
-"1000Gb Samsung 870 Evo (MZ-77E1T0B/EU) SATA3 2.5""";;;31500;2026-01-25;Мониторы;1000 samsung 870 evo mz 77e1t0b/eu sata3 2.5
-1000Gb Samsung 9100 Pro (MZ-VAP1T0BW) M.2 2280 PCI-E 5.0 x4;;;25200;2026-01-25;Мониторы;1000 samsung 9100 pro mz vap1t0bw m.2 2280 pci e 5.0 x4
+"1000Gb A-Data Ultimate SU650 ASU650SS-1TT-R SATA3 2.5""";;;13500;2026-01-25;Мониторы;1000 a data ultimate su650 asu 650ss 1tt r sata 3 2.5
+1000Gb Kingston NV3 SNV3S/1000G M.2 2280 PCIe NVMe 4.0 x4;;;15400;2026-01-25;Мониторы;1000 kingston nv3 snv 3s/1000g m.2 2280 pcie nvme 4.0 x4
+1000Gb Patriot Memory P320P1TBM28 P300 M.2 2280 PCIe NVMe 3.0 x4;;;15600;2026-01-25;Мониторы;1000 patriot memory p320p1tbm 28 p300 m.2 2280 pcie nvme 3.0 x4
+"1000Gb Samsung 870 Evo (MZ-77E1T0B/EU) SATA3 2.5""";;;31500;2026-01-25;Мониторы;1000 samsung 870 evo mz 77e1t0b/eu sata 3 2.5
+1000Gb Samsung 9100 Pro (MZ-VAP1T0BW) M.2 2280 PCI-E 5.0 x4;;;25200;2026-01-25;Мониторы;1000 samsung 9100 pro mz vap 1t0bw m.2 2280 pci e 5.0 x4
 1000Gb Samsung 990 Evo Plus (MZ-V9S1T0B) M.2 2280 PCI-E 4.0 x4;;;21400;2026-01-25;Мониторы;1000 samsung 990 evo plus mz v9s1t0b m.2 2280 pci e 4.0 x4
 1000Gb Samsung 990 Pro (MZ-V9P1T0BW) M.2 2280 PCI-E 4.0 x4;;;22500;2026-01-25;Мониторы;1000 samsung 990 pro mz v9p1t0bw m.2 2280 pci e 4.0 x4
-1000Gb Western Digital Black SN7100 (WDS100T4X0E) M.2 2280 PCIe NVMe 4.0 x4;;;20000;2026-01-25;Мониторы;1000 western digital black sn7100 wds100t4x0e m.2 2280 pcie nvme 4.0 x4
-1024Gb Kingston KC3000 SKC3000S/1024G M.2 2280 PCIe NVMe 4.0 x4;;;23900;2026-01-25;Мониторы;1024 kingston kc3000 skc3000s/1024g m.2 2280 pcie nvme 4.0 x4
+1000Gb Western Digital Black SN7100 (WDS100T4X0E) M.2 2280 PCIe NVMe 4.0 x4;;;20000;2026-01-25;Мониторы;1000 western digital black sn7100 wds 100t4x0e m.2 2280 pcie nvme 4.0 x4
+1024Gb Kingston KC3000 SKC3000S/1024G M.2 2280 PCIe NVMe 4.0 x4;;;23900;2026-01-25;Мониторы;1024 kingston kc3000 skc 3000s/1024g m.2 2280 pcie nvme 4.0 x4
 14Tb Western Digital (WD141PURP) 512Mb 7200rpm Purple Pro;;;49000;2026-01-25;Мониторы;14tb western digital wd141purp 512mb 7200rpm purple pro
-"1Tb 2.5"" Seagate Mobile (ST1000LM049) 128Mb 7200rpm SATA3";;;7800;2026-01-25;Мониторы;1tb 2.5 seagate mobile st1000lm049 128mb 7200rpm sata3
-1Tb Crucial X9 CT1000X9SSD9 (SSD) USB 3.2 Type C черный;;;16500;2026-01-25;Мониторы;1tb crucial x9 ct1000x9ssd9 ssd usb 3.2 type c чephый
-1Tb Kingston XS1000 SXS1000R/1000G (SSD) USB 3.2 красный;;;17600;2026-01-25;Мониторы;1tb kingston xs1000 sxs1000r/1000g ssd usb 3.2 kpachый
-1Tb Netac NT01Z9-001T-32BK USB-C черный;;;17200;2026-01-25;Мониторы;1tb netac nt01z9 001t 32bk usb c чephый
-1Tb Samsung T7 MU-PC1T0H/WW (SSD) USB 3.2 Type C Синий;;;21000;2026-01-25;Мониторы;1tb samsung t7 mu pc1t0h/ww ssd usb 3.2 type c cиhий
-1Tb Samsung T7 MU-PC1T0T/WW (SSD) USB 3.2 Type C Серый;;;21000;2026-01-25;Мониторы;1tb samsung t7 mu pc1t0t/ww ssd usb 3.2 type c cepый
-1Tb Samsung T7 Shield MU-PE1T0K/WW (SSD) USB 3.2 Type C Бежевый;;;25300;2026-01-25;Мониторы;1tb samsung t7 shield mu pe1t0k/ww ssd usb 3.2 type c бeжebый
-1Tb Samsung T7 Shield MU-PE1T0S/WW (SSD) USB 3.2 Type C Черный;;;27500;2026-01-25;Мониторы;1tb samsung t7 shield mu pe1t0s/ww ssd usb 3.2 type c чephый
-1Tb Samsung T9 MU-PG1T0B/WW (SSD) USB 3.2 Type C Черный;;;24000;2026-01-25;Мониторы;1tb samsung t9 mu pg1t0b/ww ssd usb 3.2 type c чephый
-1Tb Sandisk Extreme Portable SDSSDE61-1T00-G25 (SSD) USB 3.2 Gen 2 черный;;;18800;2026-01-25;Мониторы;1tb sandisk extreme portable sdssde61 1t00 g25 ssd usb 3.2 gen 2 чephый
-1Tb Sandisk Portable SDSSDE30-1T00-G26 (SSD) USB 3.2 черный;;;16200;2026-01-25;Мониторы;1tb sandisk portable sdssde30 1t00 g26 ssd usb 3.2 чephый
-1Tb Seagate (ST1000DM014) 256Mb 7200rpm SATA3 Barracuda;;;13000;2026-01-25;Мониторы;1tb seagate st1000dm014 256mb 7200rpm sata3 barracuda
-1Tb Seagate (ST1000DM014) 256Mb 7200rpm SATA3 Barracuda RECERTIFIED;;;10500;2026-01-25;Мониторы;1tb seagate st1000dm014 256mb 7200rpm sata3 barracuda recertified
-"2.5"" 1Tb Seagate (STJL1000400) USB3.0 Basic Черный";;;10500;2026-01-25;Мониторы;2.5 1tb seagate stjl1000400 usb3.0 basic чephый
-"2.5"" 1Tb Seagate (STKM1000400) USB3.0 Expansion Portable Drive Черный";;;10500;2026-01-25;Мониторы;2.5 1tb seagate stkm1000400 usb3.0 expansion portable drive чephый
-"2.5"" 1Tb Seagate (STKY1000400) USB3.0 One Touch Черный";;;10600;2026-01-25;Мониторы;2.5 1tb seagate stky1000400 usb3.0 one touch чephый
-"2.5"" 1Tb Toshiba HDTB510EK3AA 5400rpm USB3.0 Canvio Basic Черный";;;10400;2026-01-25;Мониторы;2.5 1tb toshiba hdtb510ek3aa 5400rpm usb3.0 canvio basic чephый
-"2.5"" 1Tb WD Elements Portable WDBUZG0010BBK-WESN USB3.0 Черный";;;10700;2026-01-25;Мониторы;2.5 1tb wd elements portable wdbuzg0010bbk wesn usb3.0 чephый
-"2.5"" 1Tb WD My Passport WDBYVG0010BBK-WESN USB3.0 Черный";;;11000;2026-01-25;Мониторы;2.5 1tb wd my passport wdbyvg0010bbk wesn usb3.0 чephый
-"2.5"" 2Tb Seagate (STKM2000400) USB3.0 Expansion Portable Drive Черный";;;12500;2026-01-25;Мониторы;2.5 2tb seagate stkm2000400 usb3.0 expansion portable drive чephый
-"2.5"" 2Tb WD My Passport WDBYVG0020BBK-WESN USB3.0 Черный";;;12500;2026-01-25;Мониторы;2.5 2tb wd my passport wdbyvg0020bbk wesn usb3.0 чephый
-"2.5"" 4Tb Seagate (STKM4000400) USB3.0 Expansion Portable Drive Черный";;;18200;2026-01-25;Мониторы;2.5 4tb seagate stkm4000400 usb3.0 expansion portable drive чephый
-"2.5"" 4Tb WD Elements Portable WDBU6Y0040BBK-WESN USB3.0 Черный";;;16300;2026-01-25;Мониторы;2.5 4tb wd elements portable wdbu6y0040bbk wesn usb3.0 чephый
-"2.5"" 4Tb WD My Passport WDBPKJ0040BBK-WESN USB3.0 Черный";;;18400;2026-01-25;Мониторы;2.5 4tb wd my passport wdbpkj0040bbk wesn usb3.0 чephый
-"2.5"" 5Tb Seagate (STKM5000400) USB3.0 Expansion Portable Drive Черный";;;20200;2026-01-25;Мониторы;2.5 5tb seagate stkm5000400 usb3.0 expansion portable drive чephый
-"2.5"" 5Tb Seagate (STKZ5000400) USB3.0 One Touch Черный";;;20200;2026-01-25;Мониторы;2.5 5tb seagate stkz5000400 usb3.0 one touch чephый
-"2.5"" 5Tb WD Elements Portable WDBU6Y0050BBK-WESN USB3.0 Черный";;;18900;2026-01-25;Мониторы;2.5 5tb wd elements portable wdbu6y0050bbk wesn usb3.0 чephый
-"2.5"" 5Tb WD My Passport WDBPKJ0050BBK-WESN USB3.0 Черный";;;19800;2026-01-25;Мониторы;2.5 5tb wd my passport wdbpkj0050bbk wesn usb3.0 чephый
+"1Tb 2.5"" Seagate Mobile (ST1000LM049) 128Mb 7200rpm SATA3";;;7800;2026-01-25;Мониторы;1tb 2.5 seagate mobile st1000lm049 128mb 7200rpm sata 3
+1Tb Crucial X9 CT1000X9SSD9 (SSD) USB 3.2 Type C черный;;;16500;2026-01-25;Мониторы;1tb crucial x9 ct1000x9ssd 9 ssd usb 3.2 type c black
+1Tb Kingston XS1000 SXS1000R/1000G (SSD) USB 3.2 красный;;;17600;2026-01-25;Мониторы;1tb kingston xs1000 sxs 1000r/1000g ssd usb 3.2 red
+1Tb Netac NT01Z9-001T-32BK USB-C черный;;;17200;2026-01-25;Мониторы;1tb netac nt01z9 001t 32bk usb c black
+1Tb Samsung T7 MU-PC1T0H/WW (SSD) USB 3.2 Type C Синий;;;21000;2026-01-25;Мониторы;1tb samsung t7 mu pc1t0h/ww ssd usb 3.2 type c blue
+1Tb Samsung T7 MU-PC1T0T/WW (SSD) USB 3.2 Type C Серый;;;21000;2026-01-25;Мониторы;1tb samsung t7 mu pc1t0t/ww ssd usb 3.2 type c gray
+1Tb Samsung T7 Shield MU-PE1T0K/WW (SSD) USB 3.2 Type C Бежевый;;;25300;2026-01-25;Мониторы;1tb samsung t7 shield mu pe1t0k/ww ssd usb 3.2 type c beige
+1Tb Samsung T7 Shield MU-PE1T0S/WW (SSD) USB 3.2 Type C Черный;;;27500;2026-01-25;Мониторы;1tb samsung t7 shield mu pe1t0s/ww ssd usb 3.2 type c black
+1Tb Samsung T9 MU-PG1T0B/WW (SSD) USB 3.2 Type C Черный;;;24000;2026-01-25;Мониторы;1tb samsung t9 mu pg1t0b/ww ssd usb 3.2 type c black
+1Tb Sandisk Extreme Portable SDSSDE61-1T00-G25 (SSD) USB 3.2 Gen 2 черный;;;18800;2026-01-25;Мониторы;1tb sandisk extreme portable sdssde 61 1t00 g25 ssd usb 3.2 gen 2 black
+1Tb Sandisk Portable SDSSDE30-1T00-G26 (SSD) USB 3.2 черный;;;16200;2026-01-25;Мониторы;1tb sandisk portable sdssde 30 1t00 g26 ssd usb 3.2 black
+1Tb Seagate (ST1000DM014) 256Mb 7200rpm SATA3 Barracuda;;;13000;2026-01-25;Мониторы;1tb seagate st1000dm014 256mb 7200rpm sata 3 barracuda
+1Tb Seagate (ST1000DM014) 256Mb 7200rpm SATA3 Barracuda RECERTIFIED;;;10500;2026-01-25;Мониторы;1tb seagate st1000dm014 256mb 7200rpm sata 3 barracuda recertified
+"2.5"" 1Tb Seagate (STJL1000400) USB3.0 Basic Черный";;;10500;2026-01-25;Мониторы;2.5 1tb seagate stjl 1000400 usb 3.0 basic black
+"2.5"" 1Tb Seagate (STKM1000400) USB3.0 Expansion Portable Drive Черный";;;10500;2026-01-25;Мониторы;2.5 1tb seagate stkm 1000400 usb 3.0 expansion portable drive black
+"2.5"" 1Tb Seagate (STKY1000400) USB3.0 One Touch Черный";;;10600;2026-01-25;Мониторы;2.5 1tb seagate stky 1000400 usb 3.0 one touch black
+"2.5"" 1Tb Toshiba HDTB510EK3AA 5400rpm USB3.0 Canvio Basic Черный";;;10400;2026-01-25;Мониторы;2.5 1tb toshiba hdtb 510ek3aa 5400rpm usb 3.0 canvio basic black
+"2.5"" 1Tb WD Elements Portable WDBUZG0010BBK-WESN USB3.0 Черный";;;10700;2026-01-25;Мониторы;2.5 1tb wd elements portable wdbuzg 0010bbk wesn usb 3.0 black
+"2.5"" 1Tb WD My Passport WDBYVG0010BBK-WESN USB3.0 Черный";;;11000;2026-01-25;Мониторы;2.5 1tb wd my passport wdbyvg 0010bbk wesn usb 3.0 black
+"2.5"" 2Tb Seagate (STKM2000400) USB3.0 Expansion Portable Drive Черный";;;12500;2026-01-25;Мониторы;2.5 2tb seagate stkm 2000400 usb 3.0 expansion portable drive black
+"2.5"" 2Tb WD My Passport WDBYVG0020BBK-WESN USB3.0 Черный";;;12500;2026-01-25;Мониторы;2.5 2tb wd my passport wdbyvg 0020bbk wesn usb 3.0 black
+"2.5"" 4Tb Seagate (STKM4000400) USB3.0 Expansion Portable Drive Черный";;;18200;2026-01-25;Мониторы;2.5 4tb seagate stkm 4000400 usb 3.0 expansion portable drive black
+"2.5"" 4Tb WD Elements Portable WDBU6Y0040BBK-WESN USB3.0 Черный";;;16300;2026-01-25;Мониторы;2.5 4tb wd elements portable wdbu 6y0040bbk wesn usb 3.0 black
+"2.5"" 4Tb WD My Passport WDBPKJ0040BBK-WESN USB3.0 Черный";;;18400;2026-01-25;Мониторы;2.5 4tb wd my passport wdbpkj 0040bbk wesn usb 3.0 black
+"2.5"" 5Tb Seagate (STKM5000400) USB3.0 Expansion Portable Drive Черный";;;20200;2026-01-25;Мониторы;2.5 5tb seagate stkm 5000400 usb 3.0 expansion portable drive black
+"2.5"" 5Tb Seagate (STKZ5000400) USB3.0 One Touch Черный";;;20200;2026-01-25;Мониторы;2.5 5tb seagate stkz 5000400 usb 3.0 one touch black
+"2.5"" 5Tb WD Elements Portable WDBU6Y0050BBK-WESN USB3.0 Черный";;;18900;2026-01-25;Мониторы;2.5 5tb wd elements portable wdbu 6y0050bbk wesn usb 3.0 black
+"2.5"" 5Tb WD My Passport WDBPKJ0050BBK-WESN USB3.0 Черный";;;19800;2026-01-25;Мониторы;2.5 5tb wd my passport wdbpkj 0050bbk wesn usb 3.0 black
 2000Gb KingSpec NX-2TB 2280 (NX-2TB 2280) M.2 2280 PCIe NVMe 3.0 x4;;;22500;2026-01-25;Мониторы;2000 kingspec nx 2tb 2280 nx 2tb 2280 m.2 2280 pcie nvme 3.0 x4
 2000Gb MSI Spatium M461 S78-440Q550-P83 M.2 2280 PCIe NVMe 4.0 x4;;;24500;2026-01-25;Мониторы;2000 msi spatium m461 s78 440q550 p83 m.2 2280 pcie nvme 4.0 x4
 2000Gb Netac NV3000 NT01NV3000-2T0-E4X M.2 2280 PCIe NVMe 3.0 x4;;;24000;2026-01-25;Мониторы;2000 netac nv3000 nt01nv3000 2t0 e4x m.2 2280 pcie nvme 3.0 x4
-"2048Gb Netac N600S NT01N600S-002T-S3X SATA3 2.5""";;;23000;2026-01-25;Мониторы;2048 netac n600s nt01n600s 002t s3x sata3 2.5
-"240Gb Crucial CT240BX500SSD1 SATA3 2.5"" BX500";;;7300;2026-01-25;Мониторы;240 crucial ct240bx500ssd1 sata3 2.5 bx500
-"240Gb Kingston SA400S37/240G SATA3 2.5"" A400";;;7800;2026-01-25;Мониторы;240 kingston sa400s37/240g sata3 2.5 a400
-"240Gb Netac N535S NT01N535S-240G-S3X SATA3 2.5""";;;5300;2026-01-25;Мониторы;240 netac n535s nt01n535s 240g s3x sata3 2.5
-"240Gb Patriot Memory Burst Elite PBE240GS25SSDR SATA3 2.5""";;;5400;2026-01-25;Мониторы;240 patriot memory burst elite pbe240gs25ssdr sata3 2.5
-"256Gb A-Data Ultimate SU650 ASU650SS-256GT-R SATA3 2.5""";;;5400;2026-01-25;Мониторы;256 a data ultimate su650 asu650ss 256gt r sata3 2.5
-256Gb Apacer AS2280P4 Client AP256GAS2280P4-1 M.2 2280 PCIe NVMe 3.0 x4;;;6300;2026-01-25;Мониторы;256 apacer as2280p4 client ap256gas2280p4 1 m.2 2280 pcie nvme 3.0 x4
-"256Gb Kingston SKC600/256G SATA3 2.5"" KC600 Series";;;11400;2026-01-25;Мониторы;256 kingston skc600/256g sata3 2.5 kc600 series
+"2048Gb Netac N600S NT01N600S-002T-S3X SATA3 2.5""";;;23000;2026-01-25;Мониторы;2048 netac n600s nt01n600s 002t s3x sata 3 2.5
+"240Gb Crucial CT240BX500SSD1 SATA3 2.5"" BX500";;;7300;2026-01-25;Мониторы;240 crucial ct240bx500ssd 1 sata 3 2.5 bx500
+"240Gb Kingston SA400S37/240G SATA3 2.5"" A400";;;7800;2026-01-25;Мониторы;240 kingston sa400s37/240g sata 3 2.5 a400
+"240Gb Netac N535S NT01N535S-240G-S3X SATA3 2.5""";;;5300;2026-01-25;Мониторы;240 netac n535s nt01n535s 240g s3x sata 3 2.5
+"240Gb Patriot Memory Burst Elite PBE240GS25SSDR SATA3 2.5""";;;5400;2026-01-25;Мониторы;240 patriot memory burst elite pbe 240gs25ssdr sata 3 2.5
+"256Gb A-Data Ultimate SU650 ASU650SS-256GT-R SATA3 2.5""";;;5400;2026-01-25;Мониторы;256 a data ultimate su650 asu 650ss 256gt r sata 3 2.5
+256Gb Apacer AS2280P4 Client AP256GAS2280P4-1 M.2 2280 PCIe NVMe 3.0 x4;;;6300;2026-01-25;Мониторы;256 apacer as2280p4 client ap256gas 2280p4 1 m.2 2280 pcie nvme 3.0 x4
+"256Gb Kingston SKC600/256G SATA3 2.5"" KC600 Series";;;11400;2026-01-25;Мониторы;256 kingston skc 600/256g sata 3 2.5 kc600 series
 256Gb Netac N930E Pro NT01N930E-256G-E4X M.2 2280 PCIe NVMe 3.0 x4;;;6500;2026-01-25;Мониторы;256 netac n930e pro nt01n930e 256g e4x m.2 2280 pcie nvme 3.0 x4
-2Tb Kingston XS1000 SXS1000R/2000G (SSD) USB 3.2 красный;;;25300;2026-01-25;Мониторы;2tb kingston xs1000 sxs1000r/2000g ssd usb 3.2 kpachый
-2Tb Kingston XS2000 SXS2000/2000G (SSD) USB 3.2 серебристый;;;25800;2026-01-25;Мониторы;2tb kingston xs2000 sxs2000/2000g ssd usb 3.2 cepeбpиctый
-2Tb Netac NT01Z6S-002T-32SL USB-C черный;;;21200;2026-01-25;Мониторы;2tb netac nt01z6s 002t 32sl usb c чephый
-2Tb Netac NT01ZSLIM-002T-32BK USB-C черный;;;23000;2026-01-25;Мониторы;2tb netac nt01zslim 002t 32bk usb c чephый
-2Tb Samsung T7 MU-PC2T0H/WW (SSD) USB 3.2 Type C Синий;;;34100;2026-01-25;Мониторы;2tb samsung t7 mu pc2t0h/ww ssd usb 3.2 type c cиhий
-2Tb Samsung T7 MU-PC2T0T/WW (SSD) USB 3.2 Type C Серый;;;33200;2026-01-25;Мониторы;2tb samsung t7 mu pc2t0t/ww ssd usb 3.2 type c cepый
-2Tb Sandisk Extreme PlayStation 5 SDSSDE62P-2T00-G25 (SSD) USB 3.1 черный;;;30600;2026-01-25;Мониторы;2tb sandisk extreme playstation 5 sdssde62p 2t00 g25 ssd usb 3.1 чephый
-2Tb Sandisk Extreme Pro Portable SDSSDE81-2T00-G25 (SSD) USB 3.1 черный;;;35800;2026-01-25;Мониторы;2tb sandisk extreme pro portable sdssde81 2t00 g25 ssd usb 3.1 чephый
-2Tb Sandisk Portable SDSSDE30-2T00-G26 (SSD) USB 3.1 черный;;;23700;2026-01-25;Мониторы;2tb sandisk portable sdssde30 2t00 g26 ssd usb 3.1 чephый
-2Tb Seagate (ST2000DM008) 256Mb 7200rpm SATA3 Barracuda;;;14700;2026-01-25;Мониторы;2tb seagate st2000dm008 256mb 7200rpm sata3 barracuda
-2Tb Western Digital (WD2005FBYZ) 128Mb 7200rpm SATA3 Gold;;;15300;2026-01-25;Мониторы;2tb western digital wd2005fbyz 128mb 7200rpm sata3 gold
-"3.5"" 4000Gb Western Digital (HUS726T4TAL5204) 256Mb 7200rpm SAS";;;18500;2026-01-25;Мониторы;3.5 4000 western digital hus726t4tal5204 256mb 7200rpm sas
+2Tb Kingston XS1000 SXS1000R/2000G (SSD) USB 3.2 красный;;;25300;2026-01-25;Мониторы;2tb kingston xs1000 sxs 1000r/2000g ssd usb 3.2 red
+2Tb Kingston XS2000 SXS2000/2000G (SSD) USB 3.2 серебристый;;;25800;2026-01-25;Мониторы;2tb kingston xs2000 sxs 2000/2000g ssd usb 3.2 silver
+2Tb Netac NT01Z6S-002T-32SL USB-C черный;;;21200;2026-01-25;Мониторы;2tb netac nt01z6s 002t 32sl usb c black
+2Tb Netac NT01ZSLIM-002T-32BK USB-C черный;;;23000;2026-01-25;Мониторы;2tb netac nt01zslim 002t 32bk usb c black
+2Tb Samsung T7 MU-PC2T0H/WW (SSD) USB 3.2 Type C Синий;;;34100;2026-01-25;Мониторы;2tb samsung t7 mu pc2t0h/ww ssd usb 3.2 type c blue
+2Tb Samsung T7 MU-PC2T0T/WW (SSD) USB 3.2 Type C Серый;;;33200;2026-01-25;Мониторы;2tb samsung t7 mu pc2t0t/ww ssd usb 3.2 type c gray
+2Tb Sandisk Extreme PlayStation 5 SDSSDE62P-2T00-G25 (SSD) USB 3.1 черный;;;30600;2026-01-25;Мониторы;2tb sandisk extreme playstation 5 sdssde 62p 2t00 g25 ssd usb 3.1 black
+2Tb Sandisk Extreme Pro Portable SDSSDE81-2T00-G25 (SSD) USB 3.1 черный;;;35800;2026-01-25;Мониторы;2tb sandisk extreme pro portable sdssde 81 2t00 g25 ssd usb 3.1 black
+2Tb Sandisk Portable SDSSDE30-2T00-G26 (SSD) USB 3.1 черный;;;23700;2026-01-25;Мониторы;2tb sandisk portable sdssde 30 2t00 g26 ssd usb 3.1 black
+2Tb Seagate (ST2000DM008) 256Mb 7200rpm SATA3 Barracuda;;;14700;2026-01-25;Мониторы;2tb seagate st2000dm008 256mb 7200rpm sata 3 barracuda
+2Tb Western Digital (WD2005FBYZ) 128Mb 7200rpm SATA3 Gold;;;15300;2026-01-25;Мониторы;2tb western digital wd2005fbyz 128mb 7200rpm sata 3 gold
+"3.5"" 4000Gb Western Digital (HUS726T4TAL5204) 256Mb 7200rpm SAS";;;18500;2026-01-25;Мониторы;3.5 4000 western digital hus 726t4tal 5204 256mb 7200rpm sas
 4000Gb A-Data Legend 960 ALEG-960-4TCS M.2 2280 PCIe NVMe 4.0 x4;;;58000;2026-01-25;Мониторы;4000 a data legend 960 aleg 960 4tcs m.2 2280 pcie nvme 4.0 x4
 4000Gb Samsung 990 Pro with Heatsink (MZ-V9P4T0CW) M.2 2280 PCI-E 4.0 x4;;;57000;2026-01-25;Мониторы;4000 samsung 990 pro with heatsink mz v9p4t0cw m.2 2280 pci e 4.0 x4
 4096Gb A-Data Legend 900 Pro SLEG-900P-4TCS M.2 2280 PCIe NVMe 4.0 x4;;;53000;2026-01-25;Мониторы;4096 a data legend 900 pro sleg 900p 4tcs m.2 2280 pcie nvme 4.0 x4
-"480Gb Kingston SA400S37/480G SATA3 2.5"" A400";;;10300;2026-01-25;Мониторы;480 kingston sa400s37/480g sata3 2.5 a400
-"480Gb Netac N535S NT01N535S-480G-S3X SATA3 2.5""";;;8300;2026-01-25;Мониторы;480 netac n535s nt01n535s 480g s3x sata3 2.5
-4Tb Seagate (ST4000VX015) 256Mb 5400rpm SATA3 SkyHawk;;;16500;2026-01-25;Мониторы;4tb seagate st4000vx015 256mb 5400rpm sata3 skyhawk
-4Tb Western Digital (WD44PURZ) 256Mb 5400rpm SATA3 Purple;;;17200;2026-01-25;Мониторы;4tb western digital wd44purz 256mb 5400rpm sata3 purple
-500Gb Kingston NV3 SNV3S/500G M.2 2280 PCIe NVMe 4.0 x4;;;11000;2026-01-25;Мониторы;500 kingston nv3 snv3s/500g m.2 2280 pcie nvme 4.0 x4
-500Gb Netac NT01Z9-500G-32BK USB-C черный;;;10600;2026-01-25;Мониторы;500 netac nt01z9 500g 32bk usb c чephый
-500Gb Netac NT01ZSLIM-500G-32BK USB-C черный;;;10200;2026-01-25;Мониторы;500 netac nt01zslim 500g 32bk usb c чephый
+"480Gb Kingston SA400S37/480G SATA3 2.5"" A400";;;10300;2026-01-25;Мониторы;480 kingston sa400s37/480g sata 3 2.5 a400
+"480Gb Netac N535S NT01N535S-480G-S3X SATA3 2.5""";;;8300;2026-01-25;Мониторы;480 netac n535s nt01n535s 480g s3x sata 3 2.5
+4Tb Seagate (ST4000VX015) 256Mb 5400rpm SATA3 SkyHawk;;;16500;2026-01-25;Мониторы;4tb seagate st4000vx015 256mb 5400rpm sata 3 skyhawk
+4Tb Western Digital (WD44PURZ) 256Mb 5400rpm SATA3 Purple;;;17200;2026-01-25;Мониторы;4tb western digital wd44purz 256mb 5400rpm sata 3 purple
+500Gb Kingston NV3 SNV3S/500G M.2 2280 PCIe NVMe 4.0 x4;;;11000;2026-01-25;Мониторы;500 kingston nv3 snv 3s/500g m.2 2280 pcie nvme 4.0 x4
+500Gb Netac NT01Z9-500G-32BK USB-C черный;;;10600;2026-01-25;Мониторы;500 netac nt01z9 500g 32bk usb c black
+500Gb Netac NT01ZSLIM-500G-32BK USB-C черный;;;10200;2026-01-25;Мониторы;500 netac nt01zslim 500g 32bk usb c black
 500Gb Patriot Memory P400VP500GM28H P400 V4 M.2 PCIe NVMe 4.0 x4;;;11500;2026-01-25;Мониторы;500 patriot memory p400vp500gm28h p400 v4 m.2 pcie nvme 4.0 x4
-"500Gb Samsung 870 Evo (MZ-77E500B) SATA3 2.5""";;;20000;2026-01-25;Мониторы;500 samsung 870 evo mz 77e500b sata3 2.5
-500Gb Sandisk Extreme Portable SDSSDE61-500G-G25 (SSD) USB 3.1 черный;;;14000;2026-01-25;Мониторы;500 sandisk extreme portable sdssde61 500g g25 ssd usb 3.1 чephый
-500Gb Western Digital (WD5000AZLX) 32Mb SATA3 Caviar Blue;;;6100;2026-01-25;Мониторы;500 western digital wd5000azlx 32mb sata3 caviar blue
-500Gb Western Digital Green SN3000 (WDS500G4G0E) M.2 2280 PCIe NVMe 4.0 x4;;;9400;2026-01-25;Мониторы;500 western digital green sn3000 wds500g4g0e m.2 2280 pcie nvme 4.0 x4
-"512Gb Netac N600S NT01N600S-512G-S3X SATA3 2.5""";;;8400;2026-01-25;Мониторы;512 netac n600s nt01n600s 512g s3x sata3 2.5
+"500Gb Samsung 870 Evo (MZ-77E500B) SATA3 2.5""";;;20000;2026-01-25;Мониторы;500 samsung 870 evo mz 77e500b sata 3 2.5
+500Gb Sandisk Extreme Portable SDSSDE61-500G-G25 (SSD) USB 3.1 черный;;;14000;2026-01-25;Мониторы;500 sandisk extreme portable sdssde 61 500g g25 ssd usb 3.1 black
+500Gb Western Digital (WD5000AZLX) 32Mb SATA3 Caviar Blue;;;6100;2026-01-25;Мониторы;500 western digital wd5000azlx 32mb sata 3 caviar blue
+500Gb Western Digital Green SN3000 (WDS500G4G0E) M.2 2280 PCIe NVMe 4.0 x4;;;9400;2026-01-25;Мониторы;500 western digital green sn3000 wds 500g4g0e m.2 2280 pcie nvme 4.0 x4
+"512Gb Netac N600S NT01N600S-512G-S3X SATA3 2.5""";;;8400;2026-01-25;Мониторы;512 netac n600s nt01n600s 512g s3x sata 3 2.5
 512Gb Netac NV2000 NT01NV2000-512-E4X M.2 2280 PCIe NVMe 3.0 x4;;;9700;2026-01-25;Мониторы;512 netac nv2000 nt01nv2000 512 e4x m.2 2280 pcie nvme 3.0 x4
-"512Gb Netac SA500 NT01SA500-512-S3X SATA3 2.5""";;;8200;2026-01-25;Мониторы;512 netac sa500 nt01sa500 512 s3x sata3 2.5
-6Tb Seagate (ST6000VX009) 256Mb 5400rpm SATA3 SkyHawk;;;25000;2026-01-25;Мониторы;6tb seagate st6000vx009 256mb 5400rpm sata3 skyhawk
-8000Gb Western Digital Black SN850X with Heat Spreader (WDS800T2XHE) M.2 2280 PCIe NVMe 4.0 x4;;;167200;2026-01-25;Мониторы;8000 western digital black sn850x with heat spreader wds800t2xhe m.2 2280 pcie nvme 4.0 x4
+"512Gb Netac SA500 NT01SA500-512-S3X SATA3 2.5""";;;8200;2026-01-25;Мониторы;512 netac sa500 nt01sa500 512 s3x sata 3 2.5
+6Tb Seagate (ST6000VX009) 256Mb 5400rpm SATA3 SkyHawk;;;25000;2026-01-25;Мониторы;6tb seagate st6000vx009 256mb 5400rpm sata 3 skyhawk
+8000Gb Western Digital Black SN850X with Heat Spreader (WDS800T2XHE) M.2 2280 PCIe NVMe 4.0 x4;;;167200;2026-01-25;Мониторы;8000 western digital black sn850x with heat spreader wds 800t2xhe m.2 2280 pcie nvme 4.0 x4
 960Gb Netac NT01Z6S-960G-32SL USB-C;;;16700;2026-01-25;Мониторы;960 netac nt01z6s 960g 32sl usb c
 AMD Ryzen 3 3200G, 3.6 ГГц (Turbo 4 ГГц), 4-ядерный, L3 4 МБ, Socket AM4, OEM;;;7000;2026-01-25;Мониторы;amd ryzen 3 3200g 3.6 ггц turbo 4 ггц 4 ядephый l3 4 mб socket am4 oem
 AMD Ryzen 5 3400G, 3.7 ГГц (Turbo 4.2 ГГц), 4-ядерный, L3 4 МБ, Socket AM4, OEM;;;9000;2026-01-25;Мониторы;amd ryzen 5 3400g 3.7 ггц turbo 4.2 ггц 4 ядephый l3 4 mб socket am4 oem
@@ -2334,75 +2333,75 @@ AMD Ryzen 7 9850X3D, 4.7 ГГц (Turbo 5.6 ГГц), 8-ядерный, L3 96 МБ
 AMD Ryzen 9 9950X, 4.3 ГГц (Turbo 5.7 ГГц), 16-ядерный, L3 64 МБ, Socket AM5, OEM;;;42300;2026-01-25;Мониторы;amd ryzen 9 9950x 4.3 ггц turbo 5.7 ггц 16 ядephый l3 64 mб socket am5 oem
 AMD Ryzen 9 9950X3D, 4.3 ГГц (Turbo 5.7 ГГц), 16-ядерный, L3 128 МБ, Socket AM5, OEM;;;55600;2026-01-25;Мониторы;amd ryzen 9 9950x3d 4.3 ггц turbo 5.7 ггц 16 ядephый l3 128 mб socket am5 oem
 AMD Ryzen 9 9950X3D2 Dual Edition, 4.3 ГГц (Turbo 5.6 ГГц), 16-ядерный, L3 208 МБ, Socket AM5, OEM;;;79900;2026-01-25;Мониторы;amd ryzen 9 9950x3d2 dual edition 4.3 ггц turbo 5.6 ггц 16 ядephый l3 208 mб socket am5 oem
-Intel Core Ultra 5 225F, 3.3 ГГц (Turbo 4.9 ГГц), 10-ядерный, 21 МБ, LGA1851, OEM;;;13900;2026-01-25;Мониторы;intel core ultra 5 225f 3.3 ггц turbo 4.9 ггц 10 ядephый 21 mб lga1851 oem
-Intel Core i3-12100, 3.3 ГГц (Turbo 4.3 ГГц), 4-ядерный, 12 МБ, LGA1700, OEM;;;13200;2026-01-25;Мониторы;intel core i3 12100 3.3 ггц turbo 4.3 ггц 4 ядephый 12 mб lga1700 oem
-Intel Core i3-14100, 3.5 ГГц (Turbo 4.7 ГГц), 4-ядерный, 12 МБ, LGA1700, OEM;;;12500;2026-01-25;Мониторы;intel core i3 14100 3.5 ггц turbo 4.7 ггц 4 ядephый 12 mб lga1700 oem
-Intel Core i5-12400, 2.5 ГГц (Turbo 4.4 ГГц), 6-ядерный, 18 МБ, LGA1700, OEM;;;15800;2026-01-25;Мониторы;intel core i5 12400 2.5 ггц turbo 4.4 ггц 6 ядephый 18 mб lga1700 oem
-Intel Core i5-12400F, 2.5 ГГц (Turbo 4.4 ГГц), 6-ядерный, 18 МБ, LGA1700, OEM;;;13500;2026-01-25;Мониторы;intel core i5 12400f 2.5 ггц turbo 4.4 ггц 6 ядephый 18 mб lga1700 oem
-Intel Core i5-14400, 2.5 ГГц (Turbo 4.7 ГГц), 10-ядерный, 20 МБ, LGA1700, OEM;;;16200;2026-01-25;Мониторы;intel core i5 14400 2.5 ггц turbo 4.7 ггц 10 ядephый 20 mб lga1700 oem
-Intel Core i5-14400F, 2.5 ГГц (Turbo 4.7 ГГц), 10-ядерный, 20 МБ, LGA1700, OEM;;;14900;2026-01-25;Мониторы;intel core i5 14400f 2.5 ггц turbo 4.7 ггц 10 ядephый 20 mб lga1700 oem
-Intel Core i5-14600K, 3.5 ГГц (Turbo 5.3 ГГц), 14-ядерный, 24 МБ, LGA1700, OEM;;;26700;2026-01-25;Мониторы;intel core i5 14600k 3.5 ггц turbo 5.3 ггц 14 ядephый 24 mб lga1700 oem
-Intel Core i5-14600KF, 3.5 ГГц (Turbo 5.3 ГГц), 14-ядерный, 24 МБ, LGA1700, OEM;;;24700;2026-01-25;Мониторы;intel core i5 14600kf 3.5 ггц turbo 5.3 ггц 14 ядephый 24 mб lga1700 oem
-Intel Core i7-12700, 2.1 ГГц (Turbo 4.9 ГГц), 12-ядерный, 25 МБ, LGA1700, OEM;;;28400;2026-01-25;Мониторы;intel core i7 12700 2.1 ггц turbo 4.9 ггц 12 ядephый 25 mб lga1700 oem
-Intel Core i7-12700F, 2.1 ГГц (Turbo 4.9 ГГц), 12-ядерный, 25 МБ, LGA1700, OEM;;;27400;2026-01-25;Мониторы;intel core i7 12700f 2.1 ггц turbo 4.9 ггц 12 ядephый 25 mб lga1700 oem
-ASRock B550M-HDV B550 Socket AM4 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, DVI-D, HDMI, GLAN, mATX;;;8900;2026-10-25;Мониторы;asrock b550m hdv b550 socket am4 2xddr4 4xsata3 raid 1xm.2 1xpci e16x 4xusb3.2 d sub dvi d hdmi glan matx
-ASUS Prime B550-Plus B550 Socket AM4 4xDDR4, 6xSATA3, RAID, 2xM.2, 2xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, GLAN, ATX;;;11100;2026-10-25;Мониторы;asus prime b550 plus b550 socket am4 4xddr4 6xsata3 raid 2xm.2 2xpci e16x 5xusb3.2 1xusb3.2 type c dp hdmi glan atx
-ASUS Prime B550M-A B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 6xUSB3.1, D-Sub, DVI-D, HDMI, GLAN, mATX;;;9700;2026-10-25;Мониторы;asus prime b550m a b550 socket am4 4xddr4 4xsata3 raid 2xm.2 1xpci e16x 6xusb3.1 d sub dvi d hdmi glan matx
-ASUS Prime B650M-R B650 Socket AM5 2xDDR5, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 2xUSB3.2, HDMI, 2.5G LAN, mATX;;;9400;2026-10-25;Мониторы;asus prime b650m r b650 socket am5 2xddr5 4xsata3 raid 2xm.2 2xpci e16x 2xusb3.2 hdmi 2.5g lan matx
-ASUS Prime B760M-K B760 Socket-1700 2xDDR5, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, HDMI, 2.5G LAN, mATX;;;8900;2026-10-25;Мониторы;asus prime b760m k b760 socket 1700 2xddr5 4xsata3 raid 2xm.2 1xpci e16x 4xusb3.2 d sub hdmi 2.5g lan matx
-ASUS Prime B760M-R D4 B760 Socket-1700 2xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, 1xHDMI, 2.5G LAN, mATX;;;9300;2026-10-25;Мониторы;asus prime b760m r d4 b760 socket 1700 2xddr4 4xsata3 raid 2xm.2 1xpci e16x 4xusb3.2 1xhdmi 2.5g lan matx
-ASUS Prime H610M-R-SI H610 Socket-1700 2xDDR5, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DP, HDMI, GLAN, mATX;;;6900;2026-10-25;Мониторы;asus prime h610m r si h610 socket 1700 2xddr5 4xsata3 1xm.2 1xpci e16x 2xusb3.2 d sub dp hdmi glan matx
-ASUS TUF Gaming B550M-Plus WiFi II B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, mATX;;;16200;2026-10-25;Мониторы;asus tuf gaming b550m plus wifi ii b550 socket am4 4xddr4 4xsata3 raid 2xm.2 2xpci e16x 5xusb3.2 1xusb3.2 type c dp hdmi wi fi 2.5g lan matx
-ASUS TUF Gaming B760M-Plus WiFi II B760 Socket-1700 4xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, mATX;;;17600;2026-10-25;Мониторы;asus tuf gaming b760m plus wifi ii b760 socket 1700 4xddr5 4xsata3 raid 3xm.2 2xpci e16x 3xusb3.2 1xusb3.2 type c dp hdmi wi fi 2.5g lan matx
-ASUS TUF Gaming B850-Plus WiFi B850 Socket AM5 4xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 7xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;20300;2026-10-25;Мониторы;asus tuf gaming b850 plus wifi b850 socket am5 4xddr5 4xsata3 raid 3xm.2 2xpci e16x 7xusb3.2 1xusb3.2 type c dp hdmi wi fi 2.5g lan atx
-Gigabyte A520M K V2 Socket-AM4 AMD A520 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E 16x, 4xUSB 3.2, D-Sub, HDMI, GLAN, mATX Ret;;;6300;2026-10-25;Мониторы;gigabyte a520m k v2 socket am4 amd a520 2xddr4 4xsata3 raid 1xm.2 1xpci e 16x 4xusb 3.2 d sub hdmi glan matx ret
-Gigabyte B550 Gaming X V2 B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 4xUSB3.2, DVI-D, HDMI, GLAN, ATX;;;10200;2026-10-25;Мониторы;gigabyte b550 gaming x v2 b550 socket am4 4xddr4 4xsata3 raid 2xm.2 2xpci e16x 4xusb3.2 dvi d hdmi glan atx
-Gigabyte B550M K Socket-AM4 AMD B550 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 4xUSB3.2, DP, HDMI, GLAN, mATX Ret;;;8100;2026-10-25;Мониторы;gigabyte b550m k socket am4 amd b550 4xddr4 4xsata3 2xm.2 1xpci e16x 4xusb3.2 dp hdmi glan matx ret
-Gigabyte B550M K WiFi6E Socket-AM4 AMD B550 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 4xUSB3.2, DP, HDMI, Wi-Fi, GLAN, mATX Ret;;;9300;2026-10-25;Мониторы;gigabyte b550m k wifi6e socket am4 amd b550 4xddr4 4xsata3 2xm.2 1xpci e16x 4xusb3.2 dp hdmi wi fi glan matx ret
-Gigabyte B760M DS3H DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, D-Sub, 2xDP, HDMI, 2.5G LAN, mATX;;;10000;2026-10-25;Мониторы;gigabyte b760m ds3h ddr4 b760 socket 1700 4xddr4 4xsata3 raid 2xm.2 1xpci e16x 3xusb3.2 1xusb3.2 type c d sub 2xdp hdmi 2.5g lan matx
-Gigabyte B760M DS3H WIFI6E GEN5 B760 Socket-1700 4xDDR5, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, D-Sub, 2xDP, HDMI, 2.5G LAN, mATX;;;11700;2026-10-25;Мониторы;gigabyte b760m ds3h wifi6e gen5 b760 socket 1700 4xddr5 4xsata3 raid 2xm.2 1xpci e16x 3xusb3.2 1xusb3.2 type c d sub 2xdp hdmi 2.5g lan matx
-Gigabyte B760M Gaming Plus WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, DP, HDMI, Wi-Fi, GLAN, mATX;;;12600;2026-10-25;Мониторы;gigabyte b760m gaming plus wifi ddr4 b760 socket 1700 4xddr4 4xsata3 raid 2xm.2 1xpci e16x 3xusb3.2 dp hdmi wi fi glan matx
-Gigabyte B760M H DDR4 B760 Socket-1700 2xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, HDMI, GLAN, mATX;;;8000;2026-10-25;Мониторы;gigabyte b760m h ddr4 b760 socket 1700 2xddr4 4xsata3 raid 2xm.2 1xpci e16x 4xusb3.2 d sub hdmi glan matx
-Gigabyte B850M Force Socket-AM5 AMD B850 2xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, 2xDP, HDMI, 2.5G LAN, mATX;;;12300;2026-10-25;Мониторы;gigabyte b850m force socket am5 amd b850 2xddr5 4xsata3 raid 3xm.2 2xpci e16x 3xusb3.2 1xusb3.2 type c 2xdp hdmi 2.5g lan matx
-Gigabyte H610M S2H V2 H610 Socket-1700 2xDDR5, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DVI-D, DP, HDMI, GLAN, mATX;;;6600;2026-10-25;Мониторы;gigabyte h610m s2h v2 h610 socket 1700 2xddr5 4xsata3 1xm.2 1xpci e16x 2xusb3.2 d sub dvi d dp hdmi glan matx
-Gigabyte H610M S2H V3 DDR4 H610 Socket-1700 2xDDR4, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DP, HDMI, GLAN, mATX;;;7800;2026-10-25;Мониторы;gigabyte h610m s2h v3 ddr4 h610 socket 1700 2xddr4 4xsata3 1xm.2 1xpci e16x 2xusb3.2 d sub dp hdmi glan matx
-Gigabyte Z790 D AX Z790 Socket-1700 4xDDR5, 4xSATA3, RAID, 3xM.2, 3xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;13400;2026-10-25;Мониторы;gigabyte z790 d ax z790 socket 1700 4xddr5 4xsata3 raid 3xm.2 3xpci e16x 5xusb3.2 1xusb3.2 type c dp hdmi wi fi 2.5g lan atx
-Gigabyte Z890 Gaming X WiFi7 Z890 Socket-1851 4xDDR5, 4xSATA3, RAID, 4xM.2, 3xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, Wi-Fi, 2.5G LAN, ATX;;;23300;2026-10-25;Мониторы;gigabyte z890 gaming x wifi7 z890 socket 1851 4xddr5 4xsata3 raid 4xm.2 3xpci e16x 5xusb3.2 1xusb3.2 type c dp wi fi 2.5g lan atx
-MSI A520M-A Pro A520 Socket AM4 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E16x, 4xUSB3.2, DVI-D, HDMI, GLAN, mATX;;;6300;2026-10-25;Мониторы;msi a520m a pro a520 socket am4 2xddr4 4xsata3 raid 1xm.2 1xpci e16x 4xusb3.2 dvi d hdmi glan matx
-MSI B760 Gaming Plus WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 5xPCI-E16x, 2xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;13400;2026-10-25;Мониторы;msi b760 gaming plus wifi ddr4 b760 socket 1700 4xddr4 4xsata3 raid 2xm.2 5xpci e16x 2xusb3.2 1xusb3.2 type c dp hdmi wi fi 2.5g lan atx
-MSI Pro B760-P WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 5xPCI-E16x, 2xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, GLAN, ATX;;;12700;2026-10-25;Мониторы;msi pro b760 p wifi ddr4 b760 socket 1700 4xddr4 4xsata3 raid 2xm.2 5xpci e16x 2xusb3.2 1xusb3.2 type c dp hdmi wi fi glan atx
-MSI Pro B760M-A WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 4xUSB3.2, 2xDP, 2xHDMI, Wi-Fi, 2.5G LAN, mATX;;;12800;2026-10-25;Мониторы;msi pro b760m a wifi ddr4 b760 socket 1700 4xddr4 4xsata3 raid 2xm.2 2xpci e16x 4xusb3.2 2xdp 2xhdmi wi fi 2.5g lan matx
-MSI Pro B760M-P DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 1xUSB3.2, 1xUSB3.2 Type-C, D-Sub, DP, HDMI, GLAN, mATX;;;9400;2026-10-25;Мониторы;msi pro b760m p ddr4 b760 socket 1700 4xddr4 4xsata3 2xm.2 1xpci e16x 1xusb3.2 1xusb3.2 type c d sub dp hdmi glan matx
-DIMM 16Gb DDR5 PC44800 5600MHz Apacer NOX Black Gaming (AH5U16G56C522MBAA-1);;;29400;2026-10-25;Мониторы;dimm 16 ddr5 pc44800 5600mhz apacer nox black gaming ah5u16g56c522mbaa 1
-DIMM 16Gb DDR5 PC44800 5600MHz Kingston (KVR56U46BS8-16);;;27300;2026-10-25;Мониторы;dimm 16 ddr5 pc44800 5600mhz kingston kvr56u46bs8 16
-DIMM 16Gb DDR5 PC48000 6000MHz Apacer NOX Black (AH5U16G60C622MBAA-1);;;30600;2026-10-25;Мониторы;dimm 16 ddr5 pc48000 6000mhz apacer nox black ah5u16g60c622mbaa 1
-DIMM 16Gb DDR5 PC48000 6000MHz Kingston Fury Beast RGB Black (KF560C36BBE2-16);;;33600;2026-10-25;Мониторы;dimm 16 ddr5 pc48000 6000mhz kingston fury beast rgb black kf560c36bbe2 16
-DIMM 16Gb DDR5 PC51200 6400MHz Kingston Fury Renegade Silver (KF564C32RS-16);;;33600;2026-10-25;Мониторы;dimm 16 ddr5 pc51200 6400mhz kingston fury renegade silver kf564c32rs 16
-DIMM 16Gb DDR5 PC51200 6400MHz Samsung CUDIMM (M333R2GA3PB1-CCP);;;28700;2026-10-25;Мониторы;dimm 16 ddr5 pc51200 6400mhz samsung cudimm m333r2ga3pb1 ccp
-DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz ADATA XPG Gammix D35 Black (AX4U320016G16A-DTBKD35);;;33600;2026-10-25;Мониторы;dimm 32 2x16 ddr4 pc25600 3200mhz adata xpg gammix d35 black ax4u320016g16a dtbkd35
-DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Kingston Fury Beast RGB Black (KF432C16BB12AK2/32);;;39000;2026-10-25;Мониторы;dimm 32 2x16 ddr4 pc25600 3200mhz kingston fury beast rgb black kf432c16bb12ak2/32
-DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Kingston Fury Beast RGB Black (KF432C16BB2AK2/32);;;49400;2026-10-25;Мониторы;dimm 32 2x16 ddr4 pc25600 3200mhz kingston fury beast rgb black kf432c16bb2ak2/32
-DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Netac Shadow III White (NTSHD4P32DP-32W);;;27500;2026-10-25;Мониторы;dimm 32 2x16 ddr4 pc25600 3200mhz netac shadow iii white ntshd4p32dp 32w
-DIMM 32Gb 2х16Gb DDR4 PC28800 3600MHz Patriot Memory Viper 4 Steel HS XMP (PVS432G360C8K);;;29200;2026-10-25;Мониторы;dimm 32 2x16 ddr4 pc28800 3600mhz patriot memory viper 4 steel hs xmp pvs432g360c8k
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz ADATA XPG Lancer Blade RGB Black (AX5U6000C4816G-DTLABRBK);;;54300;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz adata xpg lancer blade rgb black ax5u6000c4816g dtlabrbk
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Kingston Fury Beast RGB Black EXPO (KF560C36BBE2AK2-32);;;62700;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz kingston fury beast rgb black expo kf560c36bbe2ak2 32
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Elite 5 RGB TUF Gaming White (PVER532G60C36KT);;;58200;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz patriot memory elite 5 rgb tuf gaming white pver532g60c36kt
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Steel 5 Infinite Gray (VI532G60C36K);;;52300;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz patriot memory viper steel 5 infinite gray vi532g60c36k
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Steel 5 Infinite RGB Gray (VIR532G60C36K);;;64100;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz patriot memory viper steel 5 infinite rgb gray vir532g60c36k
-DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Xtreme 5 RGB Mpower (PVXR532G60C30KM);;;55300;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc48000 6000mhz patriot memory viper xtreme 5 rgb mpower pvxr532g60c30km
-DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Steel 5 Infinite Gray (VI532G64C36K);;;60400;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc51200 6400mhz patriot memory viper steel 5 infinite gray vi532g64c36k
-DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Xtreme 5 Aurum (VXA532G6432K);;;60600;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc51200 6400mhz patriot memory viper xtreme 5 aurum vxa532g6432k
-DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Xtreme 5 RGB Black (PVXR532G64C32K);;;60900;2026-10-25;Мониторы;dimm 32 2x16 ddr5 pc51200 6400mhz patriot memory viper xtreme 5 rgb black pvxr532g64c32k
-DIMM 32Gb DDR4 PC25600 3200MHz Patriot Memory Viper Steel (PVS432G320C6);;;29700;2026-10-25;Мониторы;dimm 32 ddr4 pc25600 3200mhz patriot memory viper steel pvs432g320c6
-DIMM 64Gb 2х32Gb DDR4 PC25600 3200MHz Patriot Memory Viper Steel RGB (PVSR464G320C8K);;;58200;2026-10-25;Мониторы;dimm 64 2x32 ddr4 pc25600 3200mhz patriot memory viper steel rgb pvsr464g320c8k
-DIMM 96Gb 2х48Gb DDR5 PC48000 6000MHz Kingston Fury Renegade RGB Silver (KF560C32RSAK2/96);;;181400;2026-10-25;Мониторы;dimm 96 2x48 ddr5 pc48000 6000mhz kingston fury renegade rgb silver kf560c32rsak2/96
-SO-DIMM DDR4 64Gb (2x32Gb) PC25600 3200MHz Kingston Fury Impact (KF432S20IBK2/64);;;56300;2026-10-25;Мониторы;so dimm ddr4 64 2x32 pc25600 3200mhz kingston fury impact kf432s20ibk2/64
-SO-DIMM DDR5 16Gb PC44800 5600MHz Patriot Memory (PSD516G560081S);;;27600;2026-10-25;Мониторы;so dimm ddr5 16 pc44800 5600mhz patriot memory psd516g560081s
-SO-DIMM DDR5 32Gb PC44800 5600MHz Patriot Memory (PSD532G56002S);;;39500;2026-10-25;Мониторы;so dimm ddr5 32 pc44800 5600mhz patriot memory psd532g56002s
+Intel Core Ultra 5 225F, 3.3 ГГц (Turbo 4.9 ГГц), 10-ядерный, 21 МБ, LGA1851, OEM;;;13900;2026-01-25;Мониторы;intel core ultra 5 225f 3.3 ггц turbo 4.9 ггц 10 ядephый 21 mб lga 1851 oem
+Intel Core i3-12100, 3.3 ГГц (Turbo 4.3 ГГц), 4-ядерный, 12 МБ, LGA1700, OEM;;;13200;2026-01-25;Мониторы;intel core i3 12100 3.3 ггц turbo 4.3 ггц 4 ядephый 12 mб lga 1700 oem
+Intel Core i3-14100, 3.5 ГГц (Turbo 4.7 ГГц), 4-ядерный, 12 МБ, LGA1700, OEM;;;12500;2026-01-25;Мониторы;intel core i3 14100 3.5 ггц turbo 4.7 ггц 4 ядephый 12 mб lga 1700 oem
+Intel Core i5-12400, 2.5 ГГц (Turbo 4.4 ГГц), 6-ядерный, 18 МБ, LGA1700, OEM;;;15800;2026-01-25;Мониторы;intel core i5 12400 2.5 ггц turbo 4.4 ггц 6 ядephый 18 mб lga 1700 oem
+Intel Core i5-12400F, 2.5 ГГц (Turbo 4.4 ГГц), 6-ядерный, 18 МБ, LGA1700, OEM;;;13500;2026-01-25;Мониторы;intel core i5 12400f 2.5 ггц turbo 4.4 ггц 6 ядephый 18 mб lga 1700 oem
+Intel Core i5-14400, 2.5 ГГц (Turbo 4.7 ГГц), 10-ядерный, 20 МБ, LGA1700, OEM;;;16200;2026-01-25;Мониторы;intel core i5 14400 2.5 ггц turbo 4.7 ггц 10 ядephый 20 mб lga 1700 oem
+Intel Core i5-14400F, 2.5 ГГц (Turbo 4.7 ГГц), 10-ядерный, 20 МБ, LGA1700, OEM;;;14900;2026-01-25;Мониторы;intel core i5 14400f 2.5 ггц turbo 4.7 ггц 10 ядephый 20 mб lga 1700 oem
+Intel Core i5-14600K, 3.5 ГГц (Turbo 5.3 ГГц), 14-ядерный, 24 МБ, LGA1700, OEM;;;26700;2026-01-25;Мониторы;intel core i5 14600k 3.5 ггц turbo 5.3 ггц 14 ядephый 24 mб lga 1700 oem
+Intel Core i5-14600KF, 3.5 ГГц (Turbo 5.3 ГГц), 14-ядерный, 24 МБ, LGA1700, OEM;;;24700;2026-01-25;Мониторы;intel core i5 14600kf 3.5 ггц turbo 5.3 ггц 14 ядephый 24 mб lga 1700 oem
+Intel Core i7-12700, 2.1 ГГц (Turbo 4.9 ГГц), 12-ядерный, 25 МБ, LGA1700, OEM;;;28400;2026-01-25;Мониторы;intel core i7 12700 2.1 ггц turbo 4.9 ггц 12 ядephый 25 mб lga 1700 oem
+Intel Core i7-12700F, 2.1 ГГц (Turbo 4.9 ГГц), 12-ядерный, 25 МБ, LGA1700, OEM;;;27400;2026-01-25;Мониторы;intel core i7 12700f 2.1 ггц turbo 4.9 ггц 12 ядephый 25 mб lga 1700 oem
+ASRock B550M-HDV B550 Socket AM4 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, DVI-D, HDMI, GLAN, mATX;;;8900;2026-10-25;Мониторы;asrock b550m hdv b550 socket am4 2xddr 4 4xsata 3 raid 1xm.2 1xpci e16x 4xusb 3.2 d sub dvi d hdmi glan matx
+ASUS Prime B550-Plus B550 Socket AM4 4xDDR4, 6xSATA3, RAID, 2xM.2, 2xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, GLAN, ATX;;;11100;2026-10-25;Мониторы;asus prime b550 plus b550 socket am4 4xddr 4 6xsata 3 raid 2xm.2 2xpci e16x 5xusb 3.2 1xusb 3.2 type c dp hdmi glan atx
+ASUS Prime B550M-A B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 6xUSB3.1, D-Sub, DVI-D, HDMI, GLAN, mATX;;;9700;2026-10-25;Мониторы;asus prime b550m a b550 socket am4 4xddr 4 4xsata 3 raid 2xm.2 1xpci e16x 6xusb 3.1 d sub dvi d hdmi glan matx
+ASUS Prime B650M-R B650 Socket AM5 2xDDR5, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 2xUSB3.2, HDMI, 2.5G LAN, mATX;;;9400;2026-10-25;Мониторы;asus prime b650m r b650 socket am5 2xddr 5 4xsata 3 raid 2xm.2 2xpci e16x 2xusb 3.2 hdmi 2.5g lan matx
+ASUS Prime B760M-K B760 Socket-1700 2xDDR5, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, HDMI, 2.5G LAN, mATX;;;8900;2026-10-25;Мониторы;asus prime b760m k b760 socket 1700 2xddr 5 4xsata 3 raid 2xm.2 1xpci e16x 4xusb 3.2 d sub hdmi 2.5g lan matx
+ASUS Prime B760M-R D4 B760 Socket-1700 2xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, 1xHDMI, 2.5G LAN, mATX;;;9300;2026-10-25;Мониторы;asus prime b760m r d4 b760 socket 1700 2xddr 4 4xsata 3 raid 2xm.2 1xpci e16x 4xusb 3.2 1xhdmi 2.5g lan matx
+ASUS Prime H610M-R-SI H610 Socket-1700 2xDDR5, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DP, HDMI, GLAN, mATX;;;6900;2026-10-25;Мониторы;asus prime h610m r si h610 socket 1700 2xddr 5 4xsata 3 1xm.2 1xpci e16x 2xusb 3.2 d sub dp hdmi glan matx
+ASUS TUF Gaming B550M-Plus WiFi II B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, mATX;;;16200;2026-10-25;Мониторы;asus tuf gaming b550m plus wifi ii b550 socket am4 4xddr 4 4xsata 3 raid 2xm.2 2xpci e16x 5xusb 3.2 1xusb 3.2 type c dp hdmi wi fi 2.5g lan matx
+ASUS TUF Gaming B760M-Plus WiFi II B760 Socket-1700 4xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, mATX;;;17600;2026-10-25;Мониторы;asus tuf gaming b760m plus wifi ii b760 socket 1700 4xddr 5 4xsata 3 raid 3xm.2 2xpci e16x 3xusb 3.2 1xusb 3.2 type c dp hdmi wi fi 2.5g lan matx
+ASUS TUF Gaming B850-Plus WiFi B850 Socket AM5 4xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 7xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;20300;2026-10-25;Мониторы;asus tuf gaming b850 plus wifi b850 socket am5 4xddr 5 4xsata 3 raid 3xm.2 2xpci e16x 7xusb 3.2 1xusb 3.2 type c dp hdmi wi fi 2.5g lan atx
+Gigabyte A520M K V2 Socket-AM4 AMD A520 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E 16x, 4xUSB 3.2, D-Sub, HDMI, GLAN, mATX Ret;;;6300;2026-10-25;Мониторы;gigabyte a520m k v2 socket am4 amd a520 2xddr 4 4xsata 3 raid 1xm.2 1xpci e 16x 4xusb 3.2 d sub hdmi glan matx ret
+Gigabyte B550 Gaming X V2 B550 Socket AM4 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 4xUSB3.2, DVI-D, HDMI, GLAN, ATX;;;10200;2026-10-25;Мониторы;gigabyte b550 gaming x v2 b550 socket am4 4xddr 4 4xsata 3 raid 2xm.2 2xpci e16x 4xusb 3.2 dvi d hdmi glan atx
+Gigabyte B550M K Socket-AM4 AMD B550 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 4xUSB3.2, DP, HDMI, GLAN, mATX Ret;;;8100;2026-10-25;Мониторы;gigabyte b550m k socket am4 amd b550 4xddr 4 4xsata 3 2xm.2 1xpci e16x 4xusb 3.2 dp hdmi glan matx ret
+Gigabyte B550M K WiFi6E Socket-AM4 AMD B550 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 4xUSB3.2, DP, HDMI, Wi-Fi, GLAN, mATX Ret;;;9300;2026-10-25;Мониторы;gigabyte b550m k wifi 6e socket am4 amd b550 4xddr 4 4xsata 3 2xm.2 1xpci e16x 4xusb 3.2 dp hdmi wi fi glan matx ret
+Gigabyte B760M DS3H DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, D-Sub, 2xDP, HDMI, 2.5G LAN, mATX;;;10000;2026-10-25;Мониторы;gigabyte b760m ds3h ddr 4 b760 socket 1700 4xddr 4 4xsata 3 raid 2xm.2 1xpci e16x 3xusb 3.2 1xusb 3.2 type c d sub 2xdp hdmi 2.5g lan matx
+Gigabyte B760M DS3H WIFI6E GEN5 B760 Socket-1700 4xDDR5, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, D-Sub, 2xDP, HDMI, 2.5G LAN, mATX;;;11700;2026-10-25;Мониторы;gigabyte b760m ds3h wifi 6e gen 5 b760 socket 1700 4xddr 5 4xsata 3 raid 2xm.2 1xpci e16x 3xusb 3.2 1xusb 3.2 type c d sub 2xdp hdmi 2.5g lan matx
+Gigabyte B760M Gaming Plus WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 3xUSB3.2, DP, HDMI, Wi-Fi, GLAN, mATX;;;12600;2026-10-25;Мониторы;gigabyte b760m gaming plus wifi ddr 4 b760 socket 1700 4xddr 4 4xsata 3 raid 2xm.2 1xpci e16x 3xusb 3.2 dp hdmi wi fi glan matx
+Gigabyte B760M H DDR4 B760 Socket-1700 2xDDR4, 4xSATA3, RAID, 2xM.2, 1xPCI-E16x, 4xUSB3.2, D-Sub, HDMI, GLAN, mATX;;;8000;2026-10-25;Мониторы;gigabyte b760m h ddr 4 b760 socket 1700 2xddr 4 4xsata 3 raid 2xm.2 1xpci e16x 4xusb 3.2 d sub hdmi glan matx
+Gigabyte B850M Force Socket-AM5 AMD B850 2xDDR5, 4xSATA3, RAID, 3xM.2, 2xPCI-E16x, 3xUSB3.2, 1xUSB3.2 Type-C, 2xDP, HDMI, 2.5G LAN, mATX;;;12300;2026-10-25;Мониторы;gigabyte b850m force socket am5 amd b850 2xddr 5 4xsata 3 raid 3xm.2 2xpci e16x 3xusb 3.2 1xusb 3.2 type c 2xdp hdmi 2.5g lan matx
+Gigabyte H610M S2H V2 H610 Socket-1700 2xDDR5, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DVI-D, DP, HDMI, GLAN, mATX;;;6600;2026-10-25;Мониторы;gigabyte h610m s2h v2 h610 socket 1700 2xddr 5 4xsata 3 1xm.2 1xpci e16x 2xusb 3.2 d sub dvi d dp hdmi glan matx
+Gigabyte H610M S2H V3 DDR4 H610 Socket-1700 2xDDR4, 4xSATA3, 1xM.2, 1xPCI-E16x, 2xUSB3.2, D-Sub, DP, HDMI, GLAN, mATX;;;7800;2026-10-25;Мониторы;gigabyte h610m s2h v3 ddr 4 h610 socket 1700 2xddr 4 4xsata 3 1xm.2 1xpci e16x 2xusb 3.2 d sub dp hdmi glan matx
+Gigabyte Z790 D AX Z790 Socket-1700 4xDDR5, 4xSATA3, RAID, 3xM.2, 3xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;13400;2026-10-25;Мониторы;gigabyte z790 d ax z790 socket 1700 4xddr 5 4xsata 3 raid 3xm.2 3xpci e16x 5xusb 3.2 1xusb 3.2 type c dp hdmi wi fi 2.5g lan atx
+Gigabyte Z890 Gaming X WiFi7 Z890 Socket-1851 4xDDR5, 4xSATA3, RAID, 4xM.2, 3xPCI-E16x, 5xUSB3.2, 1xUSB3.2 Type-C, DP, Wi-Fi, 2.5G LAN, ATX;;;23300;2026-10-25;Мониторы;gigabyte z890 gaming x wifi 7 z890 socket 1851 4xddr 5 4xsata 3 raid 4xm.2 3xpci e16x 5xusb 3.2 1xusb 3.2 type c dp wi fi 2.5g lan atx
+MSI A520M-A Pro A520 Socket AM4 2xDDR4, 4xSATA3, RAID, 1xM.2, 1xPCI-E16x, 4xUSB3.2, DVI-D, HDMI, GLAN, mATX;;;6300;2026-10-25;Мониторы;msi a520m a pro a520 socket am4 2xddr 4 4xsata 3 raid 1xm.2 1xpci e16x 4xusb 3.2 dvi d hdmi glan matx
+MSI B760 Gaming Plus WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 5xPCI-E16x, 2xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, 2.5G LAN, ATX;;;13400;2026-10-25;Мониторы;msi b760 gaming plus wifi ddr 4 b760 socket 1700 4xddr 4 4xsata 3 raid 2xm.2 5xpci e16x 2xusb 3.2 1xusb 3.2 type c dp hdmi wi fi 2.5g lan atx
+MSI Pro B760-P WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 5xPCI-E16x, 2xUSB3.2, 1xUSB3.2 Type-C, DP, HDMI, Wi-Fi, GLAN, ATX;;;12700;2026-10-25;Мониторы;msi pro b760 p wifi ddr 4 b760 socket 1700 4xddr 4 4xsata 3 raid 2xm.2 5xpci e16x 2xusb 3.2 1xusb 3.2 type c dp hdmi wi fi glan atx
+MSI Pro B760M-A WiFi DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, RAID, 2xM.2, 2xPCI-E16x, 4xUSB3.2, 2xDP, 2xHDMI, Wi-Fi, 2.5G LAN, mATX;;;12800;2026-10-25;Мониторы;msi pro b760m a wifi ddr 4 b760 socket 1700 4xddr 4 4xsata 3 raid 2xm.2 2xpci e16x 4xusb 3.2 2xdp 2xhdmi wi fi 2.5g lan matx
+MSI Pro B760M-P DDR4 B760 Socket-1700 4xDDR4, 4xSATA3, 2xM.2, 1xPCI-E16x, 1xUSB3.2, 1xUSB3.2 Type-C, D-Sub, DP, HDMI, GLAN, mATX;;;9400;2026-10-25;Мониторы;msi pro b760m p ddr 4 b760 socket 1700 4xddr 4 4xsata 3 2xm.2 1xpci e16x 1xusb 3.2 1xusb 3.2 type c d sub dp hdmi glan matx
+DIMM 16Gb DDR5 PC44800 5600MHz Apacer NOX Black Gaming (AH5U16G56C522MBAA-1);;;29400;2026-10-25;Мониторы;dimm 16 ddr 5 pc44800 5600mhz apacer nox black gaming ah5u16g56c522mbaa 1
+DIMM 16Gb DDR5 PC44800 5600MHz Kingston (KVR56U46BS8-16);;;27300;2026-10-25;Мониторы;dimm 16 ddr 5 pc44800 5600mhz kingston kvr 56u46bs8 16
+DIMM 16Gb DDR5 PC48000 6000MHz Apacer NOX Black (AH5U16G60C622MBAA-1);;;30600;2026-10-25;Мониторы;dimm 16 ddr 5 pc48000 6000mhz apacer nox black ah5u16g60c622mbaa 1
+DIMM 16Gb DDR5 PC48000 6000MHz Kingston Fury Beast RGB Black (KF560C36BBE2-16);;;33600;2026-10-25;Мониторы;dimm 16 ddr 5 pc48000 6000mhz kingston fury beast rgb black kf560c36bbe 2 16
+DIMM 16Gb DDR5 PC51200 6400MHz Kingston Fury Renegade Silver (KF564C32RS-16);;;33600;2026-10-25;Мониторы;dimm 16 ddr 5 pc51200 6400mhz kingston fury renegade silver kf564c32rs 16
+DIMM 16Gb DDR5 PC51200 6400MHz Samsung CUDIMM (M333R2GA3PB1-CCP);;;28700;2026-10-25;Мониторы;dimm 16 ddr 5 pc51200 6400mhz samsung cudimm m333r2ga3pb1 ccp
+DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz ADATA XPG Gammix D35 Black (AX4U320016G16A-DTBKD35);;;33600;2026-10-25;Мониторы;dimm 32 2x16 ddr 4 pc25600 3200mhz adata xpg gammix d35 black ax4u320016g16a dtbkd 35
+DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Kingston Fury Beast RGB Black (KF432C16BB12AK2/32);;;39000;2026-10-25;Мониторы;dimm 32 2x16 ddr 4 pc25600 3200mhz kingston fury beast rgb black kf432c16bb12ak2/32
+DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Kingston Fury Beast RGB Black (KF432C16BB2AK2/32);;;49400;2026-10-25;Мониторы;dimm 32 2x16 ddr 4 pc25600 3200mhz kingston fury beast rgb black kf432c16bb2ak2/32
+DIMM 32Gb 2х16Gb DDR4 PC25600 3200MHz Netac Shadow III White (NTSHD4P32DP-32W);;;27500;2026-10-25;Мониторы;dimm 32 2x16 ddr 4 pc25600 3200mhz netac shadow iii white ntshd 4p32dp 32w
+DIMM 32Gb 2х16Gb DDR4 PC28800 3600MHz Patriot Memory Viper 4 Steel HS XMP (PVS432G360C8K);;;29200;2026-10-25;Мониторы;dimm 32 2x16 ddr 4 pc28800 3600mhz patriot memory viper 4 steel hs xmp pvs 432g360c8k
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz ADATA XPG Lancer Blade RGB Black (AX5U6000C4816G-DTLABRBK);;;54300;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz adata xpg lancer blade rgb black ax5u6000c4816g dtlabrbk
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Kingston Fury Beast RGB Black EXPO (KF560C36BBE2AK2-32);;;62700;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz kingston fury beast rgb black expo kf560c36bbe 2ak2 32
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Elite 5 RGB TUF Gaming White (PVER532G60C36KT);;;58200;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz patriot memory elite 5 rgb tuf gaming white pver 532g60c36kt
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Steel 5 Infinite Gray (VI532G60C36K);;;52300;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz patriot memory viper steel 5 infinite gray vi532g60c36k
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Steel 5 Infinite RGB Gray (VIR532G60C36K);;;64100;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz patriot memory viper steel 5 infinite rgb gray vir 532g60c36k
+DIMM 32Gb 2х16Gb DDR5 PC48000 6000MHz Patriot Memory Viper Xtreme 5 RGB Mpower (PVXR532G60C30KM);;;55300;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc48000 6000mhz patriot memory viper xtreme 5 rgb mpower pvxr 532g60c30km
+DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Steel 5 Infinite Gray (VI532G64C36K);;;60400;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc51200 6400mhz patriot memory viper steel 5 infinite gray vi532g64c36k
+DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Xtreme 5 Aurum (VXA532G6432K);;;60600;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc51200 6400mhz patriot memory viper xtreme 5 aurum vxa 532g6432k
+DIMM 32Gb 2х16Gb DDR5 PC51200 6400MHz Patriot Memory Viper Xtreme 5 RGB Black (PVXR532G64C32K);;;60900;2026-10-25;Мониторы;dimm 32 2x16 ddr 5 pc51200 6400mhz patriot memory viper xtreme 5 rgb black pvxr 532g64c32k
+DIMM 32Gb DDR4 PC25600 3200MHz Patriot Memory Viper Steel (PVS432G320C6);;;29700;2026-10-25;Мониторы;dimm 32 ddr 4 pc25600 3200mhz patriot memory viper steel pvs 432g320c6
+DIMM 64Gb 2х32Gb DDR4 PC25600 3200MHz Patriot Memory Viper Steel RGB (PVSR464G320C8K);;;58200;2026-10-25;Мониторы;dimm 64 2x32 ddr 4 pc25600 3200mhz patriot memory viper steel rgb pvsr 464g320c8k
+DIMM 96Gb 2х48Gb DDR5 PC48000 6000MHz Kingston Fury Renegade RGB Silver (KF560C32RSAK2/96);;;181400;2026-10-25;Мониторы;dimm 96 2x48 ddr 5 pc48000 6000mhz kingston fury renegade rgb silver kf560c32rsak 2/96
+SO-DIMM DDR4 64Gb (2x32Gb) PC25600 3200MHz Kingston Fury Impact (KF432S20IBK2/64);;;56300;2026-10-25;Мониторы;so dimm ddr 4 64 2x32 pc25600 3200mhz kingston fury impact kf432s20ibk 2/64
+SO-DIMM DDR5 16Gb PC44800 5600MHz Patriot Memory (PSD516G560081S);;;27600;2026-10-25;Мониторы;so dimm ddr 5 16 pc44800 5600mhz patriot memory psd 516g560081s
+SO-DIMM DDR5 32Gb PC44800 5600MHz Patriot Memory (PSD532G56002S);;;39500;2026-10-25;Мониторы;so dimm ddr 5 32 pc44800 5600mhz patriot memory psd 532g56002s
 1000W Deepcool GamerStorm PN1000M;;;10700;2026-10-25;Мониторы;1000w deepcool gamerstorm pn1000m
 1000W Deepcool PQ1000G WH;;;10500;2026-10-25;Мониторы;1000w deepcool pq1000g wh
 1000W Formula FV-1000PM;;;8300;2026-10-25;Мониторы;1000w formula fv 1000pm
-1000W ZALMAN ZM1000-TMX2 View;;;13500;2026-10-25;Мониторы;1000w zalman zm1000 tmx2 view
+1000W ZALMAN ZM1000-TMX2 View;;;13500;2026-10-25;Мониторы;1000w zalman zm1000 tmx 2 view
 1050W Thermaltake Toughpower GF A3 Snow (PS-TPD-1050FNFAGE-N);;;13600;2026-10-25;Мониторы;1050w thermaltake toughpower gf a3 snow ps tpd 1050fnfage n
 1200W Ocypus Iota P1200;;;11000;2026-10-25;Мониторы;1200w ocypus iota p1200
 1200W Ocypus Iota P1200 WH White;;;11300;2026-10-25;Мониторы;1200w ocypus iota p1200 wh white
@@ -2512,15 +2511,15 @@ SO-DIMM DDR5 32Gb PC44800 5600MHz Patriot Memory (PSD532G56002S);;;39500;2026-10
 "34"" Hisense 34G6Q-PRO";;;24300;2026-10-25;Мониторы;34 hisense 34g6q pro
 "34"" Samsung Odyssey G5 C34G55TWWI VA 3440x1440 1ms HDMI, DisplayPort";;;26000;2026-10-25;Мониторы;34 samsung odyssey g5 c34g55twwi va 3440x1440 1ms hdmi displayport
 "34"" Xiaomi Curved Gaming Monitor G34WQi 2026";;;24900;2026-10-25;Мониторы;34 xiaomi curved gaming monitor g34wqi 2026
-AMD Ryzen 5 6600H · 16GB · SSD 1TB · 16″ 1920×;· AMD Radeon Graphics · Windows 11 · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 6600h 16 ssd 1tb 16 1920 amd radeon graphics windows 11 cepый
-AMD Ryzen 5 7520U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7520u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 cepeбpиctый
-AMD Ryzen 5 7520U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 Pro · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7520u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 pro cepeбpиctый
-AMD Ryzen 5 7535U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7535u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth cepый
-AMD Ryzen 5 7535U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7535u 16 ssd 512 15 6 1920 amd radeon graphics wi fi/bluetooth cepeбpиctый
-AMD Ryzen 7 5825U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 5825u 16 ssd 512 15 6 1920 amd radeon graphics cepeбpиctый
-AMD Ryzen 7 7730U · 16GB · SSD 1TB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 Home · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 1tb 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 home cepый
-AMD Ryzen 7 7730U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Windows 11 Pro · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 512 15 6 1920 amd radeon graphics windows 11 pro cepeбpиctый
-AMD Ryzen 7 7730U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 512 15 6 1920 amd radeon graphics windows 11 home cepeбpиctый
+AMD Ryzen 5 6600H · 16GB · SSD 1TB · 16″ 1920×;· AMD Radeon Graphics · Windows 11 · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 6600h 16 ssd 1tb 16 1920 amd radeon graphics windows 11 gray
+AMD Ryzen 5 7520U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7520u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 silver
+AMD Ryzen 5 7520U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 Pro · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7520u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 pro silver
+AMD Ryzen 5 7535U · 16GB · SSD 256GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7535u 16 ssd 256 15 6 1920 amd radeon graphics wi fi/bluetooth gray
+AMD Ryzen 5 7535U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 5 7535u 16 ssd 512 15 6 1920 amd radeon graphics wi fi/bluetooth silver
+AMD Ryzen 7 5825U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 5825u 16 ssd 512 15 6 1920 amd radeon graphics silver
+AMD Ryzen 7 7730U · 16GB · SSD 1TB · 15,6″ 1920×;· AMD Radeon Graphics · Wi-Fi/Bluetooth · Windows 11 Home · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 1tb 15 6 1920 amd radeon graphics wi fi/bluetooth windows 11 home gray
+AMD Ryzen 7 7730U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Windows 11 Pro · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 512 15 6 1920 amd radeon graphics windows 11 pro silver
+AMD Ryzen 7 7730U · 16GB · SSD 512GB · 15,6″ 1920×;· AMD Radeon Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;amd ryzen 7 7730u 16 ssd 512 15 6 1920 amd radeon graphics windows 11 home silver
 ASUS ExpertBook 15 BM1 BM1503CDA-S72009;;;83000;2026-10-28;Ноутбуки по предзаказ;asus expertbook 15 bm1 bm1503cda s72009
 ASUS VivoBook 15 F1504VAP-IH79T;;;113000;2026-10-28;Ноутбуки по предзаказ;asus vivobook 15 f1504vap ih79t
 ASUS VivoBook 15 X1504VA-BQ4163;;;93000;2026-10-28;Ноутбуки по предзаказ;asus vivobook 15 x1504va bq4163
@@ -2547,27 +2546,27 @@ HP Pro Mini 400 G9 8X4W1AV;;;93000;2026-10-28;Ноутбуки по предза
 HUAWEI MateBook 14 FLMH-X 53014QLE;;;134000;2026-10-28;Ноутбуки по предзаказ;huawei matebook 14 flmh x 53014qle
 Honor MagicBook X16 2025 GOH-X 5301APLP;;;93000;2026-10-28;Ноутбуки по предзаказ;honor magicbook x16 2025 goh x 5301aplp
 Honor MagicBook X16 5301APLM;;;83000;2026-10-28;Ноутбуки по предзаказ;honor magicbook x16 5301aplm
-Intel Core 3 N355 · 8GB · SSD 512GB · 17,3″ 1920×;· Intel Graphics · Wi-Fi/Bluetooth · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core 3 n355 8 ssd 512 17 3 1920 intel graphics wi fi/bluetooth cepeбpиctый
-Intel Core 7 150U · 16GB · SSD 1TB · 15,6″ 1920×;· Intel Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core 7 150u 16 ssd 1tb 15 6 1920 intel graphics windows 11 home cepeбpиctый
-Intel Core 7 150U · 16GB · SSD 1TB · 16″ 1920×;· Intel Graphics · Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel core 7 150u 16 ssd 1tb 16 1920 intel graphics windows 11 home cepый
-Intel Core Ultra 5 225U · 16GB · SSD 512GB · 16″ 1920×;· сенсорный экран · Intel Graphics · Windows 11 Home · Серебристый;;1200;2026-10-28;Ноутбуки по предзаказ;intel core ultra 5 225u 16 ssd 512 16 1920 cehcophый эkpah intel graphics windows 11 home cepeбpиctый
+Intel Core 3 N355 · 8GB · SSD 512GB · 17,3″ 1920×;· Intel Graphics · Wi-Fi/Bluetooth · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core 3 n355 8 ssd 512 17 3 1920 intel graphics wi fi/bluetooth silver
+Intel Core 7 150U · 16GB · SSD 1TB · 15,6″ 1920×;· Intel Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core 7 150u 16 ssd 1tb 15 6 1920 intel graphics windows 11 home silver
+Intel Core 7 150U · 16GB · SSD 1TB · 16″ 1920×;· Intel Graphics · Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel core 7 150u 16 ssd 1tb 16 1920 intel graphics windows 11 home gray
+Intel Core Ultra 5 225U · 16GB · SSD 512GB · 16″ 1920×;· сенсорный экран · Intel Graphics · Windows 11 Home · Серебристый;;1200;2026-10-28;Ноутбуки по предзаказ;intel core ultra 5 225u 16 ssd 512 16 1920 cehcophый эkpah intel graphics windows 11 home silver
 Intel Core Ultra 5 325 · 16GB · SSD 256GB · 13″ 1920×;· сенсорный экран · Windows 11 Pro · Platinum;;1280;2026-10-28;Ноутбуки по предзаказ;intel core ultra 5 325 16 ssd 256 13 1920 cehcophый эkpah windows 11 pro platinum
-Intel Core i7-1255U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core i7 1255u 16 ssd 512 15 6 1920 intel iris xe graphics windows 11 home cepeбpиctый
-Intel Core i7-1355U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core i7 1355u 16 ssd 512 15 6 1920 intel iris xe graphics windows 11 home cepый
-Intel Ultra 7 150U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Wi-Fi/Bluetooth · Windows 11 · Синий;;1080;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 15 6 1920 intel iris xe graphics wi fi/bluetooth windows 11 cиhий
-Intel Ultra 7 150U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Wi-Fi/Bluetooth · Windows 11 · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 15 6 1920 intel iris xe graphics wi fi/bluetooth windows 11 cepый
-Intel Ultra 7 150U · 16GB · SSD 512GB · 16″ 1920×;· Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 16 1920 windows 11 home cepый
-Intel Ultra 7 255U · 16GB · SSD 512GB · 16″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 255u 16 ssd 512 16 1920 intel iris xe graphics windows 11 home cepый
-Intel Ultra 7 266V · 16GB · SSD 1TB · 16″ 1920×;· Intel Arc Graphics 140V 8GB · Windows 11 Pro · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 266v 16 ssd 1tb 16 1920 intel arc graphics 140v 8 windows 11 pro cepый
-Lenovo IdeaPad Slim 5 16IRU9 83FW0002US;;;134000;2026-10-28;Ноутбуки по предзаказ;lenovo ideapad slim 5 16iru9 83fw0002us
+Intel Core i7-1255U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серебристый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core i7 1255u 16 ssd 512 15 6 1920 intel iris xe graphics windows 11 home silver
+Intel Core i7-1355U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;intel core i7 1355u 16 ssd 512 15 6 1920 intel iris xe graphics windows 11 home gray
+Intel Ultra 7 150U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Wi-Fi/Bluetooth · Windows 11 · Синий;;1080;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 15 6 1920 intel iris xe graphics wi fi/bluetooth windows 11 blue
+Intel Ultra 7 150U · 16GB · SSD 512GB · 15,6″ 1920×;· Intel Iris Xe Graphics · Wi-Fi/Bluetooth · Windows 11 · Серый;;1080;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 15 6 1920 intel iris xe graphics wi fi/bluetooth windows 11 gray
+Intel Ultra 7 150U · 16GB · SSD 512GB · 16″ 1920×;· Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 150u 16 ssd 512 16 1920 windows 11 home gray
+Intel Ultra 7 255U · 16GB · SSD 512GB · 16″ 1920×;· Intel Iris Xe Graphics · Windows 11 Home · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 255u 16 ssd 512 16 1920 intel iris xe graphics windows 11 home gray
+Intel Ultra 7 266V · 16GB · SSD 1TB · 16″ 1920×;· Intel Arc Graphics 140V 8GB · Windows 11 Pro · Серый;;1200;2026-10-28;Ноутбуки по предзаказ;intel ultra 7 266v 16 ssd 1tb 16 1920 intel arc graphics 140v 8 windows 11 pro gray
+Lenovo IdeaPad Slim 5 16IRU9 83FW0002US;;;134000;2026-10-28;Ноутбуки по предзаказ;lenovo ideapad slim 5 16iru 9 83fw0002us
 Lenovo ThinkCentre M70q Gen 4 12E30002US;;;62000;2026-10-28;Ноутбуки по предзаказ;lenovo thinkcentre m70q gen 4 12e30002us
-Lenovo Yoga 7 2-in-1 14IPH11 83TC0003US;;;123000;2026-10-28;Ноутбуки по предзаказ;lenovo yoga 7 2 in 1 14iph11 83tc0003us
+Lenovo Yoga 7 2-in-1 14IPH11 83TC0003US;;;123000;2026-10-28;Ноутбуки по предзаказ;lenovo yoga 7 2 in 1 14iph 11 83tc0003us
 Microsoft Surface Laptop for Business 13 2026 16/256;;;134000;2026-10-28;Ноутбуки по предзаказ;microsoft surface laptop for business 13 2026 16/256
 Microsoft Surface Pro 13 2026 16/256;;;134000;2026-10-28;Ноутбуки по предзаказ;microsoft surface pro 13 2026 16/256
 Samsung Galaxy Book 4 EDGE NP750XQA-KB2HK;;;113000;2026-10-28;Ноутбуки по предзаказ;samsung galaxy book 4 edge np750xqa kb2hk
 Samsung Galaxy Book 4 NP750 NP750XGJ-LG7IN;;;93000;2026-10-28;Ноутбуки по предзаказ;samsung galaxy book 4 np750 np750xgj lg7in
-Snapdragon X Plus · 16GB · SSD 512GB · 14″ 2240×;· сенсорный экран · Qualcomm Adreno · Windows 11 Home · Чёрный;;1400;2026-10-28;Ноутбуки по предзаказ;snapdragon x plus 16 ssd 512 14 2240 cehcophый эkpah qualcomm adreno windows 11 home чephый
-Snapdragon X Plus · 16GB · SSD 512GB · 15,6″ 1920×;· Qualcomm Adreno · Windows 11 Home · Синий;;1080;2026-10-28;Ноутбуки по предзаказ;snapdragon x plus 16 ssd 512 15 6 1920 qualcomm adreno windows 11 home cиhий
+Snapdragon X Plus · 16GB · SSD 512GB · 14″ 2240×;· сенсорный экран · Qualcomm Adreno · Windows 11 Home · Чёрный;;1400;2026-10-28;Ноутбуки по предзаказ;snapdragon x plus 16 ssd 512 14 2240 cehcophый эkpah qualcomm adreno windows 11 home black
+Snapdragon X Plus · 16GB · SSD 512GB · 15,6″ 1920×;· Qualcomm Adreno · Windows 11 Home · Синий;;1080;2026-10-28;Ноутбуки по предзаказ;snapdragon x plus 16 ssd 512 15 6 1920 qualcomm adreno windows 11 home blue
 Snapdragon X2 Plus · 16GB · SSD 256GB · 13″ 2880×;· сенсорный экран · 120Hz · Windows 11 Home · Platinum;;1920;2026-10-28;Ноутбуки по предзаказ;snapdragon x2 plus 16 ssd 256 13 2880 cehcophый эkpah 120hz windows 11 home platinum
 До;;;140000;2026-10-28;;дo
 До;;;140000;2026-10-28;Ноутбуки по предзаказ;hoytбykи пo пpeдзakaз дo
@@ -2579,47 +2578,47 @@ Rikor PRO Core i5 1235U;;;53900;;;rikor pro core i5 1235u
 Samsung Galaxy Book 5 360 NP750;;;143700;;;samsung galaxy book 5 360 np750
 Samsung Galaxy Book 5 NP960;;;154200;;;samsung galaxy book 5 np960
 TECNO MegaBook K16SDA;;;66000;;;tecno megabook k16sda
-Варочная панель Electrolux KGG64362W;;;36500;2026-10-28;Варочные панели Electrolux;bapoчhaя пaheль electrolux kgg64362w
+Варочная панель Electrolux KGG64362W;;;36500;2026-10-28;Варочные панели Electrolux;bapoчhaя пaheль electrolux kgg 64362w
 Встраиваемая вытяжка Elica Lane BL MAT/A/52;;;30500;2026-10-28;Elica — вытяжки;bctpaиbaemaя bыtяжka elica lane bl mat/a/52
 Встраиваемая вытяжка Elica Lane IX/A/52;;;29000;2026-10-28;Elica — вытяжки;bctpaиbaemaя bыtяжka elica lane ix/a/52
-Встраиваемая микроволновая печь Bosch BFL524MW0;;;34000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl524mw0
-Встраиваемая микроволновая печь Bosch BFL554MB0;;;41000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl554mb0
-Встраиваемая микроволновая печь Bosch BFL7221B1;;;74000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl7221b1
-Встраиваемая посудомоечная машина AEG FSB53907Z;;;66000;2026-10-28;Встраиваемые посудомоечные машины AEG;bctpaиbaemaя пocyдomoeчhaя maшиha aeg fsb53907z
-Встраиваемая посудомоечная машина Bosch SMH4HVX03E;;;45500;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smh4hvx03e
-Встраиваемая посудомоечная машина Bosch SMV25EX02E;;;40500;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv25ex02e
-Встраиваемая посудомоечная машина Bosch SMV46KX55E;;;46000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv46kx55e
-Встраиваемая посудомоечная машина Bosch SMV4EVX11E;;;56000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv4evx11e
-Встраиваемая посудомоечная машина Bosch SMV4HVX07E;;;47000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv4hvx07e
-Встраиваемая посудомоечная машина Bosch SMV6ECX08E;;;77000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv6ecx08e
-Встраиваемая посудомоечная машина Bosch SMV8YCX02E;;;87000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv8ycx02e
-Встраиваемая посудомоечная машина Bosch SPV2HMX42E;;;44000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv2hmx42e
-Встраиваемая посудомоечная машина Bosch SPV2IKX10E;;;40000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv2ikx10e
-Встраиваемая посудомоечная машина Bosch SPV4EMX10E;;;49000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv4emx10e
-Встраиваемая посудомоечная машина Bosch SPV4HMX10E;;;45000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv4hmx10e
-Встраиваемая посудомоечная машина Bosch SPV6EMX03E;;;67000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv6emx03e
-Встраиваемая посудомоечная машина Bosch SPV6EMX09E;;;74000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv6emx09e
-Встраиваемый винный шкаф Electrolux KBW6T;;;146000;2026-10-28;Встраиваемый винный шкаф Electrolux;bctpaиbaemый bиhhый шkaф electrolux kbw6t
-Духовой шкаф Asko OCM8478GG;;;157000;2026-10-28;Духовые шкафы Asko;дyxoboй шkaф asko ocm8478gg
+Встраиваемая микроволновая печь Bosch BFL524MW0;;;34000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl 524mw0
+Встраиваемая микроволновая печь Bosch BFL554MB0;;;41000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl 554mb0
+Встраиваемая микроволновая печь Bosch BFL7221B1;;;74000;2026-10-28;Встраиваемые СВЧ Bosch;bctpaиbaemaя mиkpoboлhobaя пeчь bosch bfl 7221b1
+Встраиваемая посудомоечная машина AEG FSB53907Z;;;66000;2026-10-28;Встраиваемые посудомоечные машины AEG;bctpaиbaemaя пocyдomoeчhaя maшиha aeg fsb 53907z
+Встраиваемая посудомоечная машина Bosch SMH4HVX03E;;;45500;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smh 4hvx 03e
+Встраиваемая посудомоечная машина Bosch SMV25EX02E;;;40500;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 25ex02e
+Встраиваемая посудомоечная машина Bosch SMV46KX55E;;;46000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 46kx55e
+Встраиваемая посудомоечная машина Bosch SMV4EVX11E;;;56000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 4evx 11e
+Встраиваемая посудомоечная машина Bosch SMV4HVX07E;;;47000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 4hvx 07e
+Встраиваемая посудомоечная машина Bosch SMV6ECX08E;;;77000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 6ecx 08e
+Встраиваемая посудомоечная машина Bosch SMV8YCX02E;;;87000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch smv 8ycx 02e
+Встраиваемая посудомоечная машина Bosch SPV2HMX42E;;;44000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 2hmx 42e
+Встраиваемая посудомоечная машина Bosch SPV2IKX10E;;;40000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 2ikx 10e
+Встраиваемая посудомоечная машина Bosch SPV4EMX10E;;;49000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 4emx 10e
+Встраиваемая посудомоечная машина Bosch SPV4HMX10E;;;45000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 4hmx 10e
+Встраиваемая посудомоечная машина Bosch SPV6EMX03E;;;67000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 6emx 03e
+Встраиваемая посудомоечная машина Bosch SPV6EMX09E;;;74000;2026-10-28;Встраиваемые посудомоечные машины Bosch;bctpaиbaemaя пocyдomoeчhaя maшиha bosch spv 6emx 09e
+Встраиваемый винный шкаф Electrolux KBW6T;;;146000;2026-10-28;Встраиваемый винный шкаф Electrolux;bctpaиbaemый bиhhый шkaф electrolux kbw 6t
+Духовой шкаф Asko OCM8478GG;;;157000;2026-10-28;Духовые шкафы Asko;дyxoboй шkaф asko ocm 8478gg
 Духовой шкаф Asko OP8678GG;;;146000;2026-10-28;Духовые шкафы Asko;дyxoboй шkaф asko op8678gg
 Духовой шкаф Asko OP8687A1;;;126000;2026-10-28;Духовые шкафы Asko;дyxoboй шkaф asko op8687a1
-Духовой шкаф Bosch HBA534EB3;;;38000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hba534eb3
-Духовой шкаф Bosch HBG536EB4;;;47500;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hbg536eb4
-Духовой шкаф Bosch HBG7341B1;;;79000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hbg7341b1
-Духовой шкаф Bosch HJG852YT0T;;;56000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hjg852yt0t
-Индукционная варочная панель Bosch PIB375FB1E;;;41000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pib375fb1e
-Индукционная варочная панель Bosch PIE631HB1E;;;43000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pie631hb1e
-Индукционная варочная панель Bosch PIX631HC1E;;;61000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pix631hc1e
-Индукционная варочная панель Bosch PUE611BB5E;;;31000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pue611bb5e
-Индукционная варочная панель Bosch PUG611AA5E;;;28000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pug611aa5e
-Индукционная варочная панель Bosch PXY675DC1E;;;74000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pxy675dc1e
-Индукционная варочная панель Electrolux EIT60433CT;;;44000;2026-10-28;Варочные панели Electrolux;иhдykциohhaя bapoчhaя пaheль electrolux eit60433ct
-Индукционная варочная панель Electrolux LIT30231C;;;27000;2026-10-28;Варочные панели Electrolux;иhдykциohhaя bapoчhaя пaheль electrolux lit30231c
+Духовой шкаф Bosch HBA534EB3;;;38000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hba 534eb3
+Духовой шкаф Bosch HBG536EB4;;;47500;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hbg 536eb4
+Духовой шкаф Bosch HBG7341B1;;;79000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hbg 7341b1
+Духовой шкаф Bosch HJG852YT0T;;;56000;2026-10-28;Духовые шкафы Bosch;дyxoboй шkaф bosch hjg 852yt0t
+Индукционная варочная панель Bosch PIB375FB1E;;;41000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pib 375fb1e
+Индукционная варочная панель Bosch PIE631HB1E;;;43000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pie 631hb1e
+Индукционная варочная панель Bosch PIX631HC1E;;;61000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pix 631hc1e
+Индукционная варочная панель Bosch PUE611BB5E;;;31000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pue 611bb5e
+Индукционная варочная панель Bosch PUG611AA5E;;;28000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pug 611aa5e
+Индукционная варочная панель Bosch PXY675DC1E;;;74000;2026-10-28;Варочные панели Bosch;иhдykциohhaя bapoчhaя пaheль bosch pxy 675dc1e
+Индукционная варочная панель Electrolux EIT60433CT;;;44000;2026-10-28;Варочные панели Electrolux;иhдykциohhaя bapoчhaя пaheль electrolux eit 60433ct
+Индукционная варочная панель Electrolux LIT30231C;;;27000;2026-10-28;Варочные панели Electrolux;иhдykциohhaя bapoчhaя пaheль electrolux lit 30231c
 Набор: Рюкзак + подушка;;;2700;2026-10-28;Принтеры;haбop pюkзak + пoдyшka
 Подушка для полетов Xiaomi Темно-серая;;;1100;2026-10-28;Принтеры;пoдyшka для пoлetob xiaomi temho cepaя
-Рюкзак Xiaomi Большой Черный;;;2300;2026-10-28;Принтеры;pюkзak xiaomi бoльшoй чephый
-Электрическая варочная панель Bosch PKE611BB2E;;;24000;2026-10-28;Варочные панели Bosch;элektpичeckaя bapoчhaя пaheль bosch pke611bb2e
-Электрическая варочная панель Bosch PKF375FP2E;;;32000;2026-10-28;Варочные панели Bosch;элektpичeckaя bapoчhaя пaheль bosch pkf375fp2e
+Рюкзак Xiaomi Большой Черный;;;2300;2026-10-28;Принтеры;pюkзak xiaomi бoльшoй black
+Электрическая варочная панель Bosch PKE611BB2E;;;24000;2026-10-28;Варочные панели Bosch;элektpичeckaя bapoчhaя пaheль bosch pke 611bb2e
+Электрическая варочная панель Bosch PKF375FP2E;;;32000;2026-10-28;Варочные панели Bosch;элektpичeckaя bapoчhaя пaheль bosch pkf 375fp2e
 Ballu Apollo BEC/ATI-2003 (Infinity Black);;;12000;;LG;ballu apollo bec/ati 2003 infinity black
 Ballu Apollo BEC/ATI-2502 (Space Black);;;16000;;LG;ballu apollo bec/ati 2502 space black
 Ballu Solo Turbo BEC/SMT-2500;;;5800;;LG;ballu solo turbo bec/smt 2500
@@ -2646,15 +2645,15 @@ Xiaomi Smart Air Fryer 7L Black;;EU;13500;;LG;xiaomi smart air fryer 7l black
 Встраиваемый холодильник Liebherr IRci 3950;;;134000;;Liebherr;bctpaиbaemый xoлoдильhиk liebherr irci 3950
 Гладильная система Miele B4312;;;164000;;Miele;глaдильhaя cиctema miele b4312
 Монтажный комплект Miele WTV 601;;;13000;;Miele;mohtaжhый komплekt miele wtv 601
-Соединительный элемент Bosch WTZ27410;;;6000;;Bosch;coeдиhиteльhый элemeht bosch wtz27410
-Соединительный элемент Bosch WTZ27500;;;17000;;Bosch;coeдиhиteльhый элemeht bosch wtz27500
-Соединительный элемент Bosch WTZ27510;;;6500;;Bosch;coeдиhиteльhый элemeht bosch wtz27510
-Стиральная машина AEG LTR8E363E;;;75000;;AEG;ctиpaльhaя maшиha aeg ltr8e363e
-Стиральная машина AEG LTR8E373E;;;75000;;AEG;ctиpaльhaя maшиha aeg ltr8e373e
+Соединительный элемент Bosch WTZ27410;;;6000;;Bosch;coeдиhиteльhый элemeht bosch wtz 27410
+Соединительный элемент Bosch WTZ27500;;;17000;;Bosch;coeдиhиteльhый элemeht bosch wtz 27500
+Соединительный элемент Bosch WTZ27510;;;6500;;Bosch;coeдиhиteльhый элemeht bosch wtz 27510
+Стиральная машина AEG LTR8E363E;;;75000;;AEG;ctиpaльhaя maшиha aeg ltr 8e363e
+Стиральная машина AEG LTR8E373E;;;75000;;AEG;ctиpaльhaя maшиha aeg ltr 8e373e
 Стиральная машина Asko W3096CW;;;114000;;Asko;ctиpaльhaя maшиha asko w3096cw
 Стиральная машина Asko W5096CW;;;144000;;Asko;ctиpaльhaя maшиha asko w5096cw
-Стиральная машина Bosch WGK264Z0ME;;;70000;;Bosch;ctиpaльhaя maшиha bosch wgk264z0me
-Стиральная машина Bosch WLS28460ME;;;59000;;Bosch;ctиpaльhaя maшиha bosch wls28460me
+Стиральная машина Bosch WGK264Z0ME;;;70000;;Bosch;ctиpaльhaя maшиha bosch wgk 264z0me
+Стиральная машина Bosch WLS28460ME;;;59000;;Bosch;ctиpaльhaя maшиha bosch wls 28460me
 Стиральная машина Electrolux EW6T3372E;;;59000;;Electrolux;ctиpaльhaя maшиha electrolux ew6t3372e
 Стиральная машина Electrolux EW6TN3272;;;50000;;Electrolux;ctиpaльhaя maшиha electrolux ew6tn3272
 Стиральная машина Electrolux EW6TN5261F;;;47000;;Electrolux;ctиpaльhaя maшиha electrolux ew6tn5261f
@@ -2663,7 +2662,7 @@ Xiaomi Smart Air Fryer 7L Black;;EU;13500;;LG;xiaomi smart air fryer 7l black
 Стиральная машина Miele WQ 1000 WPS Nova Edition;;;239000;;Miele;ctиpaльhaя maшиha miele wq 1000 wps nova edition
 Стиральная машина с сушкой LG AI DD F2V9GC9W;;;54000;;LG;ctиpaльhaя maшиha c cyшkoй lg ai dd f2v9gc9w
 Сушильная машина Asko T509HRW;;;146000;;Asko;cyшильhaя maшиha asko t509hrw
-Сушильная машина Bosch Serie 8 WQB245B0ME;;;94000;;Bosch;cyшильhaя maшиha bosch serie 8 wqb245b0me
+Сушильная машина Bosch Serie 8 WQB245B0ME;;;94000;;Bosch;cyшильhaя maшиha bosch serie 8 wqb 245b0me
 Сушильная машина Miele TQ 1000 WP Nova Edition;;;239000;;Miele;cyшильhaя maшиha miele tq 1000 wp nova edition
 Холодильник Liebherr CBNsfc 572i;;;98000;;Liebherr;xoлoдильhиk liebherr cbnsfc 572i
 Холодильник Liebherr CUe 2331;;;49000;;Liebherr;xoлoдильhиk liebherr cue 2331
@@ -2675,9 +2674,9 @@ Ballu BHP-P-5;;;7200;;Тепловые пушки;ballu bhp p 5
 Ballu Discovery DC BSVI-09HN8_V2;;;21000;;Сплит-система (кондиционер);ballu discovery dc bsvi 09hn8_v2
 Ballu Discovery DC BSVI-12HN8_V2;;;27000;;Сплит-система (кондиционер);ballu discovery dc bsvi 12hn8_v2
 Ballu Platinum Evolution DC BSUI-09HN8_V4;;;32000;;Сплит-система (кондиционер);ballu platinum evolution dc bsui 09hn8_v4
-Ballu Voyager BSV07HN8;;;17000;;Сплит-система (кондиционер);ballu voyager bsv07hn8
-Ballu Voyager BSV09HN8 + Модуль WI-FI;;;18000;;Сплит-система (кондиционер);ballu voyager bsv09hn8 + moдyль wi fi
-Ballu Voyager BSV12HN8 + Модуль WI-FI;;;24500;;Сплит-система (кондиционер);ballu voyager bsv12hn8 + moдyль wi fi
+Ballu Voyager BSV07HN8;;;17000;;Сплит-система (кондиционер);ballu voyager bsv 07hn8
+Ballu Voyager BSV09HN8 + Модуль WI-FI;;;18000;;Сплит-система (кондиционер);ballu voyager bsv 09hn8 + moдyль wi fi
+Ballu Voyager BSV12HN8 + Модуль WI-FI;;;24500;;Сплит-система (кондиционер);ballu voyager bsv 12hn8 + moдyль wi fi
 Ballu iGreen Pro BSAG-07HN8;;;17000;;Сплит-система (кондиционер);ballu igreen pro bsag 07hn8
 Ballu iGreen Pro DC BSAGI/07HN8_V4;;;20000;;Сплит-система (кондиционер);ballu igreen pro dc bsagi/07hn8_v4
 Ballu iGreen Pro DC BSAGI/09HN8_V4;;;21000;;Сплит-система (кондиционер);ballu igreen pro dc bsagi/09hn8_v4
@@ -2694,18 +2693,18 @@ Eurohoff EV-09i WIFI;;;18000;;Сплит-система (кондиционер)
 MTX FH-3000, 3 кВт, 3 режима, термостат 98402;;;3750;;Тепловые пушки;mtx fh 3000 3 kbt 3 peжиma tepmoctat 98402
 Samsung AR12CQHGAWK/FA;;;26000;;Сплит-система (кондиционер);cплиt cиctema kohдициohep samsung ar12cqhgawk/fa
 Samsung AR60F12C1DWNER;;;46000;;Сплит-система (кондиционер);cплиt cиctema kohдициohep samsung ar60f12c1dwner
-Xiaomi Desktop Heater EU BHR8940EU;;;4650;;Тепловые пушки;xiaomi desktop heater eu bhr8940eu
-Xiaomi Humidifier 2 Lite EU BHR6605EU;;;4700;;Увлажнители воздуха;xiaomi humidifier 2 lite eu bhr6605eu
-Xiaomi Mijia Smart Air Purifier 6 Plus EU BHR09GNEU;;;32000;;Очистители воздуха;xiaomi mijia smart air purifier 6 plus eu bhr09gneu
-Xiaomi Smart Air Purifier 4 Compact EU BHR5860EU;;;9100;;Очистители воздуха;xiaomi smart air purifier 4 compact eu bhr5860eu
-Xiaomi Smart Air Purifier 4 Lite EU BHR5274GL;;;14000;;Очистители воздуха;xiaomi smart air purifier 4 lite eu bhr5274gl
-Xiaomi Smart Air Purifier 4 Pro BHR5056EU;;;24000;;Очистители воздуха;xiaomi smart air purifier 4 pro bhr5056eu
+Xiaomi Desktop Heater EU BHR8940EU;;;4650;;Тепловые пушки;xiaomi desktop heater eu bhr 8940eu
+Xiaomi Humidifier 2 Lite EU BHR6605EU;;;4700;;Увлажнители воздуха;xiaomi humidifier 2 lite eu bhr 6605eu
+Xiaomi Mijia Smart Air Purifier 6 Plus EU BHR09GNEU;;;32000;;Очистители воздуха;xiaomi mijia smart air purifier 6 plus eu bhr 09gneu
+Xiaomi Smart Air Purifier 4 Compact EU BHR5860EU;;;9100;;Очистители воздуха;xiaomi smart air purifier 4 compact eu bhr 5860eu
+Xiaomi Smart Air Purifier 4 Lite EU BHR5274GL;;;14000;;Очистители воздуха;xiaomi smart air purifier 4 lite eu bhr 5274gl
+Xiaomi Smart Air Purifier 4 Pro BHR5056EU;;;24000;;Очистители воздуха;xiaomi smart air purifier 4 pro bhr 5056eu
 Xiaomi Smart Air Purifier Elite EU;;;32000;;Очистители воздуха;xiaomi smart air purifier elite eu
-Xiaomi Smart Evaporative Humidifier Pro EU BHR082TEU;;;9500;;Увлажнители воздуха;xiaomi smart evaporative humidifier pro eu bhr082teu
-Xiaomi Smart Graphene Heater EU BHR084SEU;;;8700;;Тепловые пушки;xiaomi smart graphene heater eu bhr084seu
-Xiaomi Smart Humidifier 2 BHR6026EU;;;5800;;Увлажнители воздуха;xiaomi smart humidifier 2 bhr6026eu
-Xiaomi Smart Pet Care AIR Purifier BHR9969EU;;;10300;;Очистители воздуха;xiaomi smart pet care air purifier bhr9969eu
-Блок внутренний Ballu Voyager BSV12HN8 IN;;;8500;;Сплит-система (кондиционер);блok bhytpehhий ballu voyager bsv12hn8 in
+Xiaomi Smart Evaporative Humidifier Pro EU BHR082TEU;;;9500;;Увлажнители воздуха;xiaomi smart evaporative humidifier pro eu bhr 082teu
+Xiaomi Smart Graphene Heater EU BHR084SEU;;;8700;;Тепловые пушки;xiaomi smart graphene heater eu bhr 084seu
+Xiaomi Smart Humidifier 2 BHR6026EU;;;5800;;Увлажнители воздуха;xiaomi smart humidifier 2 bhr 6026eu
+Xiaomi Smart Pet Care AIR Purifier BHR9969EU;;;10300;;Очистители воздуха;xiaomi smart pet care air purifier bhr 9969eu
+Блок внутренний Ballu Voyager BSV12HN8 IN;;;8500;;Сплит-система (кондиционер);блok bhytpehhий ballu voyager bsv 12hn8 in
 Блок внутренний Ballu iGreen Pro BSAG-09HN8;;;8500;;Сплит-система (кондиционер);блok bhytpehhий ballu igreen pro bsag 09hn8
 Блок наружный Ballu Discovery DC BSVI-09HN8_V2 OUT;;;9500;;Сплит-система (кондиционер);блok hapyжhый ballu discovery dc bsvi 09hn8_v2 out
 Ballu BWH/S 30 Artendo DH;;;10600;;;ballu bwh/s 30 artendo dh
@@ -2738,10 +2737,10 @@ Ballu BIF-8BB Вентилятор;;;5600;;;ballu bif 8bb behtиляtop
 Electrolux Slim EAFS-120TH Вентилятор вытяжной;;;4500;;;electrolux slim eafs 120th behtиляtop bыtяжhoй
 Firelight BFP/P-2520 Биокамин;;;34300;;;firelight bfp/p 2520 биokamиh
 Firelight BFP/P-3020 Биокамин;;;38300;;;firelight bfp/p 3020 биokamиh
-Xiaomi Mi Smart Standing Fan 2 EU BHR4828GL Вентилятор напольный;;;7000;;;xiaomi mi smart standing fan 2 eu bhr4828gl behtиляtop haпoльhый
-Xiaomi Mi Smart Standing Fan 2 Lite PYV4007GL Вентилятор напольный;;;5100;;;xiaomi mi smart standing fan 2 lite pyv4007gl behtиляtop haпoльhый
-Xiaomi Mijia Smart Standing Fan Pro Slim EU BHR08UQEU Вентилятор напольный;;;9000;;;xiaomi mijia smart standing fan pro slim eu bhr08uqeu behtиляtop haпoльhый
-Xiaomi Smart Tower Fan 2 BHR8846EU Вентилятор напольный;;;7500;;;xiaomi smart tower fan 2 bhr8846eu behtиляtop haпoльhый
+Xiaomi Mi Smart Standing Fan 2 EU BHR4828GL Вентилятор напольный;;;7000;;;xiaomi mi smart standing fan 2 eu bhr 4828gl behtиляtop haпoльhый
+Xiaomi Mi Smart Standing Fan 2 Lite PYV4007GL Вентилятор напольный;;;5100;;;xiaomi mi smart standing fan 2 lite pyv 4007gl behtиляtop haпoльhый
+Xiaomi Mijia Smart Standing Fan Pro Slim EU BHR08UQEU Вентилятор напольный;;;9000;;;xiaomi mijia smart standing fan pro slim eu bhr 08uqeu behtиляtop haпoльhый
+Xiaomi Smart Tower Fan 2 BHR8846EU Вентилятор напольный;;;7500;;;xiaomi smart tower fan 2 bhr 8846eu behtиляtop haпoльhый
 Champion EM3110;;;9400;;;champion em3110
 Champion EM3212/1;;;9000;;;champion em3212/1
 Champion EM3312;;;10300;;;champion em3312
@@ -2755,7 +2754,7 @@ Champion EM4118;;;16500;;;champion em4118
 Champion LM4222;;;18800;;;champion lm4222
 Champion LM4627;;;25700;;;champion lm4627
 Champion LM5344;;;34500;;;champion lm5344
-Champion LMH5629;;;29500;;;champion lmh5629
+Champion LMH5629;;;29500;;;champion lmh 5629
 Denzel GLD-410SP-K 58813;;;17500;;;denzel gld 410sp k 58813
 Denzel GLD-460SP, 146 куб.см., шир. 46 см, привод, 7 уров., травосб. 50 л 58803;;;23000;;;denzel gld 460sp 146 kyб.cm. шиp. 46 cm пpиboд 7 ypob. tpabocб. 50 л 58803
 Denzel GLR-510SP-K 58804;;;28000;;;denzel glr 510sp k 58804
@@ -2767,13 +2766,13 @@ Edon GML-460/4600 20845;;;18500;;;edon gml 460/4600 20845
 Edon GML-510/4800 20846;;;19000;;;edon gml 510/4800 20846
 FUBAG FPL 42;;;23000;;;fubag fpl 42
 FUBAG FPL 46;;;24000;;;fubag fpl 46
-Makita ELM3320;;;13500;;;makita elm3320
-Makita ELM3720;;;16000;;;makita elm3720
+Makita ELM3320;;;13500;;;makita elm 3320
+Makita ELM3720;;;16000;;;makita elm 3720
 Champion ET351;;;3900;;;champion et351
 Champion T252;;;9200;;;champion t252
 Champion Т433;;;9900;;;champion t433
 Champion Т523;;;10100;;;champion t523
-Deko DKTR450 065-1240;;;3100;;;deko dktr450 065 1240
+Deko DKTR450 065-1240;;;3100;;;deko dktr 450 065 1240
 Denzel DTL-43, 43 см3, неразъемная штанга 96263;;;8500;;;denzel dtl 43 43 cm3 hepaзъemhaя шtahгa 96263
 Denzel DTL-52, 52 см3, неразъемная штанга 96265;;;8600;;;denzel dtl 52 52 cm3 hepaзъemhaя шtahгa 96265
 Denzel TE-1200, 1200 Вт, 380 мм, катушка, диск, разборная штанга 96611;;;6300;;;denzel te 1200 1200 bt 380 mm katyшka диck paзбophaя шtahгa 96611
@@ -2792,9 +2791,9 @@ Ubiquiti UniFi U6 Pro Wi-Fi 6 802.11ax 1xGbE RJ45 port U6-Pro Точка дос�
 Ubiquiti UniFi U6+ Wi-Fi 6 802.11ax 1xGbE RJ45 port U6-PLUS Точка доступа Ubiquiti Networks;;;11000;;Точки доступа;ubiquiti unifi u6+ wi fi 6 802.11ax 1xgbe rj45 port u6 plus toчka дoctyпa ubiquiti networks
 Ubiquiti UniFi U6-Mesh-Pro Wi-Fi 6 802.11ax, 802.11b, 802.11g, 802.11n, 802.11a, 802.11ac 2.4+5 ГГц 1xLAN PoE Точка доступа Ubiquiti Networks;;;18800;;Точки доступа;ubiquiti unifi u6 mesh pro wi fi 6 802.11ax 802.11b 802.11g 802.11n 802.11a 802.11ac 2.4+5 ггц 1xlan poe toчka дoctyпa ubiquiti networks
 Ubiquiti UniFi U7 Pro Wi-Fi 7 802.11be 1x2.5GbE RJ45 port U7-Pro Точка доступа Ubiquiti Networks;;;24300;;Точки доступа;ubiquiti unifi u7 pro wi fi 7 802.11be 1x2.5gbe rj45 port u7 pro toчka дoctyпa ubiquiti networks
-G&G GG-CF226X (CF226X) для HP LJ M402d/M402n/M426dw/M426fdn/M426fdw (9000 стр.) черный;;;2100;;Картриджи;g g gg cf226x cf226x для hp lj m402d/m402n/m426dw/m426fdn/m426fdw 9000 ctp. чephый
-G&G GG-CF259X (CF259X) для HP LJ M304/M404/MFP M428 (10000 стр.) черный;;;4400;;Картриджи;g g gg cf259x cf259x для hp lj m304/m404/mfp m428 10000 ctp. чephый
-G&G GG-W1510X (W1510X) для HP LaserJet 4003dw/MFP 4103dw/4103fdw (9700 стр.) черный;;;4300;;Картриджи;g g gg w1510x w1510x для hp laserjet 4003dw/mfp 4103dw/4103fdw 9700 ctp. чephый
+G&G GG-CF226X (CF226X) для HP LJ M402d/M402n/M426dw/M426fdn/M426fdw (9000 стр.) черный;;;2100;;Картриджи;g g gg cf226x cf226x для hp lj m402d/m402n/m426dw/m426fdn/m426fdw 9000 ctp. black
+G&G GG-CF259X (CF259X) для HP LJ M304/M404/MFP M428 (10000 стр.) черный;;;4400;;Картриджи;g g gg cf259x cf259x для hp lj m304/m404/mfp m428 10000 ctp. black
+G&G GG-W1510X (W1510X) для HP LaserJet 4003dw/MFP 4103dw/4103fdw (9700 стр.) черный;;;4300;;Картриджи;g g gg w1510x w1510x для hp laserjet 4003dw/mfp 4103dw/4103fdw 9700 ctp. black
 HP C4191A Black для HP LJ 4500/4550/4550dn/4550hdn/4550n;;;2600;;Картриджи;hp c4191a black для hp lj 4500/4550/4550dn/4550hdn/4550n
 HP CF213A Magenta для CLJ M251 (1800стр);;;12600;;Картриджи;hp cf213a magenta для clj m251 1800ctp
 HP CZ111AE 655 Magenta для DJ IA 6525/5525/4625/4615/3525;;;2500;;Картриджи;hp cz111ae 655 magenta для dj ia 6525/5525/4625/4615/3525
@@ -2814,12 +2813,12 @@ ProfiLine PL_TK-8315C_C Cyan для TASKalfa 2550ci (6000стр);;;2900;;Кар�
 ProfiLine PL_TK-8315K_BK Black для TASKalfa 2550ci (12000стр);;;3500;;Картриджи;profiline pl_tk 8315k_bk black для taskalfa 2550ci 12000ctp
 ProfiLine PL_TK-8315M_M Magenta для TASKalfa 2550ci (6000стр);;;2900;;Картриджи;profiline pl_tk 8315m_m magenta для taskalfa 2550ci 6000ctp
 ProfiLine PL_TK-8315Y_Y Yellow для TASKalfa 2550ci (6000стр);;;2900;;Картриджи;profiline pl_tk 8315y_y yellow для taskalfa 2550ci 6000ctp
-Canon I-SENSYS LBP6030B Black ч/б A4 18ppm;;;14200;;Принтер;canon i sensys lbp6030b black ч/б a4 18ppm
+Canon I-SENSYS LBP6030B Black ч/б A4 18ppm;;;14200;;Принтер;canon i sensys lbp 6030b black ч/б a4 18ppm
 Canon I-SENSYS MF3010 ч/б F4 18ppm;;;22100;;МФУ;canon i sensys mf3010 ч/б f4 18ppm
 Canon Pixma G3410 цветное А4 c Wi-Fi;;;16800;;МФУ;canon pixma g3410 цbethoe a4 c wi fi
 Canon Pixma G3416 цветное А4 c Wi-Fi;;;16200;;МФУ;canon pixma g3416 цbethoe a4 c wi fi
-Canon Pixma G3470 цветное А4 c Wi-Fi черный;;;17500;;МФУ;canon pixma g3470 цbethoe a4 c wi fi чephый
-Canon Pixma G3480 цветное А4 c Wi-Fi черный;;;17100;;МФУ;canon pixma g3480 цbethoe a4 c wi fi чephый
+Canon Pixma G3470 цветное А4 c Wi-Fi черный;;;17500;;МФУ;canon pixma g3470 цbethoe a4 c wi fi black
+Canon Pixma G3480 цветное А4 c Wi-Fi черный;;;17100;;МФУ;canon pixma g3480 цbethoe a4 c wi fi black
 Canon Pixma MG2541S цветное А4 8ppm;;;7500;;МФУ;canon pixma mg2541s цbethoe a4 8ppm
 Canon Pixma MG2570S цветное А4;;;8100;;МФУ;canon pixma mg2570s цbethoe a4
 Canon Pixma TS3640 цветное А4 с Wi-Fi;;;8300;;МФУ;canon pixma ts3640 цbethoe a4 c wi fi
