@@ -1,752 +1,534 @@
-# FUTURIST, FUNKT!DE — "DON'T STOP"
-## Instagram Reel · Music Video Treatment & Shooting Storyboard
-### Working title: **"SIDE A — BERLIN, AUGUST '97"**
-
-> *One cassette. One pair of orange-foam headphones. A city in August 1997.*
-> *The song plays first in one person's headphones. It passes from friend to friend until it reaches a rooftop and plays out loud for everyone.*
-> *The last word is "DON'T—". The cut lands before "stop", and the Reel loops.*
+# Futurist (ofc), FunkT!de — DON'T STOP
+## Креативная концепция и раскадровка промо-клипа
+**Instagram Reels · вертикаль 9:16 · 24,96 с · начало трека (0:00–0:24,96)**
+**Рабочее название: «AUGUST '97»**
 
 ---
 
-## 0. Contents
+## 1. Концепция
 
-1. [The idea](#1-the-idea)
-2. [Music map: the first 24.96 s of the track](#2-music-map-the-first-2496-s-of-the-track)
-3. [Look & feel](#3-look--feel)
-4. [Cast & wardrobe bible](#4-cast--wardrobe-bible)
-5. [Locations](#5-locations)
-6. [Master timeline](#6-master-timeline-at-a-glance)
-7. [Shot-by-shot storyboard + AI prompts](#7-shot-by-shot-storyboard)
-8. [AI generation playbook](#8-ai-generation-playbook)
-9. [Edit, grade & finishing](#9-edit-grade--finishing)
-10. [Delivery specs](#10-delivery-specs)
+### Идея одной фразой
+Андеграундный европейский фэшн-фильм, будто найденный на 16-мм ролле лета 1997 года. Жаркий день, пустой верхний этаж старой фабрики в Берлине. Четыре стильные модели в образах второй половины 90-х снимаются для независимого журнала, а камера продолжает работать между дублями. Под трек съёмка постепенно растворяется в свободном движении: сначала тишина, свет и взгляды в фабричных лучах, на дропе крыша в золотой час и танец.
 
-Companion files: [`shotlist.csv`](./shotlist.csv) (frame-accurate EDL-style list for the editor).
+### Как это звучит в кадре
+- **Вступление трека (0–17,28 с)** звучит отфильтрованно, без саба: оно горячее, сонное, напряжённое. Здесь фэшн-эдиториал в чистом виде: лучи солнца сквозь пыль, крупные планы, ткань, взгляды. Модели почти неподвижны, монтаж ускоряется вместе с хэтами.
+- **Последний такт перед дропом** даёт одну паузу: модель стоит в самом ярком луче и смотрит прямо в объектив.
+- **Дроп (17,28 с)** резко меняет пространство: тёмный интерьер обрывается, на экране ослепительная крыша в золотой час. Модели идут к камере, затем танцуют свободно, без хореографии.
 
----
+### Настроение
+Свобода · уверенность · притяжение · движение · молодость · андеграундная музыкальная культура. Культура здесь в деталях и атмосфере (этаж «после вечеринки», колонки, ящики с пластинками, флаеры на колоннах), а не в клубных штампах.
 
-## 1. The idea
+### Как концепция отвечает брифу
 
-### Logline
-A girl walks through Berlin on a hot late afternoon in August 1997 with the song playing in her headphones. She shares it with a boy on a scooter. Two friends fall in step, a girl leaves a laundromat to follow, and the group runs up a tenement stairwell. At the top she takes off the headphones and opens the rooftop door. The track drops and the whole roof is dancing to it out loud.
-
-### Why this concept works with *this* track
-The track's own structure gives the story.
-
-| What the music does | What the film does |
+| Требование брифа | Решение |
 |---|---|
-| **Bars 1–9:** a high-passed, thin intro with no sub-bass. It sounds like music heard through headphones. | **ACT I, "INSIDE THE HEADPHONES".** We hear exactly what Lena hears. The filtered sound is diegetic. |
-| The hats build for six bars, then pull back in bar 9 | The cutting gets faster as friends join, then holds one still shot (Lena takes the headphones off and looks into the lens). |
-| **Bar 10: the DROP.** Kick and sub-bass arrive. | **ACT II, "OUT LOUD".** The rooftop door opens on the downbeat. The bass the audience was missing in Act I is now everywhere. |
-| A short vocal call, "don't stop", on beat 4 of every second bar | Two lip-sync moments: the whole roof shouts it, then Lena mouths "Don't—" into the lens. |
-| The Reel is cut *before* the second "stop" | The film never says "stop". It loops back to the PLAY button. Instagram's autoplay loop carries the idea. |
+| Stylish underground European fashion film, 1995–1999 | Фэшн-эдиториал на 16 мм в пустом берлинском фабричном лофте и на его крыше, лето 1997 |
+| Authentic footage, not a cheap vintage filter | Реальная 16-мм «грамматика»: ручная камера, естественный свет, ступенчатая печать (step-print), засвеченные кадры только на стыках роллов. Зерно — сканы настоящей плёнки, а не фильтр. |
+| 16mm / Super 16mm | Super 16, камера Aaton XTR Prod, оптика Zeiss Super Speed и Canon 8–64 мм |
+| Natural film grain, subtle imperfections | Зерно, лёгкое дыхание кадра (gate weave), халация, лёгкие промахи фокуса, обрезанное «журнальное» кадрирование |
+| Warm, slightly faded colors | Тёплая, чуть выцветшая палитра телекино-переноса 90-х (см. §2) |
+| Organic handheld camera | Весь фильм с плеча, без стабилизатора и дрона |
+| Beautiful natural lighting | Только солнце: лучи сквозь фабричные окна, затем контровой золотой час |
+| Fashion editorial aesthetics | Композиции и кадрирование уровня i-D / The Face / Purple 90-х, в центре образы моделей |
+| Spontaneous human interactions | Шёпот и смех, переглядывание, танец лицом к лицу, столкнулись плечами и рассмеялись |
+| Stylish models, authentic 90s-inspired outfits | Четыре модели с разными типажами. Образы: минимализм, атласное slip-платье, кожаный кар-коут, укороченный кардиган и карго (§3). |
+| Avoid: generic AI aesthetics | Конкретные материалы, несовершенное кадрирование, реальная фактура кожи; запреты в негатив-промпте |
+| Avoid: neon cyberpunk | Только дневной свет, никакого неона и LED |
+| Avoid: nightclub clichés | Ни клуба, ни ночи, ни лазеров, ни «рук вверх»; диджей не в кадре |
+| Avoid: excessive VHS | Никакого VHS, только плёнка |
+| Avoid: unrealistic faces, artificial movements | Простые движения, которые генеративные модели делают естественно (взгляд, поворот, шаг, свободный танец). Нет липсинка и мелких манипуляций предметами. Лица в основном в движении или в свете и тени. |
+| Avoid: commercial advertising aesthetics | Нет продукта, логотипов, сюжетного «трюка», синхронной хореографии, замедленных «геройских» планов и стерильной симметрии |
+| Instagram Reels 9:16, 20–25 s | 1080×1920, 24,96 с |
 
-### Mood keywords
-Freedom · late-summer heat · friends you haven't met yet · flirtation without a script · the moment a song becomes *everyone's* · 1997 before smartphones.
-
-### What we are deliberately NOT doing
-- No club interiors, lasers, fog or neon. The party happens on a roof in daylight.
-- No cyberpunk or "future" visuals. The future here is the music, not the image.
-- No VHS. This is **film**: grain, halation, gate weave, light-struck frames. No tracking lines.
-- No glossy ad framing. Nobody holds a pose for the camera. The look is editorial, the behaviour is real.
-- No performance lip-sync of verses. The only mouthed words are the hook.
-
-### Reference shelf (for feeling, not to copy)
-- **Wolfgang Tillmans' and Corinne Day's 1990s youth and editorial photography**: candid intimacy, natural light, imperfect skin, friends as models.
-- **Christopher Doyle's step-printed handheld in 1990s Hong Kong cinema**: used once only (shot 16).
-- **Mid-90s street-level independent cinema shot on 16 mm**: restless handheld, real locations, non-actors.
-- **Late-90s European music-TV aesthetics**: small white locator credit lower-left, hard cuts, film-originated and transferred through telecine.
-
----
-
-## 2. Music map: the first 24.96 s of the track
-
-Measured from the supplied master `Futurist, Funktide - Don't Stop (Radio Edit)).wav` (44.1 kHz / 16-bit, 3:40.8) with beat tracking, band-energy analysis and vocal stem separation.
-
-### Key numbers
-
-| Parameter | Value |
-|---|---|
-| Tempo | **125.00 BPM**, 4/4, rock-steady (FL Studio grid) |
-| 1 beat | 0.48 s = **12 frames @ 25 fps** |
-| 1 bar | 1.92 s = **48 frames @ 25 fps** |
-| 1/8 note | 6 frames · 1/16 note = 3 frames |
-| Audio IN point | **0.070 s** into the WAV (sample 3 087). This is the first audible sample and also bar 1, beat 1. |
-| Audio OUT point | **25.030 s** into the WAV (sample 1 103 823), 10 ms fade-out |
-| **Reel length** | **24.96 s = 624 frames = exactly 13 bars** |
-
-> **Why 25 fps:** 1990s European music videos were shot for PAL (25 fps). At 125 BPM, 25 fps puts every beat on a whole frame: 12 frames per beat, 48 per bar. Every cut in this storyboard lands on an exact frame number.
-
-All times below are on the **Reel timeline** (= WAV time − 0.070 s).
-
-### Structure
-
-```
-BAR │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  ║ 10  │ 11  │ 12  │ 13  │
-SEC │0.00 │1.92 │3.84 │5.76 │7.68 │9.60 │11.52│13.44│15.36║17.28│19.20│21.12│23.04│→24.96
-FRM │  0  │ 48  │ 96  │ 144 │ 192 │ 240 │ 288 │ 336 │ 384 ║ 432 │ 480 │ 528 │ 576 │→624
-────┼─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────╫─────┴─────┴─────┴─────┤
-MIX │swell│ HIGH-PASSED GROOVE, no sub-bass ("headphones") ║ FULL MIX: kick + sub +│
-    │ ▲hit│   hats ▁▂▃▄▅▆▇ build ……………………… ▇ │pull ║ rolling offbeat bass  │
-    │ f27 │                                       │back ║                       │
-VOX │     │  ~sung line from 3.2 s ───────────────────▶ ║    "don't  ║ "DON'T—"│
-    │     │                                             ║     STOP!" ║   (cut) │
-────┴─────┴─────────────────────────────────────────────╨─────────────────────────┘
-          ACT I — INSIDE THE HEADPHONES (17.28 s)          ACT II — OUT LOUD (7.68 s)
-```
-
-### Sync points
-
-| Event | Time | Frame | Musical position | Used for |
-|---|---|---|---|---|
-| Reverse swell from silence | 0.00–1.0 s | 0–25 | bar 1 | Film-leader flash burns away (S01) |
-| **First transient** | **1.086 s** | **27** | bar 1, beat 3 + 1/16 | Thumb presses **PLAY** (S01) |
-| Groove fully running (8ths) | 1.44 s | 36 | bar 1, beat 4 | |
-| Sung vocal line enters | ≈3.2 s | ≈80 | bar 2, beat 3 | Lena mouths along (S02) |
-| Vocal accent | 9.12 s | 228 | bar 5, beat 4 | Marco's grin peaks (S05) |
-| Hats peak | 13.44–15.36 s | 336–383 | bar 8 | Quarter-note flash montage (S10) |
-| Hats pull back (pre-drop) | 15.36 s | 384 | bar 9 | The only still, held shot (S11) |
-| **DROP: kick + sub enter** | **17.28 s** | **432** | **bar 10, beat 1** | **Rooftop door opens** (S12) |
-| Vocal hook #1, "don't" | 20.82 s | ≈520 | bar 11, beat 4& | Crowd inhales, arms rise (S15) |
-| Vocal hook #1, "STOP!" | 21.12 s | 528 | bar 12, beat 1 | Arms pump, the peak shout (S15) |
-| Vocal hook #2, "DON'T—" | 24.48 s | 612 | bar 13, beat 4 | Lena mouths it into the lens (S18) |
-| *(would-be "stop" + bar 14 kick)* | *24.97 s* | *624* | *bar 14, beat 1* | **Cut before it.** Loop to frame 0. |
-
-> **Lyric check:** the two-syllable vocal stab after the drop is read as the title hook "don't stop". Confirm by ear. If the word is different, S15 and S18 still work as shouts or mouthed words. Adjust the mouth shape only.
+### Референсы (атмосфера, не копирование)
+- Фотографии Вольфганга Тиллманса, Коринн Дэй, Юргена Теллера и Дэвида Симса второй половины 90-х: естественный свет, неотретушированная кожа, молодость без глянца.
+- Журналы i-D, The Face, Dazed & Confused, Purple 1995–1999.
+- Минимализм европейской моды середины 90-х: Helmut Lang, Jil Sander, Martin Margiela, ранний Raf Simons (как ориентир по силуэтам, без логотипов).
+- Ступенчатая печать Кристофера Дойла в гонконгском кино середины 90-х. Используется в одном кадре (S18).
 
 ---
 
-## 3. Look & feel
+## 2. Визуальный язык
 
-### Camera (if shot for real, and the vocabulary we "prompt" the AI with)
-- **Format:** Super 16 mm, colour negative.
-- **Body:** Aaton XTR Prod or Arri SR3, both late-90s documentary and music-video workhorses.
-- **Vertical trick:** mount the camera **rotated 90°**. The Super 16 negative (7.41 × 12.52 mm) then becomes a 1:1.69 vertical frame. Extracting 9:16 loses only about 5 % of the negative, where a centre-crop from a horizontal frame would lose about 66 %.
-- **Lenses:** Zeiss Super Speed primes (9.5 / 12 / 16 / 25 mm, T1.3) for intimacy; Canon 8–64 mm T2.4 zoom for long-lens walking shots. A ¼ Black Pro-Mist in Act II only.
-- **Stocks:**
-  - Act I day exteriors: **Kodak EXR 50D (7245)**. Fine grain, crisp sun.
-  - Laundromat, stairwell and rooftop golden hour: **Kodak Vision 500T (7279)**, pushed +1 stop. Coarse grain, milky blacks, cyan-leaning shadows under daylight.
-- **Frame rate & shutter:** 25 fps, 180° (natural motion blur). Exceptions: S10 at 45° shutter (staccato) and S16 step-printed.
-- **Operating:** shoulder-mounted handheld throughout. Small sways, micro-corrections, occasional reframes. No gimbal or Steadicam float, no drones, no dolly polish.
+**Плёнка и камера**
+- Super 16 мм, цветной негатив.
+  - Интерьер: Kodak Vision 500T (7279), протяжка +1 ступень (крупное зерно, молочные чёрные).
+  - Крыша: тот же 500T с фильтром 85.
+- Камера Aaton XTR Prod, повёрнутая на 90°. Кадр Super 16 становится вертикальным 1:1,69, и при кадрировании под 9:16 теряется всего около 5 % негатива.
+- Оптика: Zeiss Super Speed 9,5 / 12 / 16 / 25 мм и зум Canon 8–64 мм для длинного фокуса. На крыше ¼ Black Pro-Mist.
+- 25 кадров/с (стандарт PAL для европейских клипов), затвор 180°. Исключения: S10–S13 с затвором 45° (резкое, «рваное» движение) и S18 со step-print.
 
-### Light
-Natural light only, plus practicals that belong to the location (laundromat fluorescents, stairwell window).
-- **Act I (≈5–6 pm):** hard, high sun through chestnut trees. Dappled light and shadow strobes across faces, bounced fill from pale facades. Contrast is high but blacks are never crushed.
-- **Stairwell:** dim, warm and cool mixed, hard slashes of daylight through tall windows.
-- **Act II (golden hour, ≈8:30 pm):** low sun directly **behind** the subjects. Rim light, natural flare, airborne dust and haze, an amber-to-magenta sky.
+**Камера в руках.** Всё с плеча: живое покачивание, микро-коррекции, иногда переобрамление на ходу. Никакой «плавающей» стабилизации.
 
-### Colour palette
+**Свет**
+- Интерьер (около 17:00): жёсткие косые лучи сквозь пыльные окна, глубокие тёплые тени, отражённый свет от деревянного пола.
+- Крыша (около 20:30): низкое солнце строго в контре, ореолы на волосах, естественные блики, золотая дымка.
 
-| Swatch | Hex | Role |
+**Палитра**
+
+| Цвет | Hex | Где |
 |---|---|---|
-| Sun-bleached cream | `#EFE3C8` | highlights, skies, pale facades |
-| Tobacco amber | `#B9783A` | golden-hour skin, sunlight |
-| Faded olive | `#7C7A4E` | trees, laundromat tiles, midtones |
-| Brick rust | `#A4553A` | facades, roof tar, warmth anchor |
-| Ice-blue satin | `#BFD3D6` | Lena's slip dress (hero colour) |
-| Headphone orange | `#E2742B` | the hero prop, in every act |
-| Cherry red | `#A8322D` | Noor's cardigan (single accent) |
-| Telecine teal shadow | `#2F4A4C` | shadows |
-| Lifted black | `#1D1A17` | darkest point. Never pure black. |
+| Выгоревший кремовый | `#EFE3C8` | света, небо, лучи |
+| Табачный янтарь | `#B9783A` | кожа на закате, солнце |
+| Кирпич | `#A4553A` | стены фабрики, рубероид |
+| Шампань-атлас | `#D8C3A0` | платье Майи |
+| Бэби-блю | `#A9C2D6` | кардиган Нины |
+| Телекино-бирюза | `#2F4A4C` | тени |
+| Приподнятый чёрный | `#1D1A17` | самая тёмная точка, чистого чёрного нет |
 
-### Texture rules (authentic, not a filter)
-- **Grain:** real scanned Super 16 grain, 50D-fine in Act I exteriors and 500T-coarse elsewhere. Strongest in shadows and the blue channel.
-- **Halation:** a thin red-orange glow around hard highlights (sun, windows, chrome).
-- **Gate weave:** 0.3–0.6 px slow drift. Not a jitter.
-- **Exposure flicker:** ±1–2 %, irregular.
-- **Dust and hair:** three or four events in the whole Reel, 1–2 frames each, plus one gate hair for about 10 frames in S07.
-- **Light-struck frames:** only at the start (S01), into the drop (2 frames) and at the roll-out ending (6 frames).
-- **Never:** VHS lines, RGB-split glitches, scratch-everywhere overlays, fake "film burn" transitions between every shot.
+**Фактура (не фильтр)**
+- Зерно Super 16 из настоящих сканов.
+- Халация вокруг ярких участков.
+- Дыхание кадра 0,3–0,6 px и мерцание экспозиции ±1–2 %.
+- Три-четыре пылинки на весь ролик.
+- Засвеченные кадры только трижды: на старте, перед дропом и в финале.
+- Никаких VHS-полос, глитчей и наложенных «царапин».
 
 ---
 
-## 4. Cast & wardrobe bible
+## 3. Модели и образы
 
-Casting approach: **street-cast real people**. Two professional models at most (Lena and Safi); everyone else is art-school, skate or record-shop kids. The faces should be specific and memorable, never generically "perfect". Wardrobe is real vintage. **No visible logos.**
+Кастинг: четыре модели с запоминающимися несовершенными лицами (в духе кастингов 90-х), без глянцевой «идеальности». Одежда винтажная или в духе эпохи, **без логотипов**.
 
-> Paste each character's **PROMPT BLOCK** verbatim into every prompt where that character appears. Identical wording plus a reference still is what keeps AI characters consistent.
+> Блоки **PROMPT BLOCK** вставляются в промпты дословно. Одинаковые формулировки вместе с референс-кадром держат внешность моделей стабильной от кадра к кадру.
 
-### LENA (lead, 22)
-The one with the headphones. Self-contained, magnetic, amused by the world. She never tries to be noticed, and that is why everyone follows her.
-- Hair: messy chin-length **bleached platinum bob with dark roots**, often tucked behind one ear.
-- Face: freckles, natural brows, bare skin, a little lip gloss.
-- Wardrobe: **pale ice-blue satin bias-cut slip dress** over a fitted **white ribbed tank top**. A **navy nylon track jacket with white piping** tied around the waist. **Chunky silver-white platform trainers.** Thin silver chain choker, small silver hoops, tiny **oval amber-lens sunglasses** pushed up into her hair.
-- Hero props: **orange-foam on-ear headphones** with a thin metal band; a **silver portable cassette player**; a **smoke-translucent cassette** with a white paper label (title handwritten in post).
-
+### АНЯ, 23 — минимализм
+Андрогинная, высокая, тёмные волосы коротко с прямой чёлкой, без макияжа. Белый ребристый топ без рукавов, чёрные расклешённые брюки с низкой посадкой, тонкий кожаный ремень, чёрные мюли с квадратным носом, крошечные прямоугольные очки.
 ```
-LENA PROMPT BLOCK:
-a 22-year-old Northern European woman with a messy chin-length bleached platinum bob with dark roots, freckles, natural brows and bare skin, wearing a pale ice-blue satin slip dress over a white ribbed tank top, a navy nylon track jacket with white piping tied around her waist, chunky silver-white platform trainers, small silver hoop earrings, a thin silver chain choker, tiny oval amber sunglasses pushed up in her hair, and small orange-foam on-ear headphones with a thin metal band
+ANJA PROMPT BLOCK:
+a tall androgynous 23-year-old woman with cropped dark-brown hair and a short blunt fringe, pale skin, strong natural brows and no makeup, wearing a white sleeveless ribbed shell top, low-rise black flat-front bootcut trousers with a thin black leather belt, black square-toe leather mules and tiny rectangular black sunglasses
 ```
 
-### MARCO (24)
-The scooter boy. Easy charm and a quick laugh. He's the first to get it.
+### МАЙЯ, 22 — атлас
+Темнокожая, очень короткие натуральные волосы, высокие скулы, маленькие золотые кольца в ушах. Атласное платье-комбинация цвета шампань по косой, сверху огромный серый мужской кардиган, сползающий с плеча, плоские чёрные сандалии.
 ```
-MARCO PROMPT BLOCK:
-a 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and three-day stubble, wearing a burgundy knit polo shirt with a short zip, a thin gold chain, wide stone-grey cargo trousers, brown suede low trainers and small black oval sunglasses
-```
-Prop: a **pale-mint vintage Italian-style scooter** (no badges) and a cream open-face helmet.
-
-### SAFI (23)
-The tall one, the fashion-editorial presence. Cool until she laughs, then she's the loudest.
-```
-SAFI PROMPT BLOCK:
-a tall 23-year-old Black woman with a close-cropped bleached-blonde buzz cut and strong brows, wearing a black ribbed tank top, a long silver chain, a silver cuff bracelet, wide-leg charcoal tailored trousers, black square-toe leather boots and tiny rectangular silver-frame sunglasses
+MAYA PROMPT BLOCK:
+a 22-year-old Black woman with close-cropped natural hair, high cheekbones, glossy bare skin and small gold hoop earrings, wearing a champagne bias-cut satin slip dress with thin straps under an oversized grey men's knit cardigan sliding off one shoulder, and flat black leather sandals
 ```
 
-### JONAS (21)
-Lanky, goofy, a very bad and very confident dancer. The comic release.
+### ЛУКА, 24 — кожа
+Худой, оливковая кожа, тёмные волосы на прямой пробор («шторки»), лёгкая щетина. Чёрный кожаный кар-коут до бедра, белая ребристая майка, тонкая серебряная цепочка, узкие графитовые брюки, чёрные ботинки с квадратным носом.
 ```
-JONAS PROMPT BLOCK:
-a lanky 21-year-old pale young man with shaggy brown curtain hair falling into his eyes, wearing a faded grey short-sleeve t-shirt layered over a green-and-cream striped long-sleeve top, baggy light-wash jeans with frayed hems, worn suede skate shoes and a beaded necklace
-```
-
-### NOOR (22)
-In the laundromat, bored, until the music walks past the window. Her chemistry with Marco is Act II's small story.
-```
-NOOR PROMPT BLOCK:
-a 22-year-old woman of North African heritage with dark hair in a sleek high ponytail with two face-framing strands, thin brows, brown lip liner with gloss, gold hoop earrings, wearing a cherry-red cropped cardigan over a white tank top and low-rise wide light-blue jeans
+LUCA PROMPT BLOCK:
+a slim 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and light stubble, wearing a hip-length black leather car coat over a white ribbed tank top, a thin silver chain, slim charcoal trousers and black square-toe boots
 ```
 
-### Rooftop crowd (15–20)
-Mixed late-90s European youth: mesh tops, band-style tees with no text, bucket hats, slip skirts, track jackets, cargo trousers, small sunglasses, bleached tips, a few piercings. Real bodies, real faces, varied ages from 19 to 30. No "club kid" costume and no rave clichés (no glow sticks, whistles or face paint).
+### НИНА, 21 — спорт-шик
+Миниатюрная, платиновое каре с отросшими тёмными корнями, веснушки, блеск на губах. Приталенный укороченный кардиган цвета бэби-блю на мелких пуговицах, широкие карго цвета кэмел с низкой посадкой, массивные серебристые кроссовки на платформе, бархатный чокер, крошечные овальные очки с янтарными линзами.
+```
+NINA PROMPT BLOCK:
+a petite 21-year-old woman with a messy chin-length bleached platinum bob with dark roots, freckles and glossy lips, wearing a fitted baby-blue cropped cardigan with tiny buttons, low-rise wide camel cargo trousers, chunky silver platform trainers, a thin black velvet choker and tiny oval amber-tinted sunglasses
+```
 
 ---
 
-## 5. Locations
+## 4. Локации
 
-Berlin, August 1997: the city between the Wall and the money. Unrenovated tenements, construction cranes on the skyline, empty courtyards, a lot of sky.
-
-| ID | Location | Key details | Light |
+| | Локация | Детали | Свет |
 |---|---|---|---|
-| L1 | **Street** (Prenzlauer Berg / Mitte style) | Cobblestones, tram tracks, peeling ochre-grey Altbau facades with old bullet scars, chestnut trees, an early-90s pastel hatchback at the kerb | Hard afternoon sun, dappled shade |
-| L2 | **Laundromat** | Big shop window with reflections, green tiles, rows of machines, fluorescent tubes | Cool fluorescent inside vs warm street outside |
-| L3 | **Tenement stairwell** | Spiral stair, worn wooden banister, chipped green-and-cream walls, tiled landings, skylight at top, battered grey steel roof door | Dim; slashes of hard window light |
-| L4 | **Rooftop** | Tar-paper roof, chimney stacks, TV antennas, satellite dishes, sagging washing line, beer crates, silver boombox and two old hi-fi speakers. In the haze: cranes and the TV tower. | Golden hour, sun behind the crowd |
+| **L1** | **Фабричный этаж** | Пустой верхний этаж старой краснокирпичной фабрики. Высокие окна в стальных переплётах с пыльными стёклами, облупленная побелка, деревянный пол, чугунные колонны в обрывках флаеров (без читаемого текста). В углу стопка старых колонок и ящики с винилом. | Жёсткие косые лучи позднего дня, пыль в воздухе |
+| **L2** | **Крыша фабрики** | Рубероид, кирпичные трубы, старые антенны, ржавое ограждение. На горизонте в дымке Берлин и строительные краны (примета 1997 года). | Золотой час, солнце в контре |
 
-Time compresses across the 25 seconds, from late afternoon to golden hour. The light itself tells you something is building.
-
----
-
-## 6. Master timeline at a glance
-
-**25 fps · 624 frames · 24.96 s · 18 shots (21 incl. S10a–d)**
-
-| # | Title | In → Out (s) | Frames | Len | Bar.beat | Sync point |
-|---|---|---|---|---|---|---|
-| **S01** | PLAY | 0.00 → 1.92 | 0–47 | 48f | 1.1–1.4 | Leader burn-out; **PLAY on f27** |
-| **S02** | LENA | 1.92 → 5.76 | 48–143 | 96f | 2.1–3.4 | Mouths along at ≈f80 |
-| **S03** | THE STREET | 5.76 → 7.68 | 144–191 | 48f | 4.1–4.4 | Safi slides off the car on beat 3 |
-| **S04** | SHARE | 7.68 → 8.64 | 192–215 | 24f | 5.1–5.2 | Earcup reaches his ear on beat 2 |
-| **S05** | HE GETS IT | 8.64 → 9.60 | 216–239 | 24f | 5.3–5.4 | Grin peaks on f228 |
-| **S06** | FEET | 9.60 → 10.56 | 240–263 | 24f | 6.1–6.2 | Footfalls every 12f |
-| **S07** | THE LINE | 10.56 → 11.52 | 264–287 | 24f | 6.3–6.4 | Vocal phrase starts on the cut |
-| **S08** | NOOR | 11.52 → 12.48 | 288–311 | 24f | 7.1–7.2 | She looks up on beat 2 |
-| **S09** | SHE FOLLOWS | 12.48 → 13.44 | 312–335 | 24f | 7.3–7.4 | Door swings on beat 3 |
-| **S10a** | BANISTER | 13.44 → 13.92 | 336–347 | 12f | 8.1 | Hand slap on the beat |
-| **S10b** | SAFI LAUGHS | 13.92 → 14.40 | 348–359 | 12f | 8.2 | |
-| **S10c** | LANDING | 14.40 → 14.88 | 360–371 | 12f | 8.3 | |
-| **S10d** | SPIRAL | 14.88 → 15.36 | 372–383 | 12f | 8.4 | |
-| **S11** | THE DOOR | 15.36 → 17.28 | 384–431 | 48f | 9.1–9.4 | Look to lens; **2 flash frames f430–431** |
-| **S12** | THE ROOF | 17.28 → 19.20 | 432–479 | 48f | **10.1 DROP** | Door bursts open on f432 |
-| **S13** | LENA DANCES | 19.20 → 20.16 | 480–503 | 24f | 11.1–11.2 | |
-| **S14** | ATTRACTION | 20.16 → 20.80 | 504–519 | 16f | 11.3–11.4 | Cut 1 frame before the vocal |
-| **S15** | DON'T STOP! | 20.80 → 21.60 | 520–539 | 20f | 11.4& → 12.2 | **"STOP!" fists pump on f528** |
-| **S16** | STEP PRINT | 21.60 → 23.04 | 540–575 | 36f | 12.2–12.4 | 12.5 fps step-print |
-| **S17** | THE CIRCLE | 23.04 → 24.00 | 576–599 | 24f | 13.1–13.2 | Jonas spins on beat 1 |
-| **S18** | DON'T— | 24.00 → 24.96 | 600–623 | 24f | 13.3–13.4 | **Mouths "Don't" f612**; roll-out f618–623 → LOOP |
-
-### Cutting curve (shot lengths in frames)
+ENV-блоки для промптов:
 ```
-ACT I   S01 S02 S03 │ S04 S05 S06 S07 S08 S09 │ S10a b  c  d │ S11 ║ ACT II  S12 S13 S14 S15 S16 S17 S18
-         48  96  48 │  24  24  24  24  24  24 │  12 12 12 12 │  48 ║          48  24  16  20  36  24  24
-        └── calm ──┘ └──── accelerating ─────┘ └─ frantic ──┘ HOLD ║         DROP └── syncopated groove ──┘
-```
-Act I follows the **hi-hat build**: long, then half-bar, then quarter-note cuts, then one held bar of stillness. Act II follows the **bassline and the vocal**: syncopated lengths (16 / 20 / 36 frames) so the cuts groove instead of marching.
-
----
-
-## 7. Shot-by-shot storyboard
-
-Format per shot: **Visual · Camera · Light & atmosphere · Action & emotion · Edit rhythm · AI prompt** (+ risks and plan B where an AI is likely to struggle).
-
-Every AI prompt below is **self-contained and copy-paste ready**. Generate each clip at **5 s, 9:16**, then pick the frame range you need (see §8).
-
----
-
-### ACT I — INSIDE THE HEADPHONES  `bars 1–9 · 0:00.00–0:17.28`
-
----
-
-#### S01 · "PLAY"
-`0:00.00 → 0:01.92 · f0–47 · 48 frames · bar 1 (swell)`
-
-**Visual.** The Reel opens on light-struck orange-white film leader (a real scan, added in post) that burns away during the audio swell. Under it is an extreme close-up of a sun-warmed wooden windowsill. A hand slides a smoke-translucent cassette into a silver portable player, snaps the lid shut, and the thumb presses PLAY. The reels start to turn. The label reads **DON'T STOP** in black marker, and **FUTURIST, FUNKT!DE** on the J-card edge. This handwriting is the only title in the film.
-
-**Camera.** Macro (a 25 mm with a diopter, about 10 cm from the subject). Handheld, breathing slightly. Focus hunts for a moment, then lands on the button just before the press.
-
-**Light & atmosphere.** Raking late-afternoon sun from frame left, dust floating in the beam, warm amber highlights on chrome, soft shadow. Intimate and tactile, like a ritual.
-
-**Action & emotion.** Chipped silver nail polish and a casual, practised move. She has done this a thousand times. Anticipation.
-
-**Edit rhythm.** Hold one continuous shot. Leader burn from f0 to about f10, riding the swell. **The PLAY press bottoms out on f27**, exactly on the first musical transient (1.086 s). Optional: lay a real cassette-deck "clunk" foley at −18 dB on f27. Hard cut to S02 on the bar line (f48).
-
-**AI prompt**
-```
-Extreme close-up macro shot, vertical 9:16. A sun-warmed, paint-chipped wooden windowsill in an old Berlin apartment in August 1997. A young woman's hand with chipped silver nail polish slides a smoke-translucent cassette tape with a plain white paper label into an open silver portable cassette player, snaps the lid shut, and her thumb presses the PLAY button down firmly; the tape reels begin to turn behind the little window. Raking late-afternoon sunlight from the left, floating dust particles in the beam, warm amber glints on brushed metal, soft deep shadows. Handheld macro camera with a tiny breathing drift, very shallow depth of field, the focus briefly hunts and then lands on the button. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, fine organic film grain, slight halation on highlights, warm faded colors, lifted milky blacks, telecine transfer look. Real-time speed, no slow motion. No text, no logos.
-```
-**Risk / plan B.** Hand-object interaction is the classic AI failure. Generate 6–10 takes and use only the 0.6 s around the press. Label text and the leader burn are **added in post** (handwritten scan, planar-tracked). Plan B: lock off on the turning reels, with the click carried by sound and a 2-frame flash.
-
----
-
-#### S02 · "LENA"
-`0:01.92 → 0:05.76 · f48–143 · 96 frames · bars 2–3`
-
-**Visual.** The longest shot in the film, and our introduction to Lena. A medium close-up as she walks briskly down a sunlit street, orange-foam headphones on, lost in the song. Chestnut-tree shadows flicker across her face. Behind her, soft and out of focus, are peeling ochre facades.
-
-**Camera.** 16 mm lens. The operator walks backwards just ahead of her at a three-quarter profile, slightly below eye level. Natural shoulder sway, with one small reframe when she tucks her hair.
-
-**Light & atmosphere.** Hard sun filtered by trees. Moving dapples and bright flashes strobe across her skin almost in rhythm with the hats. Pale walls give natural bounce fill. Heat and dust; it's August.
-
-**Action & emotion.** She ignores the camera completely. At about f80, when the vocal enters, she mouths a few words to herself and half-smiles. She tucks a strand behind her ear and glances at something off-frame. Private joy and quiet confidence.
-
-**Edit rhythm.** Hold for two full bars. This is the only long breath in Act I: let the audience fall for her. Optional: a **90s music-TV locator credit**, small white Helvetica lower-left (inside the safe zone, see §10), fading in on f60 and out on f136:
-`Futurist, FunkT!de` / `"Don't Stop"` / `(Radio Edit)`.
-
-**AI prompt**
-```
-Medium close-up, vertical 9:16, Berlin street, August 1997, late afternoon. A 22-year-old Northern European woman with a messy chin-length bleached platinum bob with dark roots, freckles, natural brows and bare skin, wearing a pale ice-blue satin slip dress over a white ribbed tank top, a navy nylon track jacket with white piping tied around her waist, small silver hoop earrings, a thin silver chain choker, tiny oval amber sunglasses pushed up in her hair, and small orange-foam on-ear headphones with a thin metal band, walks briskly along the pavement, lost in the music. She does not look at the camera: she silently mouths a few words of the song to herself, half-smiles, and tucks a strand of hair behind her ear. Handheld camera walking backwards just in front of her at a three-quarter profile, slightly below eye level, natural operator sway. Hard sunlight filtering through chestnut trees throws moving dappled shadows and bright flashes across her face. Out-of-focus background: crumbling ochre tenement facades with peeling plaster. Shot on Super 16mm film, 25fps, 180-degree shutter, natural motion blur, fine organic film grain, soft halation, warm faded colors, lifted blacks, cream highlights, slightly teal shadows, telecine look. Candid, unposed, real skin texture with pores and freckles. Real-time speed, no slow motion.
+L1: the empty top floor of an old red-brick factory in Berlin, summer 1997, tall steel-framed windows with dusty glass, peeling whitewashed brick walls, a worn wooden plank floor, cast-iron pillars covered with torn faded paper flyers with no legible text, a stack of old black speaker cabinets and crates of vinyl records in a corner
+L2: the flat tar-paper roof of an old Berlin factory at golden hour, summer 1997, brick chimney stacks, old TV antennas, a rusty railing, the hazy city skyline with construction cranes in the distance
 ```
 
 ---
 
-#### S03 · "THE STREET"
-`0:05.76 → 0:07.68 · f144–191 · 48 frames · bar 4`
+## 5. Музыка и тайминг
 
-**Visual.** A wide, low establishing shot of the world. Lena crosses a cobblestone street with tram tracks. Safi and Jonas sit on the bonnet of a pastel-blue early-90s hatchback. They clock her and slide off to follow.
+Взято **начало трека**: из `Futurist, Funktide - Don't Stop (Radio Edit)).wav` с 0,070 с (первый звучащий сэмпл) по 25,030 с.
 
-**Camera.** 9.5 mm wide lens, low, about 40 cm off the cobbles. Static handheld with a slight pan to follow Lena left to right.
-
-**Light & atmosphere.** Hard, warm, low-ish sun. Long shadows across the cobblestones, a slightly overexposed bleached sky, vertical facades leaning in from the wide lens.
-
-**Action & emotion.** Safi slides off the car first, on beat 3 (about f168). Jonas follows half a beat late and nearly trips. They don't call out; they just *go*. Curiosity and instinct.
-
-**Edit rhythm.** One bar, hard cut on the bar line. This is where the cutting starts to accelerate.
-
-**AI prompt**
-```
-Wide shot, vertical 9:16, low angle with a 9.5mm wide-angle lens close to the cobblestones. An unrenovated Berlin street in August 1997: tram tracks, peeling ochre and grey tenement facades with old bullet scars, chestnut trees, an early-1990s pastel-blue hatchback car parked at the curb with no badges. A young woman with a bleached platinum bob, a pale ice-blue satin slip dress and orange-foam headphones crosses the street from left to right. Two friends sitting on the car's bonnet watch her pass: a tall 23-year-old Black woman with a close-cropped bleached-blonde buzz cut in a black ribbed tank top, a long silver chain and wide-leg charcoal trousers, and a lanky 21-year-old pale young man with shaggy brown curtain hair in a grey t-shirt over a striped long-sleeve and baggy light jeans. The woman slides off the bonnet first, the young man follows a moment later, nearly tripping, and they both fall into step behind her, laughing. Handheld camera, slight pan to follow. Hard warm late-afternoon sunlight, long shadows on the cobblestones, slightly overexposed sky. Shot on Super 16mm film, 25fps, 180-degree shutter, organic film grain, gentle gate weave, warm faded colors, lifted blacks, telecine look. Candid, documentary, unposed. Real-time speed, no slow motion.
-```
-
----
-
-#### S04 · "SHARE"
-`0:07.68 → 0:08.64 · f192–215 · 24 frames · bar 5, beats 1–2`
-
-**Visual.** Marco rolls up at walking pace on a pale-mint scooter. Without breaking stride, Lena lifts one earcup off her own ear and presses it to his. Their heads lean together; one pair of headphones, two people.
-
-**Camera.** 25 mm. Handheld, tracking alongside at the same speed, medium two-shot in profile.
-
-**Light & atmosphere.** Backlit. A soft natural flare from the sun in the top corner, dust from the road, golden edges on hair.
-
-**Action & emotion.** Spontaneous and a little cheeky: she doesn't ask, she just shares. The first spark of flirtation.
-
-**Edit rhythm.** Half a bar. The earcup touches his ear **on beat 2 (f204)**; cut on beat 3.
-
-**AI prompt**
-```
-Medium two-shot in profile, vertical 9:16, handheld camera tracking alongside at walking pace on a sunlit Berlin street in 1997. A 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and three-day stubble, in a burgundy knit zip polo and a thin gold chain, rolls slowly on a pale mint vintage Italian-style scooter with no badges, right next to a young woman with a bleached platinum bob in a pale ice-blue satin slip dress who keeps walking. Without stopping, she lifts one orange-foam ear pad of her headphones off her own ear and presses it against his ear; their heads lean close together, sharing one pair of headphones, his hand stays on the handlebar. Backlit by warm low sun with a soft natural lens flare in the top corner, dusty air, golden rim light on hair. Spontaneous, playful, a hint of flirtation. Shot on Super 16mm film, 25fps, 180-degree shutter, natural motion blur, fine film grain, soft halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-**Risk / plan B.** Earcup-to-ear contact can warp. Plan B: she pulls the headphones off and drops them over his neck, or she simply holds the Walkman out and he leans in to listen.
-
----
-
-#### S05 · "HE GETS IT"
-`0:08.64 → 0:09.60 · f216–239 · 24 frames · bar 5, beats 3–4`
-
-**Visual.** A close-up of Marco on the scooter, one earcup to his ear. The music hits him: eyebrows up, a grin breaks, he nods on the beat. His sunglasses slide down his nose and he looks over them at her.
-
-**Camera.** 25 mm, close. Handheld, moving with him, small bounces.
-
-**Light & atmosphere.** Warm low sun on his face, golden skin, soft sunlit facades behind.
-
-**Action & emotion.** A real, unscripted laugh. Recognition: "where did you *find* this?"
-
-**Edit rhythm.** Half a bar. **The grin peaks on f228**, matching the vocal accent at 9.12 s. The nods sit on beats 3 and 4 (f216, f228).
-
-**AI prompt**
-```
-Close-up, vertical 9:16, of a 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and three-day stubble, in a burgundy knit zip polo and a thin gold chain, riding slowly on a scooter on a sunlit Berlin street in 1997, holding one orange-foam headphone ear pad to his ear. As the music hits him, his eyebrows rise, a wide genuine grin breaks across his face and he starts nodding to the beat; his small black oval sunglasses slide down his nose and he glances over them at someone just off-camera. Handheld camera moving with him, slight bounce. Warm low sunlight on his face, golden skin tones, out-of-focus sunlit facades behind. Natural, unscripted laughter, real skin texture. Shot on Super 16mm film, 25fps, 180-degree shutter, fine organic film grain, soft halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S06 · "FEET"
-`0:09.60 → 0:10.56 · f240–263 · 24 frames · bar 6, beats 1–2`
-
-**Visual.** An ankle-height tracking insert. Four pairs of feet walk *in step* on cobbles and tram rails (platform trainers, square-toe boots, suede skate shoes) beside the scooter's front wheel. Satin and wide trouser hems swing.
-
-**Camera.** 9.5 mm, about 15 cm off the ground. The operator crouches and walks backwards, bumps included.
-
-**Light & atmosphere.** Long forward shadows, sun glinting on the tram rails, dust kicked up.
-
-**Action & emotion.** This is the moment they become a group. A shared rhythm without anyone saying a word.
-
-**Edit rhythm.** Half a bar. **Footfalls land on f240 and f252** (one step per beat). 125 BPM is a natural brisk walking pace, so ask the actors to walk to a click and they will match the song.
-
-**AI prompt**
-```
-Low tracking shot at ankle height, vertical 9:16, camera gliding backwards just above old cobblestones and tram rails in Berlin, 1997. Four pairs of feet walk in step in the same rhythm, one footstep every beat at 125 BPM: chunky silver-white platform trainers under a swinging pale ice-blue satin slip dress hem, black square-toe leather boots under wide-leg charcoal trousers, worn suede skate shoes under frayed light-wash jeans, and the front wheel of a pale mint scooter rolling alongside. Hard late-afternoon sunlight, long shadows stretching forward, sunlight glinting on the tram rails, dust kicked up by the steps. Handheld, slightly bumpy, energetic. Shot on Super 16mm film, 25fps, 180-degree shutter, natural motion blur, organic film grain, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S07 · "THE LINE"
-`0:10.56 → 0:11.52 · f264–287 · 24 frames · bar 6, beats 3–4`
-
-**Visual.** A telephoto, head-on shot of the four walking toward camera in a loose line down the middle of the street. Lena is in the centre, Safi tall beside her, Jonas bumping Safi, Marco pushing the scooter. This is the fashion-editorial frame of the film, but nobody is posing.
-
-**Camera.** Long end of the Canon 8–64 mm, compressed perspective. Handheld with small framing corrections.
-
-**Light & atmosphere.** Backlit, heat shimmer above the cobbles, rim light on hair, warm haze. **One gate hair in frame for about 10 frames** (post) for authenticity.
-
-**Action & emotion.** They talk and laugh, someone stumbles. Confidence without intention. They look like a band before they are one.
-
-**Edit rhythm.** Half a bar. The cut lands exactly where the sung vocal phrase restarts (10.56 s).
-
-**AI prompt**
-```
-Telephoto long-lens shot with compressed perspective, vertical 9:16, head-on. Four young friends walk toward the camera in a loose line down the middle of a sunlit cobblestone street in Berlin in 1997: in the center a young woman with a bleached platinum bob, pale ice-blue satin slip dress and orange-foam headphones; beside her a tall Black woman with a bleached-blonde buzz cut, black tank top and long silver chain; a lanky young man with shaggy brown curtain hair in a striped long-sleeve jostling her shoulder; and an olive-skinned young man in a burgundy zip polo pushing a pale mint scooter. Backlit by the low sun, warm haze, heat shimmer above the cobblestones, rim light on their hair. Like a 1990s fashion editorial but completely unposed: they talk, laugh, one of them stumbles slightly. Handheld long lens with small framing corrections. Shot on Super 16mm film, 25fps, 180-degree shutter, organic film grain, soft halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S08 · "NOOR"
-`0:11.52 → 0:12.48 · f288–311 · 24 frames · bar 7, beats 1–2`
-
-**Visual.** A shot through a laundromat window. The glass carries warm reflections of the street and the blurred silhouettes of the group passing. Inside, Noor sits on a running washing machine flicking through a magazine under green fluorescent light. She looks up, and a slow half-smile follows.
-
-**Camera.** 25 mm, outside the glass. Static handheld sway. The focus racks from the reflections to Noor's face.
-
-**Light & atmosphere.** Cool green fluorescent interior against warm golden reflections. Two worlds on one pane of glass.
-
-**Action & emotion.** Boredom becomes curiosity. **She looks up on beat 2 (f300).**
-
-**Edit rhythm.** Half a bar. The colour temperature shift is the cut's punctuation.
-
-**AI prompt**
-```
-Medium shot through the large front window of a 1990s Berlin laundromat, vertical 9:16. The glass carries reflections of a sunlit street and the blurred silhouettes of a group of friends walking past outside. Inside, a 22-year-old woman of North African heritage with dark hair in a sleek high ponytail with two face-framing strands, thin brows, brown lip liner with gloss and gold hoop earrings, wearing a cherry-red cropped cardigan over a white tank top and low-rise wide light-blue jeans, sits on top of a running washing machine flicking through a magazine, under green-tinted fluorescent tube light, green tiled walls and rows of machines behind her. She looks up, notices the group outside, and a slow half-smile spreads across her face. Handheld camera with slight sway, focus racking from the reflections on the glass to her face. Mixed light: cool fluorescent interior versus warm golden street reflections. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, visible organic film grain, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S09 · "SHE FOLLOWS"
-`0:12.48 → 0:13.44 · f312–335 · 24 frames · bar 7, beats 3–4`
-
-**Visual.** Noor pushes out of the glass door and jogs into the street after the group, ponytail swinging. The magazine is left spinning on the machine.
-
-**Camera.** 16 mm. A whip-pan from the door, then the operator runs behind and beside her. Shaky but controlled.
-
-**Light & atmosphere.** From cool interior into blazing sun. The highlights briefly blow out and then recover, as a film stock would.
-
-**Action & emotion.** Impulse and freedom: the decision takes less than a second.
-
-**Edit rhythm.** Half a bar. **The door swings open on beat 3 (f312).** Cut on the bar line into the stairwell.
-
-**AI prompt**
-```
-Handheld follow shot, vertical 9:16. A 22-year-old woman of North African heritage with a sleek high dark ponytail, gold hoop earrings, a cherry-red cropped cardigan and low-rise wide light-blue jeans pushes open the glass door of a 1990s laundromat and jogs out into a sunlit Berlin street to catch up with a group of friends ahead, her ponytail swinging. The camera whip-pans to follow and runs after her from behind and to the side, shaky but controlled. She bursts from the cool fluorescent interior into bright warm late-afternoon sun; the highlights briefly overexpose and recover like film. Impulsive, free, joyful. Shot on Super 16mm film, 25fps, 180-degree shutter, natural motion blur, organic film grain, soft halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S10 · "STAIRS" (flash montage, quarter-note cuts)
-`0:13.44 → 0:15.36 · f336–383 · 4 × 12 frames · bar 8 (hi-hat peak)`
-
-**Visual.** Four fragments of the group storming up a 1900s tenement stairwell. They feel stolen rather than composed.
-
-| Sub | Frames | Image |
-|---|---|---|
-| **10a** | f336–347 | A hand slaps the worn wooden banister mid-run |
-| **10b** | f348–359 | Safi laughing, head thrown back, a window slash across her face |
-| **10c** | f360–371 | Jonas and Marco bump shoulders on a landing, Marco's cream helmet swinging |
-| **10d** | f372–383 | Looking straight up the spiral: Lena takes the steps two at a time toward the skylight |
-
-**Camera.** **45° shutter** (crisp, staccato, almost no motion blur, so the energy stutters). Handheld, close, fast.
-
-**Light & atmosphere.** Dim tenement interior on 500T: coarse grain, chipped green-and-cream walls, hard slashes of daylight through tall windows, dust in the air.
-
-**Action & emotion.** Breathless, laughing, a little reckless. The pulse of the hats made physical.
-
-**Edit rhythm.** **One cut per beat** (12 f), the fastest cutting in the film. Cuts hit **f336, 348, 360, 372**.
-
-**AI prompts**
-```
-10a — Close-up, vertical 9:16: a young hand slaps the worn, polished wooden banister of an old 1900s Berlin tenement staircase while running upward, chipped green-and-cream painted walls, a hard slash of daylight from a tall stairwell window, dust in the air. Crisp staccato motion as if shot with a narrow 45-degree shutter, handheld, fast. Shot on Super 16mm film, Kodak 500T pushed one stop, coarse organic grain, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-```
-10b — Close-up, vertical 9:16: a tall 23-year-old Black woman with a close-cropped bleached-blonde buzz cut, a black ribbed tank top and a long silver chain laughs with her head thrown back while running up an old Berlin tenement staircase, a hard slash of window light crossing her face, chipped green walls behind. Crisp staccato motion, narrow 45-degree shutter, handheld, breathless energy, genuine laughter, real skin texture. Shot on Super 16mm film, Kodak 500T pushed, coarse organic grain, halation on the window light, warm faded colors, lifted blacks. Real-time speed, no slow motion.
-```
-```
-10c — Medium shot, vertical 9:16, on a tiled landing of an old Berlin tenement stairwell: a lanky young man with shaggy brown curtain hair in a striped long-sleeve and an olive-skinned young man in a burgundy zip polo carrying a cream open-face helmet bump shoulders and laugh as they run up past the camera. Crisp staccato motion, narrow 45-degree shutter, handheld, chaotic and joyful. Dim interior with hard window light. Shot on Super 16mm film, Kodak 500T pushed, coarse grain, warm faded colors, lifted blacks. Real-time speed, no slow motion.
-```
-```
-10d — Looking straight up the spiral stairwell of an old 1900s Berlin tenement toward a bright skylight, vertical 9:16, wooden banister spiraling upward. A young woman with a bleached platinum bob and a pale ice-blue satin slip dress runs up the stairs two at a time, seen from below through the spiral, orange-foam headphones on her ears. Crisp staccato motion, narrow 45-degree shutter, handheld. Strong contrast between the dim stairwell and the glowing skylight, halation around the skylight. Shot on Super 16mm film, Kodak 500T pushed, coarse grain, warm faded colors, lifted blacks. Real-time speed, no slow motion.
-```
-
----
-
-#### S11 · "THE DOOR" (pre-drop hold)
-`0:15.36 → 0:17.28 · f384–431 · 48 frames · bar 9 (hats pull back)`
-
-**Visual.** The top of the stairs. A battered grey steel roof door, with daylight blazing through its cracks, frames Lena from behind. She stops, catches her breath, turns, and **looks straight into the lens** for the first time. Slowly, she slides the headphones down to her neck. Behind her the others crowd the last steps, chests heaving, grinning.
-
-**Camera.** 25 mm. A very slow handheld push-in from medium close-up to close-up. After the frantic S10, this is the stillest shot in the film.
-
-**Light & atmosphere.** Dim, warm interior. Hard knife-edges of sun from the door seams, airborne dust, heavy grain in the shadows. It feels like the moment before a flash.
-
-**Action & emotion.** A quiet, knowing smile that says "ready?". Calm control in the middle of everyone else's excitement. **The headphones leave her ears on beat 3 (f408)**. In the story, this is where the filtered sound will "open up".
-
-**Edit rhythm.** Hold the whole bar against the music's pull-back; the stillness is the tension. **The last 2 frames (f430–431) are light-struck** (a real flash-frame scan, orange-white), as if the door is opening into the sun. Hard cut into the drop.
-
-**AI prompt**
-```
-Medium close-up slowly pushing in to a close-up, vertical 9:16, at the top of a dim old Berlin tenement staircase. Behind her, a battered grey steel rooftop door with blazing daylight leaking through its cracks and edges. A 22-year-old Northern European woman with a messy chin-length bleached platinum bob with dark roots, freckles, bare skin, a pale ice-blue satin slip dress over a white ribbed tank top and small orange-foam on-ear headphones stops, catches her breath, turns and looks straight into the camera lens, then slowly slides the headphones down onto her neck with a quiet, confident, knowing smile. Behind her on the last steps, four friends crowd together, breathing hard and grinning. Slow handheld push-in. Dim warm interior, hard knife-edge shafts of sunlight from the door seams, dust floating in the light, deep shadows with heavy grain. Tension and anticipation. Shot on Super 16mm film, Kodak 500T pushed one stop, 25fps, 180-degree shutter, coarse organic film grain, halation around the light leaks, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-**Risk / plan B.** The direct look plus a slow push is a face-heavy shot, where AI "uncanny" shows most. Keep her face partly in shadow, generate many takes, and choose one with real micro-expressions (blinks, breath). Plan B: shoot it over her shoulder toward the glowing door, so she turns her head only to profile.
-
----
-
-### ACT II — OUT LOUD  `bars 10–13 · 0:17.28–0:24.96`
-
----
-
-#### S12 · "THE ROOF" (DROP)
-`0:17.28 → 0:19.20 · f432–479 · 48 frames · bar 10 — the drop`
-
-**Visual.** On the downbeat the steel door flies open. Sunlight overexposes the negative, then the rooftop reveals itself: tar paper, chimney stacks, TV antennas, a sagging washing line, beer crates, a silver boombox and two old hi-fi speakers. About twenty young people **turn as the bass lands and erupt into dancing.** In the haze beyond: construction cranes and the TV tower.
-
-**Camera.** 12 mm. The operator **bursts through the door** and keeps pushing forward into the crowd. It's handheld and chaotic, but the subject stays readable.
-
-**Light & atmosphere.** Golden hour. The low sun sits directly behind the crowd: rim light, natural flare, hazy amber air. Add ¼ Black Pro-Mist bloom from here to the end.
-
-**Action & emotion.** The release the whole first act was holding back. Joy, freedom and noise. Bodies move freely and nobody dances "well".
-
-**Edit rhythm.** **The cut is on f432, exactly on the drop.** The 2 flash frames before it make the entry hit harder. Hold the full bar: the audience needs one complete bar of the new sound to feel it.
-
-**AI prompt**
-```
-Handheld camera bursts through a battered steel door onto a Berlin rooftop at golden hour in August 1997, vertical 9:16, 12mm wide lens. The door swings open and blinding sunlight briefly overexposes the frame, then reveals a tar-paper roof with chimney stacks, old TV antennas, satellite dishes and a sagging washing line, about twenty young people in late-1990s clothes (mesh tops, slip dresses, track jackets, cargo trousers, small sunglasses, bleached hair), a big silver boombox and two old hi-fi speakers standing on beer crates. As the camera rushes forward among them, the crowd turns and erupts into loose, joyful, unchoreographed dancing. In the hazy distance: the city skyline with construction cranes and a TV tower. The low sun directly behind the crowd, strong backlight, natural lens flare, warm golden haze, glowing rim light on hair. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, strong halation and soft bloom on highlights, warm faded colors, lifted blacks, telecine look. Real people, candid documentary energy. Real-time speed, no slow motion.
-```
-
----
-
-#### S13 · "LENA DANCES"
-`0:19.20 → 0:20.16 · f480–503 · 24 frames · bar 11, beats 1–2`
-
-**Visual.** A medium shot of Lena dancing with her eyes closed, headphones around her neck, the bob whipping across her face, the satin dress catching the sun.
-
-**Camera.** 25 mm, handheld, moving with her and wobbling slightly.
-
-**Light & atmosphere.** The sun sits right behind her head, giving a halo of rim light and a soft natural flare. Out-of-focus dancers and chimneys behind.
-
-**Action & emotion.** Loose shoulders and hips riding the rolling offbeat bass. For the first time she's not in control; she's *in it*. Freedom and confidence.
-
-**Edit rhythm.** Half a bar. Her hip and shoulder accents fall on the off-beats (the bassline): f486, f498.
-
-**AI prompt**
-```
-Medium shot, vertical 9:16, on a tar-paper Berlin rooftop at golden hour in 1997. A 22-year-old Northern European woman with a messy chin-length bleached platinum bob with dark roots and freckles, wearing a pale ice-blue satin slip dress over a white ribbed tank top, orange-foam headphones hanging around her neck, dances with her eyes closed: loose, unchoreographed movement of shoulders and hips to a rolling bassline, her hair whipping across her face, the satin catching the light. The low sun directly behind her head creates a soft natural flare and a glowing golden rim around her hair. Handheld camera moving with her, slight wobble. Out-of-focus dancers and chimney stacks behind. Freedom and confidence. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, halation and soft bloom, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S14 · "ATTRACTION"
-`0:20.16 → 0:20.80 · f504–519 · 16 frames · bar 11, beat 3 → just before the hook`
-
-**Visual.** A close two-shot of Marco and Noor dancing face to face, very close. A look held a beat too long; then she laughs and pushes him back by the chest.
-
-**Camera.** 25 mm. Handheld, half-circling them.
-
-**Light & atmosphere.** Hard warm side light, faces half in shadow, a sheen of sweat.
-
-**Action & emotion.** Attraction, tension and a playful refusal. A whole romance in 16 frames.
-
-**Edit rhythm.** **16 frames, cut 1 frame before the vocal** ("don't" starts at 20.815 s, i.e. f520.4), so the shout lands on a fresh image.
-
-**AI prompt**
-```
-Close two-shot, vertical 9:16, on a Berlin rooftop at golden hour in 1997. A 24-year-old olive-skinned man with dark middle-parted curtain hair and stubble, in a burgundy knit zip polo and a thin gold chain, and a 22-year-old woman of North African heritage with a sleek high dark ponytail, gold hoops, brown lip liner and a cherry-red cropped cardigan dance face to face, very close; they hold eye contact a moment too long with obvious attraction, then she laughs and playfully pushes him away with one hand on his chest. Warm hard side light from the low sun, faces half in shadow, a light sheen of sweat. Handheld camera half-circling them. Spontaneous, intimate, natural micro-expressions. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S15 · "DON'T STOP!" (vocal hook #1)
-`0:20.80 → 0:21.60 · f520–539 · 20 frames · bar 11 beat 4& → bar 12 beat 2`
-
-**Visual.** A low-angle wide from inside the crowd. Everyone throws their arms up and shouts it together toward the sky. On "**STOP!**" the fists pump down. Hands, hair and heads are silhouetted against the blazing sun.
-
-**Camera.** 9.5 mm, from about waist height pointing up. Handheld, shoved upward with the crowd's movement.
-
-**Light & atmosphere.** Pure backlight: silhouettes, a big natural flare, gold dust in the air.
-
-**Action & emotion.** Euphoria and collective release. **This is the cover frame** (see §10).
-
-**Edit rhythm.** Arms rise during "don't" (f520–527). **Fists pump on f528, the bar 12 downbeat and the "STOP!"** Slip the clip by a frame or two until the visual peak sits exactly on f528. Cut after the vocal tail (f540).
-
-**AI prompt**
-```
-Low-angle wide shot from the middle of a rooftop crowd at golden hour, vertical 9:16, 9.5mm wide lens pointing up. Around twenty young people in late-1990s clothes throw their arms up together and shout joyfully toward the sky with mouths wide open, then pump their fists down hard on the beat, in one collective moment of release. Their hands, hair and heads are silhouetted against the low blazing sun, big natural lens flare, golden dust and haze in the air. Handheld camera shoved upward with the crowd, energetic, slightly shaky. Euphoria. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, strong halation and bloom, warm faded colors, lifted blacks, telecine look. Real people, candid. Real-time speed, no slow motion.
-```
-
----
-
-#### S16 · "STEP PRINT"
-`0:21.60 → 0:23.04 · f540–575 · 36 frames · bar 12, beats 2–4`
-
-**Visual.** Safi dances alone at the very edge of the roof against the setting sun, the city far below in haze. Her motion **smears and stutters** with the late-90s step-printed look: each image is held for two frames and streaks with motion blur.
-
-**Camera.** 16 mm, drifting around her. In a real shoot: 12 fps with a slow shutter, printed twice.
-
-**Light & atmosphere.** An amber-to-magenta sky with Safi as a deep silhouette. Her silver chain and cuff flare into streaks of light.
-
-**Action & emotion.** Time stretches. A private trance in the middle of the party, and the most "fashion film" image in the Reel.
-
-**Edit rhythm.** 36 frames, the longest shot in Act II: a breath inside the groove. Cut on bar 13's downbeat.
-
-**AI prompt**
-```
-Medium-wide shot, vertical 9:16: a tall 23-year-old Black woman with a close-cropped bleached-blonde buzz cut, a black ribbed tank top, a long silver chain, a silver cuff bracelet and wide-leg charcoal trousers dances alone at the very edge of a Berlin rooftop against the low setting sun, the city far below in warm haze with construction cranes on the skyline. Fluid, hypnotic, eyes half closed. Handheld camera slowly drifting around her. Amber and magenta sky, her figure in deep silhouette with glowing rim light, highlights on the silver chain and cuff. Shot on Super 16mm film, Kodak 500T, organic film grain, strong halation and bloom, warm faded colors, lifted blacks, telecine look. Real-time speed.
-```
-**Post (essential).** Do the step-print in post rather than asking the AI for it. Take the 25 fps clip, add heavy motion blur (a 360° shutter equivalent or a 2-frame blend), then **hold every frame for 2 frames (12.5 fps)**. In Resolve: Retime → Frame Blend + Motion Blur, then a 12.5 fps posterise in Fusion. In After Effects: CC Force Motion Blur followed by Posterize Time 12.5.
-
----
-
-#### S17 · "THE CIRCLE"
-`0:23.04 → 0:24.00 · f576–599 · 24 frames · bar 13, beats 1–2`
-
-**Visual.** A high, almost top-down angle from a chimney ladder. The crowd has formed a loose circle, clapping and laughing, while Jonas spins in the middle with awkward, total commitment. Long golden-hour shadows streak across the tar paper.
-
-**Camera.** 12 mm from about 3 m up. Handheld wobble.
-
-**Light & atmosphere.** Raking golden light. The shadows are longer than the people, which is graphic and beautiful from above.
-
-**Action & emotion.** Communal joy and comic release. Everyone belongs.
-
-**Edit rhythm.** Half a bar. **Jonas starts his spin on f576** (bar 13, beat 1).
-
-**AI prompt**
-```
-High-angle, almost top-down shot from a chimney ladder, vertical 9:16, 12mm wide lens: on a tar-paper Berlin rooftop at golden hour in 1997, a crowd of young people in late-1990s clothes forms a loose circle, clapping and laughing, as a lanky young man with shaggy brown curtain hair, a striped long-sleeve and baggy light jeans spins clumsily but with total confidence in the middle. Very long golden-hour shadows stretch across the roof surface. Handheld camera from above with slight wobble. Warm, joyful, communal. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, halation, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-
----
-
-#### S18 · "DON'T—" (vocal hook #2 → loop)
-`0:24.00 → 0:24.96 · f600–623 · 24 frames · bar 13, beats 3–4 → END`
-
-**Visual.** Lena, breathless and glowing, steps right up to the camera. She lifts the headphones from her neck and **puts them over the lens**, as if she's putting them on *you*. As she does, she mouths "**Don't—**" with a cheeky grin. The orange foam fills the frame, the image goes soft and dark, and the film **runs out**: orange-white roll-out flare. Then it loops to S01's leader.
-
-**Camera.** 25 mm, close. Handheld. She comes to the camera.
-
-**Light & atmosphere.** The sun behind her and her hair on fire with rim light, then orange foam, then light-struck film.
-
-**Action & emotion.** Complicity. She hands the song to the viewer.
-
-**Edit rhythm.** **She mouths "Don't" on f612** (24.48 s, bar 13 beat 4). The foam covers the lens around f614–617. **Roll-out burn f618–623.** **Hard end at f624**, one frame before the "stop" and the bar 14 kick (24.97 s). The track never says "stop": Instagram loops straight back to frame 0, where the leader burns and the thumb presses PLAY again. **DON'T [STOP].**
-
-**AI prompt**
-```
-Close-up, vertical 9:16, on a Berlin rooftop at golden hour in 1997. A 22-year-old Northern European woman with a messy chin-length bleached platinum bob with dark roots and freckles, wearing a pale ice-blue satin slip dress, breathless and glowing after dancing, steps right up to the camera, lifts the orange-foam on-ear headphones from around her neck and places them over the camera lens; as she does, she silently mouths one short word to the lens with a cheeky, complicit grin. The orange foam ear pad comes toward the lens and fills the frame, the image goes soft and dark. The low sun behind her sets her hair glowing with rim light, natural flare. Handheld, very close, intimate. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, halation and bloom, warm faded colors, lifted blacks, telecine look. Real-time speed, no slow motion.
-```
-**Risk / plan B.** Objects approaching and covering the lens are hard for AI. Plan B 1: she reaches out and **covers the lens with her palm** (AI handles this well), then the roll-out burn. Plan B 2: cut f600–613 as a close-up of her mouthing "Don't—", then f614–623 as a separate macro of the orange foam rushing at the lens, then the burn.
-
----
-
-## 8. AI generation playbook
-
-### Pipeline (recommended)
-1. **Character sheets first.** For each character, generate 6–8 stills with the PROMPT BLOCK (front, ¾, profile, full-body, in their wardrobe) in your stills model. Pick one hero image each. These become your **reference images** for every video generation.
-2. **Keyframes.** For each shot, generate a 9:16 still using the shot prompt *minus the motion sentences*, with the character reference attached. Approve the frames as a storyboard before spending on video.
-3. **Image-to-video.** Animate each approved keyframe with the full shot prompt in an image-to-video model (whichever you have access to, e.g. Kling, Veo, Runway, Sora, Hailuo, Seedance). Always:
-   - **9:16**, highest resolution available, **5 s** duration, real-time speed;
-   - character reference images or "elements" attached where supported;
-   - the negative prompt below where supported;
-   - **3–6 takes per shot** (10 for S01, S04, S11, S15 and S18).
-4. **Choose frames, not clips.** Our shots are 12–96 frames long. Take the most natural slice, usually from the middle of a generation. **Skip the first ~0.5 s** (AI "wake-up" stiffness) and the **last ~1 s** (identity drift and morphing).
-5. **Discard any audio** the model generates.
-6. **Conform** to 25 fps. If a model outputs 24 fps, speed it up 4 % to 25 fps (exactly what PAL telecine did to 24 fps film in 1997). **Do not use optical-flow interpolation** on AI clips; it creates mush.
-
-### Negative prompt (paste where supported)
-```
-digital video look, 4K hyper-sharpness, HDR, oversaturated colors, neon, cyberpunk, futuristic, LED lights, smartphones, modern cars, modern buildings, logos, brand names, readable text, watermarks, subtitles, VHS tracking lines, scanlines, chromatic aberration, glitch effects, excessive scratches, fake film burn overlays, plastic skin, airbrushed faces, beauty filter, perfectly symmetrical model faces, dead eyes, morphing faces, warped hands, extra fingers, fused limbs, floating objects, slow motion, gimbal float, drone shot, CGI, 3D render, video game look, bokeh balls, nightclub, lasers, fog machine, stage lighting, posing for the camera, stock-footage look
-```
-
-### Rules for faces and movement (avoiding the AI look)
-- **Faces in motion, not in portraits.** Only S02, S11 and S18 hold a face for longer than half a second. Elsewhere faces are moving, partly occluded (hair, sunglasses, shadow) or small in frame.
-- **Ask for micro-behaviour,** not emotions: "tucks hair behind her ear", "glances off-camera", "nearly trips", "catches her breath". Specific small actions read as real.
-- **Always write "real-time speed, no slow motion".** Most models default to dreamy slow motion, which kills groove.
-- **Always write "handheld … natural operator sway".** Otherwise you get gimbal float.
-- **Ask for "fine" grain only, and add the real grain in post.** AI-generated grain "boils" and is inconsistent between shots. One real scanned grain across all shots is what makes them look like *one roll of film*.
-- **No readable text from the AI.** The cassette label "DON'T STOP" and the J-card are **handwritten on paper, scanned, and tracked on** in post (Mocha or Resolve planar tracker).
-- **Hands and objects** (S01, S04, S18) are the riskiest. Over-generate, keep the slice short, and use the plan B options above.
-
-### Consistency checklist (before the edit)
-- [ ] Lena's hair is the *same* bleached bob with dark roots in every shot
-- [ ] The headphones are always **orange foam** (the hero prop and the colour anchor)
-- [ ] Slip dress colour is ice-blue, never white or silver
-- [ ] Marco's scooter is the same mint green
-- [ ] No modern objects in the background (phones, modern cars, LED signs, recent graffiti styles)
-- [ ] Sun direction is consistent within each act
-
----
-
-## 9. Edit, grade & finishing
-
-### Edit setup
-- Timeline: **1080 × 1920, 25 fps**.
-- Audio: the WAV from **0.070 s to 25.030 s**, placed at 00:00:00:00, with a **10 ms fade-out** only.
-- Markers on every bar (every 48 frames) and on the sync frames: **27, 228, 432, 528, 612, 624**.
-- **Hard cuts only.** The only transitions are **film** events: leader burn (S01), 2 flash frames (f430–431) and roll-out (f618–623), all from **real film-scan elements** blended in Screen or Add mode.
-- Cut **on** the beat frame. For the drop and the hooks, check by eye that the visual action peak (door opening, fists pumping) sits on the beat frame, and slip the clip ±1–2 frames if not.
-- The edit must **loop**: play f600–623, then f0–48, on repeat, and check that the roll-out → leader transition feels like one continuous film event.
-
-### Grade (DaVinci Resolve node order)
-1. **Normalise the AI.** Pull saturation down 15–25 %, soften contrast, and soften the image slightly (≈0.3–0.5 px blur). AI micro-detail is unnaturally crisp for 16 mm, whose effective resolution was about 1.2–1.5 K.
-2. **Balance** every shot to a common look per act (match skin first).
-3. **Film/telecine look:**
-   - lift blacks to about 3–5 % (target `#1D1A17`) and never crush;
-   - gentle highlight roll-off with cream highlights (`#EFE3C8`);
-   - warm, rosy-amber skin; nudge shadows slightly teal (`#2F4A4C`);
-   - Act I is warm-neutral with more contrast; the stairwell is green-cream; Act II is golden with an amber-magenta sky.
-4. **Halation:** a red-orange glow on the brightest highlights (sun, windows, chrome, the satin dress). Stronger in Act II.
-5. **Bloom / Pro-Mist:** Act II only, subtle.
-6. **Grain:** a **real Super 16 scan** (fine 50D-type for Act I exteriors, coarse 500T-type for the laundromat, stairwell and roof) in Overlay or Soft Light at 35–50 %, heavier in shadows. Set it slightly *stronger* than feels right, because Instagram compression smooths grain.
-7. **Gate weave** 0.3–0.6 px with slow random drift, and **exposure flicker** ±1–2 %.
-8. **Dust:** 3–4 single dust events plus one gate hair in S07. That's all.
-9. **Vignette:** subtle, mainly on 9.5 mm shots.
-
-### Sound
-The track only. Optional, very low: a **real cassette PLAY "clunk"** on f27. No other foley and no AI audio.
-
----
-
-## 10. Delivery specs
-
-| Item | Spec |
+| Параметр | Значение |
 |---|---|
-| Container / codec | MP4, H.264 High profile, 4:2:0, 2-pass VBR ≈ 16–20 Mbps |
-| Resolution / fps | **1080 × 1920, 25 fps**, progressive |
-| Duration | **24.96 s (624 frames)** |
-| Audio | AAC-LC 320 kbps, 48 kHz stereo (resampled from the 44.1 kHz master), peaks ≤ −1 dBTP |
-| Instagram | Turn on *Upload at highest quality* in the app's data or media quality settings before uploading |
-| Safe zones | Keep faces and key action inside the **central 1080 × 1440 (3:4)**, which is what the profile grid shows. Keep the bottom ~420 px clear of key content (caption and UI) and the right ~140 px clear of buttons. The S02 locator credit goes left-aligned at roughly 60–66 % of frame height, *above* the caption zone. |
-| **Cover frame** | **S15 @ f528**: arms up, silhouetted against the sun, on "STOP!" (it also reads well in a 3:4 crop). Alternative: S13. |
-| Disclosure | The footage is AI-generated and photorealistic, so switch on Instagram's AI label when posting. The "lost 1997 film" feeling is the style, not a claim. |
+| Темп | **125 BPM**, 4/4 |
+| 1 доля | 0,48 с = **12 кадров при 25 fps** |
+| 1 такт | 1,92 с = **48 кадров** |
+| Длительность ролика | **24,96 с = 624 кадра = ровно 13 тактов** |
 
-### Alternate cut (if a "complete phrase" ending is preferred)
-**21.60 s / 540 frames:** end on S15 after the full "DON'T STOP!" (f539), with the roll-out burn over f534–539. You lose the loop idea but end on the shouted hook. It's still within 20–25 s.
+| Момент | Время | Кадр | Что в музыке |
+|---|---|---|---|
+| Нарастание из тишины | 0,00–1,0 с | 0–25 | такт 1 |
+| Первый удар | 1,086 с | 27 | старт отфильтрованного грува |
+| Вступает вокальная линия | ≈3,2 с | ≈80 | такт 2 |
+| Вокальный акцент | 9,12 с | 228 | такт 5 |
+| Пик хэтов | 13,44–15,36 с | 336–383 | такт 8 |
+| Откат перед дропом | 15,36 с | 384 | такт 9 |
+| **ДРОП: бочка и саб** | **17,28 с** | **432** | **такт 10** |
+| Вокальный хук | 20,82–21,57 с | 520–539 | такт 11 → 12 |
+| Конец ролика | 24,96 с | 624 | граница 13-го такта |
+
+Структура: такты 1–9 — отфильтрованное вступление без саба, хэты растут до 8-го такта и откатываются в 9-м. С 10-го такта полный микс.
 
 ---
 
-*Creative concept, storyboard and music analysis prepared for Futurist, FunkT!de — "Don't Stop" (Radio Edit).*
+## 6. Раскадровка
+
+### Сводка
+
+| # | Название | Время | Кадры | Такт.доля |
+|---|---|---|---|---|
+| S01 | Свет | 0:00.00–0:01.92 | 0–47 (48) | 1.1–1.4 |
+| S02 | Этаж | 0:01.92–0:05.76 | 48–143 (96) | 2.1–3.4 |
+| S03 | Подоконник | 0:05.76–0:07.68 | 144–191 (48) | 4.1–4.4 |
+| S04 | Взгляд | 0:07.68–0:08.64 | 192–215 (24) | 5.1–5.2 |
+| S05 | Ответ | 0:08.64–0:09.60 | 216–239 (24) | 5.3–5.4 |
+| S06 | Ритм | 0:09.60–0:10.56 | 240–263 (24) | 6.1–6.2 |
+| S07 | Проход | 0:10.56–0:11.52 | 264–287 (24) | 6.3–6.4 |
+| S08 | Шёпот | 0:11.52–0:12.48 | 288–311 (24) | 7.1–7.2 |
+| S09 | Первое движение | 0:12.48–0:13.44 | 312–335 (24) | 7.3–7.4 |
+| S10 | Атлас | 0:13.44–0:13.92 | 336–347 (12) | 8.1 |
+| S11 | Поворот | 0:13.92–0:14.40 | 348–359 (12) | 8.2 |
+| S12 | Платина | 0:14.40–0:14.88 | 360–371 (12) | 8.3 |
+| S13 | Цепочка | 0:14.88–0:15.36 | 372–383 (12) | 8.4 |
+| S14 | Пауза | 0:15.36–0:17.28 | 384–431 (48) | 9.1–9.4 |
+| **S15** | **Крыша (ДРОП)** | 0:17.28–0:19.20 | 432–479 (48) | **10.1**–10.4 |
+| S16 | Майя | 0:19.20–0:20.16 | 480–503 (24) | 11.1–11.2 |
+| S17 | Притяжение | 0:20.16–0:21.12 | 504–527 (24) | 11.3–11.4 |
+| S18 | Шлейф | 0:21.12–0:23.04 | 528–575 (48) | 12.1–12.4 |
+| S19 | Вместе | 0:23.04–0:24.00 | 576–599 (24) | 13.1–13.2 |
+| S20 | Последний взгляд | 0:24.00–0:24.96 | 600–623 (24) | 13.3–13.4 |
+
+**Ритм монтажа в целом**
+```
+Длительность планов в кадрах:
+АКТ I   48 · 96 · 48 │ 24 · 24 · 24 · 24 · 24 · 24 │ 12 · 12 · 12 · 12 │ 48  ║  АКТ II  48 · 24 · 24 · 48 · 24 · 24
+        спокойно     │ ускорение (восьмые → хэты)  │ четверти, пик     │пауза║  дроп ── свободный грув, дыхание на S18
+```
+Только прямые склейки. Склейки стоят на долях: каждая доля — целый кадр (12 к). Плёночные «события» используются трижды: вспышка ракорда в начале, два засвеченных кадра перед дропом и засветка конца ролла в финале.
+
+---
+
+### АКТ I — ЖАРА  `такты 1–9 · 0:00.00–0:17.28 · L1 фабричный этаж`
+
+---
+
+#### S01 · «Свет»
+**Тайминг:** 0:00.00–0:01.92 · кадры 0–47 (48 к) · такт 1, нарастание из тишины
+
+1. **Визуальное описание.** Сверхкрупный профиль Ани в узком луче солнца. В луче висит пыль, за ней тёмная глубина пустого этажа. Первые ~12 кадров изображение проступает из оранжево-белой засветки ракорда (реальный скан плёнки).
+2. **Ракурс и движение камеры.** На уровне глаз, 25 мм. Камера в руках, почти статична, с лёгким «дыханием». Фокус на мгновение ищет и садится на ресницы.
+3. **Свет и атмосфера.** Жёсткий тёплый луч позднего дня; лицо наполовину в свету, остальное в глубокой тени. Жара, тишина, пыль.
+4. **Действия и эмоции модели.** Аня стоит с закрытыми глазами и греет лицо на солнце. На первом ударе трека медленно открывает глаза и чуть поворачивает голову к свету. Спокойствие и внутренняя уверенность.
+5. **Ритм монтажа.** Один план на весь такт. Засветка ракорда идёт на звуковом нарастании (к0–12). Глаза открываются **точно на к27** (первый удар, 1,086 с). Склейка на сильную долю, к48.
+6. **AI-промпт:**
+```
+Extreme close-up, vertical 9:16, profile of a tall androgynous 23-year-old woman with cropped dark-brown hair and a short blunt fringe, pale skin, strong natural brows and no makeup, wearing a white sleeveless ribbed shell top, standing in a narrow beam of hard late-afternoon sunlight on the empty top floor of an old red-brick factory in Berlin, summer 1997. Dust particles float in the sunbeam; the background falls into deep warm shadow. Her eyes are closed as she warms her face in the sun, then she slowly opens her eyes and turns her head slightly toward the light. Handheld camera at eye level, almost still, with a subtle breathing sway; the focus briefly searches and settles on her eyelashes. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, soft halation around the sunlit skin, warm slightly faded colors, lifted blacks, creamy highlights, telecine transfer look. Late-1990s underground fashion editorial, real skin texture with pores and fine hairs, no retouching. Real-time speed, no slow motion.
+```
+
+---
+
+#### S02 · «Этаж»
+**Тайминг:** 0:01.92–0:05.76 · кадры 48–143 (96 к) · такты 2–3
+
+1. **Визуальное описание.** Общий план пустого фабричного этажа: высокие окна, несколько лучей сквозь пыль, колонны в обрывках флаеров, в углу колонки и ящики с винилом. Четыре модели свободно расставлены в пространстве, без позирования. Майя сидит на подоконнике, подтянув колени. Лука прислонился к чугунной колонне. Нина в очках лежит на полу в пятне солнца. Аня стоит в луче. Пространство андеграунда при дневном свете, «на следующий день после».
+2. **Ракурс и движение камеры.** На уровне груди, 12 мм. Медленный проход вперёд с плеча: оператор идёт шагом, кадр мягко покачивается.
+3. **Свет и атмосфера.** Параллельные лучи из окон, тёплые глубокие тени, отражённый свет от деревянного пола. Знойный, ленивый, тихий воздух.
+4. **Действия и эмоции модели.** Минимум движения: Майя покачивает ступнёй, Нина заслоняет глаза рукой от солнца, Лука переводит взгляд. Ленивая уверенность; камеру как будто не замечают.
+5. **Ритм монтажа.** Самый длинный план ролика: 2 такта, 96 к. Зритель «входит» в мир и рассматривает образы. Около к80 вступает вокальная линия, камера к этому моменту приближается к моделям. Склейка на к144.
+6. **AI-промпт:**
+```
+Wide shot, vertical 9:16, of the empty top floor of an old red-brick factory in Berlin, summer 1997: tall steel-framed windows with dusty glass, peeling whitewashed brick walls, a worn wooden plank floor, cast-iron pillars covered with torn faded paper flyers with no legible text, a stack of old black speaker cabinets and crates of vinyl records in a corner. Several beams of hard late-afternoon sunlight cut through floating dust. Four young fashion models are spread loosely through the space, unposed: a Black woman with close-cropped hair in a champagne satin slip dress and an oversized grey cardigan sits on a window ledge with her knees pulled up, slowly swinging one foot; a slim olive-skinned man with curtain hair in a black leather car coat leans against a pillar; a petite woman with a bleached platinum bob in a baby-blue cropped cardigan and camel cargo trousers lies on the floor in a patch of sun, raising a hand to shade her eyes; a tall androgynous woman with a cropped dark fringe in a white sleeveless top and black bootcut trousers stands in a sunbeam. Handheld camera slowly walking forward at chest height with gentle natural sway. Hot, lazy, quiet atmosphere. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, subtle gate weave, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Candid late-1990s underground fashion editorial, no posing. Real-time speed, no slow motion.
+```
+
+---
+
+#### S03 · «Подоконник»
+**Тайминг:** 0:05.76–0:07.68 · кадры 144–191 (48 к) · такт 4
+
+1. **Визуальное описание.** Майя боком сидит на подоконнике высокого фабричного окна, в контровом свете. Кардиган сползает с плеча, атлас светится. Она смотрит на город за окном, потом переводит взгляд в камеру.
+2. **Ракурс и движение камеры.** Чуть снизу, 25 мм. Камера в руках, мягкий подход на полшага. Журнальное кадрирование: край кадра режет её по колени.
+3. **Свет и атмосфера.** Сильный тёплый контровой свет из окна, светящийся контур силуэта, халация на атласе, мягкая подсветка лица от пола.
+4. **Действия и эмоции модели.** Медленный взгляд из окна в объектив и едва заметная полуулыбка. Спокойная, слегка дерзкая уверенность. Взгляд приходит в камеру на 3-й доле (к168).
+5. **Ритм монтажа.** Один такт. Склейка на сильную долю к192, дальше нарезка по полтакта.
+6. **AI-промпт:**
+```
+Medium shot from slightly below, vertical 9:16, on the empty top floor of an old red-brick factory in Berlin, summer 1997. A 22-year-old Black woman with close-cropped natural hair, high cheekbones, glossy bare skin and small gold hoop earrings, wearing a champagne bias-cut satin slip dress with thin straps under an oversized grey men's knit cardigan sliding off one shoulder, sits sideways on the ledge of a tall dusty steel-framed window, backlit by the sun. She gazes out of the window at the city, then slowly turns her eyes to the camera with a faint, confident half-smile. Handheld camera drifting half a step closer, editorial framing cropping her at the knees. Strong warm backlight, glowing rim light around her silhouette, halation on the satin, soft bounce light on her face from the wooden floor. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, warm slightly faded colors, lifted blacks, creamy highlights, telecine transfer look. Late-1990s underground fashion editorial, real skin texture, unretouched. Real-time speed, no slow motion.
+```
+
+---
+
+#### S04 · «Взгляд»
+**Тайминг:** 0:07.68–0:08.64 · кадры 192–215 (24 к) · такт 5, доли 1–2
+
+1. **Визуальное описание.** Лука у чугунной колонны в обрывках флаеров, в кожаном кар-коуте. Он убирает волосы со лба и задерживает взгляд на ком-то за кадром.
+2. **Ракурс и движение камеры.** Средне-крупный план, на уровне глаз, 50 мм. Камера в руках, лёгкий дрейф.
+3. **Свет и атмосфера.** Полоса жёсткого солнца по лицу и плечу, остальное в тёплой тени. Кожа плаща бликует.
+4. **Действия и эмоции модели.** Убирает волосы и смотрит долго, спокойно, без улыбки. Интерес и притяжение.
+5. **Ритм монтажа.** Полтакта; с этого плана монтаж ускоряется вместе с хэтами. Склейка «взгляд → ответный взгляд» в S05.
+6. **AI-промпт:**
+```
+Medium close-up, vertical 9:16, on the empty top floor of an old red-brick factory in Berlin, summer 1997. A slim 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and light stubble, wearing a hip-length black leather car coat over a white ribbed tank top and a thin silver chain, leans against a cast-iron pillar covered with torn faded paper flyers with no legible text. He pushes his hair back from his forehead with one hand and holds a long, quiet look at someone off-camera, without smiling. A stripe of hard sunlight falls across his face and shoulder, the rest in warm shadow, the leather catching small highlights. Handheld camera with a slight drift, 50mm lens perspective. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Candid late-1990s fashion editorial, real skin texture. Real-time speed, no slow motion.
+```
+
+---
+
+#### S05 · «Ответ»
+**Тайминг:** 0:08.64–0:09.60 · кадры 216–239 (24 к) · такт 5, доли 3–4
+
+1. **Визуальное описание.** Нина лежит на деревянном полу в пятне солнца. Она приподнимается на локте и смотрит поверх крошечных очков в ответ.
+2. **Ракурс и движение камеры.** Сверху и сбоку, 25 мм. Камера в руках, небольшое покачивание.
+3. **Свет и атмосфера.** Тёплое пятно света на полу, золотые блики на платиновых волосах, пыль в воздухе.
+4. **Действия и эмоции модели.** Опускает подбородок, смотрит поверх очков, лукаво усмехается. Игра, вызов, притяжение. Усмешка на **к228** (вокальный акцент 9,12 с).
+5. **Ритм монтажа.** Полтакта, ответная реакция на S04 (переглядывание через монтаж). Склейка на к240.
+6. **AI-промпт:**
+```
+High-angle medium shot, vertical 9:16, on the empty top floor of an old red-brick factory in Berlin, summer 1997. A petite 21-year-old woman with a messy chin-length bleached platinum bob with dark roots, freckles and glossy lips, wearing a fitted baby-blue cropped cardigan with tiny buttons, low-rise wide camel cargo trousers, chunky silver platform trainers, a thin black velvet choker and tiny oval amber-tinted sunglasses, lies on a worn wooden plank floor in a warm patch of sunlight. She props herself up on one elbow, lowers her chin to look over the top of her sunglasses at someone off-camera, and gives a playful, knowing smirk. Handheld camera above and to the side with gentle sway. Warm sunlight, golden highlights in her bleached hair, dust in the air. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Candid late-1990s fashion editorial, real skin texture with freckles. Real-time speed, no slow motion.
+```
+
+---
+
+#### S06 · «Ритм»
+**Тайминг:** 0:09.60–0:10.56 · кадры 240–263 (24 к) · такт 6, доли 1–2
+
+1. **Визуальное описание.** Деталь: квадратный носок чёрного мюля Ани отбивает ритм по деревянному полу. Рядом чуть покачивается атласный подол Майи, в луче поднимается пыль.
+2. **Ракурс и движение камеры.** У самого пола, 25 мм. Камера в руках, статика с микродвижениями.
+3. **Свет и атмосфера.** Косой луч сбоку, длинные тени на досках, пыль светится.
+4. **Действия и эмоции модели.** Музыка «входит в тело»: первое непроизвольное движение, лёгкое и небрежное.
+5. **Ритм монтажа.** Полтакта. Удары носком **точно на долях: к240 и к252**.
+6. **AI-промпт:**
+```
+Low close-up at floor level, vertical 9:16: a black square-toe leather mule under the hem of low-rise black bootcut trousers taps the rhythm on the worn wooden plank floor of an empty old Berlin factory, one tap on every beat at 125 BPM; next to it the hem of a champagne satin slip dress sways slightly; dust rises and glows in a raking beam of hard late-afternoon sunlight, long shadows across the floorboards. Handheld camera near the floor, almost still with natural micro-movements. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, warm slightly faded colors, lifted blacks, telecine transfer look. Late-1990s fashion film detail shot. Real-time speed, no slow motion.
+```
+
+---
+
+#### S07 · «Проход»
+**Тайминг:** 0:10.56–0:11.52 · кадры 264–287 (24 к) · такт 6, доли 3–4
+
+1. **Визуальное описание.** Аня медленно идёт по этажу к камере сквозь череду солнечных лучей. Свет и тень поочерёдно ложатся на неё, как естественный стробоскоп.
+2. **Ракурс и движение камеры.** Фронтально, длинный фокус (Canon 8–64 мм на 50–64 мм), сжатая перспектива. Камера в руках, мелкие коррекции кадра.
+3. **Свет и атмосфера.** Чередование лучей и тени; контуры волос и ткани вспыхивают. Пыль висит в воздухе.
+4. **Действия и эмоции модели.** Естественный, неспешный шаг, не подиумная походка. Взгляд чуть мимо объектива. Уверенность без демонстрации.
+5. **Ритм монтажа.** Полтакта. Склейка совпадает со стартом вокальной фразы (10,56 с). Шаги ложатся на доли (темп 125 — естественный быстрый шаг).
+6. **AI-промпт:**
+```
+Frontal long-lens shot with compressed perspective, vertical 9:16. A tall androgynous 23-year-old woman with cropped dark-brown hair and a short blunt fringe, pale skin and no makeup, wearing a white sleeveless ribbed shell top, low-rise black flat-front bootcut trousers with a thin black leather belt, black square-toe leather mules and tiny rectangular black sunglasses, walks slowly toward the camera across the empty wooden floor of an old Berlin factory in summer 1997, passing through a row of hard sunbeams from tall windows, so light and shadow alternate across her body like a natural strobe. A natural, unhurried walk, not a runway walk, her eyes looking just past the lens. Handheld long lens with small framing corrections. Floating dust, glowing edges on her hair and clothes. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Late-1990s underground fashion film. Real-time speed, no slow motion.
+```
+
+---
+
+#### S08 · «Шёпот»
+**Тайминг:** 0:11.52–0:12.48 · кадры 288–311 (24 к) · такт 7, доли 1–2
+
+1. **Визуальное описание.** Нина подсела к Майе на подоконник и что-то шепчет ей на ухо. Майя запрокидывает голову и смеётся.
+2. **Ракурс и движение камеры.** Средний план-двойка, 25 мм. Камера в руках, лёгкий полукруг вокруг них.
+3. **Свет и атмосфера.** Контровой свет из окна, ореолы вокруг волос, смех в солнце.
+4. **Действия и эмоции модели.** Близость, спонтанность, настоящая радость. Смех вспыхивает на 2-й доле (к300).
+5. **Ритм монтажа.** Полтакта. Склейка на к312.
+6. **AI-промпт:**
+```
+Medium two-shot, vertical 9:16, on the ledge of a tall dusty steel-framed window on the top floor of an old Berlin factory in summer 1997, backlit by the late-afternoon sun. A petite young woman with a messy chin-length bleached platinum bob, freckles and a fitted baby-blue cropped cardigan leans in and whispers something into the ear of a 22-year-old Black woman with close-cropped natural hair and small gold hoops, wearing a champagne satin slip dress under an oversized grey cardigan; the Black woman throws her head back and bursts into genuine laughter. Handheld camera moving in a slight half-circle. Warm backlight, glowing halos around their hair, laughter in the sunlight. Spontaneous, intimate, unscripted. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Real skin texture, no retouching. Real-time speed, no slow motion.
+```
+
+---
+
+#### S09 · «Первое движение»
+**Тайминг:** 0:12.48–0:13.44 · кадры 312–335 (24 к) · такт 7, доли 3–4
+
+1. **Визуальное описание.** Лука отходит от колонны и начинает двигаться под бит: плечи, лёгкий кивок, полы кожаного плаща качаются.
+2. **Ракурс и движение камеры.** Средний план, 16 мм. Камера в руках, оператор отступает вместе с ним.
+3. **Свет и атмосфера.** Полосы жёсткого света и тёплой тени, пыль.
+4. **Действия и эмоции модели.** Расслабленная, чуть ироничная уверенность: он сам усмехается тому, что начал танцевать. Первое движение на 3-й доле (к312).
+5. **Ритм монтажа.** Полтакта. Дальше нарезка по четвертям.
+6. **AI-промпт:**
+```
+Medium shot, vertical 9:16, on the empty top floor of an old red-brick factory in Berlin, summer 1997. A slim 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and light stubble, wearing a hip-length black leather car coat over a white ribbed tank top, a thin silver chain and slim charcoal trousers, steps away from a cast-iron pillar and starts moving to the beat: a relaxed nod, loose shoulders, the leather coat swinging; he smirks at himself. Handheld camera stepping back with him. Stripes of hard sunlight and warm shadow, floating dust. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Candid late-1990s fashion film, natural unchoreographed movement. Real-time speed, no slow motion.
+```
+
+---
+
+#### S10 · «Атлас»
+**Тайминг:** 0:13.44–0:13.92 · кадры 336–347 (12 к) · такт 8, доля 1
+
+1. **Визуальное описание.** Деталь: атласный подол Майи качается от движения бёдер и вспыхивает в луче.
+2. **Ракурс и движение камеры.** Крупно, на уровне бёдер, 25 мм. Камера в руках. Затвор 45°: резкое, «рваное» движение.
+3. **Свет и атмосфера.** Жёсткий луч, блики и халация на атласе, тёмный фон.
+4. **Действия и эмоции модели.** Майя начинает танцевать; тело отвечает музыке раньше, чем она сама.
+5. **Ритм монтажа.** Ровно одна доля. Пик хэтов, нарезка по четвертям: к336, 348, 360, 372.
+6. **AI-промпт:**
+```
+Close-up detail, vertical 9:16: the hem of a champagne bias-cut satin slip dress swings with the movement of a young woman's hips as she starts to dance on the worn wooden floor of an empty old Berlin factory, catching a beam of hard sunlight that makes the satin flare and glow against a dark background. Crisp, staccato motion as if shot with a narrow 45-degree shutter. Handheld, close. Shot on Super 16mm film, Kodak 500T pushed one stop, coarse organic grain, halation on the satin highlights, warm slightly faded colors, lifted blacks, telecine transfer look. Real-time speed, no slow motion.
+```
+
+---
+
+#### S11 · «Поворот»
+**Тайминг:** 0:13.92–0:14.40 · кадры 348–359 (12 к) · такт 8, доля 2
+
+1. **Визуальное описание.** Крупный план: Аня резко поворачивает голову к камере, чёлка вздрагивает.
+2. **Ракурс и движение камеры.** Крупно, на уровне глаз, 25 мм. Камера в руках, затвор 45°.
+3. **Свет и атмосфера.** Жёсткий боковой свет, глубокая тень, пыль.
+4. **Действия и эмоции модели.** Резкость и вызов: короткий прямой взгляд.
+5. **Ритм монтажа.** Одна доля, поворот головы на склейке к348.
+6. **AI-промпт:**
+```
+Close-up, vertical 9:16: a tall androgynous young woman with cropped dark-brown hair, a short blunt fringe, pale skin, strong natural brows and tiny rectangular black sunglasses snaps her head toward the camera, her fringe flicking, on the sunlit empty top floor of an old Berlin factory with dust in the air. Hard side light, deep shadow. Crisp, staccato motion as if shot with a narrow 45-degree shutter. Handheld. Shot on Super 16mm film, Kodak 500T pushed one stop, coarse organic grain, warm slightly faded colors, lifted blacks, telecine transfer look. Real skin texture. Real-time speed, no slow motion.
+```
+
+---
+
+#### S12 · «Платина»
+**Тайминг:** 0:14.40–0:14.88 · кадры 360–371 (12 к) · такт 8, доля 3
+
+1. **Визуальное описание.** Нина встряхивает головой в луче, платиновое каре разлетается и светится на тёмном фоне.
+2. **Ракурс и движение камеры.** Крупно, чуть снизу, 25 мм. Камера в руках, затвор 45°.
+3. **Свет и атмосфера.** Контровой луч, сильная халация на волосах.
+4. **Действия и эмоции модели.** Она отпускает себя: дерзко, весело.
+5. **Ритм монтажа.** Одна доля, склейка на к360.
+6. **AI-промпт:**
+```
+Close-up from slightly below, vertical 9:16: a petite young woman with a messy chin-length bleached platinum bob with dark roots and freckles tosses her head as she starts to dance in a hard beam of sunlight on the top floor of an empty old Berlin factory; her bleached hair flies out and glows against the dark background. Crisp, staccato motion as if shot with a narrow 45-degree shutter. Handheld. Shot on Super 16mm film, Kodak 500T pushed one stop, coarse organic grain, strong halation on the backlit hair, warm slightly faded colors, lifted blacks, telecine transfer look. Real-time speed, no slow motion.
+```
+
+---
+
+#### S13 · «Цепочка»
+**Тайминг:** 0:14.88–0:15.36 · кадры 372–383 (12 к) · такт 8, доля 4
+
+1. **Визуальное описание.** Деталь: серебряная цепочка Луки подпрыгивает на белой майке в такт, полы распахнутого кожаного плаща.
+2. **Ракурс и движение камеры.** Крупно, на уровне груди, 25 мм. Камера в руках, затвор 45°.
+3. **Свет и атмосфера.** Полоса солнца по ткани, блики на цепочке.
+4. **Действия и эмоции модели.** Тело в ритме; энергия нарастает до предела.
+5. **Ритм монтажа.** Одна доля, последняя «быстрая» склейка перед паузой.
+6. **AI-промпт:**
+```
+Tight close-up at chest height, vertical 9:16: a thin silver chain bounces against a white ribbed tank top on the chest of a slim young man in an open black leather car coat as he moves to the beat, a stripe of hard sunlight across the fabric, the chain glinting, the leather catching highlights, inside an empty old Berlin factory. Crisp, staccato motion as if shot with a narrow 45-degree shutter. Handheld. Shot on Super 16mm film, Kodak 500T pushed one stop, coarse organic grain, halation on the glints, warm slightly faded colors, lifted blacks, telecine transfer look. Real-time speed, no slow motion.
+```
+
+---
+
+#### S14 · «Пауза»
+**Тайминг:** 0:15.36–0:17.28 · кадры 384–431 (48 к) · такт 9, откат перед дропом
+
+1. **Визуальное описание.** Аня неподвижно стоит в самом ярком луче и смотрит прямо в объектив. За ней, чуть не в фокусе, остальные тоже замирают и смотрят в камеру. Задержанное дыхание перед дропом.
+2. **Ракурс и движение камеры.** На уровне глаз, 25 мм. Очень медленный наезд с плеча от среднего плана к крупному.
+3. **Свет и атмосфера.** Предельный контраст: лицо в жёстком луче, всё остальное уходит в тёплую темноту, пыль висит в воздухе. Напряжение.
+4. **Действия и эмоции модели.** Абсолютное спокойствие и уверенность; естественное дыхание и моргание. В последний момент лёгкий намёк на улыбку.
+5. **Ритм монтажа.** Целый такт без склеек: неподвижная картинка против отката хэтов. **Последние 2 кадра (к430–431) засвечены** (реальный скан вспышки плёнки), это удар перед дропом.
+6. **AI-промпт:**
+```
+Medium shot slowly pushing in to a close-up, vertical 9:16, on the empty top floor of an old red-brick factory in Berlin, summer 1997. A tall androgynous 23-year-old woman with cropped dark-brown hair and a short blunt fringe, pale skin, strong natural brows and no makeup, wearing a white sleeveless ribbed shell top and low-rise black bootcut trousers, stands completely still in the brightest beam of hard sunlight and looks straight into the camera lens with calm, absolute confidence; at the very end a hint of a smile. Behind her, slightly out of focus, three other young fashion models also stop moving and look toward the camera. Very slow handheld push-in. Extreme contrast: her face in the hard light, everything else falling into warm darkness, dust hanging in the air. Shot on Super 16mm film, Kodak 500T pushed one stop, 25fps, 180-degree shutter, coarse organic grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Real skin texture, natural blinking and breathing, no retouching. Real-time speed, no slow motion.
+```
+
+---
+
+### АКТ II — ЗОЛОТО  `такты 10–13 · 0:17.28–0:24.96 · L2 крыша`
+
+---
+
+#### S15 · «Крыша» — ДРОП
+**Тайминг:** 0:17.28–0:19.20 · кадры 432–479 (48 к) · такт 10, дроп
+
+1. **Визуальное описание.** Резкая смена пространства: плоская крыша фабрики в золотой час. Четыре модели свободной линией идут к камере, ветер в волосах и ткани. На горизонте трубы, антенны, краны в дымке.
+2. **Ракурс и движение камеры.** Нижняя точка, 12 мм. Оператор пятится перед моделями; камера в руках, энергичная, но читаемая.
+3. **Свет и атмосфера.** Низкое солнце строго за ними: контровой свет, естественный блик, золотая дымка, длинные тени по рубероиду. Ощущение простора после тесного жаркого интерьера.
+4. **Действия и эмоции модели.** Свобода и уверенность. Они не дефилируют: переговариваются, Майя смеётся, Нина щурится на солнце.
+5. **Ритм монтажа.** Склейка **ровно на к432**, на сильной доле дропа. После двух засвеченных кадров переход «тёмный интерьер → ослепительное золото» сам работает как удар. Шаги на долях. Целый такт без склеек: зрителю нужен один полный такт нового звука.
+6. **AI-промпт:**
+```
+Low-angle wide shot, vertical 9:16, on the flat tar-paper roof of an old Berlin factory at golden hour, summer 1997: brick chimney stacks, old TV antennas, a rusty railing, the hazy city skyline with construction cranes in the distance. Four young fashion models walk toward the camera in a loose line, unposed, the wind in their hair and clothes: a tall androgynous woman with a cropped dark fringe in a white sleeveless top and low-rise black bootcut trousers; a Black woman with close-cropped hair in a champagne satin slip dress and an oversized grey cardigan; a slim olive-skinned man with curtain hair in a black leather car coat over a white tank top; a petite woman with a bleached platinum bob in a baby-blue cropped cardigan and camel cargo trousers. They talk to each other, one of them laughs, another squints into the sun. The low sun directly behind them, strong backlight, natural lens flare, golden haze, long shadows across the roof. Handheld camera walking backwards in front of them, energetic but steady. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, strong halation and soft bloom, warm slightly faded colors, lifted blacks, telecine transfer look. Candid late-1990s underground fashion film, confident, not a runway, not an advertisement. Real-time speed, no slow motion.
+```
+
+---
+
+#### S16 · «Майя»
+**Тайминг:** 0:19.20–0:20.16 · кадры 480–503 (24 к) · такт 11, доли 1–2
+
+1. **Визуальное описание.** Майя танцует одна у края крыши с закрытыми глазами; атлас и кардиган развеваются, солнце за головой.
+2. **Ракурс и движение камеры.** Средний план, на уровне груди, 25 мм. Камера в руках движется вместе с ней.
+3. **Свет и атмосфера.** Солнце в контре, светящийся ореол, мягкий естественный блик, тёплое золото.
+4. **Действия и эмоции модели.** Свобода, растворение в музыке. Никаких «танцевальных» поз: свободные плечи и бёдра, акценты на офф-битах (к486, к498).
+5. **Ритм монтажа.** Полтакта, склейка на к504.
+6. **AI-промпт:**
+```
+Medium shot, vertical 9:16, on the flat tar-paper roof of an old Berlin factory at golden hour, summer 1997. A 22-year-old Black woman with close-cropped natural hair, high cheekbones and small gold hoop earrings, wearing a champagne bias-cut satin slip dress with an oversized grey men's knit cardigan slipping off one shoulder, dances alone near the edge of the roof with her eyes closed: loose, unchoreographed movement of shoulders and hips to a rolling bassline, the satin and the cardigan moving in the wind. The low sun directly behind her head creates a glowing rim of light and a soft natural flare. Handheld camera moving with her, slight wobble. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, halation and soft bloom, warm slightly faded colors, lifted blacks, telecine transfer look. Freedom, real skin texture. Real-time speed, no slow motion.
+```
+
+---
+
+#### S17 · «Притяжение»
+**Тайминг:** 0:20.16–0:21.12 · кадры 504–527 (24 к) · такт 11, доли 3–4
+
+1. **Визуальное описание.** Лука и Нина танцуют близко, лицом к лицу, почти касаясь лбами. Взгляд задерживается на долю дольше нужного, и Нина, рассмеявшись, отворачивается.
+2. **Ракурс и движение камеры.** Крупная двойка, 25 мм. Камера в руках, полуоблёт вокруг пары.
+3. **Свет и атмосфера.** Жёсткий тёплый боковой свет от низкого солнца, лица наполовину в тени, лёгкий блеск кожи.
+4. **Действия и эмоции модели.** Притяжение, напряжение, игра. Микромимика настоящая, без «киношного» поцелуя.
+5. **Ритм монтажа.** Полтакта. Вокальное «don't» (к520) звучит в момент задержанного взгляда. Склейка **на к528**, сильную долю 12-го такта, где в хуке звучит «stop».
+6. **AI-промпт:**
+```
+Close two-shot, vertical 9:16, on the flat roof of an old Berlin factory at golden hour, summer 1997. A slim 24-year-old Southern European man with olive skin, dark middle-parted curtain hair and stubble, wearing a black leather car coat over a white ribbed tank top and a thin silver chain, and a petite 21-year-old woman with a messy bleached platinum bob with dark roots, freckles and a baby-blue cropped cardigan dance face to face, foreheads almost touching; they hold eye contact a moment too long, then she laughs and turns away. Warm hard side light from the low sun, faces half in shadow, a light sheen of sweat. Handheld camera half-circling them. Attraction, tension, playfulness, natural micro-expressions. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, soft halation, warm slightly faded colors, lifted blacks, telecine transfer look. Real-time speed, no slow motion.
+```
+
+---
+
+#### S18 · «Шлейф»
+**Тайминг:** 0:21.12–0:23.04 · кадры 528–575 (48 к) · такт 12
+
+1. **Визуальное описание.** Аня танцует одна у ржавого ограждения на фоне садящегося солнца, город в дымке далеко внизу. Движение смазывается и «заикается»: ступенчатая печать (step-print) конца 90-х.
+2. **Ракурс и движение камеры.** Средне-общий план, 16 мм. Оператор медленно обходит её по дуге.
+3. **Свет и атмосфера.** Янтарно-пурпурное небо, глубокий силуэт, светящийся контур, сильная халация.
+4. **Действия и эмоции модели.** Транс, растворение во времени, полузакрытые глаза. Самый «модный» кадр ролика.
+5. **Ритм монтажа.** Целый такт: дыхание внутри грува. Step-print делается на посте: клип в 25 к/с с сильным размытием движения, каждый кадр держится дважды (12,5 к/с). Склейка на к576.
+6. **AI-промпт:**
+```
+Medium-wide shot, vertical 9:16: a tall androgynous young woman with cropped dark-brown hair and a short blunt fringe, wearing a white sleeveless ribbed top and low-rise black bootcut trousers, dances alone near the rusty railing at the edge of a flat factory rooftop against the low setting sun, the hazy Berlin skyline with construction cranes far behind, summer 1997. Fluid, hypnotic movement, eyes half closed. Handheld camera slowly circling her. Amber and magenta sky, her figure in deep silhouette with a glowing rim of light. Shot on Super 16mm film, Kodak 500T, organic film grain, strong halation and bloom, warm slightly faded colors, lifted blacks, telecine transfer look. Late-1990s underground fashion film. Real-time speed.
+```
+
+---
+
+#### S19 · «Вместе»
+**Тайминг:** 0:23.04–0:24.00 · кадры 576–599 (24 к) · такт 13, доли 1–2
+
+1. **Визуальное описание.** Все четверо танцуют свободно, каждый по-своему, на фоне солнца, труб и антенн. Лука и Майя сталкиваются плечами и смеются.
+2. **Ракурс и движение камеры.** Общий план снизу, 9,5–12 мм. Камера в руках, слегка трясётся.
+3. **Свет и атмосфера.** Золотой контровой свет, силуэты, блики, дымка.
+4. **Действия и эмоции модели.** Свобода и молодость, общность без хореографии, никакой синхронности.
+5. **Ритм монтажа.** Полтакта, склейка на к600.
+6. **AI-промпт:**
+```
+Low-angle wide shot, vertical 9:16, on the flat tar-paper roof of an old Berlin factory at golden hour, summer 1997, brick chimney stacks and old TV antennas around. Four young fashion models in late-1990s outfits (a white sleeveless top with low-rise black bootcut trousers; a champagne satin slip dress with an oversized grey cardigan; a black leather car coat over a white tank top; a baby-blue cropped cardigan with camel cargo trousers) dance loosely, each in their own way, not in sync; two of them bump shoulders and laugh. Silhouettes against the low sun, natural lens flare, golden haze. Handheld camera from below, slightly shaky. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, natural motion blur, organic film grain, strong halation, warm slightly faded colors, lifted blacks, telecine transfer look. Freedom and youth, no choreography, not an advertisement. Real-time speed, no slow motion.
+```
+
+---
+
+#### S20 · «Последний взгляд»
+**Тайминг:** 0:24.00–0:24.96 · кадры 600–623 (24 к) · такт 13, доли 3–4 → конец
+
+1. **Визуальное описание.** Нина, запыхавшаяся после танца, оборачивается через плечо прямо в объектив. Солнце заливает кадр, и плёнка «заканчивается» оранжево-белой засветкой конца ролла.
+2. **Ракурс и движение камеры.** Крупный план, на уровне глаз, 25 мм. Камера в руках, близко.
+3. **Свет и атмосфера.** Солнце прямо за ней, контур волос горит, засветка нарастает до белого.
+4. **Действия и эмоции модели.** Уверенность и лёгкий вызов, небольшая улыбка: «не останавливайся».
+5. **Ритм монтажа.** Взгляд в камеру на 4-й доле (к612). **Засветка конца ролла к618–623.** Жёсткий конец на к624, ровно на границе 13-го такта. В Instagram ролик зацикливается: к0 снова начинается со вспышки ракорда, и стык читается как смена роллов.
+6. **AI-промпт:**
+```
+Close-up, vertical 9:16, on the flat roof of an old Berlin factory at golden hour, summer 1997. A petite 21-year-old woman with a messy chin-length bleached platinum bob with dark roots, freckles, glossy lips and a thin black velvet choker, wearing a fitted baby-blue cropped cardigan, breathless after dancing, turns to look over her shoulder straight into the lens with a small, confident smile. The low sun right behind her sets her hair glowing and floods the frame with warm light, natural lens flare. Handheld, close. Shot on Super 16mm film, Kodak 500T, 25fps, 180-degree shutter, organic film grain, strong halation, warm slightly faded colors, lifted blacks, telecine transfer look. Real skin texture, natural blink. Real-time speed, no slow motion.
+```
+
+---
+
+## 7. Общие правила для генерации
+
+**Негатив-промпт** (где поддерживается):
+```
+digital video look, 4K hyper-sharpness, HDR, oversaturated colors, neon, cyberpunk, futuristic, LED lights, nightclub, lasers, fog machine, stage lighting, DJ booth, smartphones, modern cars, modern buildings, logos, brand names, readable text, watermarks, subtitles, VHS tracking lines, scanlines, chromatic aberration, glitch effects, excessive scratches, fake film burn overlays, plastic skin, airbrushed faces, beauty filter, perfectly symmetrical faces, dead eyes, morphing faces, warped hands, extra fingers, fused limbs, synchronized choreography, posing for the camera, slow motion, gimbal float, drone shot, CGI, 3D render, commercial advertising look, stock footage look
+```
+
+**Как добиться подлинности и избежать «ИИ-вида»**
+1. Сначала генерируются референс-кадры моделей (4–6 ракурсов на каждую по PROMPT BLOCK). Дальше они используются как character reference во всех кадрах.
+2. Генерация в формате image-to-video: стоп-кадр-ключ по промпту без описания движения, затем анимация полным промптом. Формат 9:16, по 5 секунд, 3–6 дублей на кадр.
+3. Берутся куски из середины генерации: первые ~0,5 с и последние ~1 с выбрасываются (там «скованность» и дрейф лица).
+4. Звук генератора не используется. Клипы приводятся к 25 к/с без оптической интерполяции.
+5. На посте всё сводится в «один ролл»:
+   - снижение цифровой резкости и насыщенности;
+   - приподнятые чёрные, тёплые света, бирюзовые тени;
+   - халация;
+   - одно и то же настоящее зерно Super 16 на всех кадрах;
+   - лёгкое дыхание кадра и мерцание;
+   - засвеченные кадры только в трёх местах (к0–12, к430–431, к618–623).
+
+**Обложка для Reels.** S15, первый кадр после дропа (к432–440), или S16. Ключевое держится в центральной зоне 3:4, без титров у нижнего края (там интерфейс Instagram).
+
+**Экспорт.** 1080×1920, 25 fps, H.264, AAC 320 kbps / 48 kHz, 24,96 с.
