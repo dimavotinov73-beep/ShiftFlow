@@ -1,0 +1,22 @@
+shot,title,act,frame_in,frame_out,frames,tc_in_25fps,tc_out_25fps,sec_in,sec_out,bar_beat,sync_point,lens,shutter,location,characters,summary
+S01,PLAY,I,0,47,48,00:00:00:00,00:00:01:23,0.00,1.92,1.1-1.4,Leader burn f0-10 on swell; PLAY pressed on f27 (first transient 1.086s),25mm macro,180,Windowsill,Lena (hand),Cassette into silver Walkman; thumb presses PLAY; label DON'T STOP added in post
+S02,LENA,I,48,143,96,00:00:01:23,00:00:05:19,1.92,5.76,2.1-3.4,Mouths along when vocal enters ~f80; optional 90s locator credit f60-136,16mm,180,L1 Street,Lena,Walking MCU with orange headphones in dappled sun; private joy
+S03,THE STREET,I,144,191,48,00:00:05:19,00:00:07:17,5.76,7.68,4.1-4.4,Safi slides off car on beat 3 (f168),9.5mm,180,L1 Street,"Lena, Safi, Jonas",Wide low: Lena crosses tram tracks; friends on car hood fall in step
+S04,SHARE,I,192,215,24,00:00:07:17,00:00:08:16,7.68,8.64,5.1-5.2,Earcup reaches Marco's ear on beat 2 (f204),25mm,180,L1 Street,"Lena, Marco",Marco on mint scooter; Lena shares one earcup without stopping
+S05,HE GETS IT,I,216,239,24,00:00:08:16,00:00:09:15,8.64,9.60,5.3-5.4,Grin peak on f228 (vocal accent 9.12s),25mm,180,L1 Street,Marco,CU: eyebrows up; grin; nods on beat; sunglasses slide down
+S06,FEET,I,240,263,24,00:00:09:15,00:00:10:14,9.60,10.56,6.1-6.2,"Footfalls every 12 frames (f240, f252)",9.5mm,180,L1 Street,"Lena, Safi, Jonas, Marco",Ankle-height tracking; four pairs of feet walking in step + scooter wheel
+S07,THE LINE,I,264,287,24,00:00:10:14,00:00:11:13,10.56,11.52,6.3-6.4,Cut on vocal phrase restart (10.56s); gate hair ~10 frames,64mm (tele),180,L1 Street,"Lena, Safi, Jonas, Marco",Telephoto head-on: the four walking in a loose line; editorial but unposed
+S08,NOOR,I,288,311,24,00:00:11:13,00:00:12:12,11.52,12.48,7.1-7.2,Noor looks up on beat 2 (f300),25mm,180,L2 Laundromat,Noor,Through laundromat glass with reflections; Noor on washing machine looks up
+S09,SHE FOLLOWS,I,312,335,24,00:00:12:12,00:00:13:11,12.48,13.44,7.3-7.4,Door swings open on f312,16mm,180,L2 Laundromat > L1,Noor,Whip-pan; Noor bursts out into sun and jogs after the group
+S10a,BANISTER,I,336,347,12,00:00:13:11,00:00:13:23,13.44,13.92,8.1,Hand slap on the beat,25mm,45,L3 Stairwell,(hand),Hand slaps worn banister running up
+S10b,SAFI LAUGHS,I,348,359,12,00:00:13:23,00:00:14:10,13.92,14.40,8.2,,25mm,45,L3 Stairwell,Safi,Head thrown back laughing; window slash of light
+S10c,LANDING,I,360,371,12,00:00:14:10,00:00:14:22,14.40,14.88,8.3,,16mm,45,L3 Stairwell,"Jonas, Marco",Shoulder bump on landing; helmet swinging
+S10d,SPIRAL,I,372,383,12,00:00:14:22,00:00:15:09,14.88,15.36,8.4,,9.5mm,45,L3 Stairwell,Lena,Looking up the spiral; Lena two steps at a time toward skylight
+S11,THE DOOR,I,384,431,48,00:00:15:09,00:00:17:07,15.36,17.28,9.1-9.4,Look to lens; headphones off on beat 3 (f408); 2 light-struck flash frames f430-431,25mm,180,L3 Stairwell top,Lena + all,Pre-drop hold: steel roof door leaking sun; Lena looks into lens; slides headphones to neck
+S12,THE ROOF,II,432,479,48,00:00:17:07,00:00:19:05,17.28,19.20,10.1-10.4,DROP on f432: door bursts open,12mm,180,L4 Rooftop,Crowd + all,Burst through door onto golden-hour rooftop; crowd erupts into dance
+S13,LENA DANCES,II,480,503,24,00:00:19:05,00:00:20:04,19.20,20.16,11.1-11.2,"Hip/shoulder accents on offbeats f486, f498",25mm,180,L4 Rooftop,Lena,Eyes closed; hair whipping; sun halo behind her head
+S14,ATTRACTION,II,504,519,16,00:00:20:04,00:00:20:20,20.16,20.80,11.3-11.4,Cut 1 frame before vocal 'don't' (20.815s),25mm,180,L4 Rooftop,"Marco, Noor",Face to face; look held too long; she laughs and pushes him away
+S15,DON'T STOP!,II,520,539,20,00:00:20:20,00:00:21:15,20.80,21.60,11.4& - 12.2,Arms rise on 'don't'; FISTS PUMP ON f528 = 'STOP!' (bar 12 downbeat); COVER FRAME,9.5mm,180,L4 Rooftop,Crowd,Low angle: crowd shouts the hook; silhouettes against sun
+S16,STEP PRINT,II,540,575,36,00:00:21:15,00:00:23:01,21.60,23.04,12.2-12.4,Step-printed 12.5fps in post,16mm,step-print,L4 Rooftop edge,Safi,Dancing alone at roof edge against setting sun; smeared stutter motion
+S17,THE CIRCLE,II,576,599,24,00:00:23:01,00:00:24:00,23.04,24.00,13.1-13.2,Jonas starts spin on f576,12mm,180,L4 Rooftop,Jonas + crowd,High angle top-down: circle clapping; long golden shadows
+S18,DON'T—,II,600,623,24,00:00:24:00,00:00:24:24,24.00,24.96,13.3-13.4,Mouths 'Don't' on f612; foam covers lens ~f614-617; roll-out burn f618-623; HARD END f624 before 'stop' -> LOOP,25mm,180,L4 Rooftop,Lena,Lena puts the headphones over the lens; film runs out; loops to S01
