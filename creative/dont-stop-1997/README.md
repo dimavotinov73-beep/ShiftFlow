@@ -1,238 +1,410 @@
 # Futurist (ofc), FunkT!de — "DON'T STOP"
 
-## Концепт: «НЕ ДЛЯ НАС»
+## Концепт: «БЛОК 125» — *DON'T STOP · LIVE FROM BLOCK 125*
 
-**Идея.** Это плёнка, которую никто не собирался показывать. Один день трёх друзей в европейском городе 1997 года: выход из метро, лестница доходного дома, крыша с бельём, подземный паркинг. Камера здесь — пятый друг: её толкают, она опаздывает, теряет фокус и дышит вместе с героями, а всё, что она снимает, снято не для нас. Свобода и притяжение растут вместе с треком: отфильтрованное вступление — это день и движение, дроп — вспыхнувший свет паркинга. За полсекунды до поцелуя она впервые смотрит в камеру, и плёнка обрывается.
+**Идея.** Один мультяшный городской квартал выходит в эфир: вход в метро, крыша с бельём, лестница доходного дома и подземный паркинг. Ретро-шоу по очереди представляет троих жителей, как героев комикса. У каждого свой солнечный «взрыв» лучей, своё звукоподражание, крупная вставка с глазами и именная плашка. Вступление трека — это знакомство: героиня вылетает из метро, парень щёлкает пальцами на крыше, третья опускает очки на лестнице. На последнем такте перед дропом в тёмном паркинге видны только три пары глаз. На дропе рубильник включает свет, паркинг становится танцполом, и весь квартал кричит «DON'T STOP!». В финале двое тянутся к поцелую, но диафрагма-кружок схлопывается раньше, и ролик уходит в петлю.
 
-**Формат:** Instagram Reels, 9:16, **24,96 с** (624 кадра при 25 к/с), 11 шотов.
-**Музыка:** начало трека, с 0,070 по 25,030 с WAV-файла. Замеренный темп **125 BPM**: 1 доля = 0,48 с = 12 кадров, 2 доли = 0,96 с, 4 доли = 1,92 с. Вступление без саба идёт до 17,28 с, **дроп на 17,28 с**, вокальный хук «don't stop» на 20,82–21,57 с, второе «don't» на 24,48 с.
+**Что взято из референса:**
+- ретро-мультипликация в стиле поп-арт-комикса 50–60-х;
+- солнечный «взрыв» лучей за персонажем;
+- звукоподражания объёмными буквами;
+- вставка-панель с глазами и именная плашка под каждым героем;
+- переходы: смаз, «шторка», диафрагма, взрыв-клякса;
+- финальный титр с выглядывающими героями и петля.
 
-**Три обязательных приёма**
+**Чего нет:** Хэллоуина. Никаких монстров, тыкв, летучих мышей, луны-страшилки и фиолетово-слизисто-оранжевой гаммы.
 
-| Приём | Где |
-|---|---|
-| Неидеальная кадрировка: обрезанные головы, герой уходит из кадра | Во всех шотах. Явно: SH01 (уходит вправо), SH02 (камера опаздывает), SH04 (она уходит вверх из кадра), SH08 (уходят в темноту) |
-| Один-единственный взгляд в камеру | Только **SH11, кадр 612 (24,48 с)**, на вокальном «Don't—». Во всех остальных шотах камеру не замечают. |
-| Рез до поцелуя | **SH11, кадр 624 (24,96 с)**: жёсткий обрыв, губы так и не встретились. Обрыв приходится и на момент перед вокальным «stop». |
+**Что осталось из брифа:**
+- трек и его сетка;
+- 9:16 и 20–25 секунд;
+- три героя (ОНА, ОН, ПОДРУГА), теперь нарисованные люди;
+- локации из брифа: метро, крыша, лестница, паркинг;
+- настроение: свобода, уверенность, притяжение, движение, андеграунд.
 
-**Ритм монтажа в целом.** Основа — склейки через 4 доли (~2 с). Акценты в 2 доли (~1 с) делает сама камера внутри шота: толчок, рывок панорамы, хлопок простыни, вспышка ламп. Так в 11 шотов укладывается двухдольный пульс. Две склейки сделаны **не в долю**, будто случайно: кадр 293 (простыня бьёт в объектив) и кадр 474 (человек перекрывает объектив). Две длинные задержки по 8 долей: лестница (дыхание во вступлении) и финал (напряжение).
+**Формат:** Instagram Reels, 9:16 (1080×1920), **24,96 с** = 624 кадра при 25 к/с, 10 шотов.
+**Музыка:** начало трека, с 0,070 по 25,030 с WAV-файла. Темп 125 BPM: 1 доля = 12 кадров, такт = 48 кадров.
+- 0–17,28 с: отфильтрованное вступление (знакомство с героями).
+- **17,28 с: дроп.**
+- 20,82–21,57 с: вокальный хук «don't stop».
+- 24,48 с: второе «don't», обрыв на 24,96 с.
+
+---
+
+## Визуальный язык
+
+**Стиль.** Ретро-мультипликация в стиле поп-арт-комикса 1950–60-х:
+- толстый чёрный контур, растровые точки (halftone) в тенях;
+- плоские заливки, бумажная фактура, лёгкое несовпадение цветов при печати;
+- преувеличенные пропорции, «резиновые» руки и ноги.
+
+Герои одеты в образы 90-х из брифа: получаются «люди 90-х, нарисованные как мультфильм 50-х».
+
+**Палитра (не хэллоуинская)**
+
+| Цвет | Hex | Роль |
+|---|---|---|
+| Крем | `#F2E4C4` | основа, лучи, буквы |
+| Чернила | `#1B1716` | контур, тени |
+| Томатный | `#E0452B` | взрывы, акценты, ветровка Пиппы |
+| Бирюзовый | `#2A9D8F` | лучи Лео, небо, плашки |
+| Горчичный | `#F2B33D` | лучи Пиппы, свет в окнах |
+| Терракота | `#C8693F` | лестница Веры |
+| Серый костюм | `#8C8A86` | костюм Веры |
+| Бетонно-голубой | `#5D7A8C` | паркинг |
+
+**Типографика (всё делается в After Effects, не генерацией):**
+- Звукоподражания и титры: Bangers / Bowlby One / Lilita One (бесплатные Google Fonts). Кремовая заливка, чёрная обводка 8–12 px, объём (extrude) 6–10 слоёв со смещением, цветная тень.
+- Именные плашки: Lilita One на бирюзовой или томатной ленте, подпись строчными.
+
+**Анимация (After Effects, как в референсе):**
+- Стоп-кадры героев и фонов генерируются отдельными слоями. Движение собирается в AE:
+  - Puppet-пины («резиновые» руки и ноги);
+  - параллакс слоёв;
+  - появления с перелётом масштаба 0 → 115 → 100 % за 4–6 кадров;
+  - тряска кадра на каждом звукоподражании.
+- Стоп-кадры персонажей **на двойках** (12,5 к/с, Posterize Time), фон и камера — на 25 к/с.
+- Лёгкое «дрожание» линий (line boil, Wiggle по Displacement 1–2 px).
+- Лучи солнечного «взрыва» медленно вращаются, 6–10° за шот.
+- Поверх всего: бумажная фактура (Multiply 15 %) и растр (CC Ball Action / Halftone 8 %).
+
+**Безопасные зоны Reels.** Ключевое в центральной области 3:4. Нижние ~420 px и правые ~140 px свободны от текста. Именные плашки стоят на высоте 60–68 % кадра.
+
+**Библиотека переходов**
+
+| Переход | Где | Как |
+|---|---|---|
+| Диафрагма (iris) | SH01 → SH02, финал → петля | Круглая маска схлопывается в точку за 8 кадров |
+| Смаз (whip) | SH02 → SH03 | Directional Blur 60–100 + сдвиг на ширину кадра за 6 кадров |
+| Простыня | SH03 → SH04 | Слой простыни пролетает через кадр за 8 кадров |
+| Жалюзи | SH04 → SH05 | 12 горизонтальных полос закрываются сверху вниз за 8 кадров |
+| Взрыв-клякса | SH06 → SH07 (дроп) | Зубчатый взрыв в масштабе 0 → 300 % за 4 кадра |
+
+---
+
+## Герои: персонажный лист
+
+> Блоки **PROMPT BLOCK** вставляются в промпты дословно. Для каждого героя сначала генерируется лист из 4–6 поз на нейтральном фоне, потом он используется как референс.
+
+**PIPPA (ПОДРУГА)** — «full speed». Энергия, движение, смех.
+```
+PIPPA PROMPT BLOCK:
+a cartoon young woman with a short messy black bob and a huge open grin, freckles, wearing an oversized tomato-red nylon windbreaker, navy track pants with white side stripes and no logos, and chunky white sneakers
+```
+
+**LEO (ОН)** — «steady groove». Спокойный, притягательный без усилий.
+```
+LEO PROMPT BLOCK:
+a cartoon young man with a short cropped haircut, half-lidded calm eyes and a relaxed lopsided smile, wearing a plain black t-shirt, faded light-blue jeans and a thin silver chain
+```
+
+**VERA (ОНА)** — «no rush». Уверенная, чуть насмешливая.
+```
+VERA PROMPT BLOCK:
+a cartoon young woman with dark hair in a messy updo, tiny oval sunglasses, one eyebrow raised in a confident, slightly mocking expression, wearing a white tank top under an oversized grey suit and flat leather sandals
+```
+
+**STYLE BLOCK** (в конце каждого промпта изображения):
+```
+retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering
+```
 
 ---
 
 ## Звуковая сборка
 
-**Трек.** Фрагмент WAV с 0,070 по 25,030 с ставится на таймлайн с 0:00. Уровень 0 дБ (мастер, пики −1 dBTP). В конце фейд 10 мс, это жёсткий обрыв.
-**Живые звуки.** Обработка как у накамерного микрофона: моно, срез ниже 150 Гц и выше 8 кГц, лёгкая сатурация. Уровни указаны относительно трека.
+**Трек:** фрагмент WAV с 0,070 по 25,030 с ставится с 0:00, уровень 0 дБ (пики −1 dBTP). В конце фейд 10 мс, жёсткий обрыв.
+**Поверх — мультяшные шумы** (библиотечные): моно, уровни относительно трека. На пиках трека (дроп, хук) шумов меньше.
 
-| Время (кадр) | Музыка | Живые звуки поверх | Уровень |
+| Время (кадр) | Музыка | Шум поверх | Уровень |
 |---|---|---|---|
-| 0:00.00–0:01.08 (к0–26) | Трек нарастает из тишины | Улица у метро: гул толпы, шаги по мокрой плитке, тормозящий внизу поезд | **−16 дБ**, живой звук ведёт |
-| **0:01.08 (к27)** | **Первый удар трека** | Толчок камеры: глухой стук по корпусу и шорох куртки прохожего | **−18 дБ**, ровно на к27 |
-| 0:01.08–0:03.84 | Отфильтрованный грув | Улица уходит под музыку; короткий взрыв смеха подруги на прыжке (к60) | улица −24 дБ, смех −20 дБ |
-| 0:03.84–0:09.60 | Грув, с ≈3,2 с вокальная линия | Лестница: шаги по терракоте с эхом, смех эхом, дребезг жалюзи на к228 | −24 дБ, жалюзи −22 дБ |
-| 0:09.60–0:13.44 | Хэты растут | Крыша: порывы ветра, хлопанье простыней; **удар простыни по микрофону на к292** (на нём склейка не в долю) | ветер −22 дБ, удар −16 дБ |
-| 0:13.44–0:15.36 | Пик хэтов | Ветер и смех; толчок камеры, когда подруга задевает оператора (к360) | −22 дБ |
-| 0:15.36–0:17.28 | Откат перед дропом | Паркинг: эхо шагов, гудение флуоресцентных ламп, дыхание оператора. **Щелчок стартера лампы на к430.** | **−18 дБ**, самый «живой» момент; щелчок −14 дБ |
-| **0:17.28 (к432)** | **ДРОП: бочка + саб, главный пик** | Живые звуки почти исчезают, трек занимает всё пространство | −32 дБ |
-| 0:17.28–0:21.12 | Полный грув | Точечный скрип кроссовок по бетону | −26 дБ |
-| 0:20.82–0:21.57 | **Вокальный хук «don't stop»**, второй пик | Без живых звуков, хук звучит чисто | — |
-| 0:21.12–0:24.96 | Грув | Гудение лампы, близкое дыхание обоих героев (с к576) | лампа −28 дБ, дыхание −24 дБ |
-| 0:24.48 (к612) | Вокал «Don't—» | Единственный взгляд в камеру | — |
-| **0:24.96 (к624)** | **Жёсткий обрыв перед «stop»** | Обрывается всё: тишина. В петле Reels ролик снова начинается с уличного шума. | — |
-
-**Пики:** 1,08 с (первый удар) → ≈3,2 с (вокал) → 13,44–15,36 с (пик хэтов) → 15,36 с (откат, живой звук громче всего) → **17,28 с (дроп)** → 20,82–21,57 с (хук) → 24,48 с («Don't—») → 24,96 с (обрыв).
+| 0:00–0:01.08 | Нарастание из тишины | Вечерний город: далёкие машины, гул метро | −22 дБ |
+| **0:01.08 (к27)** | Первый удар | **POP**: зажигается вывеска ON AIR + электрический треск | −14 дБ |
+| 0:01.60 (к40) | | Диафрагма закрывается, «зип» | −18 дБ |
+| 0:01.92 (к48) | Грув | Свист: лучи въезжают | −18 дБ |
+| 0:02.40 (к60) | | Пружинное «боинг» на прыжке Пиппы | −16 дБ |
+| **0:02.88 (к72)** | | **ZOOM**: пролётный свист | −14 дБ |
+| 0:03.84 / 0:04.32 (к96 / к108) | | Хлопок вставки с глазами; «динь» плашки | −20 дБ |
+| 0:05.44–0:05.72 (к136–143) | | Свист смаза | −14 дБ |
+| 0:05.76–0:09.60 | Грув + вокальная линия | Ветер, хлопанье белья | −24 дБ |
+| 0:07.68 / **0:09.12** (к192 / **к228**) | Вокальный акцент на к228 | **SNAP**: щелчки пальцев, второй громче | −16 / **−14 дБ** |
+| 0:08.16 / 0:08.64 (к204 / к216) | | Блик цепочки «тинь»; «динь» плашки | −20 дБ |
+| 0:09.28–0:09.56 (к232–239) | | Простыня пролетает, «фшух» | −16 дБ |
+| 0:10.56 (к264) | | Очки съезжают: «клик» + мультяшное «бвип» бровью | −16 дБ |
+| **0:11.04 (к276)** | | **SMIRK**: короткий удар-акцент | −16 дБ |
+| 0:12.00 (к300) | | «Динь» плашки | −20 дБ |
+| 0:13.12–0:13.40 (к328–335) | | Дребезг закрывающихся жалюзи | −16 дБ |
+| 0:13.44 / 13.92 / 14.40 / 14.88 | Пик хэтов | Шлепки панелей комикса, ровно на каждую долю | −16 дБ |
+| 0:15.36–0:17.20 | Откат перед дропом | Темнота: капает вода, гул; три «моргания» (крошечные хлопки) | −20 дБ |
+| **0:17.20 (к430)** | | **CLACK**: рубильник | **−12 дБ** |
+| **0:17.28 (к432)** | **ДРОП** | Удар-взрыв под бочку | −14 дБ |
+| 0:17.76 / 0:18.24 (к444 / к456) | | WHAM ×2: имена артистов бьют в кадр | −16 дБ |
+| 0:19.20–0:20.79 | Полный грув | Толпа «у-у!», скрип кроссовок | −24 дБ |
+| **0:20.82–0:21.57 (к520–539)** | **Хук «don't stop»** | Только лёгкий удар на «STOP» (к528), вокал звучит чисто | −18 дБ |
+| 0:23.04 (к576) | Грув | «Та-дам»: блеск титра | −18 дБ |
+| 0:24.48 (к612) | «Don't—» | Сердечки: «блуп-блуп» | −20 дБ |
+| 0:24.72–0:24.96 (к618–623) | | Диафрагма схлопывается, «зип» | −16 дБ |
+| **0:24.96 (к624)** | Обрыв перед «stop» | Тишина, петля | — |
 
 ---
 
 ## Раскадровка
 
-### Сводка
+| Шот | Название | Время | Кадры | Длит. | Локация |
+|---|---|---|---|---|---|
+| SH01 | В эфире | 0:00.00–0:01.92 | 0–47 | 48 к | Квартал, вечер |
+| SH02 | PIPPA | 0:01.92–0:05.76 | 48–143 | 96 к | Вход в метро |
+| SH03 | LEO | 0:05.76–0:09.60 | 144–239 | 96 к | Крыша с бельём |
+| SH04 | VERA | 0:09.60–0:13.44 | 240–335 | 96 к | Лестница доходного дома |
+| SH05 | Страница комикса | 0:13.44–0:15.36 | 336–383 | 48 к (4×12) | Все локации |
+| SH06 | Глаза в темноте | 0:15.36–0:17.28 | 384–431 | 48 к | Тёмный паркинг |
+| SH07 | ДРОП | 0:17.28–0:19.20 | 432–479 | 48 к | Паркинг, свет |
+| SH08 | Танцпол | 0:19.20–0:20.80 | 480–519 | 40 к | Паркинг |
+| SH09 | DON'T STOP! | 0:20.80–0:23.04 | 520–575 | 56 к | Паркинг |
+| SH10 | Титр | 0:23.04–0:24.96 | 576–623 | 48 к | Титр → петля |
 
-| Шот | Название | Время | Кадры | Длит. | Локация | Плёнка |
-|---|---|---|---|---|---|---|
-| SH01 | Толчок | 0:00.00–0:01.92 | 0–47 | 48 к / 4 доли | Улица у метро | 250D |
-| SH02 | Встреча | 0:01.92–0:03.84 | 48–95 | 48 к / 4 доли | Улица у метро | 250D |
-| SH03 | Лестница | 0:03.84–0:07.68 | 96–191 | 96 к / 8 долей | Лестница доходного дома | 500T |
-| SH04 | Жалюзи | 0:07.68–0:09.60 | 192–239 | 48 к / 4 доли | Лестница, площадка у окна | 500T |
-| SH05 | Простыни | 0:09.60–0:11.72 | 240–292 | 53 к | Крыша | 250D |
-| SH06 | Парапет | 0:11.72–0:13.44 | 293–335 | 43 к | Крыша | 250D |
-| SH07 | Ветер | 0:13.44–0:15.36 | 336–383 | 48 к / 4 доли | Крыша | 250D |
-| SH08 | Вниз | 0:15.36–0:17.28 | 384–431 | 48 к / 4 доли | Подземный паркинг | 500T |
-| SH09 | Свет (ДРОП) | 0:17.28–0:18.96 | 432–473 | 42 к | Подземный паркинг | 500T |
-| SH10 | Близко | 0:18.96–0:21.12 | 474–527 | 54 к | Подземный паркинг | 500T |
-| SH11 | Не сейчас | 0:21.12–0:24.96 | 528–623 | 96 к / 8 долей | Подземный паркинг | 500T |
-
-Герои: **ОНА** (22–26, тёмные волосы небрежно собраны, белая майка, серый оверсайз-костюм, кожаные сандалии, маленькие очки), **ОН** (24–28, короткая стрижка, чёрная футболка, выцветшие джинсы, серебряная цепочка), **ПОДРУГА** (кроссовки, спортивные штаны с лампасами без логотипов, нейлоновая ветровка). В каждом шоте есть живые люди в движении.
+Во всех шотах есть анимированные люди: герои или прохожие и толпа.
 
 ---
 
-### SH01 · «Толчок»
-**0:00.00–0:01.92 · кадры 0–47 · 4 доли · улица у метро**
+### SH01 · «В эфире» — 0:00.00–0:01.92 · к0–47
 
-1. **Визуальное описание.** Выход из метро: поток людей поднимается по плиточной лестнице на мокрый тротуар, отражения прохожих скользят по лужам и витринам. В потоке идёт ОНА. Верх головы срезан кадром, видны собранные волосы, серое плечо и маленькие очки. Прохожий задевает камеру, кадр дёргается в сторону, и она уходит из кадра вправо.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, на уровне груди. Оператор стоит внутри потока, в руках. Толчок на к27 сбивает кадр.
-3. **Свет и атмосфера.** Пасмурное утро, ровный мягкий свет. Отражения неба в лужах кремовые, тени во входе метро зелёно-серые. Городская суета.
-4. **Действия и эмоции моделей.** ОНА идёт уверенно и чуть насмешливо, поправляет очки, камеру не замечает. Толпа равнодушна и вся в движении.
-5. **Ритм монтажа.** Один шот на 4 доли. Толчок камеры приходится ровно на первый удар трека (к27, 1,08 с), «случайность», совпавшая с музыкой. Склейка на к48.
-6. **Промпт:**
+1. **Визуальное описание.** Вечерний мультяшный квартал: доходный дом с бельём на крыше и антенной, внизу вход в метро с круглой вывеской «U», сбоку въезд в подземный паркинг. По тротуару идут крошечные прохожие, в окнах загорается свет. Из антенны на крыше расходятся зигзаги радиоволн. На первом ударе над антенной с хлопком загорается ретро-вывеска **ON AIR** (томатная, с лампочками).
+2. **Ракурс и движение камеры.** Фронтальный общий план. Медленный 2.5D-наезд с параллаксом: небо, дом, фонарь на переднем плане. Лёгкая тряска при хлопке.
+3. **Свет и атмосфера.** Бирюзовые сумерки с кремовыми звёздочками, горчичные окна. Уютно, без мрачности.
+4. **Действия и эмоции моделей.** Прохожие идут, кто-то машет из окна, в окне третьего этажа силуэт танцует. Предвкушение вечера.
+5. **Ритм монтажа.** Один шот на такт. Вывеска ON AIR вспыхивает **на к27** (первый удар). С к40 диафрагма-кружок сжимается на входе в метро и закрывается на к47. Переход в SH02.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-Vertical 9:16, a street outside a metro entrance in a European city, 1997, overcast morning. A stream of people comes up the tiled metro stairs onto the wet tiled pavement; reflections of passers-by slide across puddles and shop windows. In the middle of the moving crowd walks a 24-year-old woman with dark hair loosely pinned up in a messy knot, a white ribbed tank top under an oversized grey suit with a loose jacket and wide trousers, flat leather sandals and small narrow sunglasses; confident and a little mocking, she pushes her sunglasses up with one finger and never notices the camera. The top of her head is cropped by the frame. A passer-by brushes against the camera, the frame jolts sideways, and she walks out of frame to the right. Everyone keeps moving; nobody looks at the camera. Handheld, 16mm lens at T2.0, chest height, operator standing inside the crowd. Super 16mm, Kodak Vision3 250D, natural available light from a flat overcast sky, film grain, gate weave, light halation on the bright reflections, a few dust specks, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture with pores, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+A cartoon European city block at dusk in 1997: a five-storey tenement house with laundry lines and a TV antenna on the roof, a round metro entrance sign with the letter U at street level, an underground parking ramp on the side, warm mustard light in the windows, tiny cartoon passers-by on the pavement, a silhouette dancing in one window, zigzag radio waves coming from the antenna, a teal dusk sky with cream stars. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, vertical 9:16 composition, no text, no lettering.
 ```
-
----
-
-### SH02 · «Встреча»
-**0:01.92–0:03.84 · кадры 48–95 · 4 доли · улица у метро**
-
-1. **Визуальное описание.** ПОДРУГА влетает сбоку и запрыгивает на ОНУ сзади, обхватив за шею. Обе хохочут и чуть не падают. В шаге позади стоит ОН, руки в карманах джинсов, едва улыбается. Потом трое уходят, а камера поворачивает слишком поздно и ловит только плечи и обрезанные головы.
-2. **Ракурс и движение камеры.** 25 мм, T2.0, на уровне глаз, в руках. Панорама за героями запаздывает.
-3. **Свет и атмосфера.** Пасмурный дневной свет, мокрая плитка, отражения, прохожие на заднем плане.
-4. **Действия и эмоции моделей.** Взрыв спонтанной радости и настоящий смех. ОН спокоен и притягателен без усилий. ОНА смеётся, но остаётся «собранной».
-5. **Ритм монтажа.** 4 доли. Прыжок и смех на к60 (2-я доля 2-го такта). Герои выходят из кадра около к80, когда вступает вокальная линия. Склейка на к96.
-6. **Промпт:**
+   - **Анимация (видео):**
 ```
-Vertical 9:16, wet tiled pavement outside a metro entrance in a European city, 1997, overcast day, people passing in both directions. A 23-year-old woman with a short messy bob and a wide grin, wearing a zip-up nylon windbreaker, track pants with side stripes and no logos, and worn trainers, runs in from the side and jumps on her friend from behind, arms around her neck. The friend, a 24-year-old woman with dark hair loosely pinned up, a white ribbed tank top under an oversized grey suit, leather sandals and small narrow sunglasses, staggers, laughs and almost loses her balance. A step behind them stands a 26-year-old man with a short cropped haircut, a plain black t-shirt, faded blue jeans and a thin silver chain, hands in his pockets, smiling slightly. Then the three walk off together and leave the frame; the camera pans a moment too late and catches only shoulders and cropped heads. Nobody looks at the camera. Handheld, 25mm lens at T2.0, eye level. Super 16mm, Kodak Vision3 250D, natural available light, film grain, gate weave, light halation, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture with pores and freckles, spontaneous genuine laughter, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Animate this retro cartoon illustration as limited 2D cartoon animation: tiny passers-by walk along the pavement with bouncy steps, a person in a window waves, a silhouette dances in another window, window lights pop on one by one, zigzag radio waves pulse from the rooftop antenna, laundry sways on the roof. Slow straight push-in toward the metro entrance with gentle parallax. Keep flat colors, bold ink outlines and halftone texture, slight line boil, no 3D, no camera rotation, real-time speed, vertical 9:16.
 ```
 
 ---
 
-### SH03 · «Лестница»
-**0:03.84–0:07.68 · кадры 96–191 · 8 долей · лестница доходного дома**
+### SH02 · «PIPPA» — 0:01.92–0:05.76 · к48–143
 
-1. **Визуальное описание.** Подъезд старого доходного дома: терракотовая плитка, белые стены, стёртые деревянные перила, на площадке окно с полуприкрытыми жалюзи. Трое бегут вверх. Камера снизу теряет их за поворотом лестницы и ловит фрагменты: кроссовки подруги, его руку на перилах, край серых брюк. Потом снова находит всех в полосатом свете жалюзи.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, нижний ракурс, в руках. Оператор поднимается следом и тяжело дышит. Фокус на мгновение «плывёт» и возвращается.
-3. **Свет и атмосфера.** Полумрак подъезда, единственный источник — окно с жалюзи. Тёплая терракота, зелёно-серые тени, эхо, пыль, редкая царапина на плёнке.
-4. **Действия и эмоции моделей.** ПОДРУГА смеётся и перепрыгивает через ступеньку. ОН поднимается не спеша. ОНА между ними, оглядывается на него, но не на нас. Игра и лёгкость.
-5. **Ритм монтажа.** Самый длинный шот вступления, 8 долей. Он «дышит» вместе с вокальной линией. Пульс в 2 доли задают шаги и рывки камеры. Склейка на к192 (начало 5-го такта).
-6. **Промпт:**
+1. **Визуальное описание.** Справа въезжают горчично-кремовые лучи. Из лестницы метро в прыжке вылетает **ПИППА**: ветровка раздута, лампасы, кроссовки, рот до ушей. Вокруг неё линии скорости. Огромное **ZOOM!** врезается по диагонали. В левом верхнем углу появляется наклонная панель с её широко распахнутыми глазами. Внизу плашка **PIPPA — full speed**.
+2. **Ракурс и движение камеры.** Чуть снизу, средний план. Камера коротко «подпрыгивает» вместе с ней, на ZOOM трясётся (6 кадров, амплитуда 12 px).
+3. **Свет и атмосфера.** Плоский мультяшный свет, горчичные лучи, растр в тенях. Утро-день, энергия.
+4. **Действия и эмоции моделей.** Прыжок, приземление с «пружиной» (сплющивание и растяжение) на долях, волосы и ветровка хлопают, она хохочет и делает «V» пальцами. Чистая радость.
+5. **Ритм монтажа.**
+   - к48: лучи въезжают;
+   - к60: прыжок;
+   - **к72: ZOOM!**;
+   - к96: панель с глазами;
+   - к108: плашка с именем;
+   - к136–143: смаз вправо, переход в SH03.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-Vertical 9:16, the stairwell of an old European tenement house, 1997: terracotta floor tiles, white plastered walls, a worn wooden handrail, a tall window with half-closed venetian blinds on the landing. Three young friends run up the stairs: in front, a 23-year-old woman with a short messy bob in a nylon windbreaker, side-stripe track pants and worn trainers, laughing and taking two steps at a time; behind her, a 26-year-old man with a short cropped haircut, a black t-shirt, faded jeans and a thin silver chain, unhurried, his hand sliding along the handrail; between them, a 24-year-old woman with dark hair loosely pinned up, a white ribbed tank top under an oversized grey suit and leather sandals, glancing back at him. The camera follows from below, loses them behind the turn of the stairs, catches trainers, a hand on the rail, the hem of wide grey trousers, then finds them again in the striped light of the blinds; focus drifts soft for a moment and comes back. Heads cropped by the frame; nobody looks at the camera. Handheld, 16mm lens at T2.0, low angle, operator climbing and breathing. Super 16mm, Kodak Vision3 500T, natural available light from the window only, film grain, gate weave, light halation around the blinds, a rare scratch, warm faded muted color, terracotta warmth, green-grey shadows, creamy highlights, low contrast, real skin texture, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+A cartoon young woman with a short messy black bob and a huge open grin, freckles, wearing an oversized tomato-red nylon windbreaker, navy track pants with white side stripes and no logos, and chunky white sneakers, leaps high out of a metro station staircase, one arm raised in a V sign, windbreaker puffed up, motion lines behind her, a mustard and cream radial speed-line sunburst background, the metro entrance and tiled pavement at the bottom. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
 ```
-
----
-
-### SH04 · «Жалюзи»
-**0:07.68–0:09.60 · кадры 192–239 · 4 доли · площадка у окна**
-
-1. **Визуальное описание.** Площадка у окна с жалюзи. ОНА прислонилась спиной к белой стене. ОН остановился ступенькой ниже, так что их лица на одной высоте и очень близко. Полосы света ложатся поперёк лиц, в них висит пыль. Она с насмешливой полуулыбкой что-то говорит (неслышно), проскальзывает мимо него и уходит вверх из кадра. Он ещё мгновение стоит и усмехается сам себе.
-2. **Ракурс и движение камеры.** 25 мм, T2.0, крупная двойка, снизу с лестницы, в руках, лёгкое «дыхание». Кадр срезает ей лоб.
-3. **Свет и атмосфера.** Дневной свет сквозь жалюзи полосами, пыль в лучах. Максимум один белый отражатель снизу, чтобы смягчить тени под глазами. Первое напряжение.
-4. **Действия и эмоции моделей.** Притяжение. ОНА уверенна и дразнит, ОН спокоен и не торопит события. На камеру никто не смотрит.
-5. **Ритм монтажа.** 4 доли. Она уходит из кадра на к228 (вокальный акцент 9,12 с), там же дребезжат задетые жалюзи. Склейка на к240.
-6. **Промпт:**
+   - **Анимация (видео):**
 ```
-Vertical 9:16, close two-shot on the landing of an old European tenement stairwell, 1997, beside a tall window with half-closed venetian blinds; slats of daylight fall across white plastered walls and terracotta tiles, dust floating in the light stripes. A 24-year-old woman with dark hair loosely pinned up, loose strands on her neck, a white ribbed tank top under an oversized grey suit jacket, leans her back against the white wall; a 26-year-old man with a short cropped haircut, a plain black t-shirt and a thin silver chain stops one step below her, so their faces are at the same height and very close. Stripes of light cross their faces. She gives a slightly mocking half-smile, says a few silent words, slips past him and walks up out of frame, brushing the blinds so they rattle; he stays for a moment, smiles to himself and looks down. Neither of them looks at the camera. The frame crops her forehead. Handheld, 25mm lens at T2.0, from the stairs below, small breathing sway. Super 16mm, Kodak Vision3 500T, natural available light from the window through the blinds, film grain, gate weave, light halation on the slats, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture with pores and a light sheen of sweat, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Animate this retro cartoon character as limited 2D cartoon animation on twos: she leaps out of the metro stairs, lands with a bouncy squash and stretch, bounces on the beat, her short black hair and red windbreaker flap, she laughs and flashes a V sign; the sunburst rays rotate slowly behind her and motion lines streak past. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
 ```
 
 ---
 
-### SH05 · «Простыни»
-**0:09.60–0:11.72 · кадры 240–292 · 53 кадра · крыша**
+### SH03 · «LEO» — 0:05.76–0:09.60 · к144–239
 
-1. **Визуальное описание.** Бетонная крыша, ряды бельевых верёвок, белые простыни надуваются от ветра. ПОДРУГА бежит и танцует между рядами. Простыни обвивают её и отпускают, она выкручивается из них со смехом. В конце порыв ветра бросает простыню прямо на объектив, и кадр заливает белым.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, на уровне глаз. Оператор в руках идёт между простынями.
-3. **Свет и атмосфера.** Пасмурное солнце сквозь тонкие облака, простыни светятся на просвет, кремовые хайлайты, низкий контраст, ветер.
-4. **Действия и эмоции моделей.** Беззаботность, свобода, смех, движение всем телом. Её голова иногда уходит за край кадра. Камеру она не замечает.
-5. **Ритм монтажа.** **Склейка не в долю:** простыня накрывает объектив, и рез приходится на к293, на 5 кадров позже доли (11,72 с). Ощущение случайности, звук удара простыни −16 дБ.
-6. **Промпт:**
+1. **Визуальное описание.** Крыша: бельевые верёвки с кремовыми простынями в бирюзовую полоску, кирпичная труба, антенна. За героем бирюзовые лучи. **ЛЕО** прислонился к трубе, полуприкрытые глаза, ленивая улыбка. Он щёлкает пальцами, и рядом с рукой вспыхивает **SNAP!**. На серебряной цепочке мигает искра-звёздочка. Панель с его полуприкрытыми глазами, плашка **LEO — steady groove**.
+2. **Ракурс и движение камеры.** На уровне глаз, средний план. Медленный наезд, лёгкий параллакс простыней на переднем плане.
+3. **Свет и атмосфера.** Бирюзовое небо, ветер, бельё колышется. Спокойствие и уверенность.
+4. **Действия и эмоции моделей.** Покачивает головой в такт, два щелчка пальцами. На втором чуть поднимает подбородок и смотрит в сторону, где «кто-то» есть. Притягательный без усилий.
+5. **Ритм монтажа.**
+   - к144: лучи;
+   - к180: панель с глазами;
+   - к192: первый SNAP (маленький);
+   - к204: искра на цепочке;
+   - к216: плашка;
+   - **к228: второй SNAP (большой)**, на вокальном акценте;
+   - к232–239: простыня пролетает через кадр, переход в SH04.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-Vertical 9:16, a flat concrete rooftop in a European city, 1997, overcast sun breaking through thin clouds; rows of laundry lines with white sheets billowing in the wind. A 23-year-old woman with a short messy bob, a zip-up nylon windbreaker, side-stripe track pants with no logos and worn trainers runs and dances between the rows of sheets, laughing; the sheets wrap around her and release her as she spins out of them. At the end a sheet blown by the wind slaps across the lens and fills the frame with white. Her head is sometimes cropped by the frame; she ignores the camera completely. Handheld, 16mm lens at T2.0, eye level, operator walking among the sheets. Super 16mm, Kodak Vision3 250D, natural available light, sheets glowing translucent, film grain, gate weave, light halation on the white fabric, a few dust specks, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+A cartoon young man with a short cropped haircut, half-lidded calm eyes and a relaxed lopsided smile, wearing a plain black t-shirt, faded light-blue jeans and a thin silver chain, leans against a brick chimney on a flat rooftop, snapping his fingers, a little sparkle on his silver chain; laundry lines with cream sheets with teal stripes flutter around him, a TV antenna behind, a teal and cream radial speed-line sunburst background. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
 ```
-
----
-
-### SH06 · «Парапет»
-**0:11.72–0:13.44 · кадры 293–335 · 43 кадра · крыша**
-
-1. **Визуальное описание.** ОНА сидит на низком бетонном парапете. Пиджак сполз с одного плеча, ветер треплет выбившиеся пряди, она качает ногой и смотрит на город. Камера резко уходит панорамой к НЕМУ: он полулежит на локтях на бетоне и спокойно смотрит на неё. Рывок обратно — она уже отвернулась.
-2. **Ракурс и движение камеры.** 25 мм, T2.0, в руках. Два неровных рывка панорамой со смазом. Головы срезаны вертикальным кадром.
-3. **Свет и атмосфера.** Мягкое пасмурное небо уходит в кремовый, бетон отражает свет, ветер.
-4. **Действия и эмоции моделей.** Притяжение через взгляды, но не друг другу в глаза одновременно. Уверенность обоих. На камеру никто не смотрит.
-5. **Ритм монтажа.** Шот короче обычного из-за «случайной» склейки. Рывки панорамы дают двухдольный пульс: к300 к нему, к324 обратно. Склейка на к336, точно в начало 8-го такта.
-6. **Промпт:**
+   - **Анимация (видео):**
 ```
-Vertical 9:16, a concrete rooftop with laundry lines and white sheets, European city, 1997, overcast sun, wind. A 24-year-old woman with dark hair loosely pinned up, strands blowing across her face, an oversized grey suit jacket slipping off one shoulder over a white ribbed tank top, wide grey trousers and leather sandals, sits on a low concrete parapet, swinging one foot and looking out over the city. The camera whip-pans to a 26-year-old man with a short cropped haircut, a plain black t-shirt, faded jeans and a thin silver chain, lying back on his elbows on the concrete roof and calmly watching her; then it whip-pans back, and she has already turned away. Heads cropped by the vertical frame; nobody looks at the camera. Handheld, 25mm lens at T2.0, quick imperfect whip-pans with motion blur. Super 16mm, Kodak Vision3 250D, natural available light from a soft overcast sky, film grain, gate weave, light halation, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Animate this retro cartoon character as limited 2D cartoon animation on twos: he leans on the chimney, nods to the beat, snaps his fingers twice, the second time lifting his chin with a cool half-smile; his silver chain sparkles, the striped sheets billow in the wind, the sunburst rays rotate slowly. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
 ```
 
 ---
 
-### SH07 · «Ветер»
-**0:13.44–0:15.36 · кадры 336–383 · 4 доли · крыша, пик хэтов**
+### SH04 · «VERA» — 0:09.60–0:13.44 · к240–335
 
-1. **Визуальное описание.** Трое танцуют посреди крыши среди хлопающих простыней. ПОДРУГА хватает ЕГО за руку и втягивает в танец, оба смеются. ОНА танцует одна, минимально и холодно, с полуприкрытыми глазами. Подруга, пробегая, задевает оператора: кадр дёргается, горизонт заваливается, камера снова их находит.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, оператор внутри группы, в руках, его толкают.
-3. **Свет и атмосфера.** Пасмурное солнце, ветер, простыни, бетон. Максимум энергии дневной части.
-4. **Действия и эмоции моделей.** Свобода, молодость, никакой хореографии. Пот и блеск кожи. На камеру не смотрят.
-5. **Ритм монтажа.** 4 доли на пике хэтов. Толчок оператора на к360 (3-я доля), это ещё один двухдольный акцент. Жёсткая склейка на к384 из светлой крыши в тёмный паркинг совпадает с откатом музыки.
-6. **Промпт:**
+1. **Визуальное описание.** Лестница доходного дома: пол в терракотово-кремовую клетку, белая стена, окно с жалюзи, полосы света лежат графичными линиями. За героиней томатные лучи. **ВЕРА** в сером оверсайз-костюме прислонилась к стене и одним пальцем опускает крошечные очки. Панель крупно: её глаза поверх очков, одна бровь вверх. Звукоподражание **SMIRK!**, плашка **VERA — no rush**.
+2. **Ракурс и движение камеры.** Чуть снизу, полный рост. Наезд к лицу на SMIRK.
+3. **Свет и атмосфера.** Полосатый свет жалюзи (кремовые и бирюзовые полосы), тёплая терракота. Прохлада и ирония.
+4. **Действия и эмоции моделей.** Не торопится: опускает очки, приподнимает бровь, усмехается уголком рта, перекладывает пиджак на плечо. Уверенность и лёгкая насмешка.
+5. **Ритм монтажа.**
+   - к240: лучи;
+   - к264: очки съезжают, панель с глазами;
+   - **к276: SMIRK!**;
+   - к300: плашка;
+   - к328–335: жалюзи закрываются полосами, переход в SH05.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-Vertical 9:16, a concrete rooftop with laundry lines and flapping white sheets, European city, 1997, overcast sun and strong wind. Three young friends dance in the middle of the roof: a 23-year-old woman with a short messy bob in a nylon windbreaker and side-stripe track pants grabs the hand of a 26-year-old man in a black t-shirt, faded jeans and a thin silver chain and pulls him into dancing, both laughing; a 24-year-old woman with dark pinned-up hair in a white ribbed tank top and an oversized grey suit dances on her own, minimal and cool, eyes half closed. The friend bumps into the camera as she passes, the frame jolts and the horizon tilts, then the camera finds them again. Loose, unchoreographed movement; heads and feet cropped by the frame; nobody looks at the camera. Handheld, 16mm lens at T2.0, operator in the middle of them. Super 16mm, Kodak Vision3 250D, natural available light, film grain, gate weave, light halation, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture with sweat and shine, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+A cartoon young woman with dark hair in a messy updo, tiny oval sunglasses, one eyebrow raised in a confident, slightly mocking expression, wearing a white tank top under an oversized grey suit and flat leather sandals, leans against a white wall in an old tenement stairwell and lowers her sunglasses with one finger; terracotta and cream checkered floor tiles, a window with venetian blinds casting graphic stripes of light, a tomato red and cream radial speed-line sunburst background. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow plus terracotta, subtle paper texture, slight print misregistration, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
 ```
-
----
-
-### SH08 · «Вниз»
-**0:15.36–0:17.28 · кадры 384–431 · 4 доли · подземный паркинг, откат перед дропом**
-
-1. **Визуальное описание.** Подземный паркинг почти в темноте, горят лишь несколько старых флуоресцентных ламп, одна мигает. На полу разметка, на колоннах номера мест. Трое спускаются по пандусу, мы видим их со спины. ОНА впереди, ОН сразу за ней, ПОДРУГА последней, её смех затихает. Они уходят от камеры в темноту.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, сзади, в руках. Оператор идёт следом, кадр поднимается и опускается в такт его дыханию. Головы срезаны верхом кадра.
-3. **Свет и атмосфера.** Только флуоресцент: зелёно-серые тени, мерцание, ореолы вокруг ламп, редкая царапина. Тишина перед бурей, эхо шагов.
-4. **Действия и эмоции моделей.** Предвкушение. Все трое замолкают, идут спокойно и уверенно.
-5. **Ритм монтажа.** Целый такт без склеек. Пока музыка откатывается, громче всего звучит живой звук: эхо шагов, гул ламп. Щелчок стартера лампы на к430, за 2 кадра до дропа.
-6. **Промпт:**
+   - **Анимация (видео):**
 ```
-Vertical 9:16, an underground concrete parking garage in a European city, 1997, almost dark: only a few old fluorescent tubes are on, one of them flickering; painted floor markings and parking numbers on concrete pillars. Three young friends walk down the ramp into the garage, seen from behind: a 24-year-old woman with dark hair loosely pinned up in an oversized grey suit in front, a 26-year-old man with a short cropped haircut in a black t-shirt and faded jeans just behind her, and a 23-year-old woman with a short messy bob in a nylon windbreaker and track pants last, her laughter fading into silence. Their heads are cropped by the top of the frame; they walk away from the camera into the dark. Handheld, 16mm lens at T2.0, operator walking behind them, the frame rising and falling with his breathing. Super 16mm, Kodak Vision3 500T, natural available light from the fluorescent tubes only, film grain, gate weave, light halation around the tubes, a rare scratch, warm faded muted color with green-grey fluorescent shadows, creamy highlights, low contrast, real skin texture, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Animate this retro cartoon character as limited 2D cartoon animation on twos: she slowly lowers her tiny sunglasses with one finger, raises one eyebrow, gives a sly half-smile and swings her grey suit jacket over her shoulder; the stripes of light from the blinds shift slightly, the sunburst rays rotate slowly. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
 ```
 
 ---
 
-### SH09 · «Свет» — ДРОП
-**0:17.28–0:18.96 · кадры 432–473 · 42 кадра · подземный паркинг**
+### SH05 · «Страница комикса» — 0:13.44–0:15.36 · к336–383
 
-1. **Визуальное описание.** На дропе под потолком одна за другой вспыхивают ряды флуоресцентных ламп, и паркинг заливает зеленоватым светом. ПОДРУГА взрывается свободным диким танцем прямо на разметке, хохочет, ветровка шуршит. За ней, чуть не в фокусе, начинают двигаться ОН и ОНА. В конце ОН проходит вплотную перед объективом и перекрывает кадр.
-2. **Ракурс и движение камеры.** 16 мм, T2.0, низкая точка, в руках, оператор быстро обходит подругу.
-3. **Свет и атмосфера.** Флуоресцент включается рядами, мерцание, зелёно-серый оттенок, ореолы вокруг трубок. Бетон, пот, энергия.
-4. **Действия и эмоции моделей.** Освобождение, радость, молодость. Тело полностью отдано биту. На камеру никто не смотрит.
-5. **Ритм монтажа.** Склейка **ровно на дроп, к432**, лампы вспыхивают на первом кадре. **Вторая склейка не в долю:** рез на к474, на 6 кадров (восьмую) раньше такта, когда он перекрывает объектив.
-6. **Промпт:**
+1. **Визуальное описание.** Вертикальная страница комикса собирается на каждую долю, по панели (наклонные рамки, кремовые поля):
+   - кроссовки Пиппы отбивают ритм, **TAP TAP**;
+   - пальцы Лео, **SNAP**;
+   - очки Веры, **CLICK**;
+   - все трое бегут к стрелке **PARKING ↓**.
+2. **Ракурс и движение камеры.** Статичная «страница». Каждая панель врезается с перелётом масштаба и лёгким поворотом, камера дёргается на каждом шлепке.
+3. **Свет и атмосфера.** Четыре цвета героев в четырёх панелях: горчичный, бирюзовый, томатный, бетонно-голубой. Максимальная энергия, пик хэтов.
+4. **Действия и эмоции моделей.** Короткие петли движений (кроссовки, щелчок, очки, бег). Азарт.
+5. **Ритм монтажа.** Ровно в доли: **к336, к348, к360, к372**, по 12 кадров. На к383 страница уходит в темноту.
+6. **Промпты:**
+   - **Кадр (изображение)** (4 отдельных кадра, затем сборка в AE):
 ```
-Vertical 9:16, an underground concrete parking garage in a European city, 1997. Overhead, rows of old fluorescent tubes flicker on one after another and the space fills with greenish light. A 23-year-old woman with a short messy bob, a zip-up nylon windbreaker, side-stripe track pants with no logos and worn trainers bursts into wild, loose dancing on the painted floor markings, laughing, her windbreaker swishing; behind her, slightly out of focus, a 26-year-old man in a black t-shirt and faded jeans and a 24-year-old woman in an oversized grey suit start to move to the beat. At the end the man walks right in front of the lens and blocks the frame. Nobody looks at the camera; heads and feet cropped by the frame. Handheld, 16mm lens at T2.0, low angle, operator moving fast around her. Super 16mm, Kodak Vision3 500T, natural available light from the fluorescent tubes, flicker, film grain, gate weave, light halation around the tubes, warm faded muted color with green-grey shadows, creamy highlights, low contrast, real skin texture with sweat, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Four separate retro comic panels, each a close-up: (1) chunky white sneakers and navy track pants with white side stripes tapping on a tiled pavement, mustard background; (2) a hand with a thin silver chain snapping its fingers, teal background; (3) tiny oval sunglasses sliding down a nose under a raised eyebrow, tomato red background; (4) three cartoon young people in a red windbreaker, a black t-shirt and a grey suit running toward an arrow pointing down into a parking garage, concrete blue background. Retro 1950s-60s cartoon pop-art illustration, bold black ink outlines, halftone dot shading, flat limited palette, subtle paper texture, slight print misregistration, no text, no lettering.
 ```
-
----
-
-### SH10 · «Близко»
-**0:18.96–0:21.12 · кадры 474–527 · 54 кадра · подземный паркинг**
-
-1. **Визуальное описание.** Между бетонными колоннами ОН и ОНА танцуют близко, сначала не касаясь друг друга. На секунду его ладонь ложится ей на талию. Она разворачивается и танцует спиной к нему, потом снова лицом. Пиджак сползает с её плеч, волосы выбиваются из узла. На заднем плане, не в фокусе, ПОДРУГА запрокидывает голову от смеха.
-2. **Ракурс и движение камеры.** 25 мм, T2.0, в руках. Камера обходит пару, на мгновение теряет фокус и находит их снова.
-3. **Свет и атмосфера.** Флуоресцент сверху, блеск пота на коже, зелёно-серые тени, тёплые кремовые хайлайты.
-4. **Действия и эмоции моделей.** Притяжение и напряжение. Она ведёт, он позволяет. На камеру никто не смотрит.
-5. **Ритм монтажа.** 54 кадра. Вокальный хук «don't stop» (20,82–21,57 с) звучит здесь чисто, без живых звуков. Склейка на к528, сильную долю 12-го такта, где в хуке звучит «stop».
-6. **Промпт:**
+   - **Анимация (видео)** (для каждой панели отдельно, 2 секунды, берётся 12 кадров):
 ```
-Vertical 9:16, between concrete pillars in an underground parking garage in a European city, 1997, under rows of old fluorescent tubes. A 26-year-old man with a short cropped haircut, a plain black t-shirt, faded jeans and a thin silver chain and a 24-year-old woman with dark hair coming loose from her knot, a white ribbed tank top and an oversized grey suit jacket slipping off her shoulders dance close to each other without touching; for a second his hand rests on her waist, she turns and dances with her back to him, then turns to face him again. In the background, out of focus, their friend in a nylon windbreaker throws her head back laughing. The camera circles them, loses focus for a moment and finds them again; heads cropped by the frame; nobody looks at the camera. Handheld, 25mm lens at T2.0. Super 16mm, Kodak Vision3 500T, natural available light from the fluorescent tubes, film grain, gate weave, light halation, warm faded muted color, green-grey shadows, creamy highlights, low contrast, real skin texture with sweat and shine, attraction and tension, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+Animate this retro comic panel as a short limited 2D cartoon loop on twos: the sneakers tap twice / the fingers snap once / the sunglasses slide down and the eyebrow pops up / the three friends run toward the arrow with bouncy rubber-hose legs. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed.
 ```
 
 ---
 
-### SH11 · «Не сейчас»
-**0:21.12–0:24.96 · кадры 528–623 · 8 долей · подземный паркинг, финал**
+### SH06 · «Глаза в темноте» — 0:15.36–0:17.28 · к384–431
 
-1. **Визуальное описание.** У бетонной колонны под одной мигающей лампой ОН наклоняется к НЕЙ. Их лица в нескольких сантиметрах, оба тяжело дышат после танца, на коже пот. Она не сокращает расстояние. Вместо этого она медленно переводит взгляд прямо в объектив, с едва заметной насмешливой полуулыбкой. Это **единственный взгляд в камеру за весь ролик**. Губы так и не встречаются: **рез до поцелуя**.
-2. **Ракурс и движение камеры.** 25 мм, T2.0, очень близкая двойка, в руках. Кадр дышит вместе с оператором, едва заметно подаётся ближе, фокус мягко уходит и возвращается.
-3. **Свет и атмосфера.** Одна мигающая флуоресцентная лампа сверху, максимум один отражатель снизу. Зелёно-серые тени, кремовые блики на влажной коже. Тишина вокруг, только дыхание и гул лампы.
-4. **Действия и эмоции моделей.** Напряжение, притяжение, её контроль. ОН спокоен и ждёт. ОНА уверенна, чуть насмешлива и оставляет разрядку за кадром.
-5. **Ритм монтажа.** Самая длинная задержка, 8 долей: напряжение важнее разрядки. Взгляд в камеру на **к612 (24,48 с)** ровно на вокальном «Don't—». **Жёсткий обрыв на к624 (24,96 с)** до поцелуя и до «stop». Петля Reels возвращает ролик к уличному шуму SH01.
-6. **Промпт:**
+1. **Визуальное описание.** Почти чёрный кадр подземного паркинга, только еле видны контуры колонн и разметки. В темноте моргают **три пары глаз**: широкие у Пиппы, полуприкрытые у Лео, у Веры поверх очков. Маленькими буквами шёпот: *…ready?* В конце мультяшная рука тянется к огромному рубильнику на стене.
+2. **Ракурс и движение камеры.** Статика, очень медленный наезд на глаза.
+3. **Свет и атмосфера.** Темнота, глаза кремовые, капли воды. Тишина перед взрывом.
+4. **Действия и эмоции моделей.** Глаза переглядываются, моргают по очереди, хитро щурятся. Озорство и предвкушение.
+5. **Ритм монтажа.**
+   - Целый такт без склеек, пока музыка откатывается.
+   - Моргания на долях: к384, к396, к408.
+   - к420: рука на рубильнике.
+   - **к430: CLACK!**, за 2 кадра до дропа.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-Vertical 9:16, close two-shot against a concrete pillar in an underground parking garage in a European city, 1997, under a single flickering fluorescent tube. A 26-year-old man with a short cropped haircut, a plain black t-shirt and a thin silver chain leans in toward a 24-year-old woman with dark hair falling loose from her knot, a white ribbed tank top and an oversized grey suit; their faces are a few centimeters apart, both breathing hard after dancing, sweat on their skin. She does not close the distance. Instead she slowly slides her eyes straight into the camera lens with a faint, mocking half-smile, the only look into the camera in the whole film. Their lips never meet. Handheld, 25mm lens at T2.0, very close, the frame breathing with the operator, focus softening and returning. Super 16mm, Kodak Vision3 500T, natural available light from the fluorescent tube only, flicker, film grain, gate weave, light halation, warm faded muted color, green-grey shadows, creamy highlights on sweat, low contrast, real skin texture with pores, freckles and shine, vertical 9:16, 1997 European underground fashion film. Real-time speed.
+A pitch-dark cartoon underground parking garage, barely visible outlines of concrete pillars and floor markings in deep blue-black, three pairs of bright cream cartoon eyes glowing in the darkness: one pair wide and excited, one pair half-lidded and calm, one pair peeking over tiny oval sunglasses; a cartoon hand reaching for a big old wall-mounted lever switch on the right. Retro 1950s-60s cartoon pop-art illustration, bold black ink outlines, halftone dot shading, flat limited palette, subtle paper texture, vertical 9:16 composition, no text, no lettering.
+```
+   - **Анимация (видео):**
+```
+Animate this retro cartoon scene as limited 2D cartoon animation on twos: the three pairs of eyes in the dark blink one after another, glance at each other and narrow mischievously; a cartoon hand slowly reaches up and grabs the big wall lever. Keep flat colors, bold ink outlines and halftone texture, slight line boil, no 3D, real-time speed, vertical 9:16.
 ```
 
 ---
 
-### Монтажный лист (кадры при 25 к/с)
+### SH07 · «ДРОП» — 0:17.28–0:19.20 · к432–479
+
+1. **Визуальное описание.** На дропе зубчатый томатно-горчичный **взрыв-клякса** заливает кадр, под потолком паркинга загораются ряды ламп (кремовые полосы). На фоне взрыва трое в прыжке: Пиппа с поднятыми руками, Лео в развороте, Вера, придерживающая очки. Имена артистов **врезаются** объёмными буквами: **FUTURIST (ofc)**, следом **FUNKT!DE**.
+2. **Ракурс и движение камеры.** Взрыв от центра, сильная тряска на каждом ударе букв, быстрый наезд.
+3. **Свет и атмосфера.** Резкая смена: из черноты в насыщенные томатный, горчичный и крем, лучи вращаются быстрее. Освобождение.
+4. **Действия и эмоции моделей.** Прыжок втроём, «резиновые» руки и ноги, восторг.
+5. **Ритм монтажа.**
+   - **к432: взрыв точно на дроп**;
+   - к444: FUTURIST (ofc);
+   - к456: FUNKT!DE;
+   - к479: склейка в SH08.
+6. **Промпты:**
+   - **Кадр (изображение):**
 ```
-SH01 0–47 | SH02 48–95 | SH03 96–191 | SH04 192–239 | SH05 240–292* | SH06 293–335 | SH07 336–383 | SH08 384–431 ║ SH09 432–473* | SH10 474–527 | SH11 528–623 ■
-* — склейка не в долю   ║ — дроп   ■ — жёсткий обрыв (к624 = 24,96 с)
+Three cartoon young people jump in the air together inside an underground parking garage as rows of fluorescent ceiling lights switch on: a girl with a short black bob in a red windbreaker and striped track pants throws both arms up, a guy in a black t-shirt and jeans with a silver chain spins mid-air, a girl in an oversized grey suit holds her tiny sunglasses in place; behind them a huge jagged tomato red and mustard comic explosion burst with radial speed lines. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
 ```
+   - **Анимация (видео):**
+```
+Animate this retro cartoon scene as limited 2D cartoon animation on twos: the comic explosion bursts outward, the ceiling lights flick on row by row, the three friends jump with stretchy rubber-hose arms and legs, land and start dancing; the speed lines rotate fast behind them. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
+```
+
+---
+
+### SH08 · «Танцпол» — 0:19.20–0:20.80 · к480–519
+
+1. **Визуальное описание.** Паркинг стал танцполом: разметка как шахматный пол, на капоте ретро-машины стоит бумбокс, вокруг толпа мультяшной молодёжи 90-х (сетчатые майки, ветровки, панамки). На переднем плане Пиппа крутится волчком, Лео плавно двигается шагами в сторону, Вера минимально двигает плечами.
+2. **Ракурс и движение камеры.** Общий план чуть сверху. Камера качается в такт (на каждую долю вниз-вверх на 6 px).
+3. **Свет и атмосфера.** Кремовые полосы ламп, бетонно-голубые колонны, тёплые акценты одежды. Свобода.
+4. **Действия и эмоции моделей.** Все танцуют по-своему, толпа подпрыгивает на долях. Радость, движение.
+5. **Ритм монтажа.** 40 кадров. Склейка на к520, за кадр до вокального «don't».
+6. **Промпты:**
+   - **Кадр (изображение):**
+```
+A cartoon underground parking garage turned into a dance floor: painted floor markings forming a checkerboard, concrete pillars, rows of cream ceiling lights, a boombox standing on the hood of a rounded vintage car, a crowd of cartoon young people in 1990s outfits (mesh tops, windbreakers, bucket hats, baggy jeans) dancing; in front, a girl with a short black bob in a red windbreaker spins, a guy in a black t-shirt and jeans with a silver chain does a smooth side step, a girl in an oversized grey suit and tiny sunglasses grooves with her shoulders. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal, mustard yellow and concrete blue, subtle paper texture, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
+```
+   - **Анимация (видео):**
+```
+Animate this retro cartoon scene as limited 2D cartoon animation on twos: the crowd bounces on every beat, the girl in the red windbreaker spins, the guy side-steps smoothly, the girl in the grey suit grooves her shoulders, the boombox speakers pump. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
+```
+
+---
+
+### SH09 · «DON'T STOP!» — 0:20.80–0:23.04 · к520–575
+
+1. **Визуальное описание.** Вокальный хук. Трое на переднем плане, сложив руки рупором, кричат прямо в камеру, за ними подпрыгивает толпа. Над ними огромное объёмное **DON'T** (к520), затем с ударом **STOP!** (к528) на томатном взрыве. Потом буквы остаются и пульсируют, а герои танцуют.
+2. **Ракурс и движение камеры.** Нижний ракурс, широкий угол. Сильная тряска на STOP!, затем покачивание в такт.
+3. **Свет и атмосфера.** Томатно-кремовый взрыв, растр, максимум цвета. Главный пик.
+4. **Действия и эмоции моделей.** Крик-кураж и общий прыжок на STOP!. Свобода и молодость.
+5. **Ритм монтажа.**
+   - **к520: DON'T**;
+   - **к528: STOP!**, ровно на сильную долю 12-го такта, где в хуке звучит «stop»;
+   - к540–575: удержание с пульсом букв на долях;
+   - склейка на к576.
+6. **Промпты:**
+   - **Кадр (изображение):**
+```
+Low-angle view of three cartoon young people shouting joyfully toward the viewer with their hands cupped around their mouths: a girl with a short black bob in a red windbreaker, a guy in a black t-shirt with a silver chain, a girl in an oversized grey suit with tiny sunglasses pushed up on her head; behind them a crowd of cartoon young people in 1990s outfits jumping with arms up inside a parking garage, a huge jagged tomato red comic explosion burst with radial speed lines filling the upper half of the frame (empty space for lettering). Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, exaggerated rubber-hose proportions, vertical 9:16 composition, no text, no lettering.
+```
+   - **Анимация (видео):**
+```
+Animate this retro cartoon scene as limited 2D cartoon animation on twos: the three friends shout with cupped hands, then everybody jumps at once and lands on the beat, the crowd bounces with arms up, the explosion burst pulses and the speed lines spin. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
+```
+
+---
+
+### SH10 · «Титр» — 0:23.04–0:24.96 · к576–623
+
+1. **Визуальное описание.** Финальный титр на горчично-кремовых лучах:
+   - логотип **DON'T STOP** ретро-буквами;
+   - под ним **FUTURIST (ofc), FUNKT!DE**;
+   - круглый штамп **OUT NOW** (или дата релиза).
+
+   Из углов выглядывают герои: Пиппа снизу слева машет, Лео и Вера справа. На «Don't—» Лео и Вера тянутся друг к другу, вылетают два сердечка, и **диафрагма-кружок схлопывается на них раньше, чем губы встретились**. Чёрная точка, петля в SH01.
+2. **Ракурс и движение камеры.** Статика титра, лёгкое вращение лучей. В конце сжимается круглая маска.
+3. **Свет и атмосфера.** Праздничный крем, горчица и томат. Финал-подмигивание.
+4. **Действия и эмоции моделей.** Пиппа машет обеими руками. Лео и Вера переглядываются, тянутся к поцелую и почти касаются. Притяжение, напряжение важнее разрядки.
+5. **Ритм монтажа.**
+   - к576: титр и «та-дам»;
+   - к588: штамп OUT NOW;
+   - **к612: «Don't—»**, сердечки;
+   - **к618–623: диафрагма закрывается**;
+   - **к624: обрыв**, петля в SH01.
+6. **Промпты:**
+   - **Кадр (изображение)** (фон и герои отдельно, буквы делаются в AE):
+```
+A retro cartoon title card background: mustard and cream radial speed-line sunburst with a big empty central area for a logo; three cartoon young people peeking in from the corners: a girl with a short black bob in a red windbreaker waving with both hands from the lower left, and on the right a guy in a black t-shirt with a silver chain and a girl in an oversized grey suit with tiny sunglasses leaning toward each other, almost kissing, two small cartoon hearts above them. Retro 1950s-60s cartoon pop-art illustration, vintage comic book print style, bold black ink outlines, halftone dot shading, flat limited palette of cream, ink black, tomato red, teal and mustard yellow, subtle paper texture, slight print misregistration, vertical 9:16 composition, no text, no lettering.
+```
+   - **Анимация (видео):**
+```
+Animate this retro cartoon title card as limited 2D cartoon animation on twos: the sunburst rays rotate slowly, the girl in the lower left waves both hands, the couple on the right glance at each other and slowly lean in, two little hearts pop up above them, but they never quite kiss. Keep flat colors, bold ink outlines and halftone shading, slight line boil, no 3D, real-time speed, vertical 9:16.
+```
+
+---
+
+## Как собрать (повторяет пайплайн референса)
+1. **Изображения.**
+   - Сначала персонажные листы трёх героев по PROMPT BLOCK.
+   - Потом кадры по промптам шотов: персонажи на чистом фоне отдельно, фоны отдельно, без текста.
+   - Апскейл (например, в Magnific).
+2. **Движение.** Puppet-анимация и появления в After Effects или короткие клипы image-to-video по промптам «Анимация». Из каждого клипа берётся середина, на двойках.
+3. **Графика.** Все буквы (звукоподражания, плашки, титр), лучи, растр, переходы и тряска делаются в AE по таймингам из раскадровки.
+4. **Звук.** Трек плюс мультяшные шумы по таблице звуковой сборки.
