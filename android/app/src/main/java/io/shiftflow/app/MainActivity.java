@@ -373,7 +373,8 @@ public class MainActivity extends Activity {
             Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             i.addCategory(Intent.CATEGORY_OPENABLE);
             i.setType("*/*");
-            i.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/json", "text/plain", "application/octet-stream"});
+            i.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/json", "text/plain", "application/octet-stream",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/zip"});
             try {
                 startActivityForResult(i, REQ_OPEN);
                 return true;

@@ -16,21 +16,27 @@ abstract class CopyWebAssets : DefaultTask() {
     @get:OutputDirectory
     abstract val outputDir: DirectoryProperty
 
+    @get:Input
+    abstract val excludes: ListProperty<String>
+
     @get:Inject
     abstract val fs: FileSystemOperations
 
     @TaskAction
     fun run() {
+        val skip = excludes.get()
         fs.sync {
             from(webDir)
             into(outputDir.dir("www"))
-            exclude("sw.js", "**/.DS_Store")
+            exclude(skip)
         }
     }
 }
 
 val copyWebAssets = tasks.register<CopyWebAssets>("copyWebAssets") {
     webDir.set(rootProject.layout.projectDirectory.dir("../web"))
+    // В APK не нужны: офлайн-помощник сайта и картинки для магазинов/превью ссылок
+    excludes.set(listOf("sw.js", "**/.DS_Store", "icons/*.png"))
 }
 
 /*
@@ -61,6 +67,14 @@ android {
     }
 
     signingConfigs {
+        // Общий отладочный ключ из репозитория (пароль android): тестовые APK, собранные где угодно,
+        // подписаны одинаково и обновляются поверх друг друга без потери данных.
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
         if (hasSigning) {
             create("release") {
                 storeFile = rootProject.file(signing.getProperty("storeFile"))

@@ -9,3 +9,5 @@ local.properties
 keystore.properties
 *.jks
 *.keystore
+# Отладочный ключ общий (пароль android), чтобы тестовые сборки ставились поверх друг друга
+!app/debug.keystore

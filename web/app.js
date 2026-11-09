@@ -113,6 +113,11 @@ const DICT = {
     'Подсветка смен':'Shift highlight','Полоска':'Line','Мягкая':'Soft','Яркая':'Bold',
     'Подписи в днях':'Day labels','Название и сумма':'Name and pay',
     'Сумма за даты':'Totals for dates','2/2, 5/2 или свой':'2/2, 5/2 or custom','Всё':'All','и ещё':'and',
+    'Резервная копия .json или выгрузка Excel':'A .json backup or an Excel export',
+    'Переезжаешь со старой версии сайта? Открой там «Финансы», в «Экспорте» поставь дату «С» на свою первую смену и нажми «Скачать всё (все места работы)». Потом выбери этот файл здесь.':
+      'Moving from the old website? Open Finance there, set the export “From” date to your first shift and tap “Download all (every workplace)”. Then pick that file here.',
+    'Не получилось прочитать Excel-файл':'Could not read the Excel file','В файле не нашлось смен':'No shifts found in the file',
+    'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
     'Индиго':'Indigo','Орхидея':'Orchid','Коралл':'Coral','Солнце':'Sun','Лайм':'Lime','Серебро':'Silver'
   }
 };
@@ -1515,9 +1520,9 @@ function dataPage(){
   out += label(t('Резервная копия'));
   out += '<div class="group" style="--d:1">'
       + row({ act:'backupExport', tile:tile(ico.down()), title:t('Скачать резервную копию'), sub:t('Файл .json со всеми данными'), end:'' })
-      + row({ act:'backupImport', tile:tile(ico.up()), title:t('Восстановить из файла'), sub:t('Заменит текущие данные'), end:'' })
+      + row({ act:'backupImport', tile:tile(ico.up()), title:t('Восстановить из файла'), sub:t('Резервная копия .json или выгрузка Excel'), end:'' })
       + '</div>';
-  out += '<div class="note" style="margin-top:0;margin-bottom:6px">'+esc(t('Переезжаешь с сайта в приложение? Скачай копию на сайте и восстанови её здесь.'))+'</div>';
+  out += '<div class="note" style="margin-top:0;margin-bottom:6px;text-align:left">'+esc(t('Переезжаешь со старой версии сайта? Открой там «Финансы», в «Экспорте» поставь дату «С» на свою первую смену и нажми «Скачать всё (все места работы)». Потом выбери этот файл здесь.'))+'</div>';
   out += label(t('Опасная зона'));
   out += '<div class="group" style="--d:2">'
       + row({ act:'clearWorkplaces', tile:tile(ico.trash(), 'danger'), title:t('Удалить все данные'), sub:t('Места, смены и выплаты'), end:'' })
@@ -2421,8 +2426,11 @@ function handleBackupFile(file){
   if(!file) return;
   const reader = new FileReader();
   reader.onload = function(e){
+    const buf = e.target.result;
+    const head = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
+    if(head[0] === 0x50 && head[1] === 0x4B){ importExcel(buf); return; }   /* .xlsx — это zip-архив */
     let parsed = null;
-    try{ parsed = JSON.parse(e.target.result); }
+    try{ parsed = JSON.parse(new TextDecoder('utf-8').decode(buf).replace(/^﻿/, '')); }
     catch(err){ toast(t('Файл не похож на резервную копию')); return; }
     if(!parsed || (!parsed.workplaces && !parsed.shifts)){ toast(t('Файл не похож на резервную копию')); return; }
     askConfirm(t('Восстановить данные из файла? Текущие данные будут заменены.'), t('Восстановить'), true, function(){
@@ -2432,10 +2440,191 @@ function handleBackupFile(file){
       state.notes = (m.notes && typeof m.notes === 'object') ? m.notes : {};
       state.incomes = Array.isArray(m.incomes) ? m.incomes : [];
       state.payments = Array.isArray(m.payments) ? m.payments : [];
-      normalize(); saveState(); render(); toast(t('Восстановлено'));
+      normalize(); saveState(); goHomeAfterImport(); toast(t('Восстановлено'));
     });
   };
-  reader.readAsText(file);
+  reader.onerror = function(){ toast(t('Файл не похож на резервную копию')); };
+  reader.readAsArrayBuffer(file);
+}
+/* После восстановления показываем календарь с месяцем последней смены (или текущим) */
+function goHomeAfterImport(){
+  const keys = Object.keys(state.shifts).sort();
+  const last = keys.length ? parseKey(keys[keys.length - 1]) : null;
+  const now = new Date();
+  navigate('tab', function(){
+    ui.view = last && (last[0] < now.getFullYear() || (last[0] === now.getFullYear() && last[1] < now.getMonth())) ? { y:last[0], m:last[1] } : { y:now.getFullYear(), m:now.getMonth() };
+    ui.statsYear = ui.view.y;
+    ui.tab = 'calendar'; ui.page = null; ui.snapshot = null;
+    ui.selected = null; ui.rangeMode = false; ui.rangeStart = null; ui.rangeEnd = null;
+  });
+}
+
+/* ════════════════════════ Импорт из Excel (выгрузка «Скачать всё» прошлых версий) ════════════════════════
+   Читает .xlsx без библиотек: разбирает zip, при необходимости распаковывает (DecompressionStream),
+   берёт листы с колонками «Дата / Место работы / Часов / Оплата». Из сумм восстанавливаются ставки,
+   а разница с расчётом по ставке сохраняется как корректировка — итоги совпадают до копейки. */
+async function readXlsx(buf){
+  const u8 = new Uint8Array(buf);
+  const dv = new DataView(buf);
+  let eocd = -1;
+  for(let i = u8.length - 22; i >= Math.max(0, u8.length - 65557); i--){
+    if(dv.getUint32(i, true) === 0x06054b50){ eocd = i; break; }
+  }
+  if(eocd < 0) throw new Error('not a zip');
+  const count = dv.getUint16(eocd + 10, true);
+  let p = dv.getUint32(eocd + 16, true);
+  const dec = new TextDecoder('utf-8');
+  const files = {};
+  for(let i = 0; i < count; i++){
+    if(dv.getUint32(p, true) !== 0x02014b50) break;
+    const method = dv.getUint16(p + 10, true), size = dv.getUint32(p + 20, true);
+    const nlen = dv.getUint16(p + 28, true), xlen = dv.getUint16(p + 30, true), clen = dv.getUint16(p + 32, true);
+    const lho = dv.getUint32(p + 42, true);
+    const name = dec.decode(u8.subarray(p + 46, p + 46 + nlen));
+    const start = lho + 30 + dv.getUint16(lho + 26, true) + dv.getUint16(lho + 28, true);
+    files[name.replace(/^\//, '')] = { method:method, data:u8.subarray(start, start + size) };
+    p += 46 + nlen + xlen + clen;
+  }
+  const text = async function(name){
+    const f = files[name];
+    if(!f) return null;
+    if(f.method === 0) return dec.decode(f.data);
+    if(f.method !== 8 || typeof DecompressionStream === 'undefined') throw new Error('unsupported compression');
+    const out = await new Response(new Blob([f.data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();
+    return dec.decode(out);
+  };
+  const xml = function(str){ return str ? new DOMParser().parseFromString(str, 'application/xml') : null; };
+  const shared = [];
+  const ss = xml(await text('xl/sharedStrings.xml'));
+  if(ss) Array.prototype.forEach.call(ss.getElementsByTagName('si'), function(si){
+    shared.push(Array.prototype.map.call(si.getElementsByTagName('t'), function(x){ return x.textContent; }).join(''));
+  });
+  const wb = xml(await text('xl/workbook.xml'));
+  const rels = xml(await text('xl/_rels/workbook.xml.rels'));
+  const target = {};
+  if(rels) Array.prototype.forEach.call(rels.getElementsByTagName('Relationship'), function(r){ target[r.getAttribute('Id')] = r.getAttribute('Target'); });
+  const sheets = [];
+  const list = wb ? wb.getElementsByTagName('sheet') : [];
+  for(let i = 0; i < list.length; i++){
+    let path = target[list[i].getAttribute('r:id')] || ('worksheets/sheet' + (i + 1) + '.xml');
+    path = path.charAt(0) === '/' ? path.slice(1) : 'xl/' + path.replace(/^\.\//, '');
+    const doc = xml(await text(path));
+    if(!doc) continue;
+    const rows = [];
+    Array.prototype.forEach.call(doc.getElementsByTagName('row'), function(rw){
+      const row = [];
+      Array.prototype.forEach.call(rw.getElementsByTagName('c'), function(c, ci){
+        const ref = c.getAttribute('r') || '';
+        let col = ci;
+        const m = /^([A-Z]+)/.exec(ref);
+        if(m){ col = 0; for(const ch of m[1]) col = col * 26 + (ch.charCodeAt(0) - 64); col--; }
+        const tp = c.getAttribute('t');
+        const v = c.getElementsByTagName('v')[0];
+        let val;
+        if(tp === 's') val = shared[parseInt(v ? v.textContent : '0', 10)] || '';
+        else if(tp === 'inlineStr') val = Array.prototype.map.call(c.getElementsByTagName('t'), function(x){ return x.textContent; }).join('');
+        else if(tp === 'str' || tp === 'b' || tp === 'e') val = v ? v.textContent : '';
+        else val = v ? parseFloat(v.textContent) : '';
+        row[col] = val;
+      });
+      rows.push(row);
+    });
+    sheets.push({ name:list[i].getAttribute('name') || '', rows:rows });
+  }
+  return sheets;
+}
+function excelDateKey(v){
+  if(typeof v === 'number' && isFinite(v) && v > 20000 && v < 80000){
+    const d = new Date(Date.UTC(1899, 11, 30) + Math.round(v) * 864e5);
+    return dk(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+  }
+  const sv = String(v || '').trim();
+  let m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(sv);
+  if(m) return dk(+m[1], +m[2] - 1, +m[3]);
+  m = /^(\d{1,2})[.\/](\d{1,2})[.\/](\d{4})$/.exec(sv);
+  if(m) return dk(+m[3], +m[2] - 1, +m[1]);
+  return null;
+}
+function parseExcelShifts(sheets){
+  const norm = function(x){ return String(x === undefined || x === null ? '' : x).trim().toLowerCase(); };
+  const find = function(head, names){ for(let i = 0; i < head.length; i++){ if(names.indexOf(norm(head[i])) >= 0) return i; } return -1; };
+  const byDate = {};
+  sheets.forEach(function(sh){
+    const head = sh.rows[0] || [];
+    const cDate = find(head, ['дата', 'date']);
+    const cWp = find(head, ['место работы', 'workplace']);
+    const cHours = find(head, ['часов', 'hours', 'часы']);
+    const cPay = find(head, ['оплата', 'pay', 'сумма']);
+    if(cDate < 0 || cPay < 0) return;
+    for(let r = 1; r < sh.rows.length; r++){
+      const row = sh.rows[r] || [];
+      const k = excelDateKey(row[cDate]);
+      if(!k) continue;
+      const wp = String((cWp >= 0 ? row[cWp] : '') || sh.name || t('Место работы')).trim().slice(0, 60);
+      const hRaw = cHours >= 0 ? row[cHours] : '';
+      const hours = (hRaw === '' || hRaw === undefined || isNaN(parseFloat(hRaw))) ? undefined : Math.max(0, parseFloat(hRaw));
+      const pay = parseFloat(String(row[cPay]).replace(',', '.').replace(/[^\d.\-]/g, '')) || 0;
+      byDate[k] = { date:k, wp:wp, hours:hours, pay:pay };
+    }
+  });
+  return Object.keys(byDate).sort().map(function(k){ return byDate[k]; });
+}
+function mode(arr){
+  const c = {}; let best = null, n = 0;
+  arr.forEach(function(x){ c[x] = (c[x] || 0) + 1; if(c[x] > n){ n = c[x]; best = x; } });
+  return best;
+}
+function buildFromExcel(recs){
+  const groups = {}, order = [];
+  recs.forEach(function(r){ if(!groups[r.wp]){ groups[r.wp] = []; order.push(r.wp); } groups[r.wp].push(r); });
+  const cur = defaultCurrency();
+  const wps = [], shifts = {};
+  order.slice(0, 10).forEach(function(name, i){
+    const g = groups[name];
+    const withH = g.filter(function(r){ return r.hours > 0; });
+    const ratio = withH.map(function(r){ return Math.round(r.pay / r.hours * 100) / 100; });
+    const rRate = ratio.length ? mode(ratio) : null;
+    const rShare = ratio.length ? ratio.filter(function(x){ return x === rRate; }).length / g.length : 0;
+    const dRate = mode(g.map(function(r){ return Math.round(r.pay * 100) / 100; }));
+    const dShare = g.filter(function(r){ return Math.round(r.pay * 100) / 100 === dRate; }).length / g.length;
+    /* При равной «точности» выбираем круглую ставку: 3200 за смену вместо 266,67 в час */
+    const isInt = function(x){ return x !== null && Math.abs(x - Math.round(x)) < 0.005; };
+    let hourly;
+    if(rRate === null) hourly = false;
+    else if(Math.abs(rShare - dShare) > 0.05) hourly = rShare > dShare;
+    else if(isInt(rRate) !== isInt(dRate)) hourly = isInt(rRate);
+    else hourly = true;
+    const hoursMode = mode(withH.map(function(r){ return r.hours; }));
+    const w = makeWorkplace({ name:name, color:SWATCHES[i % SWATCHES.length], payType:hourly ? 'hourly' : 'daily',
+                              rate:hourly ? rRate : dRate, currency:cur, defaultHours:hoursMode !== null ? hoursMode : 8 });
+    wps.push(w);
+    g.forEach(function(r){
+      const base = hourly ? (r.hours || 0) * w.rate : w.rate;
+      const adj = Math.round((r.pay - base) * 100) / 100;
+      shifts[r.date] = { workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined, dayOff:false };
+    });
+  });
+  return { workplaces:wps, shifts:shifts };
+}
+async function importExcel(buf){
+  let recs;
+  try{ recs = parseExcelShifts(await readXlsx(buf)); }
+  catch(e){ toast(t('Не получилось прочитать Excel-файл')); return; }
+  if(!recs.length){ toast(t('В файле не нашлось смен')); return; }
+  const built = buildFromExcel(recs);
+  const total = recs.reduce(function(a, r){ return a + r.pay; }, 0);
+  const msg = (LANG === 'en'
+      ? 'Found ' + cnt(recs.length, 'shift') + ' (' + fmtDate(recs[0].date) + ' — ' + fmtDate(recs[recs.length - 1].date) + '), ' + cnt(built.workplaces.length, 'place') + ', ' + money(total, defaultCurrency()) + '. Days off and notes are not stored in Excel. Current data will be replaced.'
+      : 'Найдено: ' + cnt(recs.length, 'shift') + ' (' + fmtDate(recs[0].date) + ' — ' + fmtDate(recs[recs.length - 1].date) + '), ' + cnt(built.workplaces.length, 'place') + ', ' + money(total, defaultCurrency()) + '. Выходные и заметки в Excel не сохраняются. Текущие данные будут заменены.');
+  ui.confirm = { title:t('Импорт из Excel'), message:msg, label:t('Импортировать'), danger:false, action:function(){
+    state.workplaces = built.workplaces;
+    state.shifts = built.shifts;
+    state.notes = {}; state.incomes = []; state.payments = [];
+    ui.pattern.workplaceId = built.workplaces[0] ? built.workplaces[0].id : null;
+    normalize(); saveState(); goHomeAfterImport();
+    toast(t('Импортировано') + ': ' + cnt(recs.length, 'shift'));
+  } };
+  render();
 }
 
 /* ════════════════════════ События ════════════════════════ */
