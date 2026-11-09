@@ -32,15 +32,16 @@ self.addEventListener('fetch', function(e){
   if(req.method !== 'GET') return;
   const url = new URL(req.url);
   if(url.origin !== location.origin) return;
-  if(url.pathname.endsWith('/version.json') || url.pathname.indexOf('/download/') >= 0) return;   /* всегда из сети */
+  if(url.pathname.endsWith('/version.json') || url.pathname.indexOf('/download/') >= 0 || url.pathname.endsWith('.mobileconfig')) return;   /* всегда из сети */
 
   if(req.mode === 'navigate'){
     /* Каждая страница кэшируется под своим адресом; без сети — её копия или главная */
-    const page = /\/(privacy|terms)\.html$/.test(url.pathname) ? url.pathname : './index.html';
+    const page = /\/(privacy|terms|ios)\.html$/.test(url.pathname) ? url.pathname : './index.html';
     e.respondWith(
       fetch(req)
         .then(function(res){
-          if(res && res.ok){ const copy = res.clone(); caches.open(CACHE).then(function(c){ c.put(page, copy); }); }
+          /* В кэш — только HTML-страницы, чтобы скачанный файл не подменил копию приложения */
+          if(res && res.ok && (res.headers.get('content-type') || '').indexOf('text/html') >= 0){ const copy = res.clone(); caches.open(CACHE).then(function(c){ c.put(page, copy); }); }
           return res;
         })
         .catch(function(){ return caches.match(page).then(function(hit){ return hit || caches.match('./index.html'); }); })

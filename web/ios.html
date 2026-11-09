@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; script-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>ShiftFlow — установка на iPhone</title>
+<meta name="description" content="Как установить ShiftFlow на iPhone и iPad: через Safari или установочным профилем.">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+@font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
+@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
+:root{ color-scheme:dark; --bg:#08090B; --card:#111416; --card2:#191D20; --text:#F1F5F4; --muted:#A2ADAA; --line:rgba(255,255,255,.08); --accent:#3DDCB0; --on-accent:#05110D; }
+@media (prefers-color-scheme: light){ :root{ color-scheme:light; --bg:#F3F5F4; --card:#FFFFFF; --card2:#F0F3F2; --text:#0E1513; --muted:#55615D; --line:rgba(12,32,27,.09); --accent:#1F8A6D; --on-accent:#FFFFFF; } }
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--bg); color:var(--text); font:16px/1.6 "Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+main{ max-width:640px; margin:0 auto; padding:max(28px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 60px max(18px, env(safe-area-inset-left)); }
+header{ display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+header img{ width:64px; height:64px; border-radius:16px; }
+h1,h2{ font-family:"Unbounded","Onest",sans-serif; font-weight:700; text-wrap:balance; margin:0; }
+h1{ font-size:1.45rem; line-height:1.2; letter-spacing:-.02em; }
+h2{ font-size:1.02rem; margin-bottom:12px; }
+.sub{ color:var(--muted); font-weight:600; font-size:.9rem; }
+section{ background:var(--card); border-radius:22px; padding:20px; margin:14px 0; box-shadow:inset 0 0 0 1px var(--line); }
+.tag{ display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+ol{ margin:0; padding:0; list-style:none; counter-reset:s; }
+ol li{ counter-increment:s; position:relative; padding:0 0 12px 40px; color:var(--muted); }
+ol li::before{ content:counter(s); position:absolute; left:0; top:-1px; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--card2); color:var(--text); font-weight:800; font-size:.85rem; }
+ol li:last-child{ padding-bottom:0; }
+b{ color:var(--text); }
+p{ margin:10px 0 0; color:var(--muted); font-size:.92rem; }
+.btn{ display:flex; align-items:center; justify-content:center; gap:10px; margin:16px 0 4px; padding:15px 18px; border-radius:99px; background:var(--accent); color:var(--on-accent); font-weight:800; text-decoration:none; }
+a{ color:var(--accent); }
+footer{ color:var(--muted); font-size:.82rem; text-align:center; margin-top:26px; }
+</style>
+</head>
+<body>
+<main>
+  <header><img src="icons/apple-touch-icon.png" alt=""><div><h1>ShiftFlow на iPhone</h1><div class="sub">iPhone и iPad · iOS 15 и новее</div></div></header>
+
+  <section>
+    <span class="tag">Способ 1 · проще всего</span>
+    <h2>Через Safari</h2>
+    <ol>
+      <li>Открой <b>эту страницу в Safari</b> (в других браузерах пункта может не быть).</li>
+      <li>Нажми <b>«Поделиться»</b> — квадрат со стрелкой внизу экрана.</li>
+      <li>Выбери <b>«На экран „Домой“»</b> и нажми <b>«Добавить»</b>.</li>
+    </ol>
+    <p>Значок ShiftFlow появится рядом с другими приложениями. Открывается во весь экран и работает без интернета.</p>
+  </section>
+
+  <section>
+    <span class="tag">Способ 2 · установочный файл</span>
+    <h2>Профиль ShiftFlow</h2>
+    <ol>
+      <li>Нажми кнопку ниже в Safari и разреши загрузку профиля.</li>
+      <li>Открой <b>«Настройки»</b> — сверху появится <b>«Профиль загружен»</b>.</li>
+      <li>Нажми <b>«Установить»</b> и подтверди код-паролем.</li>
+    </ol>
+    <a class="btn" href="ShiftFlow.mobileconfig" download>Скачать профиль ShiftFlow</a>
+    <p>Профиль только добавляет значок со ссылкой на это приложение: он не ставит сертификаты, не управляет телефоном и не видит ваши данные. Надпись «Не проверен» означает лишь, что файл не подписан сертификатом компании. Удалить: «Настройки → Основные → VPN и управление устройством → ShiftFlow».</p>
+  </section>
+
+  <section>
+    <span class="tag">Данные</span>
+    <h2>Перенос смен</h2>
+    <p style="margin-top:0">Смены хранятся только на устройстве. Чтобы перенести их с Android или из браузера: там — «Настройки → Импорт и экспорт → Резервная копия», здесь — «Импортировать файл».</p>
+  </section>
+
+  <section lang="en">
+    <span class="tag">English</span>
+    <h2>Install on iPhone</h2>
+    <p style="margin-top:0"><b>Safari:</b> open this page in Safari → Share → Add to Home Screen → Add.<br><b>Profile:</b> tap “Скачать профиль ShiftFlow” above, allow the download, then Settings → Profile Downloaded → Install. The profile only adds the ShiftFlow icon; remove it in Settings → General → VPN &amp; Device Management.</p>
+  </section>
+
+  <footer><a href="./">Открыть ShiftFlow</a> · <a href="privacy.html">Конфиденциальность</a> · <a href="mailto:shiftflow123@gmail.com">shiftflow123@gmail.com</a></footer>
+</main>
+</body>
+</html>

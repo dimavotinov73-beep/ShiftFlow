@@ -35,8 +35,8 @@ abstract class CopyWebAssets : DefaultTask() {
 
 val copyWebAssets = tasks.register<CopyWebAssets>("copyWebAssets") {
     webDir.set(rootProject.layout.projectDirectory.dir("../web"))
-    // В APK не нужны: офлайн-помощник сайта и картинки для магазинов/превью ссылок
-    excludes.set(listOf("sw.js", "**/.DS_Store", "icons/*.png", "download/**", "version.json", "_headers"))
+    // В APK не нужны: офлайн-помощник сайта, картинки для магазинов/превью ссылок и установка на iPhone
+    excludes.set(listOf("sw.js", "**/.DS_Store", "icons/*.png", "download/**", "version.json", "_headers", "ios.html", "*.mobileconfig"))
 }
 
 /*

@@ -118,6 +118,7 @@ const DICT = {
       'Moving from the old website? Open Finance there, set the export “From” date to your first shift and tap “Download all (every workplace)”. Then pick that file here.',
     'Не получилось прочитать Excel-файл':'Could not read the Excel file','В файле не нашлось смен':'No shifts found in the file',
     'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
+    'Установить на iPhone':'Install on iPhone','Значок на экране «Домой», работает без интернета':'Home Screen icon, works offline',
     'Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
     'Текст и форма':'Text and shape','Скругления':'Corners','Вернуть стандартное оформление':'Restore default look','Стандартное оформление':'Default look restored',
     'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
@@ -1407,8 +1408,22 @@ function settingsView(){
       + '<span class="row-body"><span class="row-title">'+esc(t('Поддержка'))+'</span><span class="row-sub">'+SUPPORT_EMAIL+'</span></span><span class="row-end">'+ico.chevR()+'</span></a>'
       + '</div>';
   if(UPDATES_ENABLED) out += updatesSection();
+  if(canInstallOnIos()){
+    out += label(t('iPhone'));
+    out += '<div class="group" style="--d:5"><a class="row" href="ios.html">'+tile(ico.down())
+        + '<span class="row-body"><span class="row-title">'+esc(t('Установить на iPhone'))+'</span><span class="row-sub">'+esc(t('Значок на экране «Домой», работает без интернета'))+'</span></span><span class="row-end">'+ico.chevR()+'</span></a></div>';
+  }
   out += '<div class="note">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
   return out;
+}
+
+/* Открыто в Safari на iPhone/iPad и ещё не установлено на экран «Домой» — подскажем, как установить */
+function canInstallOnIos(){
+  if(window.AndroidApp || window.top !== window || !/^https:$/.test(location.protocol)) return false;
+  const ua = navigator.userAgent || '';
+  const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+  return ios && !standalone;
 }
 
 /* ════════════════════════ Обновления ════════════════════════ */
