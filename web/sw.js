@@ -1,0 +1,57 @@
+/* ShiftFlow — офлайн-помощник.
+   Приложение локальное: все файлы кэшируются, наружу запросов нет.
+   Навигация: сначала сеть (чтобы обновления подхватывались сразу), без сети — копия из кэша.
+   Остальное: кэш сразу + тихое обновление в фоне. */
+const CACHE = 'shiftflow-v3.0.0';
+const CORE = [
+  './', './index.html', './app.js', './manifest.webmanifest', './privacy.html',
+  './fonts/manrope-cyrillic.woff2', './fonts/manrope-latin.woff2',
+  './icons/icon.svg', './icons/favicon.svg', './icons/favicon-32.png', './icons/apple-touch-icon.png',
+  './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png'
+];
+
+self.addEventListener('install', function(e){
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(function(c){ return c.addAll(CORE).catch(function(){}); })
+      .then(function(){ return self.skipWaiting(); })
+  );
+});
+
+self.addEventListener('activate', function(e){
+  e.waitUntil(
+    caches.keys()
+      .then(function(keys){ return Promise.all(keys.filter(function(k){ return k !== CACHE; }).map(function(k){ return caches.delete(k); })); })
+      .then(function(){ return self.clients.claim(); })
+  );
+});
+
+self.addEventListener('fetch', function(e){
+  const req = e.request;
+  if(req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if(url.origin !== location.origin) return;
+
+  if(req.mode === 'navigate'){
+    e.respondWith(
+      fetch(req)
+        .then(function(res){
+          const copy = res.clone();
+          caches.open(CACHE).then(function(c){ c.put(url.pathname.endsWith('privacy.html') ? './privacy.html' : './index.html', copy); });
+          return res;
+        })
+        .catch(function(){ return caches.match(url.pathname.endsWith('privacy.html') ? './privacy.html' : './index.html'); })
+    );
+    return;
+  }
+
+  e.respondWith(
+    caches.match(req).then(function(hit){
+      const net = fetch(req).then(function(res){
+        if(res && res.ok){ const copy = res.clone(); caches.open(CACHE).then(function(c){ c.put(req, copy); }); }
+        return res;
+      }).catch(function(){ return hit; });
+      return hit || net;
+    })
+  );
+});

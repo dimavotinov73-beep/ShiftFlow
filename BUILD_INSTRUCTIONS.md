@@ -1,1 +1,28 @@
-# ShiftFlow - Инструкция по сборке APK\n\n## Быстрый способ (за 5 минут)\n\n### Требования:\n- Flutter SDK\n- Android SDK\n\n### Шаги:\n\n1. **Клонируй проект:**\n```bash\ngit clone https://github.com/dimavotinov73-beep/ShiftFlow.git\ncd ShiftFlow\n```\n\n2. **Установи зависимости:**\n```bash\nflutter pub get\n```\n\n3. **Собери APK:**\n```bash\nflutter build apk --release\n```\n\n4. **Готово!** APK находится по пути:\n```\nbuild/app/outputs/flutter-apk/app-release.apk\n```\n\n## Установка на телефон:\n\n1. Скопируй `app-release.apk` на телефон\n2. Открой файловый менеджер\n3. Найди файл и нажми \"Установить\"\n4. Разреши установку из неизвестных источников (если нужно)\n\n---\n\n## Если у тебя нет Flutter:\n\n### Установи Flutter:\n\n**Windows:**\n1. Скачай: https://flutter.dev/docs/get-started/install/windows\n2. Распакуй и добавь в PATH\n\n**macOS:**\n```bash\nbrew install flutter\n```\n\n**Linux:**\n```bash\nsudo apt-get install flutter\n```\n\n3. Проверь установку:\n```bash\nflutter --version\n```\n\n---\n\n## Если есть ошибки:\n\n1. Обнови Flutter:\n```bash\nflutter upgrade\n```\n\n2. Удали кэш и попробуй заново:\n```bash\nflutter clean\nflutter pub get\nflutter build apk --release\n```\n\n3. Проверь Android SDK:\n```bash\nflutter doctor\n```\n\n---\n\n**Вопросы?** Создай Issue в репозитории!\n"
+# ShiftFlow — сборка
+
+Актуальное приложение — веб-интерфейс в `web/` и Android-обёртка в `android/`
+(старый Flutter-прототип в `lib/` больше не используется).
+
+## Android (APK / AAB)
+
+Нужны JDK 17+ и Android SDK (проще всего поставить Android Studio и открыть папку `android/`).
+
+```bash
+git clone https://github.com/dimavotinov73-beep/ShiftFlow.git
+cd ShiftFlow/android
+./gradlew assembleDebug      # APK для установки на свой телефон
+./gradlew bundleRelease      # AAB для Google Play / RuStore
+```
+
+Готовые файлы:
+- `android/app/build/outputs/apk/debug/app-debug.apk`
+- `android/app/build/outputs/bundle/release/app-release.aab`
+
+Без компьютера: GitHub → Actions → «Android» → Run workflow, файлы будут в артефакте `shiftflow-android`.
+
+Подпись релиза и публикация в магазинах — в [`store/RELEASE.md`](store/RELEASE.md).
+
+## Сайт
+
+Залей содержимое папки `web/` на хостинг (Cloudflare Worker, GitHub Pages и т. п.).
+Для локальной проверки: `cd web && python3 -m http.server 8000` → http://localhost:8000

@@ -1,0 +1,27 @@
+{
+  "name": "ShiftFlow — смены и доход",
+  "short_name": "ShiftFlow",
+  "description": "Календарь рабочих смен, ставки и учёт дохода. Работает полностью офлайн, данные хранятся только на устройстве.",
+  "lang": "ru",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#08090B",
+  "theme_color": "#08090B",
+  "categories": ["productivity", "finance", "business"],
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "icons/screenshot-calendar.png", "sizes": "1080x2163", "type": "image/png", "form_factor": "narrow", "label": "Календарь смен" },
+    { "src": "icons/screenshot-finance.png", "sizes": "1080x2163", "type": "image/png", "form_factor": "narrow", "label": "Финансы" }
+  ]
+}
