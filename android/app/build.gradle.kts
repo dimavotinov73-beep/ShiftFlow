@@ -36,7 +36,7 @@ abstract class CopyWebAssets : DefaultTask() {
 val copyWebAssets = tasks.register<CopyWebAssets>("copyWebAssets") {
     webDir.set(rootProject.layout.projectDirectory.dir("../web"))
     // В APK не нужны: офлайн-помощник сайта и картинки для магазинов/превью ссылок
-    excludes.set(listOf("sw.js", "**/.DS_Store", "icons/*.png"))
+    excludes.set(listOf("sw.js", "**/.DS_Store", "icons/*.png", "download/**", "version.json", "_headers"))
 }
 
 /*
@@ -52,6 +52,13 @@ val signing = Properties().apply {
     System.getenv("SF_KEY_ALIAS")?.let { setProperty("keyAlias", it) }
     System.getenv("SF_KEY_PASSWORD")?.let { setProperty("keyPassword", it) }
 }
+/*
+ * Канал обновлений релиза: -Pchannel=play (по умолчанию), rustore или site.
+ * Приложения из магазинов обновляются только через магазин (так требуют правила Google Play и RuStore).
+ */
+val siteUpdateUrl = "https://blue-rain-2af9.dimavotinov73.workers.dev/version.json"
+val releaseChannel = (project.findProperty("channel") as String?) ?: "play"
+
 val hasSigning = listOf("storeFile", "storePassword", "keyAlias", "keyPassword").all { !signing.getProperty(it).isNullOrBlank() }
 
 android {
@@ -62,8 +69,11 @@ android {
         applicationId = "io.shiftflow.app"
         minSdk = 24
         targetSdk = 36
-        versionCode = 300
-        versionName = "3.0.0"
+        versionCode = 310
+        versionName = "3.1.0"
+        // Канал обновлений по умолчанию (тестовые сборки): проверка version.json на сайте
+        buildConfigField("String", "UPDATE_CHANNEL", "\"site\"")
+        buildConfigField("String", "UPDATE_URL", "\"$siteUpdateUrl\"")
     }
 
     signingConfigs {
@@ -91,6 +101,20 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             if (hasSigning) signingConfig = signingConfigs.getByName("release")
+            buildConfigField("String", "UPDATE_CHANNEL", "\"$releaseChannel\"")
+            buildConfigField("String", "UPDATE_URL", if (releaseChannel == "site") "\"$siteUpdateUrl\"" else "\"\"")
+        }
+        // Тестовая сборка для установки вручную: как релиз (без отладки, со сжатием кода),
+        // но подписана общим тестовым ключом и ставится поверх прежних тестовых APK.
+        create("preview") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-preview"
+            isDebuggable = false
+            matchingFallbacks += listOf("release")
+            buildConfigField("String", "UPDATE_CHANNEL", "\"site\"")
+            buildConfigField("String", "UPDATE_URL", "\"$siteUpdateUrl\"")
         }
         debug {
             applicationIdSuffix = ".debug"

@@ -118,6 +118,30 @@ const DICT = {
       'Moving from the old website? Open Finance there, set the export “From” date to your first shift and tap “Download all (every workplace)”. Then pick that file here.',
     'Не получилось прочитать Excel-файл':'Could not read the Excel file','В файле не нашлось смен':'No shifts found in the file',
     'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
+    'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
+    '«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.':
+      '“Battery saver” turns off blur and decorative animations, so the app runs faster on low-end phones and uses less battery.',
+    'Импорт и экспорт':'Import and export','Excel, CSV и резервная копия':'Excel, CSV and backup','Поддержка':'Support',
+    'Файлы создаются прямо на телефоне и никуда не отправляются. Сохраняй резервную копию перед переездом на новый телефон.':
+      'Files are created right on your phone and never sent anywhere. Save a backup before moving to a new phone.',
+    'Экспорт':'Export','Смены в Excel':'Shifts to Excel','.xlsx · все места работы и отдельные листы':'.xlsx · all workplaces plus a sheet for each',
+    'Смены в CSV':'Shifts to CSV','Для Google Таблиц и других программ':'For Google Sheets and other apps',
+    '.json · всё: места работы, смены, заметки':'.json · everything: workplaces, shifts, notes','Импорт':'Import',
+    'Импортировать файл':'Import a file','.json, .xlsx или .csv — добавить или заменить':'.json, .xlsx or .csv — add or replace',
+    'Файл слишком большой':'The file is too large','Импорт данных':'Import data','В файле':'In the file',
+    'Выходные и заметки в Excel и CSV не сохраняются.':'Days off and notes are not stored in Excel and CSV.',
+    'Как импортировать':'How to import','Добавить к текущим':'Add to mine','Заменить всё':'Replace all',
+    'Текущие места работы, смены и заметки будут удалены и заменены данными из файла.':'Your current workplaces, shifts and notes will be deleted and replaced with the file.',
+    'Смены из файла добавятся к твоим. Если день уже отмечен, его заменит запись из файла. Места работы с тем же названием объединятся.':
+      'Shifts from the file are added to yours. A day that is already marked is replaced by the file. Workplaces with the same name are merged.',
+    'Я принимаю Пользовательское соглашение и Политику конфиденциальности. Мне есть 14 лет.':'I accept the Terms of use and the Privacy policy. I am over 14.',
+    'Обновления':'Updates','Проверяем обновления…':'Checking for updates…','Доступна версия':'Version available',
+    'Обновления приходят через магазин приложений':'Updates come through the app store','Не удалось проверить — нет интернета?':'Could not check — offline?',
+    'У тебя последняя версия':'You have the latest version','Проверить':'Check','Что нового':'What’s new',
+    'Открыть в магазине':'Open in the store','Загрузить обновление':'Download update','Проверять автоматически':'Check automatically',
+    'Раз в 12 часов, без передачи твоих данных':'Every 12 hours, none of your data is sent','Приложение для Android':'Android app',
+    'Скачать APK · работает без интернета':'Download the APK · works offline','Обновляем…':'Updating…',
+    'Не отмечено':'Not marked','Сбросить':'Reset','Открыть':'Open','Добавь место работы в приложении':'Add a workplace in the app',
     'Индиго':'Indigo','Орхидея':'Orchid','Коралл':'Coral','Солнце':'Sun','Лайм':'Lime','Серебро':'Silver'
   }
 };
@@ -169,8 +193,9 @@ const PREF_KEY = 'tabel-prefs';
 const DATA_KEY = 'tabel-data';
 const CURRENT_VERSION = 4;
 const PREFS_VERSION = 2;
-const AGREEMENT_VERSION = '2.0';
-const APP_BUILD = '3.0.0';
+const AGREEMENT_VERSION = '3.0';
+const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
+const APP_BUILD = '3.1.0';
 const BRAND = 'ShiftFlow';
 
 /* Цвета мест работы: проверены на различимость (в т.ч. при дальтонизме) в светлой и тёмной теме. */
@@ -190,13 +215,15 @@ const BACKGROUNDS = [
   { v:'cocoa',    n:'Какао',   d:'#0D0A08', ds:'#1C1612', l:'#F5F0EA', ls:'#FFFCF8' }
 ];
 const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Мягкая', k:'14%' }, { v:'bold', n:'Яркая', k:'34%' } ];
+const PERF_MODES = [ { v:'auto', n:'Авто' }, { v:'full', n:'Максимум' }, { v:'lite', n:'Экономно' } ];
 const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
 const OLD_ACCENTS = { '#FF9500':'#FFA43A','#00E5FF':'#38BDF8','#FF2FE0':'#FF5C9A','#39FF14':'#3DDCB0','#7B2FFF':'#9B7BFF','#3D5CFF':'#4C8DFF','#FF3B3B':'#FF5C9A','#8E8E93':'#3DDCB0' };
 const TEXT_SIZES = [ { v:'s', n:'Мелкий', k:.92 }, { v:'m', n:'Обычный', k:1 }, { v:'l', n:'Крупный', k:1.08 }, { v:'xl', n:'Очень крупный', k:1.17 } ];
 const UI_STYLES = [ { v:'round', n:'Округлый', k:1.3 }, { v:'soft', n:'Мягкий', k:1 }, { v:'crisp', n:'Чёткий', k:.45 } ];
 
 let prefs = { theme:'auto', accent:'#3DDCB0', lang:'ru', agreement:null, textSize:'m', uiStyle:'soft',
-              bg:'graphite', dayTint:'soft', dayLabel:'both', customHue:160, v:PREFS_VERSION };
+              bg:'graphite', dayTint:'soft', dayLabel:'both', customHue:160, perf:'auto', autoUpdate:true, v:PREFS_VERSION };
+let updateInfo = null;   /* { available, version, notes, store } — заполняется проверкой обновлений */
 let state = { version:CURRENT_VERSION, workplaces:[], shifts:{}, notes:{}, incomes:[], payments:[] };
 let storageBroken = false;
 let booted = false;
@@ -243,6 +270,8 @@ function loadPrefs(){
   if(!BACKGROUNDS.some(function(x){ return x.v === prefs.bg; })) prefs.bg = 'graphite';
   if(!DAY_TINTS.some(function(x){ return x.v === prefs.dayTint; })) prefs.dayTint = 'soft';
   if(!DAY_LABELS.some(function(x){ return x.v === prefs.dayLabel; })) prefs.dayLabel = 'both';
+  if(!PERF_MODES.some(function(x){ return x.v === prefs.perf; })) prefs.perf = 'auto';
+  prefs.autoUpdate = prefs.autoUpdate !== false;
   prefs.customHue = Math.max(0, Math.min(359, parseInt(prefs.customHue, 10) || 0));
   if(migrated) savePrefs();
 }
@@ -291,6 +320,12 @@ function hslHex(h){
   const f = function(n){ return l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1))); };
   return '#' + [f(0), f(8), f(4)].map(function(x){ return Math.round(x * 255).toString(16).padStart(2, '0'); }).join('').toUpperCase();
 }
+/* Слабое устройство: мало памяти или ядер — включаем экономный режим графики */
+function lowEndDevice(){
+  const mem = navigator.deviceMemory, cores = navigator.hardwareConcurrency;
+  return !!((mem && mem <= 3) || (cores && cores <= 4));
+}
+function isLite(){ return prefs.perf === 'lite' || (prefs.perf === 'auto' && (lowEndDevice() || reduceMotion())); }
 function bgDef(){ for(const b of BACKGROUNDS) if(b.v === prefs.bg) return b; return BACKGROUNDS[0]; }
 function optName(list, v){ for(const x of list) if(x.v === v) return t(x.n); return ''; }
 
@@ -306,6 +341,7 @@ function applyPrefs(){
   root.style.setProperty('--fs', textScale());
   root.style.setProperty('--rk', radiusScale());
   root.setAttribute('data-bg', prefs.bg);
+  root.classList.toggle('lite', isLite());
   root.setAttribute('data-daylabel', prefs.dayLabel);
   for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
@@ -313,6 +349,7 @@ function applyPrefs(){
   if(window.AndroidApp && typeof window.AndroidApp.setStatusBar === 'function'){
     try{ window.AndroidApp.setStatusBar(light); }catch(e){}
   }
+  if(booted) pushWidgets();
 }
 
 /* ════════════════════════ Данные ════════════════════════ */
@@ -428,6 +465,7 @@ function saveState(){
   state.version = CURRENT_VERSION;
   try{ localStorage.setItem(DATA_KEY, JSON.stringify(state)); storageBroken = false; }
   catch(e){ storageBroken = true; }
+  pushWidgets();
 }
 function saveSoon(){
   if(saveSoon.t) clearTimeout(saveSoon.t);
@@ -551,7 +589,10 @@ const ico = {
   sparkle:function(){ return svg('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>', 1.6); },
   lock:function(){ return svg('<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>'); },
   clock:function(){ return svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'); },
-  edit:function(){ return svg('<path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>'); }
+  edit:function(){ return svg('<path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>'); },
+  mail:function(){ return svg('<rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 7.5l8 6 8-6"/>'); },
+  refresh:function(){ return svg('<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4.5V11h-6.5"/>'); },
+  table:function(){ return svg('<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 9.5v10"/>'); }
 };
 
 /* Фирменный знак: «день» в изгибе линии потока. Та же форма, что у навигационной панели. */
@@ -662,87 +703,63 @@ function viewKey(){ return ui.tab + (ui.page ? '-' + ui.page : ''); }
 
 function navigate(kind, mutate){
   ui.scrollMemo[viewKey()] = window.pageYOffset || 0;
-  const go = function(){
-    mutate();
-    ui.viewAnim = kind;
-    render();
-    const y = (kind === 'push') ? 0 : (ui.scrollMemo[viewKey()] || 0);
-    window.scrollTo(0, y);
-    onScroll();
-  };
-  if(document.startViewTransition && !reduceMotion()){
-    const root = document.documentElement;
-    root.setAttribute('data-nav', kind);
-    try{
-      const vt = document.startViewTransition(go);
-      vt.finished.then(done, done);
-    }catch(e){ go(); done(); }
-    function done(){ root.removeAttribute('data-nav'); }
-  } else go();
+  mutate();
+  ui.viewAnim = kind;
+  render();
+  const y = (kind === 'push') ? 0 : (ui.scrollMemo[viewKey()] || 0);
+  window.scrollTo(0, y);
+  onScroll();
 }
 
-/* Прогресс прокрутки → крупный заголовок плавно «уезжает» в компактную шапку */
-let scrollRaf = 0;
+/* Прокрутка: только переключение класса при пересечении порога — без пересчёта стилей на каждом кадре */
+let scrollRaf = 0, scrolledState = null;
 function onScroll(){
   if(scrollRaf) return;
   scrollRaf = requestAnimationFrame(function(){
     scrollRaf = 0;
-    const y = window.pageYOffset || 0;
-    const p = Math.max(0, Math.min(1, (y - 10) / 46));
-    document.documentElement.style.setProperty('--sp', p.toFixed(3));
+    const on = (window.pageYOffset || 0) > 36;
+    if(on !== scrolledState){ scrolledState = on; document.documentElement.classList.toggle('scrolled', on); }
   });
 }
 window.addEventListener('scroll', onScroll, { passive:true });
 
-/* ════════════════════════ Навигационная панель с «выемкой» ════════════════════════ */
+/* ════════════════════════ Навигационная панель с «выемкой» ════════════════════════
+   Активная вкладка поднимается в пузырь, край стекла прогибается под ним.
+   Контур — несколько дуг (углы, «плечи» выемки и сама выемка), поэтому пересчёт за кадр почти бесплатный.
+   Нажатие засчитывается в любой точке панели (включая пузырь): берётся ближайшая вкладка. */
 const TabBar = (function(){
-  const H = 62, R = 24, RB = 22, GAP = 4, LIFT = 3, K = 14, PAD = 10;
-  let wrap, fade, bar, glass, edge, edgePath, bubble, tabEls = [], bubbleIcons = [];
-  let built = false, W = 0, idx = -1, near = -1;
+  const H = 60, R = 24, RB = 21, GAP = 4, LIFT = 4, FIL = 9, SINK = 5;
+  let wrap, fade, bar, glass, edgePath, edge, bubble, tabsBox, tabEls = [], bubbleIcons = [];
+  let built = false, W = 0, PAD = 12, idx = -1, near = -1;
   let x = 0, v = 0, target = 0, sink = 0, raf = 0, last = 0;
   let drag = null;
   const canClip = !!(window.CSS && CSS.supports && CSS.supports('clip-path', 'path("M0 0H1V1Z")'));
+  const r1 = function(n){ return Math.round(n * 10) / 10; };
 
   function centers(){
-    const slot = (W - PAD*2) / TABS.length;
+    const slot = (W - PAD * 2) / TABS.length;
     return TABS.map(function(_, i){ return PAD + slot * (i + .5); });
   }
   function nearestIndex(px){
     const c = centers();
     let best = 0;
-    for(let i=1;i<c.length;i++){ if(Math.abs(c[i]-px) < Math.abs(c[best]-px)) best = i; }
+    for(let i = 1; i < c.length; i++){ if(Math.abs(c[i] - px) < Math.abs(c[best] - px)) best = i; }
     return best;
   }
-
-  /* Верхняя граница панели — «мягкий максимум» из скруглённых углов и полукруглой
-     выемки под пузырём. Мягкий максимум сам даёт плавные плечи выемки и аккуратно
-     сливает её с углом, когда пузырь у края. */
-  function topAt(px, nx, cy){
-    let base = 0;
-    if(px < R){ const d = R - px; base = R - Math.sqrt(Math.max(0, R*R - d*d)); }
-    else if(px > W - R){ const d = px - (W - R); base = R - Math.sqrt(Math.max(0, R*R - d*d)); }
-    if(!canClip) return base;
-    const rc = RB + GAP;
-    const dx = px - nx, adx = Math.abs(dx);
-    const notch = cy + Math.sqrt(Math.max(0, rc*rc - dx*dx)) - Math.max(0, adx - rc) * 3;
-    const h = Math.max(K - Math.abs(base - notch), 0) / K;
-    return Math.max(base, notch) + h*h*K*0.25;
+  function notchHalf(cy){
+    const rc = RB + GAP, dy = FIL - cy;
+    return Math.sqrt(Math.max(0, (rc + FIL) * (rc + FIL) - dy * dy));
   }
   function shape(nx, cy){
-    const rc = RB + GAP;
-    const f = function(n){ return Math.round(n*10)/10; };
-    let d = 'M0 ' + (H - R) + ' ';
-    let px = 0;
-    while(px <= W){
-      d += 'L' + f(px) + ' ' + f(topAt(px, nx, cy)) + ' ';
-      const near = Math.abs(px - nx) < rc + 8;
-      const edgeZone = px < 3 || px > W - 3;
-      px += edgeZone ? 0.5 : (near ? 1 : 3);
-    }
-    d += 'L' + W + ' ' + f(topAt(W, nx, cy)) + ' ';
-    d += 'L' + W + ' ' + (H - R) + ' A' + R + ' ' + R + ' 0 0 1 ' + (W - R) + ' ' + H
-       + ' L' + R + ' ' + H + ' A' + R + ' ' + R + ' 0 0 1 0 ' + (H - R) + ' Z';
-    return d;
+    const top = 'M0 '+R+' A'+R+' '+R+' 0 0 1 '+R+' 0 ';
+    const rest = 'L'+(W - R)+' 0 A'+R+' '+R+' 0 0 1 '+W+' '+R+' L'+W+' '+(H - R)+' A'+R+' '+R+' 0 0 1 '+(W - R)+' '+H
+               + ' L'+R+' '+H+' A'+R+' '+R+' 0 0 1 0 '+(H - R)+' Z';
+    if(!canClip) return top + rest;
+    const rc = RB + GAP, dy = FIL - cy, sx = notchHalf(cy), k = rc / (rc + FIL);
+    return top + 'L'+r1(nx - sx)+' 0 '
+      + 'A'+FIL+' '+FIL+' 0 0 1 '+r1(nx - sx * k)+' '+r1(cy + dy * k)+' '
+      + 'A'+rc+' '+rc+' 0 0 0 '+r1(nx + sx * k)+' '+r1(cy + dy * k)+' '
+      + 'A'+FIL+' '+FIL+' 0 0 1 '+r1(nx + sx)+' 0 ' + rest;
   }
   function draw(){
     if(!W) return;
@@ -751,26 +768,29 @@ const TabBar = (function(){
     if(canClip) glass.style.clipPath = 'path("' + d + '")';
     edgePath.setAttribute('d', d);
     const sp = Math.abs(v);
-    const sx = 1 + Math.min(sp / 3200, .08), sy = 1 - Math.min(sp / 6400, .04);
-    bubble.style.transform = 'translate(' + (x - RB).toFixed(2) + 'px,' + (cy - RB).toFixed(2) + 'px) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
+    const sx = 1 + Math.min(sp / 4000, .07), sy = 1 - Math.min(sp / 8000, .035);
+    bubble.style.transform = 'translate3d(' + r1(x - RB) + 'px,' + r1(cy - RB) + 'px,0) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
     const n = nearestIndex(x);
     if(n !== near){
       near = n;
-      tabEls.forEach(function(el, i){ el.classList.toggle('lift', i === n); });
-      bubbleIcons.forEach(function(el, i){ el.classList.toggle('on', i === n); });
+      for(let i = 0; i < tabEls.length; i++){ tabEls[i].classList.toggle('lift', i === n); bubbleIcons[i].classList.toggle('on', i === n); }
     }
   }
   function tick(now){
     const dt = Math.min(0.032, Math.max(0.001, (now - last) / 1000));
     last = now;
-    const T = drag && drag.moved ? drag.x : target;
-    const k = drag && drag.moved ? 900 : 420, c = drag && drag.moved ? 52 : 30;
-    v += (-k * (x - T) - c * v) * dt;
+    const c = centers();
+    const following = drag && drag.moved;
+    const T = following ? drag.x : target;
+    const k = following ? 1400 : 520, damp = following ? 70 : 38;
+    v += (-k * (x - T) - damp * v) * dt;
     x += v * dt;
-    const sinkTarget = Math.min(Math.abs(v) / 70, 6);
-    sink += (sinkTarget - sink) * Math.min(1, dt * 14);
+    if(x < c[0]){ x = c[0]; v = 0; }
+    if(x > c[c.length - 1]){ x = c[c.length - 1]; v = 0; }
+    const sinkTarget = Math.min(Math.abs(v) / 90, SINK);
+    sink += (sinkTarget - sink) * Math.min(1, dt * 16);
     draw();
-    if(!(drag && drag.moved) && Math.abs(x - T) < 0.25 && Math.abs(v) < 4 && sink < 0.1){
+    if(!following && Math.abs(x - T) < 0.3 && Math.abs(v) < 6 && sink < 0.1){
       x = T; v = 0; sink = 0; draw(); raf = 0; return;
     }
     raf = requestAnimationFrame(tick);
@@ -783,17 +803,15 @@ const TabBar = (function(){
     const w = bar.clientWidth;
     if(!w || w === W) return;
     W = w;
+    const sxMax = notchHalf(-LIFT + SINK);
+    PAD = Math.max(12, Math.ceil(1.5 * (R + sxMax + 2 - W / 6)));
+    tabsBox.style.padding = '0 ' + PAD + 'px';
     edge.setAttribute('width', W); edge.setAttribute('height', H);
     edge.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     target = centers()[Math.max(0, idx)];
     x = target; v = 0;
+    near = -1;
     draw();
-  }
-  function goTo(i){
-    const tb = TABS[i];
-    if(!tb) return;
-    haptic('tap');
-    A.tab({ id:tb.id });
   }
   function build(){
     built = true;
@@ -810,7 +828,7 @@ const TabBar = (function(){
     TABS.forEach(function(tb){ h += '<span class="bi">' + tb.icon() + '</span>'; });
     h += '</div><div class="tb-tabs">';
     TABS.forEach(function(tb, i){
-      h += '<button type="button" class="tb-tab" role="tab" data-i="' + i + '"><span class="ic">' + tb.icon() + '</span><span class="lb"></span></button>';
+      h += '<button type="button" class="tb-tab" role="tab" data-i="' + i + '"><span class="ic">' + tb.icon() + '</span><span class="lb"></span><span class="tb-dot"></span></button>';
     });
     h += '</div></nav>';
     wrap.innerHTML = h;
@@ -821,43 +839,46 @@ const TabBar = (function(){
     edge = wrap.querySelector('.tb-edge');
     edgePath = edge.querySelector('path');
     bubble = wrap.querySelector('.tb-bubble');
+    tabsBox = wrap.querySelector('.tb-tabs');
     tabEls = Array.prototype.slice.call(wrap.querySelectorAll('.tb-tab'));
     bubbleIcons = Array.prototype.slice.call(wrap.querySelectorAll('.bi'));
     if(!canClip) glass.style.borderRadius = R + 'px';
 
     bar.addEventListener('pointerdown', function(e){
-      if(e.button !== undefined && e.button !== 0) return;
+      if(e.button !== undefined && e.button > 0) return;
       const r = bar.getBoundingClientRect();
-      drag = { id:e.pointerId, startX:e.clientX, left:r.left, x:x, moved:false };
+      const px = e.clientX - r.left;
+      drag = { id:e.pointerId, startX:e.clientX, left:r.left, x:px, moved:false, i:nearestIndex(px) };
       try{ bar.setPointerCapture(e.pointerId); }catch(err){}
+      bar.classList.add('pressed');
+      tabEls[drag.i].classList.add('press');
+      if(drag.i !== idx){ target = centers()[drag.i]; kick(); }   /* мгновенный отклик: пузырь едет сразу */
+      haptic('tap');
     });
     bar.addEventListener('pointermove', function(e){
       if(!drag || e.pointerId !== drag.id) return;
-      if(!drag.moved && Math.abs(e.clientX - drag.startX) < 7) return;
+      if(!drag.moved && Math.abs(e.clientX - drag.startX) < 8) return;
       const c = centers();
       drag.moved = true;
-      drag.x = Math.max(c[0], Math.min(c[c.length-1], e.clientX - drag.left));
+      drag.x = Math.max(c[0], Math.min(c[c.length - 1], e.clientX - drag.left));
       kick();
     });
-    function end(e, cancel){
+    const release = function(e, cancel){
       if(!drag || (e && e.pointerId !== drag.id)) return;
       const d = drag; drag = null;
-      if(d.moved){
-        const i = nearestIndex(d.x);
-        target = centers()[i];
-        if(i !== tabIdx()) goTo(i); else kick();
-        return;
-      }
-      if(cancel) return;
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      const tab = el && el.closest ? el.closest('.tb-tab') : null;
-      if(tab) goTo(parseInt(tab.getAttribute('data-i'), 10));
-    }
-    bar.addEventListener('pointerup', function(e){ end(e, false); });
-    bar.addEventListener('pointercancel', function(e){ end(e, true); });
+      bar.classList.remove('pressed');
+      tabEls.forEach(function(t){ t.classList.remove('press'); });
+      if(cancel){ target = centers()[Math.max(0, idx)]; kick(); return; }
+      const i = d.moved ? nearestIndex(d.x) : d.i;
+      target = centers()[i]; kick();
+      A.tab({ id:TABS[i].id });
+    };
+    bar.addEventListener('pointerup', function(e){ release(e, false); });
+    bar.addEventListener('pointercancel', function(e){ release(e, true); });
+    bar.addEventListener('lostpointercapture', function(e){ if(drag && e.pointerId === drag.id) release(e, false); });
     bar.addEventListener('click', function(e){
       const tab = e.target.closest ? e.target.closest('.tb-tab') : null;
-      if(tab && e.detail === 0) goTo(parseInt(tab.getAttribute('data-i'), 10)); /* клавиатура */
+      if(tab && e.detail === 0) A.tab({ id:TABS[parseInt(tab.getAttribute('data-i'), 10)].id });   /* клавиатура */
     });
     if(window.ResizeObserver) new ResizeObserver(measure).observe(bar);
     window.addEventListener('resize', measure);
@@ -869,7 +890,9 @@ const TabBar = (function(){
       el.classList.toggle('on', on);
       el.setAttribute('aria-selected', on ? 'true' : 'false');
       el.setAttribute('aria-label', t(TABS[i].label));
-      el.querySelector('.lb').textContent = t(TABS[i].label);
+      const lb = el.querySelector('.lb');
+      if(lb.textContent !== t(TABS[i].label)) lb.textContent = t(TABS[i].label);
+      el.classList.toggle('badge', TABS[i].id === 'settings' && !!(updateInfo && updateInfo.available));
     });
     const hidden = !!ui.page;
     wrap.classList.toggle('hide', hidden);
@@ -880,12 +903,8 @@ const TabBar = (function(){
       const first = idx < 0;
       idx = i;
       if(W){
-        target = centers()[i];
-        if(first){ x = target; draw(); }
-        else if(!(drag && drag.moved)){
-          kick();
-          bubble.classList.remove('ping'); void bubble.offsetWidth; bubble.classList.add('ping');
-        }
+        if(first){ target = centers()[i]; x = target; draw(); }
+        else if(!(drag && drag.moved)){ target = centers()[i]; kick(); }
       }
     }
   }
@@ -953,8 +972,7 @@ function calendarView(){
   const mr = monthRange(y, m), ms = rangeStats(mr.from, mr.to), cur = defaultCurrency();
   let out = topbar(monthTitle(m) + ' ' + y);
   out += '<div class="brandrow"><div class="brand">' + brandMark()
-      + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div>'
-      + '<button type="button" class="icon-btn" data-act="goToday" aria-label="'+esc(t('Перейти к сегодняшнему дню'))+'">'+ico.target()+'</button></div>';
+      + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div></div>';
   if(storageBroken) out += warnHtml();
 
   out += '<section class="card hero" style="--d:0">'
@@ -994,8 +1012,8 @@ function shortLabel(w){
   return first.slice(0, 12);
 }
 function toolCard(act, icon, title, sub, on){
-  return '<button type="button" class="tool'+(on ? ' on' : '')+'" data-act="'+act+'" aria-pressed="'+(on ? 'true' : 'false')+'">'
-    + tile(icon) + '<span class="tool-t"><b>'+esc(title)+'</b><small>'+esc(sub)+'</small></span></button>';
+  return '<button type="button" class="tool'+(on ? ' on' : '')+'" data-act="'+act+'" aria-pressed="'+(on ? 'true' : 'false')+'" title="'+esc(sub)+'">'
+    + '<span class="tool-i">'+icon+'</span><span class="tool-t">'+esc(title)+'</span></button>';
 }
 
 function dayCell(k, d, tKey, weekend){
@@ -1040,7 +1058,7 @@ function wpChipsHtml(selectedId, act, opts){
     out += '<button type="button" class="chip'+(selectedId === w.id ? ' on' : '')+'" style="--cc:'+w.color+'" data-act="'+act+'" data-id="'+w.id+'"><i></i>'+esc(w.name)+'</button>';
   });
   if(opts.off) out += '<button type="button" class="chip muted'+(opts.offOn ? ' on' : '')+'" style="--cc:var(--text-3)" data-act="pickOff"><i></i>'+esc(t('Выходной'))+'</button>';
-  if(opts.add && !state.workplaces.length) out += '<button type="button" class="chip add" data-act="addWorkplace">'+esc('+ ' + t('Добавить место работы'))+'</button>';
+  if(opts.add && !state.workplaces.length) out += '<button type="button" class="chip add" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button>';
   return out + '</div>';
 }
 
@@ -1188,8 +1206,8 @@ function patternSheet(){
     else offs++;
   });
   const sameArr = function(a, b){ return a.join('') === b.join(''); };
-  let inner = '<div class="sheet pat" role="dialog" aria-modal="true"><div class="grabber"></div>';
-  inner += '<h2>'+esc(t('График по шаблону'))+'</h2><div class="hint">'+esc(t('Отметит смены и выходные на выбранные даты'))+'</div>';
+  let inner = '<div class="sheet pat" role="dialog" aria-modal="true" aria-label="'+esc(t('График по шаблону'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+        +  '<h2>'+esc(t('График по шаблону'))+'</h2><div class="hint">'+esc(t('Отметит смены и выходные на выбранные даты'))+'</div></div>';
   inner += '<div class="field"><label>'+esc(t('Место работы'))+'</label>'+wpChipsHtml(p.workplaceId, 'patWp', { add:true })+'</div>';
   inner += '<div class="field"><label>'+esc(t('Как чередовать'))+'</label>'+segHtml([ { v:'cycle', label:'Смены и выходные' }, { v:'week', label:'По дням недели' } ], p.mode, 'patMode')+'</div>';
   if(p.mode === 'week'){
@@ -1272,7 +1290,7 @@ function financeView(){
   out += '<div class="sub">'+statLine(ms)+'</div>';
   if(state.workplaces.length) out += wpBreakdown(ms);
   else out += '<div class="empty" style="padding-bottom:4px"><div class="ill">'+ico.briefcase()+'</div>'+esc(t('Добавь место работы, чтобы отмечать смены и считать доход.'))
-            + '<div style="margin-top:12px"><button type="button" class="pill solid" data-act="addWorkplace">'+ico.plus()+esc(t('Добавить место работы'))+'</button></div></div>';
+            + '<div style="margin-top:12px"><button type="button" class="pill solid" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button></div></div>';
   if(ms.shifts || ms.off) out += '<div class="actions"><button type="button" class="link danger" data-act="clearMonth">'+esc(t('Очистить месяц'))+'</button></div>';
   out += '</section>';
 
@@ -1372,17 +1390,160 @@ function settingsView(){
       + '</div>';
   out += label(t('Данные'));
   out += '<div class="group" style="--d:3">'
-      + row({ act:'openPage', data:' data-p="data"', tile:tile(ico.database()), title:t('Резервная копия'), sub:t('Перенос и восстановление') })
+      + row({ act:'openPage', data:' data-p="data"', tile:tile(ico.database()), title:t('Импорт и экспорт'), sub:t('Excel, CSV и резервная копия') })
       + '</div>';
   out += label(t('О приложении'));
   out += '<div class="group" style="--d:4">'
       + row({ act:'openAgreement', tile:tile(ico.doc()), title:t('Пользовательское соглашение'), value:prefs.agreement ? 'v'+prefs.agreement.version : '' })
       + row({ act:'openPrivacy', tile:tile(ico.shield()), title:t('Политика конфиденциальности') })
-      + row({ tile:tile(ico.info()), title:t('Версия'), value:APP_BUILD, end:'' })
+      + '<a class="row" href="mailto:'+SUPPORT_EMAIL+'?subject=ShiftFlow%20'+APP_BUILD+'" rel="noopener">'+tile(ico.mail())
+      + '<span class="row-body"><span class="row-title">'+esc(t('Поддержка'))+'</span><span class="row-sub">'+SUPPORT_EMAIL+'</span></span><span class="row-end">'+ico.chevR()+'</span></a>'
       + '</div>';
+  out += updatesSection();
   out += '<div class="note">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
   return out;
 }
+
+/* ════════════════════════ Обновления ════════════════════════ */
+function cmpVer(a, b){
+  const x = String(a).split('.'), y = String(b).split('.');
+  for(let i = 0; i < Math.max(x.length, y.length); i++){
+    const d = (parseInt(x[i], 10) || 0) - (parseInt(y[i], 10) || 0);
+    if(d) return d > 0 ? 1 : -1;
+  }
+  return 0;
+}
+function updatesSection(){
+  const u = updateInfo || {};
+  const store = u.channel === 'store';
+  let sub;
+  if(u.checking) sub = t('Проверяем обновления…');
+  else if(u.available) sub = t('Доступна версия') + ' ' + u.version;
+  else if(store) sub = t('Обновления приходят через магазин приложений');
+  else if(u.error) sub = t('Не удалось проверить — нет интернета?');
+  else if(u.checked) sub = t('У тебя последняя версия');
+  else sub = t('Версия') + ' ' + APP_BUILD;
+  let out = label(t('Обновления'));
+  out += '<div class="group upd'+(u.available ? ' has' : '')+'" style="--d:5">';
+  out += '<div class="row static">'+tile(ico.refresh())+'<span class="row-body"><span class="row-title">ShiftFlow '+APP_BUILD+'</span><span class="row-sub">'+esc(sub)+'</span></span>'
+      +  (store ? '' : '<span class="row-end"><button type="button" class="pill sm'+(u.checking ? ' busy' : '')+'" data-act="checkUpdate"'+(u.checking ? ' disabled' : '')+'>'+esc(t('Проверить'))+'</button></span>') + '</div>';
+  if(u.available || store){
+    if(u.available && u.notes && u.notes.length){
+      out += '<div class="upd-notes"><b>'+esc(t('Что нового'))+'</b><ul>' + u.notes.map(function(n){ return '<li>'+esc(n)+'</li>'; }).join('') + '</ul></div>';
+    }
+    out += '<div class="upd-cta"><button type="button" class="btn primary" data-act="downloadUpdate">'+esc(store ? t('Открыть в магазине') : t('Загрузить обновление'))+'</button></div>';
+  }
+  if(!store){
+    out += '<div class="row static">'+tile(ico.clock())+'<span class="row-body"><span class="row-title">'+esc(t('Проверять автоматически'))+'</span><span class="row-sub">'+esc(t('Раз в 12 часов, без передачи твоих данных'))+'</span></span>'
+        +  '<button type="button" class="switch'+(prefs.autoUpdate ? ' on' : '')+'" data-act="toggleAutoUpdate" role="switch" aria-checked="'+(prefs.autoUpdate ? 'true' : 'false')+'" aria-label="'+esc(t('Проверять автоматически'))+'"></button></div>';
+  }
+  if(!window.AndroidApp && /^https?:$/.test(location.protocol) && window.top === window){
+    out += '<a class="row" href="download/ShiftFlow.apk" download rel="noopener">'+tile(ico.down())+'<span class="row-body"><span class="row-title">'+esc(t('Приложение для Android'))+'</span><span class="row-sub">'+esc(t('Скачать APK · работает без интернета'))+'</span></span><span class="row-end">'+ico.chevR()+'</span></a>';
+  }
+  return out + '</div>';
+}
+/* Проверка: в Android — нативно (запрос к фиксированному адресу из сборки), на сайте — свой version.json */
+function checkUpdates(force){
+  if(window.AndroidApp){
+    if(typeof window.AndroidApp.checkUpdate === 'function'){
+      updateInfo = Object.assign({}, updateInfo, { checking:true });
+      if(force) render();
+      try{ window.AndroidApp.checkUpdate(!!force); }catch(e){ updateInfo = { error:true, checked:Date.now() }; render(); }
+    }
+    return;
+  }
+  if(!/^https?:$/.test(location.protocol) || window.top !== window || !window.fetch) return;
+  updateInfo = Object.assign({}, updateInfo, { checking:true });
+  if(force) render();
+  fetch('version.json?t=' + Date.now(), { cache:'no-store', credentials:'omit', referrerPolicy:'no-referrer' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(!j || typeof j.version !== 'string') throw new Error('bad manifest');
+      window.__onUpdate({ available:cmpVer(j.version, APP_BUILD) > 0, version:j.version, notes:j.notes, channel:'web' });
+    })
+    .catch(function(){ updateInfo = { error:true, checked:Date.now() }; render(); });
+}
+/* Ответ проверки (из Android или из fetch). Всё приходящее извне проверяется и обрезается. */
+window.__onUpdate = function(info){
+  info = info && typeof info === 'object' ? info : {};
+  const ver = typeof info.version === 'string' && /^\d{1,3}(\.\d{1,3}){0,3}$/.test(info.version) ? info.version : '';
+  let notes = info.notes;
+  if(notes && !Array.isArray(notes) && typeof notes === 'object') notes = notes[LANG] || notes.ru || notes.en;
+  notes = Array.isArray(notes) ? notes.filter(function(n){ return typeof n === 'string'; }).slice(0, 8).map(function(n){ return n.slice(0, 160); }) : [];
+  updateInfo = { available:!!info.available && !!ver, version:ver, notes:notes, checked:Date.now(),
+                 channel:info.channel === 'store' ? 'store' : (info.channel === 'web' ? 'web' : 'site'), error:!!info.error };
+  render();
+};
+function autoCheckUpdates(){
+  if(!prefs.autoUpdate) return;
+  setTimeout(function(){ checkUpdates(false); }, 2500);
+}
+
+/* ════════════════════════ Виджеты рабочего стола (Android) ════════════════════════
+   Приложение отдаёт виджетам компактный снимок: места работы и дни с прошлой недели до конца следующего месяца.
+   Действия на виджете (отметить смену, выходной, сбросить) копятся в очереди и применяются здесь при запуске. */
+function widgetSnapshot(){
+  const now = new Date();
+  const days = {};
+  const from = new Date(now.getFullYear(), now.getMonth(), 1 - 7);
+  const to = new Date(now.getFullYear(), now.getMonth() + 2, 0);
+  const counts = {};
+  for(const d = new Date(from); d <= to; d.setDate(d.getDate() + 1)){
+    const k = dk(d.getFullYear(), d.getMonth(), d.getDate());
+    const s = state.shifts[k];
+    if(!s) continue;
+    if(s.dayOff){ days[k] = { o:1 }; continue; }
+    const w = wpById(s.workplaceId);
+    if(!w) continue;
+    days[k] = { w:w.id, h:(parseFloat(s.hours) || 0), p:Math.round(calcPay(s) * 100) / 100 };
+    counts[w.id] = (counts[w.id] || 0) + 1;
+  }
+  let quick = state.workplaces[0] ? state.workplaces[0].id : '';
+  Object.keys(counts).forEach(function(id){ if(counts[id] > (counts[quick] || 0)) quick = id; });
+  return {
+    v:1, lang:LANG, light:isLight(), accent:String(prefs.accent).toUpperCase(), cur:defaultCurrency(), quick:quick, made:todayKey(),
+    wps:state.workplaces.map(function(w){ return { id:w.id, n:w.name, s:shortLabel(w), c:w.color, t:w.payType, r:w.rate, h:w.defaultHours, cur:w.currency }; }),
+    days:days,
+    L:{ months:months().map(function(m){ return m.charAt(0).toUpperCase() + m.slice(1); }), monthsGen:(LANG === 'ru' ? MONTHS_GEN.ru : months()),
+        wd:wdShort(), wdl:WD_LONG_I18N[LANG] || WD_LONG_I18N.ru, today:t('Сегодня'), off:t('Выходной'), offShort:t('вых'), none:t('Не отмечено'),
+        earned:t('заработано'), shift:t('Смена'), reset:t('Сбросить'), open:t('Открыть'), h:t('ч'),
+        shifts:PLURALS[LANG].shift, hours:PLURALS[LANG].hour, addPlace:t('Добавь место работы в приложении'), week:t('Эта неделя') }
+  };
+}
+function pushWidgets(){
+  if(!window.AndroidApp || typeof window.AndroidApp.setWidgetData !== 'function') return;
+  clearTimeout(pushWidgets.t);
+  pushWidgets.t = setTimeout(function(){ try{ window.AndroidApp.setWidgetData(JSON.stringify(widgetSnapshot())); }catch(e){} }, 250);
+}
+window.__widgetSync = function(){
+  if(!window.AndroidApp || typeof window.AndroidApp.takeWidgetOps !== 'function') return;
+  let ops = [];
+  try{ ops = JSON.parse(window.AndroidApp.takeWidgetOps() || '[]'); }catch(e){ ops = []; }
+  if(!Array.isArray(ops) || !ops.length){ pushWidgets(); return; }
+  let changed = 0;
+  ops.slice(0, 200).forEach(function(o){
+    if(!o || typeof o.d !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(o.d)) return;
+    if(o.op === 'shift'){
+      const w = wpById(o.w);
+      if(!w) return;
+      state.shifts[o.d] = { workplaceId:w.id, hours:w.defaultHours, dayOff:false }; changed++;
+    } else if(o.op === 'off'){ state.shifts[o.d] = { dayOff:true }; changed++; }
+    else if(o.op === 'clear'){ delete state.shifts[o.d]; changed++; }
+  });
+  saveState();
+  if(changed && booted) render();
+};
+/* Открыть день из виджета */
+window.__openDay = function(k){
+  if(typeof k !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(k)) return;
+  const p = parseKey(k);
+  if(ui.sheet && !(ui.sheet.type === 'agreement' && ui.sheet.mode === 'first')) ui.sheet = null;
+  ui.picker = null; ui.confirm = null;
+  navigate('tab', function(){
+    ui.tab = 'calendar'; ui.page = null; ui.rangeMode = false;
+    ui.view = { y:p[0], m:p[1] }; ui.selected = k; ui.pendingPulse = false;
+  });
+};
 
 function appearancePage(){
   let out = topbar(t('Оформление'), { back:true });
@@ -1447,6 +1608,9 @@ function appearancePage(){
   out += segHtml(DAY_TINTS.map(function(x){ return { v:x.v, label:x.n }; }), prefs.dayTint, 'setDayTint');
   out += label(t('Подписи в днях'), optName(DAY_LABELS, prefs.dayLabel));
   out += segHtml(DAY_LABELS.map(function(x){ return { v:x.v, label:x.s }; }), prefs.dayLabel, 'setDayLabel');
+  out += label(t('Плавность и эффекты'), prefs.perf === 'auto' ? t('Авто') + ' · ' + (isLite() ? t('экономно') : t('максимум')) : optName(PERF_MODES, prefs.perf));
+  out += segHtml(PERF_MODES.map(function(x){ return { v:x.v, label:x.n }; }), prefs.perf, 'setPerf');
+  out += '<div class="note" style="text-align:left;margin:10px 4px 0">'+esc(t('«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.'))+'</div>';
 
   const n = changesCount();
   if(n){
@@ -1461,7 +1625,7 @@ function demoTotal(){
   const v = rangeStats(mr.from, mr.to).total;
   return v > 0 ? Math.round(v) : 48600;
 }
-const LOOK_KEYS = ['theme', 'accent', 'textSize', 'uiStyle', 'bg', 'dayTint', 'dayLabel', 'customHue'];
+const LOOK_KEYS = ['theme', 'accent', 'textSize', 'uiStyle', 'bg', 'dayTint', 'dayLabel', 'customHue', 'perf'];
 function appearanceSnapshot(){
   const o = {};
   LOOK_KEYS.forEach(function(k){ o[k] = k === 'accent' ? String(prefs.accent).toUpperCase() : prefs[k]; });
@@ -1490,12 +1654,12 @@ function languagePage(){
 }
 
 function workplacesPage(){
-  let out = topbar(t('Места работы'), { back:true, right: state.workplaces.length < 10 ? '<button type="button" class="icon-btn sm" data-act="addWorkplace" aria-label="'+esc(t('Добавить место работы'))+'">'+ico.plus()+'</button>' : '' });
+  let out = topbar(t('Места работы'), { back:true });
   out += pageHead(t('Места работы'), t('Ставки, валюта и цвет'), true);
   if(!state.workplaces.length){
     out += '<section class="card"><div class="empty"><div class="ill">'+ico.briefcase()+'</div><b style="display:block;color:var(--text);font-size:1rem;margin-bottom:4px">'+esc(t('Мест работы пока нет'))+'</b>'
         + esc(t('Добавь место работы, чтобы отмечать смены и считать доход.'))
-        + '<div style="margin-top:14px"><button type="button" class="pill solid" data-act="addWorkplace">'+ico.plus()+esc(t('Добавить место работы'))+'</button></div></div></section>';
+        + '<div style="margin-top:14px"><button type="button" class="pill solid" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button></div></div></section>';
     return out;
   }
   out += '<div class="group" style="--d:0">';
@@ -1505,7 +1669,7 @@ function workplacesPage(){
   });
   out += '</div>';
   if(state.workplaces.length < 10){
-    out += '<button type="button" class="btn primary" style="width:100%" data-act="addWorkplace">'+esc('+ ' + t('Добавить место работы'))+'</button>';
+    out += '<button type="button" class="btn primary" style="width:100%" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button>';
   } else {
     out += '<div class="note">'+esc(t('Достигнут лимит — 10 мест работы'))+'</div>';
   }
@@ -1513,18 +1677,28 @@ function workplacesPage(){
 }
 
 function dataPage(){
-  let out = topbar(t('Данные'), { back:true });
-  out += pageHead(t('Данные'), t('Всё хранится только на этом устройстве'), true);
+  let out = topbar(t('Импорт и экспорт'), { back:true });
+  out += pageHead(t('Импорт и экспорт'), t('Всё хранится только на этом устройстве'), true);
   out += '<section class="card" style="--d:0;display:flex;gap:14px;align-items:flex-start">'+tile(ico.lock())
-      + '<div class="sub" style="margin:0">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'</div></section>';
-  out += label(t('Резервная копия'));
-  out += '<div class="group" style="--d:1">'
-      + row({ act:'backupExport', tile:tile(ico.down()), title:t('Скачать резервную копию'), sub:t('Файл .json со всеми данными'), end:'' })
-      + row({ act:'backupImport', tile:tile(ico.up()), title:t('Восстановить из файла'), sub:t('Резервная копия .json или выгрузка Excel'), end:'' })
+      + '<div class="sub" style="margin:0">'+esc(t('Файлы создаются прямо на телефоне и никуда не отправляются. Сохраняй резервную копию перед переездом на новый телефон.'))+'</div></section>';
+  out += label(t('Экспорт'));
+  out += '<section class="card" style="--d:1;padding:14px">'
+      + '<div class="row2">'
+      + '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="exportFrom" role="button">'+esc(fmtDate(ui.export.from))+ico.calendar()+'</div></div>'
+      + '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker" data-act="openPicker" data-t="exportTo" role="button">'+esc(fmtDate(ui.export.to))+ico.calendar()+'</div></div>'
+      + '</div></section>';
+  out += '<div class="group" style="--d:2">'
+      + row({ act:'exportAll', tile:tile(ico.table()), title:t('Смены в Excel'), sub:t('.xlsx · все места работы и отдельные листы'), end:ico.down() })
+      + row({ act:'exportCsv', tile:tile(ico.doc()), title:t('Смены в CSV'), sub:t('Для Google Таблиц и других программ'), end:ico.down() })
+      + row({ act:'backupExport', tile:tile(ico.database()), title:t('Резервная копия'), sub:t('.json · всё: места работы, смены, заметки'), end:ico.down() })
+      + '</div>';
+  out += label(t('Импорт'));
+  out += '<div class="group" style="--d:3">'
+      + row({ act:'backupImport', tile:tile(ico.up()), title:t('Импортировать файл'), sub:t('.json, .xlsx или .csv — добавить или заменить'), end:'' })
       + '</div>';
   out += '<div class="note" style="margin-top:0;margin-bottom:6px;text-align:left">'+esc(t('Переезжаешь со старой версии сайта? Открой там «Финансы», в «Экспорте» поставь дату «С» на свою первую смену и нажми «Скачать всё (все места работы)». Потом выбери этот файл здесь.'))+'</div>';
   out += label(t('Опасная зона'));
-  out += '<div class="group" style="--d:2">'
+  out += '<div class="group" style="--d:4">'
       + row({ act:'clearWorkplaces', tile:tile(ico.trash(), 'danger'), title:t('Удалить все данные'), sub:t('Места, смены и выплаты'), end:'' })
       + '</div>';
   return out;
@@ -1543,58 +1717,131 @@ function viewHtml(){
 }
 
 /* ════════════════════════ Листы и диалоги ════════════════════════ */
-const LEGAL_RU = ''
-+'<p>Версия '+AGREEMENT_VERSION+'. Условия действуют с момента первого запуска ShiftFlow.</p>'
-+'<h3>1. Что это за приложение</h3>'
-+'<p>ShiftFlow — личный инструмент для учёта рабочих смен, ставок и дохода. Это не бухгалтерская программа и не замена документам работодателя: все расчёты носят справочный характер.</p>'
-+'<h3>2. Где хранятся данные</h3>'
-+'<p>Смены, места работы, ставки, дополнительные внесения и выплаты хранятся <b>только на твоём устройстве</b>. У приложения нет сервера и аккаунта, нет рекламы и аналитики: оно не собирает и не передаёт персональные данные и не обращается к сети.</p>'
-+'<p>Очистка данных браузера, удаление приложения или сброс устройства удаляют и записи — восстановить их не получится. Копию расчётов можно выгрузить в Excel в разделе «Финансы».</p>'
-+'<h3>3. Ответственность</h3>'
-+'<p>Ты сам отвечаешь за точность введённых данных и за то, как используешь расчёты. Автор не несёт ответственности за решения, принятые на их основе, а также за потерю данных из-за очистки хранилища, сбоя устройства или удаления приложения.</p>'
-+'<h3>4. Изменения условий</h3>'
-+'<p>Условия могут обновляться вместе с приложением. Актуальная версия всегда доступна в настройках, а при существенном изменении приложение попросит подтвердить согласие заново.</p>';
-const LEGAL_EN = ''
-+'<p>Version '+AGREEMENT_VERSION+'. These terms apply from the first launch of ShiftFlow.</p>'
-+'<h3>1. What this app is</h3>'
-+'<p>ShiftFlow is a personal tool for tracking work shifts, rates and income. It is not accounting software and does not replace any employer document: every calculation is for reference only.</p>'
-+'<h3>2. Where your data lives</h3>'
-+'<p>Shifts, workplaces, rates, extra income and payments are stored <b>only on your device</b>. The app has no server and no account, no ads and no analytics: it does not collect or transmit personal data and makes no network requests.</p>'
-+'<p>Clearing browser data, deleting the app or resetting the device also deletes your records, and they cannot be recovered. You can export a copy of your calculations to Excel in the Finance tab.</p>'
-+'<h3>3. Liability</h3>'
-+'<p>You are responsible for the accuracy of the data you enter and for how you use the calculations. The author is not liable for decisions made on their basis, nor for data loss caused by clearing storage, device failure or app removal.</p>'
-+'<h3>4. Changes</h3>'
-+'<p>These terms may be updated together with the app. The current version is always available in Settings, and on a material change the app will ask you to accept them again.</p>';
+/* ════════════════════════ Юридические тексты ════════════════════════
+   Соглашение и политика составлены по ГК РФ (оферта, простая лицензия) и 152-ФЗ.
+   При изменении текста по существу увеличь AGREEMENT_VERSION — пользователи примут условия заново. */
+function sect(list){
+  return list.map(function(x){ return '<h3>'+x[0]+'</h3>' + x.slice(1).map(function(p){ return '<p>'+p+'</p>'; }).join(''); }).join('');
+}
+const MAIL = '<b>'+SUPPORT_EMAIL+'</b>';
+const LEGAL_RU = '<p>Редакция '+AGREEMENT_VERSION+' от 9 ноября 2026 г.</p>' + sect([
+  ['1. Общие положения',
+   '1.1. Настоящее Пользовательское соглашение (далее — Соглашение) определяет условия использования приложения ShiftFlow для Android и его веб-версии (далее — Приложение). Правообладатель Приложения — его разработчик (далее — Разработчик). Связь с Разработчиком: '+MAIL+'.',
+   '1.2. Соглашение является публичной офертой (ст. 437 ГК РФ). Установка, запуск или использование Приложения, а также отметка о согласии с условиями означают полное и безоговорочное принятие Соглашения (ст. 438 ГК РФ). Если вы не согласны с условиями, не используйте Приложение и удалите его.',
+   '1.3. Приложение предоставляется бесплатно на условиях простой (неисключительной) лицензии (ст. 1286 ГК РФ) без ограничения территории на срок действия исключительного права.'],
+  ['2. Назначение Приложения',
+   '2.1. Приложение — личный инструмент учёта рабочих смен, ставок и дохода: календарь смен, расчёт оплаты, статистика, виджеты рабочего стола, импорт и экспорт данных.',
+   '2.2. Все расчёты носят справочный характер. Приложение не является бухгалтерской, налоговой или кадровой программой и не заменяет документы работодателя, табели и расчётные листки.'],
+  ['3. Права и ограничения пользователя',
+   '3.1. Вы вправе устанавливать Приложение на свои устройства и использовать его для учёта собственного рабочего времени и дохода, а также создавать резервные копии своих данных.',
+   '3.2. Запрещается: декомпилировать, модифицировать или взламывать Приложение и обходить его технические средства защиты; распространять изменённые копии или выдавать Приложение за своё; использовать Приложение для действий, нарушающих закон или права третьих лиц; вносить в Приложение персональные данные других людей без законных оснований.',
+   '3.3. Исключительные права на Приложение, его код, дизайн, логотип и название ShiftFlow принадлежат Разработчику. Шрифты Unbounded и Onest используются по лицензии SIL Open Font License 1.1.'],
+  ['4. Данные и конфиденциальность',
+   '4.1. Всё, что вы вводите в Приложение (смены, места работы, ставки, заметки, настройки), хранится <b>только на вашем устройстве</b>. Разработчик не получает доступа к этим данным, не собирает, не продаёт и не передаёт их третьим лицам.',
+   '4.2. В Приложении нет регистрации, рекламы, аналитики, трекеров и сторонних SDK.',
+   '4.3. Приложение обращается к сети только для проверки обновлений: запрашивается файл с номером последней версии, данные пользователя при этом не передаются. Автоматическую проверку можно отключить в настройках.',
+   '4.4. Порядок обработки информации подробно описан в Политике конфиденциальности, которая является неотъемлемой частью Соглашения.'],
+  ['5. Сохранность данных',
+   '5.1. Вы самостоятельно отвечаете за сохранность своих данных. Удаление Приложения, очистка его данных, сброс или утрата устройства приводят к безвозвратной потере записей.',
+   '5.2. Рекомендуем регулярно сохранять резервную копию: «Настройки → Импорт и экспорт». Файлы экспорта хранятся там, куда вы их сохранили, — обращайтесь с ними бережно.'],
+  ['6. Ответственность',
+   '6.1. Приложение предоставляется «как есть». Разработчик прилагает разумные усилия для его корректной работы, но не гарантирует отсутствие ошибок и соответствие Приложения ожиданиям пользователя.',
+   '6.2. В пределах, допустимых законом, Разработчик не отвечает за убытки, упущенную выгоду, потерю данных и решения, принятые на основе расчётов Приложения.',
+   '6.3. Условия Соглашения не ограничивают права пользователя, которые не могут быть ограничены по закону, в том числе права потребителя.'],
+  ['7. Обновления и изменения условий',
+   '7.1. Разработчик вправе выпускать обновления, изменять, добавлять и прекращать функции Приложения.',
+   '7.2. Разработчик вправе изменять Соглашение. Новая редакция публикуется в Приложении; при существенных изменениях Приложение попросит принять условия заново. Продолжение использования означает согласие с новой редакцией.'],
+  ['8. Возраст',
+   '8.1. Приложение предназначено для пользователей старше 14 лет. Пользователи младше 18 лет используют Приложение с согласия родителей или иных законных представителей.'],
+  ['9. Применимое право и споры',
+   '9.1. К Соглашению применяется право Российской Федерации.',
+   '9.2. Споры решаются путём переговоров. До обращения в суд необходимо направить претензию на '+MAIL+'; срок ответа — 30 дней. Если согласие не достигнуто, спор рассматривается судом в порядке, установленном законодательством РФ, в том числе законодательством о защите прав потребителей.'],
+  ['10. Контакты',
+   'Вопросы, претензии и предложения: '+MAIL+'.']
+]);
+const LEGAL_EN = '<p>Version '+AGREEMENT_VERSION+', November 9, 2026. The Russian text prevails.</p>' + sect([
+  ['1. General',
+   '1.1. These Terms govern the use of the ShiftFlow app for Android and its web version (the App). The App is owned by its developer (the Developer), contact: '+MAIL+'.',
+   '1.2. These Terms are a public offer. Installing, launching or using the App, or ticking the consent box, means you accept them in full. If you do not agree, do not use the App and remove it.',
+   '1.3. The App is provided free of charge under a simple (non-exclusive) licence, worldwide, for the term of the exclusive right.'],
+  ['2. Purpose',
+   '2.1. The App is a personal tool for tracking work shifts, rates and income: a shift calendar, pay calculation, statistics, home screen widgets, import and export.',
+   '2.2. All calculations are for reference only. The App is not accounting, tax or HR software and does not replace employer documents or payslips.'],
+  ['3. Your rights and restrictions',
+   '3.1. You may install the App on your devices, use it to track your own working time and income, and back up your data.',
+   '3.2. You may not decompile, modify or hack the App or bypass its protection; distribute modified copies or pass the App off as your own; use the App to break the law or infringe the rights of others; enter other people’s personal data without a lawful basis.',
+   '3.3. All rights to the App, its code, design, logo and the name ShiftFlow belong to the Developer. The Unbounded and Onest fonts are used under the SIL Open Font License 1.1.'],
+  ['4. Data and privacy',
+   '4.1. Everything you enter (shifts, workplaces, rates, notes, settings) is stored <b>only on your device</b>. The Developer has no access to it and does not collect, sell or share it.',
+   '4.2. There are no accounts, ads, analytics, trackers or third-party SDKs.',
+   '4.3. The App goes online only to check for updates: it requests a file with the latest version number and sends none of your data. Automatic checks can be turned off in Settings.',
+   '4.4. Details are in the Privacy Policy, which forms part of these Terms.'],
+  ['5. Keeping your data safe',
+   '5.1. You are responsible for keeping your data. Removing the App, clearing its data, resetting or losing the device permanently deletes your records.',
+   '5.2. Back up regularly in Settings → Import and export. Exported files stay wherever you save them, so handle them with care.'],
+  ['6. Liability',
+   '6.1. The App is provided “as is”. The Developer makes reasonable efforts for it to work correctly but does not guarantee it is error-free or meets your expectations.',
+   '6.2. To the extent permitted by law, the Developer is not liable for losses, lost profit, data loss or decisions based on the App’s calculations.',
+   '6.3. Nothing in these Terms limits rights that cannot be limited by law, including consumer rights.'],
+  ['7. Updates and changes',
+   '7.1. The Developer may release updates and change, add or discontinue features.',
+   '7.2. These Terms may change. The new version is published in the App; after material changes the App asks you to accept them again. Continued use means you accept the new version.'],
+  ['8. Age',
+   '8.1. The App is intended for users over 14. Users under 18 use it with the consent of a parent or guardian.'],
+  ['9. Governing law and disputes',
+   '9.1. These Terms are governed by the laws of the Russian Federation.',
+   '9.2. Disputes are settled by negotiation first: send a claim to '+MAIL+'; the response period is 30 days. Otherwise disputes go to court as provided by law, including consumer protection law.'],
+  ['10. Contact',
+   'Questions, claims and suggestions: '+MAIL+'.']
+]);
 function legalHtml(){ return LANG === 'en' ? LEGAL_EN : LEGAL_RU; }
 
-const PRIVACY_RU = ''
-+'<p>Действует с 9 ноября 2026 г. Относится к приложению ShiftFlow для Android и веб-версии.</p>'
-+'<h3>Какие данные мы собираем</h3>'
-+'<p><b>Никаких.</b> ShiftFlow не собирает, не передаёт и не продаёт персональные данные. В приложении нет аккаунтов, рекламы, аналитики, трекеров и сторонних SDK.</p>'
-+'<h3>Что хранится на устройстве</h3>'
-+'<p>Смены, места работы, ставки, заметки и настройки оформления хранятся только в памяти приложения на твоём устройстве. Разработчик не имеет к ним доступа.</p>'
-+'<h3>Доступ к сети и разрешения</h3>'
-+'<p>Приложение работает без интернета и не запрашивает доступ к контактам, местоположению, камере или микрофону. Файлы (Excel, резервная копия) создаются только по твоему запросу и сохраняются туда, куда ты выберешь.</p>'
-+'<h3>Удаление данных</h3>'
-+'<p>Удалить все данные можно в «Настройки → Резервная копия → Удалить все данные» или удалив приложение.</p>'
-+'<h3>Дети</h3>'
-+'<p>Приложение не предназначено для детей младше 13 лет и не собирает их данные.</p>'
-+'<h3>Контакты</h3>'
-+'<p>Вопросы о конфиденциальности: github.com/dimavotinov73-beep/ShiftFlow/issues</p>';
-const PRIVACY_EN = ''
-+'<p>Effective November 9, 2026. Applies to the ShiftFlow Android app and web version.</p>'
-+'<h3>What data we collect</h3>'
-+'<p><b>None.</b> ShiftFlow does not collect, transmit or sell personal data. There are no accounts, ads, analytics, trackers or third-party SDKs.</p>'
-+'<h3>What is stored on your device</h3>'
-+'<p>Shifts, workplaces, rates, notes and appearance settings are stored only in the app storage on your device. The developer has no access to them.</p>'
-+'<h3>Network access and permissions</h3>'
-+'<p>The app works offline and does not request access to contacts, location, camera or microphone. Files (Excel, backup) are created only when you ask and saved where you choose.</p>'
-+'<h3>Deleting data</h3>'
-+'<p>Delete everything in Settings → Backup → Delete all data, or uninstall the app.</p>'
-+'<h3>Children</h3>'
-+'<p>The app is not directed at children under 13 and does not collect their data.</p>'
-+'<h3>Contact</h3>'
-+'<p>Privacy questions: github.com/dimavotinov73-beep/ShiftFlow/issues</p>';
+const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Относится к приложению ShiftFlow для Android и веб-версии.</p>' + sect([
+  ['1. Коротко',
+   'ShiftFlow не собирает и не передаёт ваши данные. Всё, что вы вводите, хранится только на вашем устройстве. Нет аккаунтов, рекламы, аналитики, трекеров и сторонних SDK.'],
+  ['2. Данные в приложении',
+   'Смены, места работы, ставки, заметки и настройки хранятся в памяти приложения на вашем устройстве. Разработчик не получает к ним доступа и не является их оператором в смысле Федерального закона № 152-ФЗ «О персональных данных».',
+   'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.'],
+  ['3. Проверка обновлений',
+   'Чтобы показать кнопку «Загрузить обновление», приложение запрашивает с сервера обновлений небольшой файл с номером версии. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить: «Настройки → Обновления». Версии из Google Play и RuStore обновляются через магазин.'],
+  ['4. Обращения в поддержку',
+   'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа. По вашей просьбе переписка будет удалена.'],
+  ['5. Разрешения',
+   'Интернет — только для проверки обновлений. Файлы — только через системное окно выбора, когда вы сами экспортируете или импортируете данные. Доступ к контактам, местоположению, камере и микрофону не запрашивается. Облачное резервное копирование Android для приложения отключено.'],
+  ['6. Безопасность',
+   'Данные изолированы в хранилище приложения. Приложение не загружает внешний код и не открывает сторонние страницы внутри себя. Файлы экспорта сохраняются туда, куда укажете вы, — храните их бережно.'],
+  ['7. Хранение и удаление',
+   'Данные хранятся, пока вы их не удалите: «Настройки → Импорт и экспорт → Удалить все данные» или удаление приложения.'],
+  ['8. Дети',
+   'Приложение не предназначено для детей младше 14 лет и сознательно не собирает их данные.'],
+  ['9. Изменения',
+   'Новая редакция политики публикуется в приложении и на сайте. При существенных изменениях приложение попросит подтвердить согласие.'],
+  ['10. Контакты',
+   'Вопросы о конфиденциальности: '+MAIL+'.']
+]);
+const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow Android app and web version.</p>' + sect([
+  ['1. In short',
+   'ShiftFlow does not collect or share your data. Everything you enter stays on your device. No accounts, ads, analytics, trackers or third-party SDKs.'],
+  ['2. Data in the app',
+   'Shifts, workplaces, rates, notes and settings are stored in the app’s storage on your device. The developer has no access to them.',
+   'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.'],
+  ['3. Update checks',
+   'To show the “Download update” button, the app requests a small file with the version number from the update server. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Turn off automatic checks in Settings → Updates. Google Play and RuStore versions update through the store.'],
+  ['4. Support',
+   'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The conversation is deleted on request.'],
+  ['5. Permissions',
+   'Internet — only for update checks. Files — only through the system picker when you export or import. No access to contacts, location, camera or microphone. Android cloud backup is disabled for the app.'],
+  ['6. Security',
+   'Data is isolated in the app’s storage. The app does not load external code or open third-party pages inside itself. Exported files are saved where you choose — keep them safe.'],
+  ['7. Retention and deletion',
+   'Data is kept until you delete it: Settings → Import and export → Delete all data, or uninstall the app.'],
+  ['8. Children',
+   'The app is not directed at children under 14 and does not knowingly collect their data.'],
+  ['9. Changes',
+   'A new version of this policy is published in the app and on the website. After material changes the app asks you to confirm again.'],
+  ['10. Contact',
+   'Privacy questions: '+MAIL+'.']
+]);
 
 function ovl(kind, extra, inner, closable){
   const closing = ui.closing === kind ? ' closing' : '';
@@ -1621,7 +1868,7 @@ function pickerHtml(){
   const p = ui.picker;
   const nDays = daysInMonth(p.y, p.m), lead = leadBlanks(p.y, p.m);
   const cur = pickerValue(p.target), tKey = todayKey();
-  let inner = '<div class="sheet dp" role="dialog" aria-modal="true"><div class="grabber"></div>';
+  let inner = '<div class="sheet dp" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
   inner += '<div class="dp-head"><button type="button" class="icon-btn sm" data-act="pickerNav" data-d="-1" aria-label="-1">'+ico.chevL()+'</button>'
         +  '<div class="t" data-key="dp-'+p.y+'-'+p.m+'">'+esc(monthTitle(p.m))+' '+p.y+'</div>'
         +  '<button type="button" class="icon-btn sm" data-act="pickerNav" data-d="1" aria-label="+1">'+ico.chevR()+'</button></div>';
@@ -1678,10 +1925,11 @@ function sheetHtml(){
   if(s.type === 'payment') return paymentSheet(s);
   if(s.type === 'workplace') return workplaceSheet(s);
   if(s.type === 'pattern') return patternSheet();
+  if(s.type === 'import') return importSheet(s);
   return '';
 }
 function docSheet(title, html){
-  return ovl('doc', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="grabber"></div><h2>'+esc(title)+'</h2><div class="legal" style="margin-top:12px">'+html+'</div>'
+  return ovl('doc', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div><h2>'+esc(title)+'</h2><div class="legal" style="margin-top:12px">'+html+'</div>'
     + '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Закрыть'))+'</button></div></div>');
 }
 function welcomeSheet(){
@@ -1696,17 +1944,19 @@ function welcomeSheet(){
   inner += '<div class="feats">' + feats.map(function(f, i){
     return '<div class="feat" style="--i:'+i+'">'+tile(f[0])+'<div class="ft"><b>'+esc(f[1])+'</b><span>'+esc(f[2])+'</span></div></div>';
   }).join('') + '</div>';
-  inner += '<div class="legal-wrap'+(ui.legalOpen ? ' open' : '')+'"><button type="button" class="link acc" data-act="toggleLegalText">'
-        +  esc(t('Пользовательское соглашение'))+' · '+esc(ui.legalOpen ? t('Скрыть') : t('Читать полностью'))+'</button>'
-        +  '<div class="legal">'+legalHtml()+'</div></div>';
+  const doc = ui.legalDoc === 'privacy' ? 'privacy' : 'terms';
+  inner += '<div class="legal-wrap'+(ui.legalOpen ? ' open' : '')+'">'
+        +  '<div class="legal-links"><button type="button" class="link acc" data-act="showLegal" data-v="terms">'+esc(t('Пользовательское соглашение'))+'</button>'
+        +  '<button type="button" class="link acc" data-act="showLegal" data-v="privacy">'+esc(t('Политика конфиденциальности'))+'</button></div>'
+        +  '<div class="legal" data-key="lg-'+doc+'">'+(doc === 'privacy' ? (LANG === 'en' ? PRIVACY_EN : PRIVACY_RU) : legalHtml())+'</div></div>';
   inner += '<div class="checks" data-act="toggleLegal" role="checkbox" aria-checked="'+(ui.legalChecked ? 'true' : 'false')+'"><div class="box'+(ui.legalChecked ? ' on' : '')+'">'+ico.check()+'</div>'
-        +  '<div class="txt" style="text-align:left">'+esc(t('Я прочитал условия и согласен, что данные хранятся только на этом устройстве.'))+'</div></div>';
+        +  '<div class="txt" style="text-align:left">'+esc(t('Я принимаю Пользовательское соглашение и Политику конфиденциальности. Мне есть 14 лет.'))+'</div></div>';
   inner += '<div class="btns"><button type="button" class="btn primary'+(ui.legalChecked ? '' : ' off')+'" data-act="acceptAgreement" aria-disabled="'+(ui.legalChecked ? 'false' : 'true')+'">'+esc(t('Начать'))+'</button></div>';
   inner += '</div>';
   return ovl('welcome', ' center', inner, false);
 }
 function incomeSheet(s){
-  return ovl('income', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="grabber"></div>'
+  return ovl('income', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
     + '<h2>'+esc(t('Добавить внесение'))+'</h2>'
     + '<div class="field"><label>'+esc(t('Дата'))+'</label><div class="picker" data-act="openPicker" data-t="income" role="button">'+esc(fmtDate(s.date))+ico.calendar()+'</div></div>'
     + '<div class="field"><label for="incAmount">'+esc(t('Сумма'))+'</label><input id="incAmount" data-inp="incAmount" type="number" min="0" step="0.01" inputmode="decimal" value="'+esc(s.amount)+'"></div>'
@@ -1715,7 +1965,7 @@ function incomeSheet(s){
     + '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Отмена'))+'</button><button type="button" class="btn primary" data-act="saveIncome">'+esc(t('Сохранить'))+'</button></div></div>');
 }
 function paymentSheet(s){
-  return ovl('payment', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="grabber"></div>'
+  return ovl('payment', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
     + '<h2>'+esc(t('Записать выплату'))+'</h2>'
     + '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="payFrom" role="button">'+esc(fmtDate(s.from))+'</div></div>'
     + '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="payTo" role="button">'+esc(fmtDate(s.to))+'</div></div></div>'
@@ -1726,7 +1976,7 @@ function paymentSheet(s){
 }
 function workplaceSheet(s){
   const editing = s.index !== null && s.index !== undefined;
-  let inner = '<div class="sheet" role="dialog" aria-modal="true"><div class="grabber"></div>';
+  let inner = '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
   inner += '<div style="display:flex;align-items:center;gap:12px"><span class="tile tw" style="--cc:'+s.color+';width:44px;height:44px"><i></i></span>'
         +  '<h2 style="margin:0">'+esc(editing ? t('Место работы') : t('Добавить место работы'))+'</h2></div>';
   inner += '<div class="field"><label for="wpName">'+esc(t('Название'))+'</label><input id="wpName" data-inp="wpName" type="text" value="'+esc(s.name)+'" maxlength="60" placeholder="'+esc(t('Например: Кофейня'))+'"></div>';
@@ -1781,7 +2031,7 @@ function runCounters(){
     const prev = el.__v;
     el.__v = to;
     const from = prev === undefined ? 0 : prev;
-    if(from === to || reduceMotion()) continue;
+    if(from === to || reduceMotion() || document.documentElement.classList.contains('lite')) continue;
     const span = el.querySelector('.cv');
     if(!span) continue;
     const t0 = performance.now(), dur = prev === undefined ? 900 : 650;
@@ -1947,7 +2197,11 @@ function download(blob, filename){
   }catch(e){ toast(t('Не удалось сохранить файл')); }
 }
 function fileNameSafe(s){ return String(s || 'shiftflow').replace(/[\\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim().slice(0,50) || 'shiftflow'; }
-function csvEscape(v){ const s = String(v === undefined || v === null ? '' : v); return /[";\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s; }
+function csvEscape(v){
+  let s = String(v === undefined || v === null ? '' : v);
+  if(typeof v !== 'number' && /^[=+\-@\t\r]/.test(s)) s = "'" + s;   /* защита от формул в таблицах (CSV injection) */
+  return /[";\n\r]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+}
 function csvFromRows(rows){ let out = '﻿'; rows.forEach(function(r){ out += r.map(csvEscape).join(';') + '\r\n'; }); return out; }
 function wpRows(wpId, from, to){
   const w = wpById(wpId);
@@ -1974,22 +2228,23 @@ function exportSheets(sheets, base){
 }
 
 /* ════════════════════════ Действия ════════════════════════ */
-function closeTop(){
+function closeTop(immediate){
   const kind = ui.picker ? 'picker' : (ui.confirm ? 'confirm' : (ui.sheet ? ui.sheet.type : null));
   if(!kind) return;
   if(kind === 'agreement' && ui.sheet.mode === 'first' && !ui.picker && !ui.confirm) return;
-  if(ui.closing) return;
-  const ovKind = ui.picker ? 'picker' : (ui.confirm ? 'confirm' : ({ agreement:'doc', privacy:'doc' }[kind] || kind));
-  ui.closing = ovKind;
-  render();
-  setTimeout(function(){
+  if(ui.closing && !immediate) return;
+  const finish = function(){
     ui.closing = null;
     if(ui.picker) ui.picker = null;
     else if(ui.confirm) ui.confirm = null;
     else if(ui.returnToPattern && ui.sheet && ui.sheet.type === 'workplace'){ ui.returnToPattern = false; ui.sheet = { type:'pattern' }; }
     else ui.sheet = null;
     render();
-  }, reduceMotion() ? 0 : 220);
+  };
+  if(immediate || reduceMotion()){ finish(); return; }
+  ui.closing = ui.picker ? 'picker' : (ui.confirm ? 'confirm' : ({ agreement:'doc', privacy:'doc' }[kind] || kind));
+  render();
+  setTimeout(finish, 220);
 }
 function askConfirm(message, lbl, danger, action){
   ui.confirm = { title:t('Подтверди'), message:message, label:lbl, danger:!!danger, action:action };
@@ -2330,6 +2585,28 @@ const A = {
   setBg:function(d){ prefs.bg = d.v; savePrefs(); applyPrefs(); haptic('tick'); render(); },
   setDayTint:function(d){ prefs.dayTint = d.v; savePrefs(); applyPrefs(); render(); },
   setDayLabel:function(d){ prefs.dayLabel = d.v; savePrefs(); applyPrefs(); render(); },
+  setPerf:function(d){ prefs.perf = d.v; savePrefs(); applyPrefs(); render(); },
+  checkUpdate:function(){ checkUpdates(true); },
+  downloadUpdate:function(){
+    const u = updateInfo || {};
+    if(window.AndroidApp && typeof window.AndroidApp.openUpdate === 'function'){ try{ window.AndroidApp.openUpdate(); }catch(e){} return; }
+    /* сайт: обновляем офлайн-кэш и перезагружаем страницу */
+    const reload = function(){ location.reload(); };
+    const clear = window.caches ? caches.keys().then(function(keys){ return Promise.all(keys.map(function(k){ return caches.delete(k); })); }) : Promise.resolve();
+    const sw = navigator.serviceWorker ? navigator.serviceWorker.getRegistration().then(function(r){ return r ? r.update() : null; }).catch(function(){}) : Promise.resolve();
+    toast(t('Обновляем…'));
+    Promise.all([clear, sw]).then(reload, reload);
+    void u;
+  },
+  toggleAutoUpdate:function(){ prefs.autoUpdate = !prefs.autoUpdate; savePrefs(); render(); if(prefs.autoUpdate) checkUpdates(false); },
+  importMode:function(d){ if(ui.sheet && ui.sheet.type === 'import'){ ui.sheet.mode = d.v; render(); } },
+  applyImport:function(){ if(ui.sheet && ui.sheet.type === 'import') applyImport(ui.sheet.mode); },
+  exportCsv:function(){
+    try{
+      download(new Blob([csvFromRows(allRows(ui.export.from, ui.export.to))], { type:'text/csv;charset=utf-8' }), fileNameSafe(BRAND + ' ' + ui.export.from + ' ' + ui.export.to) + '.csv');
+      toast(t('Файл готов'));
+    }catch(e){ toast(t('Не удалось сохранить файл')); }
+  },
   useCustom:function(){ prefs.accent = hslHex(prefs.customHue); savePrefs(); applyPrefs(); haptic('tick'); render(); },
   discardAppearance:function(){
     const s = ui.snapshot; if(!s) return;
@@ -2346,6 +2623,11 @@ const A = {
   openAgreement:function(){ openSheet({ type:'agreement', mode:'view' }); },
   openPrivacy:function(){ openSheet({ type:'privacy' }); },
   toggleLegalText:function(){ ui.legalOpen = !ui.legalOpen; render(); },
+  showLegal:function(d){
+    if(ui.legalOpen && ui.legalDoc === d.v){ ui.legalOpen = false; }
+    else { ui.legalOpen = true; ui.legalDoc = d.v; }
+    render();
+  },
   toggleLegal:function(){ ui.legalChecked = !ui.legalChecked; haptic('tick'); render(); },
   acceptAgreement:function(){
     if(!ui.legalChecked){
@@ -2424,29 +2706,151 @@ function refreshLive(k){
 
 function handleBackupFile(file){
   if(!file) return;
+  if(file.size > 15 * 1024 * 1024){ toast(t('Файл слишком большой')); return; }
   const reader = new FileReader();
-  reader.onload = function(e){
+  reader.onload = async function(e){
     const buf = e.target.result;
     const head = new Uint8Array(buf, 0, Math.min(4, buf.byteLength));
-    if(head[0] === 0x50 && head[1] === 0x4B){ importExcel(buf); return; }   /* .xlsx — это zip-архив */
-    let parsed = null;
-    try{ parsed = JSON.parse(new TextDecoder('utf-8').decode(buf).replace(/^﻿/, '')); }
-    catch(err){ toast(t('Файл не похож на резервную копию')); return; }
-    if(!parsed || (!parsed.workplaces && !parsed.shifts)){ toast(t('Файл не похож на резервную копию')); return; }
-    askConfirm(t('Восстановить данные из файла? Текущие данные будут заменены.'), t('Восстановить'), true, function(){
-      const m = migrate(parsed);
-      state.workplaces = Array.isArray(m.workplaces) ? m.workplaces : state.workplaces;
-      state.shifts = (m.shifts && typeof m.shifts === 'object') ? m.shifts : {};
-      state.notes = (m.notes && typeof m.notes === 'object') ? m.notes : {};
-      state.incomes = Array.isArray(m.incomes) ? m.incomes : [];
-      state.payments = Array.isArray(m.payments) ? m.payments : [];
-      normalize(); saveState(); goHomeAfterImport(); toast(t('Восстановлено'));
-    });
+    let payload = null;
+    try{
+      if(head[0] === 0x50 && head[1] === 0x4B) payload = tablePayload(parseExcelShifts(await readXlsx(buf)));
+      else {
+        const text = new TextDecoder('utf-8').decode(buf).replace(/^﻿/, '');
+        const trimmed = text.trim();
+        if(trimmed.charAt(0) === '{'){
+          const parsed = JSON.parse(trimmed);
+          if(!parsed || (!parsed.workplaces && !parsed.shifts)) throw new Error('not a backup');
+          payload = jsonPayload(migrate(parsed));
+        } else payload = tablePayload(parseCsvShifts(text));
+      }
+    }catch(err){ toast(t('Файл не похож на резервную копию')); return; }
+    if(!payload || !payload.count){ toast(t('В файле не нашлось смен')); return; }
+    ui.importData = payload;
+    openSheet({ type:'import', mode:'merge' });
   };
   reader.onerror = function(){ toast(t('Файл не похож на резервную копию')); };
   reader.readAsArrayBuffer(file);
 }
-/* После восстановления показываем календарь с месяцем последней смены (или текущим) */
+function jsonPayload(m){
+  const tmp = { workplaces:Array.isArray(m.workplaces) ? m.workplaces : [], shifts:(m.shifts && typeof m.shifts === 'object') ? m.shifts : {},
+                notes:(m.notes && typeof m.notes === 'object') ? m.notes : {}, incomes:Array.isArray(m.incomes) ? m.incomes : [], payments:Array.isArray(m.payments) ? m.payments : [] };
+  const keep = state; state = { version:CURRENT_VERSION, workplaces:tmp.workplaces, shifts:tmp.shifts, notes:tmp.notes, incomes:tmp.incomes, payments:tmp.payments };
+  normalize();
+  const clean = state; state = keep;
+  const keys = Object.keys(clean.shifts).sort();
+  return { kind:'json', data:clean, count:keys.filter(function(k){ return clean.shifts[k].workplaceId; }).length,
+           off:keys.filter(function(k){ return clean.shifts[k].dayOff; }).length, from:keys[0], to:keys[keys.length - 1],
+           places:clean.workplaces.length };
+}
+function tablePayload(recs){
+  if(!recs.length) return null;
+  const names = {};
+  recs.forEach(function(r){ names[r.wp] = true; });
+  return { kind:'table', recs:recs, count:recs.length, off:0, from:recs[0].date, to:recs[recs.length - 1].date, places:Object.keys(names).length,
+           total:recs.reduce(function(a, r){ return a + r.pay; }, 0) };
+}
+/* CSV: «;» или «,», кавычки по RFC 4180, заголовок как у экспорта (Дата / Место работы / Часов / Оплата) */
+function parseCsvShifts(text){
+  const firstLine = text.split(/\r?\n/)[0] || '';
+  const delim = (firstLine.split(';').length >= firstLine.split(',').length) ? ';' : ',';
+  const rows = [];
+  let row = [], cell = '', q = false;
+  for(let i = 0; i < text.length; i++){
+    const ch = text[i];
+    if(q){
+      if(ch === '"'){ if(text[i + 1] === '"'){ cell += '"'; i++; } else q = false; }
+      else cell += ch;
+    } else if(ch === '"') q = true;
+    else if(ch === delim){ row.push(cell); cell = ''; }
+    else if(ch === '\n' || ch === '\r'){
+      if(ch === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell); rows.push(row); row = []; cell = '';
+    } else cell += ch;
+  }
+  if(cell !== '' || row.length){ row.push(cell); rows.push(row); }
+  const clean = rows.map(function(r){ return r.map(function(c){ c = String(c).trim(); return c.charAt(0) === "'" ? c.slice(1) : c; }); });
+  return parseExcelShifts([{ name:'', rows:clean }]);
+}
+function importSheet(s){
+  const p = ui.importData;
+  if(!p) return '';
+  const range = p.from ? fmtDate(p.from) + ' — ' + fmtDate(p.to) : '';
+  let inner = '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+        +  '<h2>'+esc(t('Импорт данных'))+'</h2><div class="hint">'+esc(range)+'</div></div>';
+  inner += '<div class="psum" style="margin-top:6px">'+esc(t('В файле'))+': <b>'+esc(cnt(p.count, 'shift'))+'</b>'
+        +  (p.off ? ' · <b>'+esc(cnt(p.off, 'off'))+'</b>' : '') + ' · <b>'+esc(cnt(p.places, 'place'))+'</b>'
+        +  (p.total ? '<br>'+esc(t('Сумма'))+': <b class="num">'+esc(money(p.total, defaultCurrency()))+'</b>' : '')
+        +  (p.kind === 'table' ? '<br><span>'+esc(t('Выходные и заметки в Excel и CSV не сохраняются.'))+'</span>' : '') + '</div>';
+  inner += '<div class="field"><label>'+esc(t('Как импортировать'))+'</label>'+segHtml([ { v:'merge', label:'Добавить к текущим' }, { v:'replace', label:'Заменить всё' } ], s.mode, 'importMode')+'</div>';
+  inner += '<div class="note" style="text-align:left;margin:10px 4px 0">'+esc(s.mode === 'replace'
+        ? t('Текущие места работы, смены и заметки будут удалены и заменены данными из файла.')
+        : t('Смены из файла добавятся к твоим. Если день уже отмечен, его заменит запись из файла. Места работы с тем же названием объединятся.'))+'</div>';
+  inner += '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Отмена'))+'</button>'
+        +  '<button type="button" class="btn '+(s.mode === 'replace' ? 'danger' : 'primary')+'" data-act="applyImport">'+esc(t('Импортировать'))+'</button></div></div>';
+  return ovl('import', '', inner);
+}
+function findWpByName(name){
+  const n = String(name || '').trim().toLowerCase();
+  for(const w of state.workplaces) if(w.name.trim().toLowerCase() === n) return w;
+  return null;
+}
+function applyImport(mode){
+  const p = ui.importData;
+  if(!p) return;
+  let added = 0, skippedPlaces = 0;
+  if(mode === 'replace'){
+    if(p.kind === 'json'){
+      state.workplaces = p.data.workplaces; state.shifts = p.data.shifts; state.notes = p.data.notes;
+      state.incomes = p.data.incomes; state.payments = p.data.payments;
+    } else {
+      const built = buildFromExcel(p.recs);
+      state.workplaces = built.workplaces; state.shifts = built.shifts; state.notes = {}; state.incomes = []; state.payments = [];
+    }
+    added = p.count;
+  } else if(p.kind === 'json'){
+    const map = {};
+    p.data.workplaces.forEach(function(w){
+      const ex = findWpByName(w.name);
+      if(ex){ map[w.id] = ex.id; return; }
+      if(state.workplaces.length >= 10){ skippedPlaces++; return; }
+      const nw = Object.assign({}, w, { id:newId('w') });
+      state.workplaces.push(nw); map[w.id] = nw.id;
+    });
+    Object.keys(p.data.shifts).forEach(function(k){
+      const sh = p.data.shifts[k];
+      if(sh.dayOff){ state.shifts[k] = { dayOff:true }; return; }
+      if(!map[sh.workplaceId]) return;
+      state.shifts[k] = Object.assign({}, sh, { workplaceId:map[sh.workplaceId] }); added++;
+    });
+    Object.keys(p.data.notes).forEach(function(k){ state.notes[k] = p.data.notes[k]; });
+  } else {
+    const built = buildFromExcel(p.recs);
+    const map = {};
+    built.workplaces.forEach(function(w){
+      const ex = findWpByName(w.name);
+      if(ex){ map[w.id] = ex; return; }
+      if(state.workplaces.length >= 10){ skippedPlaces++; return; }
+      w.color = SWATCHES[state.workplaces.length % SWATCHES.length];
+      state.workplaces.push(w); map[w.id] = w;
+    });
+    p.recs.forEach(function(r){
+      const bw = built.workplaces.filter(function(w){ return w.name === r.wp; })[0];
+      const w = bw ? map[bw.id] : null;
+      if(!w) return;
+      const base = w.payType === 'daily' ? w.rate : (r.hours || 0) * w.rate;
+      const adj = Math.round((r.pay - base) * 100) / 100;
+      state.shifts[r.date] = { workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined, dayOff:false };
+      added++;
+    });
+  }
+  ui.importData = null;
+  ui.pattern.workplaceId = state.workplaces[0] ? state.workplaces[0].id : null;
+  normalize(); saveState();
+  closeTop(true);
+  goHomeAfterImport();
+  toast(t('Импортировано') + ': ' + cnt(added, 'shift'));
+  if(skippedPlaces) setTimeout(function(){ toast(t('Достигнут лимит — 10 мест работы')); }, 600);
+}
 function goHomeAfterImport(){
   const keys = Object.keys(state.shifts).sort();
   const last = keys.length ? parseKey(keys[keys.length - 1]) : null;
@@ -2606,26 +3010,7 @@ function buildFromExcel(recs){
   });
   return { workplaces:wps, shifts:shifts };
 }
-async function importExcel(buf){
-  let recs;
-  try{ recs = parseExcelShifts(await readXlsx(buf)); }
-  catch(e){ toast(t('Не получилось прочитать Excel-файл')); return; }
-  if(!recs.length){ toast(t('В файле не нашлось смен')); return; }
-  const built = buildFromExcel(recs);
-  const total = recs.reduce(function(a, r){ return a + r.pay; }, 0);
-  const msg = (LANG === 'en'
-      ? 'Found ' + cnt(recs.length, 'shift') + ' (' + fmtDate(recs[0].date) + ' — ' + fmtDate(recs[recs.length - 1].date) + '), ' + cnt(built.workplaces.length, 'place') + ', ' + money(total, defaultCurrency()) + '. Days off and notes are not stored in Excel. Current data will be replaced.'
-      : 'Найдено: ' + cnt(recs.length, 'shift') + ' (' + fmtDate(recs[0].date) + ' — ' + fmtDate(recs[recs.length - 1].date) + '), ' + cnt(built.workplaces.length, 'place') + ', ' + money(total, defaultCurrency()) + '. Выходные и заметки в Excel не сохраняются. Текущие данные будут заменены.');
-  ui.confirm = { title:t('Импорт из Excel'), message:msg, label:t('Импортировать'), danger:false, action:function(){
-    state.workplaces = built.workplaces;
-    state.shifts = built.shifts;
-    state.notes = {}; state.incomes = []; state.payments = [];
-    ui.pattern.workplaceId = built.workplaces[0] ? built.workplaces[0].id : null;
-    normalize(); saveState(); goHomeAfterImport();
-    toast(t('Импортировано') + ': ' + cnt(recs.length, 'shift'));
-  } };
-  render();
-}
+
 
 /* ════════════════════════ События ════════════════════════ */
 document.addEventListener('click', function(e){
@@ -2684,36 +3069,54 @@ document.addEventListener('focusout', function(){
   }, { passive:true });
 })();
 
-/* Смахивание листа вниз — закрыть */
+/* Смахивание листа вниз за полоску сверху: лист идёт за пальцем, затемнение тает,
+   а по отпусканию лист либо уезжает (далеко или быстро), либо пружинит обратно. */
 (function(){
-  let startY = null, sheetEl = null, dy = 0;
-  document.addEventListener('touchstart', function(e){
-    const tg = e.target;
-    const sheet = (tg && tg.closest) ? tg.closest('.sheet') : null;
-    if(!sheet || sheet.closest('.overlay.center')) return;
-    if(tg.closest('button, input, textarea, .chip, .swatch, .picker, .link, .row, .checks, .day')) return;
-    const ov = sheet.closest('.overlay');
-    if(ov && ov.scrollTop > 0) return;
-    const r = sheet.getBoundingClientRect();
-    const y = e.touches[0].clientY;
-    if(y > r.top + Math.min(90, r.height * 0.35)) return;
-    sheetEl = sheet; startY = y; dy = 0;
+  let g = null;
+  document.addEventListener('pointerdown', function(e){
+    const zone = e.target && e.target.closest ? e.target.closest('.sheet-drag') : null;
+    if(!zone || ui.closing) return;
+    const sheet = zone.closest('.sheet'), ov = sheet ? sheet.closest('.overlay') : null;
+    if(!sheet || !ov || ov.classList.contains('center')) return;
+    g = { zone:zone, sheet:sheet, ov:ov, id:e.pointerId, y0:e.clientY, lastY:e.clientY, lastT:e.timeStamp, v:0, dy:0, h:sheet.offsetHeight || 400 };
+    try{ zone.setPointerCapture(e.pointerId); }catch(err){}
+    sheet.style.animation = 'none';
     sheet.style.transition = 'none';
-  }, { passive:true });
-  document.addEventListener('touchmove', function(e){
-    if(startY === null || !sheetEl) return;
-    dy = e.touches[0].clientY - startY;
-    sheetEl.style.transform = 'translateY(' + Math.max(0, dy < 0 ? dy * .15 : dy) + 'px)';
-  }, { passive:true });
-  document.addEventListener('touchend', function(){
-    if(startY !== null && sheetEl){
-      const el = sheetEl;
-      el.style.transition = 'transform .3s cubic-bezier(.16,1,.3,1)';
-      if(dy > 90){ el.style.transform = 'translateY(110%)'; setTimeout(function(){ closeTop(); }, 120); }
-      else el.style.transform = '';
+    ov.classList.add('dragging');
+  });
+  document.addEventListener('pointermove', function(e){
+    if(!g || e.pointerId !== g.id) return;
+    const raw = e.clientY - g.y0;
+    g.dy = raw < 0 ? Math.max(-24, raw * .2) : raw;
+    const dt = Math.max(1, e.timeStamp - g.lastT);
+    g.v = g.v * .6 + ((e.clientY - g.lastY) / dt) * .4;   /* скорость, px/мс */
+    g.lastY = e.clientY; g.lastT = e.timeStamp;
+    g.sheet.style.transform = 'translate3d(0,' + g.dy.toFixed(1) + 'px,0)';
+    g.ov.style.setProperty('--ov', Math.max(0, 1 - Math.max(0, g.dy) / (g.h * 1.1)).toFixed(3));
+  });
+  const end = function(e){
+    if(!g || (e && e.pointerId !== g.id)) return;
+    const d = g; g = null;
+    d.ov.classList.remove('dragging');
+    if(e && e.timeStamp - d.lastT > 90) d.v = 0;   /* палец остановился перед отпусканием — бросок не считаем */
+    const dismiss = d.dy > d.h * .28 || (d.v > .45 && d.dy > 24);
+    if(dismiss){
+      const left = Math.max(80, d.h + 40 - d.dy);
+      const ms = Math.round(Math.max(150, Math.min(300, left / Math.max(d.v, 1.4))));
+      d.sheet.style.transition = 'transform ' + ms + 'ms cubic-bezier(.2,.7,.3,1)';
+      d.sheet.style.transform = 'translate3d(0,' + (d.h + 40) + 'px,0)';
+      d.ov.style.setProperty('--ov', '0');
+      d.ov.style.setProperty('--ov-ms', ms + 'ms');
+      haptic('tick');
+      setTimeout(function(){ closeTop(true); }, ms);
+    } else {
+      d.sheet.style.transition = 'transform .42s cubic-bezier(.34,1.3,.5,1)';
+      d.sheet.style.transform = '';
+      d.ov.style.setProperty('--ov', '1');
     }
-    startY = null; sheetEl = null; dy = 0;
-  }, { passive:true });
+  };
+  document.addEventListener('pointerup', end);
+  document.addEventListener('pointercancel', end);
 })();
 
 window.addEventListener('pagehide', saveState);
@@ -2758,6 +3161,8 @@ function boot(){
   render();
   onScroll();
 
+  window.__widgetSync();
+  autoCheckUpdates();
   window.__save = function(){ saveState(); };
   window.__back = function(){ return handleBack(); };
   window.__canGoBack = function(){ return canGoBack(); };

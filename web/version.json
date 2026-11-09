@@ -1,0 +1,22 @@
+{
+  "version": "3.1.0",
+  "code": 310,
+  "date": "2026-11-09",
+  "apk": "download/ShiftFlow.apk",
+  "notes": {
+    "ru": [
+      "Быстрее на слабых телефонах: экономный режим графики",
+      "Виджеты рабочего стола: «Сегодня», «Месяц» и «Неделя»",
+      "Импорт и экспорт смен: Excel, CSV и резервная копия",
+      "Нижняя панель отзывчивее, листы смахиваются за полоску",
+      "Новое пользовательское соглашение и политика конфиденциальности"
+    ],
+    "en": [
+      "Faster on low-end phones: battery saver graphics",
+      "Home screen widgets: Today, Month and Week",
+      "Import and export shifts: Excel, CSV and backup",
+      "More responsive tab bar, sheets swipe down by the handle",
+      "New terms of use and privacy policy"
+    ]
+  }
+}

@@ -7,10 +7,23 @@
 
 ## 0. Перед публикацией (один раз)
 
-1. **Обнови сайт.** Залей содержимое папки `web/` на Cloudflare Worker (как раньше заливал `index.html`).
+1. **Обнови сайт.** Залей **всю** папку `web/` на Cloudflare (Workers/Pages) — именно целиком, вместе со служебными файлами:
+   | Файл | Зачем |
+   |---|---|
+   | `index.html`, `boot.js`, `app.js`, `fonts/`, `icons/`, `manifest.webmanifest`, `sw.js` | само приложение и офлайн-режим |
+   | `privacy.html`, `terms.html` | политика конфиденциальности и пользовательское соглашение ← ссылки нужны магазинам |
+   | `_headers` | заголовки безопасности (CSP, запрет встраивания в чужие сайты, HSTS) |
+   | `version.json` | номер последней версии — по нему в «Настройках» появляется кнопка «Загрузить обновление» |
+   | `download/ShiftFlow.apk` | APK, который скачивается по этой кнопке и по ссылке «Приложение для Android» |
+
    После этого будут работать:
    - веб-версия: https://blue-rain-2af9.dimavotinov73.workers.dev/
-   - политика конфиденциальности: https://blue-rain-2af9.dimavotinov73.workers.dev/privacy.html ← эта ссылка нужна магазинам
+   - политика конфиденциальности: https://blue-rain-2af9.dimavotinov73.workers.dev/privacy.html
+   - пользовательское соглашение: https://blue-rain-2af9.dimavotinov73.workers.dev/terms.html
+
+   `privacy.html` и `terms.html` собираются из текстов приложения: правишь `LEGAL_*` / `PRIVACY_*` в `web/app.js`,
+   затем `node tools/legal/build-legal-pages.js`. Если меняешь смысл соглашения — подними `AGREEMENT_VERSION`
+   в `web/app.js`, и приложение попросит всех заново принять условия.
 2. **Проверь идентификатор пакета.** Сейчас он `io.shiftflow.app` (`android/app/build.gradle.kts` → `applicationId`).
    После первой загрузки в магазин поменять его будет нельзя — если хочешь другой (например, `ru.твоёимя.shiftflow`), поменяй сейчас.
 3. **Создай ключ загрузки (upload key)** и храни его как зеницу ока — без него не выпустишь обновление:
@@ -18,7 +31,7 @@
    keytool -genkeypair -v -keystore shiftflow-upload.jks -alias upload \
      -keyalg RSA -keysize 2048 -validity 10000
    ```
-   Положи файл в `android/` и создай рядом `android/keystore.properties` (в git он не попадёт):
+   Положи файл в `android/` и создай рядом `android/keystore.properties` (в git он не попадёт — `*.jks` и `keystore.properties` в `.gitignore`):
    ```properties
    storeFile=shiftflow-upload.jks
    storePassword=пароль_хранилища
@@ -29,19 +42,42 @@
 
 ## 1. Сборка
 
-**Вариант А — на своём компьютере** (нужны JDK 17+ и Android SDK, проще всего поставить Android Studio):
-```bash
-cd android
-./gradlew bundleRelease      # AAB для Google Play и RuStore → app/build/outputs/bundle/release/app-release.aab
-./gradlew assembleRelease    # APK для RuStore / других магазинов → app/build/outputs/apk/release/app-release.apk
-```
+Есть три варианта сборки — они отличаются подписью и тем, откуда приходят обновления:
+
+| Команда (в папке `android/`) | Пакет | Подпись | Обновления |
+|---|---|---|---|
+| `./gradlew assemblePreview` | `io.shiftflow.app.debug` | общий тестовый ключ из репозитория | кнопка в «Настройках», APK с сайта |
+| `./gradlew bundleRelease` (по умолчанию `-Pchannel=play`) | `io.shiftflow.app` | твой ключ загрузки | только через Google Play |
+| `./gradlew bundleRelease -Pchannel=rustore` / `assembleRelease -Pchannel=rustore` | `io.shiftflow.app` | твой ключ | только через RuStore |
+| `./gradlew assembleRelease -Pchannel=site` | `io.shiftflow.app` | твой ключ | кнопка в «Настройках», APK с сайта |
+
+Готовые файлы: `app/build/outputs/apk/preview/app-preview.apk`, `app/build/outputs/bundle/release/app-release.aab`,
+`app/build/outputs/apk/release/app-release.apk`.
+
+⚠️ **Тестовая сборка (preview)** подписана общим ключом, который лежит в репозитории, — она для твоего телефона и тестировщиков.
+Для широкой раздачи APK с сайта собери `assembleRelease -Pchannel=site` своим ключом и положи его в `web/download/ShiftFlow.apk`.
+Учти: Android ставит обновление только поверх приложения с той же подписью и тем же пакетом, поэтому
+тестовая и релизная версии живут на телефоне как два разных приложения (данные переносятся через «Импорт и экспорт»).
+
+Сборки из магазинов не скачивают APK сами (так требуют правила Google Play и RuStore): кнопка в настройках открывает страницу приложения в магазине,
+а в сборке для Google Play к серверу обновлений приложение не обращается вовсе.
+
+**Вариант А — на своём компьютере** (нужны JDK 17+ и Android SDK, проще всего поставить Android Studio) — команды из таблицы.
 
 **Вариант Б — в GitHub Actions** (компьютер не нужен): добавь в репозиторий секреты
 (Settings → Secrets and variables → Actions):
 `SF_KEYSTORE_BASE64` (вывод `base64 -w0 shiftflow-upload.jks`), `SF_KEYSTORE_PASSWORD`, `SF_KEY_ALIAS`, `SF_KEY_PASSWORD`.
-Затем Actions → «Android» → Run workflow. Готовые AAB и APK будут в артефакте `shiftflow-android`.
+Затем Actions → «Android» → Run workflow. Готовые AAB и APK (включая тестовый) будут в артефакте `shiftflow-android`.
 
-**Перед каждым обновлением** увеличивай `versionCode` (300 → 301 → …) и `versionName` в `android/app/build.gradle.kts`.
+### Выпуск новой версии
+
+1. Увеличь `versionCode` (310 → 311 → …) и `versionName` в `android/app/build.gradle.kts`.
+2. Поменяй `APP_BUILD` в `web/app.js` и имя кэша `CACHE` в `web/sw.js` на тот же номер версии.
+3. Обнови `web/version.json`: `version`, `code`, `date` и список «Что нового» (`notes.ru`, `notes.en`, до 8 пунктов).
+4. Собери APK для сайта и положи его в `web/download/ShiftFlow.apk`, залей `web/` на сайт.
+   У всех, кто ставил APK с сайта, в «Настройках → Обновления» появится кнопка «Загрузить обновление»
+   (проверка — раз в 12 часов, её можно выключить; запрос не содержит данных пользователя).
+5. Для магазинов — загрузи новый AAB/APK в консоли.
 
 ---
 
@@ -59,12 +95,12 @@ cd android
    | Реклама | Нет рекламы |
    | Возрастной рейтинг (анкета IARC) | Категория «Утилиты / продуктивность», на все вопросы о насилии, азартных играх и т. п. — «Нет» → 3+ |
    | Целевая аудитория | 18 и старше (так не применяются правила для детских приложений) |
-   | Безопасность данных | **Не собирает и не передаёт данные**; шифрование при передаче — не применимо; удаление данных — в приложении |
+   | Безопасность данных | **Не собирает и не передаёт данные**; шифрование при передаче — не применимо; удаление данных — в приложении («Настройки → Импорт и экспорт → Удалить все данные») |
    | Финансовые функции | Приложение не предоставляет финансовых услуг |
    | Государственное приложение / здоровье / новости | Нет |
 5. «Основная страница в Google Play»: тексты из `store/listing-ru.md` (и `listing-en.md` как перевод),
    значок `store/graphics/icon-512.png`, баннер `store/graphics/feature-graphic.png`, скриншоты `store/screenshots/ru/*.png`.
-   Категория: «Продуктивность». Почта поддержки — твоя.
+   Категория: «Продуктивность». Почта поддержки — `shiftflow123@gmail.com`.
 6. «Подпись приложений Google Play» — оставь включённой (Google хранит ключ приложения, ты подписываешь AAB ключом загрузки).
 7. Тестирование → Закрытое тестирование → создать выпуск → загрузить `app-release.aab` → примечания из `listing-ru.md` («Что нового»).
 8. Через 14 дней с 12+ тестировщиками — «Рабочая версия» → «Создать выпуск» → отправить на проверку (обычно 1–7 дней).
@@ -75,7 +111,8 @@ cd android
 2. «Создать приложение» → тот же пакет `io.shiftflow.app`.
 3. Загрузи **APK** (`app-release.apk`, подписанный твоим ключом) или AAB по инструкции RuStore.
 4. Карточка: тексты из `store/listing-ru.md`, значок 512×512, скриншоты `store/screenshots/ru/*.png`,
-   категория «Бизнес» или «Полезные инструменты», возраст 0+, ссылка на политику конфиденциальности.
+   категория «Бизнес» или «Полезные инструменты», возраст 0+, ссылки на политику конфиденциальности и пользовательское соглашение.
+   Собирай с `-Pchannel=rustore`, чтобы кнопка обновления вела в RuStore.
 5. Отправь на модерацию (обычно 1–3 рабочих дня).
 
 ## 4. Другие Android-магазины (по желанию)
@@ -91,8 +128,8 @@ cd android
 
 ## Проверка перед отправкой
 
-- [ ] `web/` залит на сайт, `privacy.html` открывается
+- [ ] `web/` залит на сайт целиком (с `_headers`, `version.json`, `download/`), `privacy.html` и `terms.html` открываются
 - [ ] `applicationId` окончательный
-- [ ] `versionCode` больше, чем у прошлой загрузки
-- [ ] AAB/APK подписаны ключом загрузки (`apksigner verify --print-certs app-release.apk`)
-- [ ] Установил APK на телефон и проверил: смена, шаблон, экспорт в Excel, резервная копия, «назад», тёмная/светлая тема
+- [ ] `versionCode` больше, чем у прошлой загрузки; `APP_BUILD`, `sw.js` и `version.json` с тем же номером
+- [ ] AAB/APK подписаны ключом загрузки (`apksigner verify --print-certs app-release.apk`), ключ не попал в git
+- [ ] Установил APK на телефон и проверил: смена, шаблон, период, экспорт и импорт, виджеты, «назад», тёмная/светлая тема

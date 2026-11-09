@@ -31,7 +31,7 @@ function seed(lang){
   shifts['2026-11-03'] = { workplaceId:'w1', hours:8, adjust:en ? 35 : 600 };
   notes['2026-11-03'] = en ? 'Covered for Alex, +tips' : 'Подменил Лёшу, +чаевые';
   notes['2026-11-07'] = en ? 'Stocktaking' : 'Инвентаризация';
-  return { prefs:{ theme:'dark', accent:'#3DDCB0', lang:en ? 'en' : 'ru', agreement:{ version:'2.0', at:'2026-11-01T10:00:00Z' }, textSize:'m', uiStyle:'soft', v:2 },
+  return { prefs:{ theme:'dark', accent:'#3DDCB0', lang:en ? 'en' : 'ru', agreement:{ version:'3.0', at:'2026-11-01T10:00:00Z' }, textSize:'m', uiStyle:'soft', v:2 },
            data:{ version:4, workplaces:wps, shifts, notes, incomes:[], payments:[] } };
 }
 module.exports = seed;

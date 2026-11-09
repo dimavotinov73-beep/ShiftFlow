@@ -2,9 +2,9 @@
    Приложение локальное: все файлы кэшируются, наружу запросов нет.
    Навигация: сначала сеть (чтобы обновления подхватывались сразу), без сети — копия из кэша.
    Остальное: кэш сразу + тихое обновление в фоне. */
-const CACHE = 'shiftflow-v3.0.0-2';
+const CACHE = 'shiftflow-v3.1.0';
 const CORE = [
-  './', './index.html', './app.js', './manifest.webmanifest', './privacy.html',
+  './', './index.html', './boot.js', './app.js', './manifest.webmanifest', './privacy.html', './terms.html',
   './fonts/onest-cyrillic.woff2', './fonts/onest-latin.woff2', './fonts/onest-currency.woff2',
   './fonts/unbounded-cyrillic.woff2', './fonts/unbounded-latin.woff2', './fonts/unbounded-currency.woff2',
   './icons/icon.svg', './icons/favicon.svg', './icons/favicon-32.png', './icons/apple-touch-icon.png',
@@ -32,16 +32,18 @@ self.addEventListener('fetch', function(e){
   if(req.method !== 'GET') return;
   const url = new URL(req.url);
   if(url.origin !== location.origin) return;
+  if(url.pathname.endsWith('/version.json') || url.pathname.indexOf('/download/') >= 0) return;   /* всегда из сети */
 
   if(req.mode === 'navigate'){
+    /* Каждая страница кэшируется под своим адресом; без сети — её копия или главная */
+    const page = /\/(privacy|terms)\.html$/.test(url.pathname) ? url.pathname : './index.html';
     e.respondWith(
       fetch(req)
         .then(function(res){
-          const copy = res.clone();
-          caches.open(CACHE).then(function(c){ c.put(url.pathname.endsWith('privacy.html') ? './privacy.html' : './index.html', copy); });
+          if(res && res.ok){ const copy = res.clone(); caches.open(CACHE).then(function(c){ c.put(page, copy); }); }
           return res;
         })
-        .catch(function(){ return caches.match(url.pathname.endsWith('privacy.html') ? './privacy.html' : './index.html'); })
+        .catch(function(){ return caches.match(page).then(function(hit){ return hit || caches.match('./index.html'); }); })
     );
     return;
   }

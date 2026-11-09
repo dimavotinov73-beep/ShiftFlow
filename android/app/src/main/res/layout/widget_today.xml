@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Сгенерировано tools/android/gen_widget_layouts.py -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/background"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_bg_dark" android:padding="14dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <ImageView android:id="@+id/w_mark" android:layout_width="22dp" android:layout_height="14dp" android:src="@drawable/widget_mark_dark"
+                android:scaleType="fitCenter" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/w_title" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="7dp" android:maxLines="1" android:ellipsize="end"
+                android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="Сегодня · пн, 9 ноября" />
+        </LinearLayout>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <ImageView android:id="@+id/w_dot" android:layout_width="10dp" android:layout_height="10dp" android:layout_marginEnd="7dp"
+                android:src="@drawable/widget_dot" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/w_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:maxLines="1" android:ellipsize="end" android:textSize="19sp" android:fontFamily="@font/unbounded_bold"
+                android:textColor="#F1F5F4" android:text="Кофейня" />
+        </LinearLayout>
+        <TextView android:id="@+id/w_sub" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp"
+            android:maxLines="1" android:ellipsize="end" android:textSize="12sp" android:fontFamily="@font/onest_medium"
+            android:textColor="#A2ADAA" android:text="8 ч · 2 560 ₽" />
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/w_btn1" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1">
+            <ImageView android:id="@+id/w_btn1_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_pill" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/w_btn1_text" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="8dp" android:paddingRight="8dp"
+                android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="Смена" />
+        </FrameLayout>
+            <FrameLayout android:layout_width="6dp" android:layout_height="1dp" />
+        <FrameLayout android:id="@+id/w_btn2" android:layout_width="0dp" android:layout_height="36dp" android:layout_weight="1">
+            <ImageView android:id="@+id/w_btn2_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_pill" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <TextView android:id="@+id/w_btn2_text" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="8dp" android:paddingRight="8dp"
+                android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="Выходной" />
+        </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
