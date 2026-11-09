@@ -69,16 +69,18 @@ async function captureApp(browser, base, lang) {
   const snap = async (name) => { await page.waitForTimeout(250); shots[name] = await page.screenshot(); };
   const scrollTo = async (sel, offset) => { await page.evaluate(([q, o]) => { const e = document.querySelector(q); window.scrollTo(0, e ? e.getBoundingClientRect().top + window.pageYOffset - o : 0); }, [sel, offset]); await page.waitForTimeout(500); };
 
+  await page.evaluate(() => window.scrollTo(0, 250)); await page.waitForTimeout(500);
   await snap('01-calendar');
+  await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
   await page.click('.grid .day[data-k="2026-11-03"]'); await page.waitForTimeout(700);
   await scrollTo('.cal', 8); await page.evaluate(() => window.scrollBy(0, 330)); await page.waitForTimeout(500);
   await snap('02-day');
   await page.click('[data-act="closeEditor"]');
   await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
-  await page.click('[data-act="togglePattern"]'); await page.waitForTimeout(700);
-  await scrollTo('[data-key="pattern"]', 70);
+  await page.click('[data-act="openPattern"]'); await page.waitForTimeout(900);
+  await page.evaluate(() => { const o = document.querySelector('.overlay'); if (o) o.scrollTo(0, 120); }); await page.waitForTimeout(400);
   await snap('05-pattern');
-  await page.click('[data-act="togglePattern"]'); await page.waitForTimeout(300);
+  await page.click('[data-act="ovlCloseBtn"]'); await page.waitForTimeout(500);
 
   await page.click('.tb-tab[data-i="1"]'); await page.waitForTimeout(1500);
   await snap('03-finance');

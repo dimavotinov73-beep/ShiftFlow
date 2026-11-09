@@ -95,7 +95,25 @@ const DICT = {
     'Сделано с заботой о твоём времени.':'Made with care for your time.',
     'Отметь согласие, чтобы продолжить':'Confirm the terms to continue',
     'Перейти к сегодняшнему дню':'Go to today','Предыдущий месяц':'Previous month','Следующий месяц':'Next month',
-    'Закрыть день':'Close day'
+    'Закрыть день':'Close day',
+    'Период':'Range','Сумма за выбранные даты':'Totals for chosen dates','Шаблон':'Pattern','График 2/2, 5/2 или свой':'2/2, 5/2 or your own',
+    'Подсчёт за период':'Range totals','Выбери даты или отметь их на календаре':'Pick dates or tap them on the calendar',
+    'Эта неделя':'This week','Прошлая неделя':'Last week',
+    'Отметит смены и выходные на выбранные даты':'Fills shifts and days off for the chosen dates',
+    'Как чередовать':'How it repeats','Смены и выходные':'Shifts and days off','По дням недели':'By weekday',
+    'Пн–Пт':'Mon–Fri','Пн–Сб':'Mon–Sat','Сб и Вс':'Sat & Sun',
+    'И следующий месяц':'Plus next month','Заменить уже отмеченные дни':'Replace days already marked',
+    'Отмеченные дни перезапишутся':'Marked days will be overwritten','Отмеченные дни останутся как есть':'Marked days stay as they are',
+    'Предпросмотр':'Preview','Смена':'Shift','Уже отмечено':'Already marked','Будет отмечено':'Will be marked',
+    'Примерный доход':'Estimated pay','Не тронем уже отмеченные дни':'Days already marked are kept','Применить':'Apply',
+    'Отменено':'Undone','Выбери хотя бы один рабочий день':'Pick at least one working day',
+    'Все дни уже отмечены — ничего не изменилось':'All days are already marked — nothing changed',
+    'Подпись в календаре':'Calendar label','Например: Кофе':'e.g. Café',
+    'Свой':'Custom','Свой цвет':'Custom color','Фон':'Background','Графит':'Graphite','Полночь':'Midnight','Контраст':'Contrast','Какао':'Cocoa',
+    'Подсветка смен':'Shift highlight','Полоска':'Line','Мягкая':'Soft','Яркая':'Bold',
+    'Подписи в днях':'Day labels','Название и сумма':'Name and pay',
+    'Сумма за даты':'Totals for dates','2/2, 5/2 или свой':'2/2, 5/2 or custom','Всё':'All','и ещё':'and',
+    'Индиго':'Indigo','Орхидея':'Orchid','Коралл':'Coral','Солнце':'Sun','Лайм':'Lime','Серебро':'Silver'
   }
 };
 
@@ -110,10 +128,10 @@ const WD_LONG_I18N  = { ru:['воскресенье','понедельник','�
 const PLURALS = {
   ru:{ shift:['смена','смены','смен'], hour:['час','часа','часов'], off:['выходной','выходных','выходных'],
        entry:['внесение','внесения','внесений'], payment:['выплата','выплаты','выплат'],
-       place:['место работы','места работы','мест работы'], change:['изменение','изменения','изменений'] },
+       place:['место работы','места работы','мест работы'], change:['изменение','изменения','изменений'], day:['день','дня','дней'] },
   en:{ shift:['shift','shifts','shifts'], hour:['hour','hours','hours'], off:['day off','days off','days off'],
        entry:['entry','entries','entries'], payment:['payment','payments','payments'],
-       place:['workplace','workplaces','workplaces'], change:['change','changes','changes'] }
+       place:['workplace','workplaces','workplaces'], change:['change','changes','changes'], day:['day','days','days'] }
 };
 const LOCALES = { ru:'ru-RU', en:'en-US' };
 let LANG = 'ru';
@@ -155,14 +173,25 @@ const SWATCHES = ['#00AB89','#9260DA','#D08000','#00A2CE','#DA4786','#64A737','#
 const OLD_SWATCHES = { '#FF9500':'#D08000','#00E5FF':'#00A2CE','#FF2FE0':'#C54EBE','#39FF14':'#64A737','#FFEE00':'#A89219',
                        '#FF3B3B':'#DE602F','#7B2FFF':'#9260DA','#00FFA3':'#00AB89','#FF6EC7':'#DA4786','#3D5CFF':'#4A81EB' };
 const ACCENTS = [
-  { c:'#3DDCB0', n:'Мята' }, { c:'#9B7BFF', n:'Фиалка' }, { c:'#4C8DFF', n:'Океан' },
-  { c:'#FF5C9A', n:'Роза' }, { c:'#FFA43A', n:'Янтарь' }, { c:'#38BDF8', n:'Небо' }
+  { c:'#3DDCB0', n:'Мята' },   { c:'#38BDF8', n:'Небо' },   { c:'#4C8DFF', n:'Океан' },   { c:'#6E7BFF', n:'Индиго' },
+  { c:'#9B7BFF', n:'Фиалка' }, { c:'#D16BFF', n:'Орхидея' }, { c:'#FF5C9A', n:'Роза' },  { c:'#FF7A59', n:'Коралл' },
+  { c:'#FFA43A', n:'Янтарь' }, { c:'#FACC15', n:'Солнце' }, { c:'#A3E635', n:'Лайм' },   { c:'#C9D1D3', n:'Серебро' }
 ];
+/* Фон: оттенок тёмной и светлой темы (значения дублируются в CSS как :root[data-bg=…]) */
+const BACKGROUNDS = [
+  { v:'graphite', n:'Графит',  d:'#08090B', ds:'#15191B', l:'#F3F5F4', ls:'#FFFFFF' },
+  { v:'midnight', n:'Полночь', d:'#070912', ds:'#151A2C', l:'#EEF1F8', ls:'#FFFFFF' },
+  { v:'oled',     n:'Контраст', d:'#000000', ds:'#111213', l:'#FFFFFF', ls:'#F1F2F2' },
+  { v:'cocoa',    n:'Какао',   d:'#0D0A08', ds:'#1C1612', l:'#F5F0EA', ls:'#FFFCF8' }
+];
+const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Мягкая', k:'14%' }, { v:'bold', n:'Яркая', k:'34%' } ];
+const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
 const OLD_ACCENTS = { '#FF9500':'#FFA43A','#00E5FF':'#38BDF8','#FF2FE0':'#FF5C9A','#39FF14':'#3DDCB0','#7B2FFF':'#9B7BFF','#3D5CFF':'#4C8DFF','#FF3B3B':'#FF5C9A','#8E8E93':'#3DDCB0' };
 const TEXT_SIZES = [ { v:'s', n:'Мелкий', k:.92 }, { v:'m', n:'Обычный', k:1 }, { v:'l', n:'Крупный', k:1.08 }, { v:'xl', n:'Очень крупный', k:1.17 } ];
 const UI_STYLES = [ { v:'round', n:'Округлый', k:1.3 }, { v:'soft', n:'Мягкий', k:1 }, { v:'crisp', n:'Чёткий', k:.45 } ];
 
-let prefs = { theme:'auto', accent:'#3DDCB0', lang:'ru', agreement:null, textSize:'m', uiStyle:'soft', v:PREFS_VERSION };
+let prefs = { theme:'auto', accent:'#3DDCB0', lang:'ru', agreement:null, textSize:'m', uiStyle:'soft',
+              bg:'graphite', dayTint:'soft', dayLabel:'both', customHue:160, v:PREFS_VERSION };
 let state = { version:CURRENT_VERSION, workplaces:[], shifts:{}, notes:{}, incomes:[], payments:[] };
 let storageBroken = false;
 let booted = false;
@@ -173,7 +202,7 @@ let ui = {
   selected:null,
   rangeMode:false, rangeStart:null, rangeEnd:null,
   patternOpen:false,
-  pattern:{ workplaceId:null, workDays:2, offDays:2, start:null, hours:8, fill:'month' },
+  pattern:{ workplaceId:null, mode:'cycle', workDays:2, offDays:2, weekdays:[1,1,1,1,1,0,0], start:null, end:null, hours:8, hoursTouched:false, replace:false },
   statsYear:0, statsOpen:false, chartSel:null,
   sheet:null, confirm:null, picker:null, closing:null,
   slide:'', viewAnim:'tab', pendingPulse:false,
@@ -206,6 +235,10 @@ function loadPrefs(){
   if(['auto','light','dark'].indexOf(prefs.theme) < 0) prefs.theme = 'auto';
   if(!TEXT_SIZES.some(function(x){ return x.v === prefs.textSize; })) prefs.textSize = 'm';
   if(!UI_STYLES.some(function(x){ return x.v === prefs.uiStyle; })) prefs.uiStyle = 'soft';
+  if(!BACKGROUNDS.some(function(x){ return x.v === prefs.bg; })) prefs.bg = 'graphite';
+  if(!DAY_TINTS.some(function(x){ return x.v === prefs.dayTint; })) prefs.dayTint = 'soft';
+  if(!DAY_LABELS.some(function(x){ return x.v === prefs.dayLabel; })) prefs.dayLabel = 'both';
+  prefs.customHue = Math.max(0, Math.min(359, parseInt(prefs.customHue, 10) || 0));
   if(migrated) savePrefs();
 }
 function savePrefs(){
@@ -243,8 +276,18 @@ function radiusScale(){ for(const x of UI_STYLES) if(x.v === prefs.uiStyle) retu
 function accentName(c){
   const up = String(c || '').toUpperCase();
   for(const a of ACCENTS) if(a.c === up) return t(a.n);
-  return up;
+  return t('Свой');
 }
+function isCustomAccent(){ const up = String(prefs.accent || '').toUpperCase(); return !ACCENTS.some(function(a){ return a.c === up; }); }
+/* Свой цвет: насыщенность и яркость зафиксированы, чтобы акцент всегда читался на обоих фонах */
+function hslHex(h){
+  const s = .78, l = .62, k = function(n){ return (n + h / 30) % 12; };
+  const a = s * Math.min(l, 1 - l);
+  const f = function(n){ return l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1))); };
+  return '#' + [f(0), f(8), f(4)].map(function(x){ return Math.round(x * 255).toString(16).padStart(2, '0'); }).join('').toUpperCase();
+}
+function bgDef(){ for(const b of BACKGROUNDS) if(b.v === prefs.bg) return b; return BACKGROUNDS[0]; }
+function optName(list, v){ for(const x of list) if(x.v === v) return t(x.n); return ''; }
 
 function applyPrefs(){
   const root = document.documentElement;
@@ -257,8 +300,11 @@ function applyPrefs(){
   root.style.setProperty('--on-accent', ink.on);
   root.style.setProperty('--fs', textScale());
   root.style.setProperty('--rk', radiusScale());
+  root.setAttribute('data-bg', prefs.bg);
+  root.setAttribute('data-daylabel', prefs.dayLabel);
+  for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if(meta) meta.setAttribute('content', light ? '#F3F5F4' : '#08090B');
+  if(meta) meta.setAttribute('content', light ? bgDef().l : bgDef().d);
   if(window.AndroidApp && typeof window.AndroidApp.setStatusBar === 'function'){
     try{ window.AndroidApp.setStatusBar(light); }catch(e){}
   }
@@ -302,6 +348,7 @@ function normalize(){
       id: w.id ? String(w.id) : ('w'+(i+1)),
       name: (w.name === undefined || w.name === null || String(w.name).trim() === '') ? t('Место работы') : String(w.name).slice(0,60),
       color: color,
+      short: (w.short === undefined || w.short === null) ? '' : String(w.short).trim().slice(0,10),
       payType: (w.payType === 'daily') ? 'daily' : 'hourly',
       rate: isFinite(parseFloat(w.rate)) ? Math.max(0, parseFloat(w.rate)) : 0,
       currency: (w.currency === undefined || w.currency === null || String(w.currency).trim() === '') ? '₽' : String(w.currency).slice(0,4),
@@ -570,18 +617,26 @@ function morphNode(a, b){
 }
 
 /* ════════════════════════ Тосты и вибро ════════════════════════ */
-function toast(msg){
+function toast(msg, action){
   const host = document.getElementById('toasts');
   if(!host) return;
   const el = document.createElement('div');
-  el.className = 'toast';
-  el.innerHTML = '<i>' + ico.check() + '</i><span></span>';
-  el.lastChild.textContent = msg;
-  host.appendChild(el);
-  setTimeout(function(){
+  el.className = 'toast' + (action ? ' has-act' : '');
+  el.innerHTML = '<i>' + ico.check() + '</i><span></span>' + (action ? '<button type="button" class="toast-act"></button>' : '');
+  el.querySelector('span').textContent = msg;
+  let gone = false;
+  const dismiss = function(){
+    if(gone) return; gone = true;
     el.classList.add('out');
     setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 340);
-  }, 2000);
+  };
+  if(action){
+    const b = el.querySelector('.toast-act');
+    b.textContent = action.label;
+    b.addEventListener('click', function(e){ e.stopPropagation(); dismiss(); action.fn(); });
+  }
+  host.appendChild(el);
+  setTimeout(dismiss, action ? 5200 : 2000);
 }
 function haptic(kind){
   try{
@@ -636,7 +691,7 @@ window.addEventListener('scroll', onScroll, { passive:true });
 
 /* ════════════════════════ Навигационная панель с «выемкой» ════════════════════════ */
 const TabBar = (function(){
-  const H = 66, R = 26, RB = 25, GAP = 5, LIFT = 7, K = 16, PAD = 8;
+  const H = 62, R = 24, RB = 22, GAP = 4, LIFT = 3, K = 14, PAD = 10;
   let wrap, fade, bar, glass, edge, edgePath, bubble, tabEls = [], bubbleIcons = [];
   let built = false, W = 0, idx = -1, near = -1;
   let x = 0, v = 0, target = 0, sink = 0, raf = 0, last = 0;
@@ -691,7 +746,7 @@ const TabBar = (function(){
     if(canClip) glass.style.clipPath = 'path("' + d + '")';
     edgePath.setAttribute('d', d);
     const sp = Math.abs(v);
-    const sx = 1 + Math.min(sp / 2600, .12), sy = 1 - Math.min(sp / 5200, .06);
+    const sx = 1 + Math.min(sp / 3200, .08), sy = 1 - Math.min(sp / 6400, .04);
     bubble.style.transform = 'translate(' + (x - RB).toFixed(2) + 'px,' + (cy - RB).toFixed(2) + 'px) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
     const n = nearestIndex(x);
     if(n !== near){
@@ -707,7 +762,7 @@ const TabBar = (function(){
     const k = drag && drag.moved ? 900 : 420, c = drag && drag.moved ? 52 : 30;
     v += (-k * (x - T) - c * v) * dt;
     x += v * dt;
-    const sinkTarget = Math.min(Math.abs(v) / 60, 9);
+    const sinkTarget = Math.min(Math.abs(v) / 70, 6);
     sink += (sinkTarget - sink) * Math.min(1, dt * 14);
     draw();
     if(!(drag && drag.moved) && Math.abs(x - T) < 0.25 && Math.abs(v) < 4 && sink < 0.1){
@@ -909,11 +964,11 @@ function calendarView(){
       + '<div class="ml" data-act="goToday"><span class="m" data-key="ml-'+y+'-'+m+'">'+esc(monthTitle(m))+' '+y+'</span></div>'
       + '<button type="button" class="icon-btn" data-act="nextMonth" aria-label="'+esc(t('Следующий месяц'))+'">'+ico.chevR()+'</button>'
       + '</div>';
-  out += '<div class="toolbar">'
-      + '<button type="button" class="pill'+(ui.rangeMode ? ' on' : '')+'" data-act="toggleRange">'+ico.range()+esc(t('Выбрать период'))+'</button>'
-      + '<button type="button" class="pill'+(ui.patternOpen ? ' on' : '')+'" data-act="togglePattern">'+ico.grid()+esc(t('График по шаблону'))+'</button>'
+  out += '<div class="tools">'
+      + toolCard('toggleRange', ico.range(), t('Период'), t('Сумма за даты'), ui.rangeMode)
+      + toolCard('openPattern', ico.grid(), t('Шаблон'), t('2/2, 5/2 или свой'), !!(ui.sheet && ui.sheet.type === 'pattern'))
       + '</div>';
-  out += patternPanel();
+  out += rangePanel();
 
   out += '<section class="card cal" style="--d:1">';
   out += '<div class="wd">' + wdShort().map(function(w,i){ return '<div'+(i>4 ? ' class="we"' : '')+'>'+w+'</div>'; }).join('') + '</div>';
@@ -925,36 +980,50 @@ function calendarView(){
   out += '</section>';
 
   out += dayEditor();
-  out += rangePanel();
   return out;
+}
+/* Подпись места работы в клетке календаря: своя или первое слово названия */
+function shortLabel(w){
+  if(w.short) return w.short;
+  const first = String(w.name || '').replace(/[«»"“”„'()]/g, ' ').trim().split(/\s+/)[0] || '';
+  return first.slice(0, 12);
+}
+function toolCard(act, icon, title, sub, on){
+  return '<button type="button" class="tool'+(on ? ' on' : '')+'" data-act="'+act+'" aria-pressed="'+(on ? 'true' : 'false')+'">'
+    + tile(icon) + '<span class="tool-t"><b>'+esc(title)+'</b><small>'+esc(sub)+'</small></span></button>';
 }
 
 function dayCell(k, d, tKey, weekend){
   const s = state.shifts[k];
-  let cls = 'day' + (weekend ? ' we' : ''), a = '', wc = '', bar = false;
+  let cls = 'day' + (weekend ? ' we' : ''), a = '', nm = '', wc = '', bar = false;
   if(k === tKey) cls += ' today';
-  if(ui.selected === k) cls += ' sel';
+  if(ui.selected === k && !ui.rangeMode) cls += ' sel';
   if(ui.rangeMode && ui.rangeStart){
-    const rf = (ui.rangeEnd && ui.rangeEnd < ui.rangeStart) ? ui.rangeEnd : ui.rangeStart;
-    const rt = ui.rangeEnd ? ((ui.rangeEnd < ui.rangeStart) ? ui.rangeStart : ui.rangeEnd) : ui.rangeStart;
-    if(k === rf || k === rt) cls += ' range-edge';
-    else if(k > rf && k < rt) cls += ' range';
+    const b = rangeBounds();
+    if(k === b[0] || k === b[1]) cls += ' range-edge';
+    else if(k > b[0] && k < b[1]) cls += ' range';
   }
   let label = fmtDate(k);
   if(s && s.dayOff){
-    cls += ' off'; a = t('вых'); bar = true; label += ', ' + t('Выходной');
+    cls += ' off'; nm = t('вых'); bar = true; label += ', ' + t('Выходной');
   } else if(s && s.workplaceId){
     const w = wpById(s.workplaceId);
     if(w){
       const pay = calcPay(s);
       cls += ' work'; wc = w.color; bar = true;
+      nm = shortLabel(w);
       a = pay > 0 ? compact(pay) : '';
       label += ', ' + w.name + (pay > 0 ? ', ' + money(pay, w.currency) : '');
     }
   }
+  /* Что подписывать в клетке — выбирается в «Оформлении» */
+  if(prefs.dayLabel === 'sum'){ if(cls.indexOf(' off') >= 0) a = nm; nm = ''; }
+  else if(prefs.dayLabel === 'name') a = '';
   const note = (state.notes && state.notes[k]) ? String(state.notes[k]) : '';
   return '<div class="'+cls+'" style="--i:'+d+(wc ? ';--wc:'+wc : '')+'" data-act="dayTap" data-k="'+k+'" role="button" tabindex="0" aria-label="'+esc(label)+'">'
-    + '<span class="n">'+d+'</span><span class="a">'+esc(a)+'</span>'
+    + '<span class="n">'+d+'</span>'
+    + (nm ? '<span class="nm">'+esc(nm)+'</span>' : '')
+    + (a ? '<span class="a">'+esc(a)+'</span>' : '')
     + (note ? '<span class="note"></span>' : '') + (bar ? '<span class="bar"></span>' : '') + '</div>';
 }
 
@@ -968,32 +1037,6 @@ function wpChipsHtml(selectedId, act, opts){
   if(opts.off) out += '<button type="button" class="chip muted'+(opts.offOn ? ' on' : '')+'" style="--cc:var(--text-3)" data-act="pickOff"><i></i>'+esc(t('Выходной'))+'</button>';
   if(opts.add && !state.workplaces.length) out += '<button type="button" class="chip add" data-act="addWorkplace">'+esc('+ ' + t('Добавить место работы'))+'</button>';
   return out + '</div>';
-}
-
-function patternPanel(){
-  if(!ui.patternOpen) return '';
-  const p = ui.pattern;
-  let out = '<section class="panel" data-key="pattern">';
-  out += '<div class="panel-head"><div class="panel-title">'+esc(t('График по шаблону'))+'<small>'+esc(p.workDays+' / '+p.offDays)+' · '+esc(t('Часов за смену'))+': '+esc(String(p.hours))+'</small></div>'
-      +  '<button type="button" class="icon-btn sm" data-act="togglePattern" aria-label="'+esc(t('Закрыть'))+'">'+ico.x()+'</button></div>';
-  out += '<span class="flabel">'+esc(t('Место работы'))+'</span>' + wpChipsHtml(p.workplaceId, 'patWp', { add:true });
-  out += '<div class="field"><label>'+esc(t('Быстрый выбор'))+'</label><div class="chips">';
-  [[2,2],[3,3],[4,3],[5,2],[1,3]].forEach(function(pr){
-    const on = (parseFloat(p.workDays) === pr[0] && parseFloat(p.offDays) === pr[1]);
-    out += '<button type="button" class="chip'+(on ? ' on' : '')+'" data-act="patPreset" data-w="'+pr[0]+'" data-o="'+pr[1]+'">'+pr[0]+' / '+pr[1]+'</button>';
-  });
-  out += '</div></div>';
-  out += '<div class="row2">'
-      +  '<div class="field"><label for="patWork">'+esc(t('Смен подряд'))+'</label><input id="patWork" data-inp="patWork" type="number" min="1" inputmode="numeric" value="'+esc(String(p.workDays))+'"></div>'
-      +  '<div class="field"><label for="patOff">'+esc(t('Выходных подряд'))+'</label><input id="patOff" data-inp="patOff" type="number" min="0" inputmode="numeric" value="'+esc(String(p.offDays))+'"></div>'
-      +  '</div>';
-  out += '<div class="row2">'
-      +  '<div class="field"><label>'+esc(t('Начать с'))+'</label><div class="picker" data-act="openPicker" data-t="patternStart" role="button">'+esc(fmtDate(p.start))+ico.calendar()+'</div></div>'
-      +  '<div class="field"><label for="patHours">'+esc(t('Часов за смену'))+'</label><input id="patHours" data-inp="patHours" type="number" min="0" step="0.5" inputmode="decimal" value="'+esc(String(p.hours))+'"></div>'
-      +  '</div>';
-  out += '<div class="field"><label>'+esc(t('Заполнить'))+'</label>'+segHtml([ { v:'month', label:'До конца месяца' }, { v:'week', label:'До конца недели' } ], p.fill, 'patFill')+'</div>';
-  out += '<div class="btns"><button type="button" class="btn primary" data-act="applyPattern">'+esc(t('Применить шаблон'))+'</button></div>';
-  return out + '</section>';
 }
 
 function dayEditor(){
@@ -1052,27 +1095,143 @@ function payPreviewHtml(k){
   return html;
 }
 
+function rangeBounds(){
+  const rs = ui.rangeStart, re = ui.rangeEnd || ui.rangeStart;
+  if(!rs) return null;
+  return rs <= re ? [rs, re] : [re, rs];
+}
+function rangePresets(){
+  const y = ui.view.y, m = ui.view.m, n = daysInMonth(y, m);
+  const now = new Date();
+  const mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (now.getDay() + 6) % 7);
+  const k = function(d){ return dk(d.getFullYear(), d.getMonth(), d.getDate()); };
+  const add = function(d, x){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + x); };
+  const pm = m === 0 ? 11 : m - 1, py = m === 0 ? y - 1 : y;
+  return [
+    { label:monthTitle(m), from:dk(y,m,1), to:dk(y,m,n) },
+    { label:'1–15', from:dk(y,m,1), to:dk(y,m,15) },
+    { label:'16–' + n, from:dk(y,m,16), to:dk(y,m,n) },
+    { label:t('Эта неделя'), from:k(mon), to:k(add(mon, 6)) },
+    { label:t('Прошлая неделя'), from:k(add(mon, -7)), to:k(add(mon, -1)) },
+    { label:monthTitle(pm), from:dk(py,pm,1), to:dk(py,pm,daysInMonth(py,pm)) }
+  ];
+}
 function rangePanel(){
   if(!ui.rangeMode) return '';
-  const rs = ui.rangeStart, re = ui.rangeEnd;
-  let out = '<section class="panel" data-key="range">';
-  if(!rs || !re){
-    out += '<div class="panel-head"><div class="panel-title">'+esc(t('Период'))+'<small>'+esc(rs ? t('Теперь отметь последний день') : t('Отметь на календаре первый день периода'))+'</small></div>'
-        +  '<button type="button" class="icon-btn sm" data-act="toggleRange" aria-label="'+esc(t('Закрыть'))+'">'+ico.x()+'</button></div>';
-    if(!rs) return out + '</section>';
+  const b = rangeBounds();
+  const picking = !!(ui.rangeStart && !ui.rangeEnd);
+  let out = '<section class="panel rangep" data-key="range">';
+  out += '<div class="panel-head"><div class="panel-title">'+esc(t('Подсчёт за период'))
+      +  '<small>'+esc(picking ? t('Теперь отметь последний день') : t('Выбери даты или отметь их на календаре'))+'</small></div>'
+      +  '<button type="button" class="icon-btn sm" data-act="toggleRange" aria-label="'+esc(t('Закрыть'))+'">'+ico.x()+'</button></div>';
+  out += '<div class="chips presets">';
+  rangePresets().forEach(function(p){
+    const on = !picking && b && b[0] === p.from && b[1] === p.to;
+    out += '<button type="button" class="chip'+(on ? ' on' : '')+'" data-act="rangePreset" data-f="'+p.from+'" data-t="'+p.to+'">'+esc(p.label)+'</button>';
+  });
+  out += '</div>';
+  out += '<div class="daterow">'
+      +  '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="rangeFrom" role="button">'+esc(b ? fmtDayMonth(b[0]) : '—')+ico.calendar()+'</div></div>'
+      +  '<span class="dr-arrow">'+ico.chevR()+'</span>'
+      +  '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker'+(picking ? ' wait' : '')+'" data-act="openPicker" data-t="rangeTo" role="button">'+esc(picking ? '…' : (b ? fmtDayMonth(b[1]) : '—'))+ico.calendar()+'</div></div>'
+      +  '</div>';
+  if(b){
+    const st = rangeStats(b[0], b[1]);
+    const days = Math.round((new Date(parseKey(b[1])[0], parseKey(b[1])[1], parseKey(b[1])[2]) - new Date(parseKey(b[0])[0], parseKey(b[0])[1], parseKey(b[0])[2])) / 864e5) + 1;
+    out += '<div class="range-res"><div class="eyebrow"><span class="pip"></span>'+esc(cnt(days, 'day'))+'</div>'
+        +  moneyHtml(st.total, defaultCurrency(), 'big')
+        +  '<div class="sub">'+statLine(st)+'</div>'
+        +  (state.workplaces.length ? wpBreakdown(st) : '') + '</div>';
   }
-  const from = (re && re < rs) ? re : rs;
-  const to = re ? ((re < rs) ? rs : re) : rs;
-  const st = rangeStats(from, to);
-  if(re){
-    out += '<div class="panel-head"><div class="panel-title">'+esc(fmtDayMonth(from))+' — '+esc(fmtDayMonth(to))+'<small>'+esc(t('Период'))+'</small></div>'
-        +  '<button type="button" class="icon-btn sm" data-act="toggleRange" aria-label="'+esc(t('Закрыть'))+'">'+ico.x()+'</button></div>';
-  }
-  out += moneyHtml(st.total, defaultCurrency(), 'big');
-  out += '<div class="sub">'+statLine(st)+'</div>';
-  out += wpBreakdown(st);
-  out += '<div class="actions"><button type="button" class="link" data-act="resetRange">'+esc(t('Выбрать заново'))+'</button></div>';
   return out + '</section>';
+}
+
+/* ════════════════════════ Шаблон графика ════════════════════════ */
+function patternDays(p){
+  const out = [];
+  if(!p.start || !p.end) return out;
+  let a = p.start, z = p.end;
+  if(z < a){ const tmp = a; a = z; z = tmp; }
+  const s0 = parseKey(a);
+  const d = new Date(s0[0], s0[1], s0[2]);
+  const wd = Math.max(1, Math.round(parseFloat(p.workDays) || 1));
+  const od = Math.max(0, Math.round(parseFloat(p.offDays) || 0));
+  for(let i = 0; i < 800; i++){
+    const k = dk(d.getFullYear(), d.getMonth(), d.getDate());
+    if(k > z) break;
+    const dow = (d.getDay() + 6) % 7;
+    const work = p.mode === 'week' ? !!p.weekdays[dow] : (i % (wd + od)) < wd;
+    out.push({ k:k, work:work, dow:dow, day:d.getDate() });
+    d.setDate(d.getDate() + 1);
+  }
+  return out;
+}
+function stepper(field, value, label){
+  return '<div class="stepper" role="group" aria-label="'+esc(label)+'">'
+    + '<button type="button" data-act="patStep" data-f="'+field+'" data-d="-1" aria-label="−">−</button>'
+    + '<input id="pat-'+field+'" data-inp="patField" data-f="'+field+'" type="number" inputmode="decimal" value="'+esc(String(value))+'" aria-label="'+esc(label)+'">'
+    + '<button type="button" data-act="patStep" data-f="'+field+'" data-d="1" aria-label="+">+</button></div>';
+}
+function patternSheet(){
+  const p = ui.pattern;
+  const w = wpById(p.workplaceId);
+  const days = patternDays(p);
+  let works = 0, offs = 0, kept = 0, pay = 0;
+  days.forEach(function(x){
+    if(!p.replace && state.shifts[x.k]){ kept++; return; }
+    if(x.work){ works++; if(w) pay += w.payType === 'daily' ? w.rate : w.rate * (parseFloat(p.hours) || 0); }
+    else offs++;
+  });
+  const sameArr = function(a, b){ return a.join('') === b.join(''); };
+  let inner = '<div class="sheet pat" role="dialog" aria-modal="true"><div class="grabber"></div>';
+  inner += '<h2>'+esc(t('График по шаблону'))+'</h2><div class="hint">'+esc(t('Отметит смены и выходные на выбранные даты'))+'</div>';
+  inner += '<div class="field"><label>'+esc(t('Место работы'))+'</label>'+wpChipsHtml(p.workplaceId, 'patWp', { add:true })+'</div>';
+  inner += '<div class="field"><label>'+esc(t('Как чередовать'))+'</label>'+segHtml([ { v:'cycle', label:'Смены и выходные' }, { v:'week', label:'По дням недели' } ], p.mode, 'patMode')+'</div>';
+  if(p.mode === 'week'){
+    inner += '<div class="weekpick">' + wdShort().map(function(d, i){
+      return '<button type="button" class="wdt'+(p.weekdays[i] ? ' on' : '')+(i > 4 ? ' we' : '')+'" data-act="patWeekday" data-i="'+i+'" aria-pressed="'+(p.weekdays[i] ? 'true' : 'false')+'">'+d+'</button>';
+    }).join('') + '</div>';
+    inner += '<div class="chips mini">' + [ ['Пн–Пт', [1,1,1,1,1,0,0]], ['Пн–Сб', [1,1,1,1,1,1,0]], ['Сб и Вс', [0,0,0,0,0,1,1]] ].map(function(x){
+      return '<button type="button" class="chip'+(sameArr(p.weekdays, x[1]) ? ' on' : '')+'" data-act="patWeekPreset" data-v="'+x[1].join('')+'">'+esc(t(x[0]))+'</button>';
+    }).join('') + '</div>';
+  } else {
+    inner += '<div class="chips mini">' + [[2,2],[3,3],[1,3],[2,1],[4,2],[5,2]].map(function(pr){
+      const on = (parseFloat(p.workDays) === pr[0] && parseFloat(p.offDays) === pr[1]);
+      return '<button type="button" class="chip'+(on ? ' on' : '')+'" data-act="patPreset" data-w="'+pr[0]+'" data-o="'+pr[1]+'">'+pr[0]+' / '+pr[1]+'</button>';
+    }).join('') + '</div>';
+    inner += '<div class="row2"><div class="field"><label>'+esc(t('Смен подряд'))+'</label>'+stepper('workDays', p.workDays, t('Смен подряд'))+'</div>'
+          +  '<div class="field"><label>'+esc(t('Выходных подряд'))+'</label>'+stepper('offDays', p.offDays, t('Выходных подряд'))+'</div></div>';
+  }
+  inner += '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="patternStart" role="button">'+esc(fmtDayMonth(p.start))+ico.calendar()+'</div></div>'
+        +  '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="patternEnd" role="button">'+esc(fmtDayMonth(p.end))+ico.calendar()+'</div></div></div>';
+  inner += '<div class="chips mini">' + [ ['week', 'До конца недели'], ['month', 'До конца месяца'], ['next', 'И следующий месяц'] ].map(function(x){
+    return '<button type="button" class="chip'+(p.end === patternEndFor(x[0]) ? ' on' : '')+'" data-act="patEnd" data-v="'+x[0]+'">'+esc(t(x[1]))+'</button>';
+  }).join('') + '</div>';
+  inner += '<div class="field"><label>'+esc(w && w.payType === 'daily' ? t('Часов (учёт, на оплату не влияет)') : t('Часов за смену'))+'</label>'+stepper('hours', p.hours, t('Часов за смену'))+'</div>';
+  inner += '<div class="switch-row"><span><b>'+esc(t('Заменить уже отмеченные дни'))+'</b><small>'+esc(p.replace ? t('Отмеченные дни перезапишутся') : t('Отмеченные дни останутся как есть'))+'</small></span>'
+        +  '<button type="button" class="switch'+(p.replace ? ' on' : '')+'" data-act="patReplace" role="switch" aria-checked="'+(p.replace ? 'true' : 'false')+'" aria-label="'+esc(t('Заменить уже отмеченные дни'))+'"></button></div>';
+  inner += '<div class="field"><label>'+esc(t('Предпросмотр'))+'</label><div class="pstrip">'
+        +  days.slice(0, 14).map(function(x){
+             const keep = !p.replace && !!state.shifts[x.k];
+             return '<div class="pd'+(keep ? ' keep' : (x.work ? ' w' : ''))+'"'+(w ? ' style="--wc:'+w.color+'"' : '')+'><span>'+wdShort()[x.dow]+'</span><b>'+x.day+'</b></div>';
+           }).join('')
+        +  '</div><div class="plegend"><span><i class="w"'+(w ? ' style="--wc:'+w.color+'"' : '')+'></i>'+esc(t('Смена'))+'</span><span><i></i>'+esc(t('Выходной'))+'</span>'+(kept ? '<span><i class="keep"></i>'+esc(t('Уже отмечено'))+'</span>' : '')
+        +  (days.length > 14 ? '<span class="pmore">'+esc(t('и ещё'))+' '+esc(cnt(days.length - 14, 'day'))+'</span>' : '')+'</div></div>';
+  inner += '<div class="psum">'+esc(t('Будет отмечено'))+': <b>'+esc(cnt(works, 'shift'))+'</b> · <b>'+esc(cnt(offs, 'off'))+'</b>'
+        +  (pay > 0 && w ? '<br>'+esc(t('Примерный доход'))+': <b class="num">'+esc(money(pay, w.currency))+'</b>' : '')
+        +  (kept ? '<br><span>'+esc(t('Не тронем уже отмеченные дни'))+': '+kept+'</span>' : '') + '</div>';
+  inner += '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Отмена'))+'</button>'
+        +  '<button type="button" class="btn primary'+(works + offs ? '' : ' off')+'" data-act="applyPattern">'+esc(t('Применить'))+'</button></div></div>';
+  return ovl('pattern', '', inner);
+}
+function patternEndFor(kind){
+  const p = ui.pattern;
+  if(!p.start) return '';
+  const s0 = parseKey(p.start);
+  const d = new Date(s0[0], s0[1], s0[2]);
+  if(kind === 'week'){ const e = new Date(s0[0], s0[1], s0[2] + (6 - (d.getDay() + 6) % 7)); return dk(e.getFullYear(), e.getMonth(), e.getDate()); }
+  if(kind === 'next'){ const ny = s0[1] === 11 ? s0[0] + 1 : s0[0], nm = (s0[1] + 1) % 12; return dk(ny, nm, daysInMonth(ny, nm)); }
+  return dk(s0[0], s0[1], daysInMonth(s0[0], s0[1]));
 }
 
 function wpBreakdown(st){
@@ -1188,10 +1347,7 @@ function themeQuickRow(){
     + '</div></div>';
 }
 function styleSummary(){
-  let ts = '', us = '';
-  TEXT_SIZES.forEach(function(x){ if(x.v === prefs.textSize) ts = t(x.n); });
-  UI_STYLES.forEach(function(x){ if(x.v === prefs.uiStyle) us = t(x.n); });
-  return accentName(prefs.accent) + ' · ' + ts + ' · ' + us;
+  return accentName(prefs.accent) + ' · ' + optName(BACKGROUNDS, prefs.bg) + ' · ' + optName(TEXT_SIZES, prefs.textSize);
 }
 
 function settingsView(){
@@ -1226,38 +1382,54 @@ function settingsView(){
 function appearancePage(){
   let out = topbar(t('Оформление'), { back:true });
   out += pageHead(t('Оформление'), t('Изменения видны сразу'), true);
+  const light = isLight();
 
-  /* Живое превью */
-  const days = [ ['', ''], [SWATCHES[0], ''], [SWATCHES[0], ''], ['', 't'], [SWATCHES[1], ''], ['', ''], [SWATCHES[2], ''] ];
+  /* Живое превью: те же цвета мест работы, подсветка и подписи, что и в календаре */
+  const wps = state.workplaces.length ? state.workplaces : [ { color:SWATCHES[0], name:t('Смена') }, { color:SWATCHES[1], name:t('Смена') } ];
+  const w0 = wps[0], w1 = wps[1] || wps[0];
+  const days = [ [null], [w0], [w0], [null, 't'], [w1], ['off'], [w0] ];
   out += '<section class="card demo" style="--d:0"><div class="demo-top"><div><div class="eyebrow"><span class="pip"></span>'+esc(monthTitle(ui.view.m))+' · '+esc(t('заработано'))+'</div>'
       + '<div class="big" style="margin-top:6px">'+esc(numStr(demoTotal()))+'<span class="cur">'+esc(defaultCurrency())+'</span></div></div>'
       + '<button type="button" class="pill solid" tabindex="-1">'+ico.plus()+esc(t('смена'))+'</button></div>'
-      + '<div class="demo-days">' + days.map(function(d, i){ return '<div class="'+d[1]+'"'+(d[0] ? ' style="--wc:'+d[0]+'"' : '')+'>'+(i+10)+(d[0] ? '<i></i>' : '')+'</div>'; }).join('') + '</div></section>';
+      + '<div class="demo-days">' + days.map(function(d, i){
+          const w = d[0] && d[0] !== 'off' ? d[0] : null;
+          const nm = w ? shortLabel(w) : (d[0] === 'off' ? t('вых') : '');
+          return '<div class="'+(d[1] || '')+(d[0] === 'off' ? ' off' : '')+'"'+(w ? ' style="--wc:'+w.color+'"' : '')+'><b>'+(i + 10)+'</b>'
+            + (nm && prefs.dayLabel !== 'sum' ? '<em>'+esc(nm)+'</em>' : '') + (w ? '<i></i>' : '') + '</div>';
+        }).join('') + '</div></section>';
 
   out += themeQuickRow();
   out += label(t('Тема'), prefs.theme === 'auto' ? t('Авто') : (prefs.theme === 'light' ? t('Светлая') : t('Тёмная')));
   out += segHtml([ { v:'auto', label:'Авто' }, { v:'light', label:'Светлая' }, { v:'dark', label:'Тёмная' } ], prefs.theme, 'setTheme');
 
   out += label(t('Цвет акцента'), accentName(prefs.accent));
-  out += '<section class="card" style="--d:2"><div class="swatches">';
+  out += '<section class="card" style="--d:2"><div class="swatches grid6">';
   ACCENTS.forEach(function(a){
     const on = String(prefs.accent).toUpperCase() === a.c;
     out += '<button type="button" class="swatch'+(on ? ' on' : '')+'" style="--c:'+a.c+'" data-act="setAccent" data-v="'+a.c+'" aria-label="'+esc(t(a.n))+'" aria-pressed="'+on+'">'+ico.check()+'</button>';
   });
-  out += '</div></section>';
+  out += '</div>';
+  const custom = isCustomAccent();
+  out += '<div class="custom">'
+      +  '<button type="button" class="swatch'+(custom ? ' on' : '')+'" style="--c:'+hslHex(prefs.customHue)+'" data-act="useCustom" aria-label="'+esc(t('Свой цвет'))+'" aria-pressed="'+custom+'">'+ico.check()+'</button>'
+      +  '<div class="hue"><label class="flabel" for="hue">'+esc(t('Свой цвет'))+'</label>'
+      +  '<input id="hue" type="range" min="0" max="359" step="1" value="'+prefs.customHue+'" data-inp="hue"></div></div>';
+  out += '</section>';
 
-  let tsName = '';
-  TEXT_SIZES.forEach(function(x){ if(x.v === prefs.textSize) tsName = t(x.n); });
-  out += label(t('Размер текста'), tsName);
+  out += label(t('Фон'), optName(BACKGROUNDS, prefs.bg));
+  out += '<div class="bgs">' + BACKGROUNDS.map(function(b){
+    return '<button type="button" class="bgc'+(prefs.bg === b.v ? ' on' : '')+'" data-act="setBg" data-v="'+b.v+'" style="--b:'+(light ? b.l : b.d)+';--s:'+(light ? b.ls : b.ds)+'" aria-pressed="'+(prefs.bg === b.v)+'">'
+      + '<span class="bgp"><i></i><i></i></span>'+esc(t(b.n))+'</button>';
+  }).join('') + '</div>';
+
+  out += label(t('Размер текста'), optName(TEXT_SIZES, prefs.textSize));
   out += '<div class="sizes">';
   TEXT_SIZES.forEach(function(x, i){
     out += '<button type="button" class="'+(x.v === prefs.textSize ? 'on' : '')+'" style="font-size:'+(13 + i*3)+'px" data-act="setTextSize" data-v="'+x.v+'" aria-label="'+esc(t(x.n))+'">Aa</button>';
   });
   out += '</div>';
 
-  let usName = '';
-  UI_STYLES.forEach(function(x){ if(x.v === prefs.uiStyle) usName = t(x.n); });
-  out += label(t('Стиль интерфейса'), usName);
+  out += label(t('Стиль интерфейса'), optName(UI_STYLES, prefs.uiStyle));
   out += '<div class="styles">';
   UI_STYLES.forEach(function(x){
     const r = Math.round(14 * x.k);
@@ -1265,6 +1437,11 @@ function appearancePage(){
         + '<div class="mini" style="border-radius:'+Math.round(9*x.k)+'px"></div>'+esc(t(x.n))+'</button>';
   });
   out += '</div>';
+
+  out += label(t('Подсветка смен'), optName(DAY_TINTS, prefs.dayTint));
+  out += segHtml(DAY_TINTS.map(function(x){ return { v:x.v, label:x.n }; }), prefs.dayTint, 'setDayTint');
+  out += label(t('Подписи в днях'), optName(DAY_LABELS, prefs.dayLabel));
+  out += segHtml(DAY_LABELS.map(function(x){ return { v:x.v, label:x.s }; }), prefs.dayLabel, 'setDayLabel');
 
   const n = changesCount();
   if(n){
@@ -1279,12 +1456,17 @@ function demoTotal(){
   const v = rangeStats(mr.from, mr.to).total;
   return v > 0 ? Math.round(v) : 48600;
 }
-function appearanceSnapshot(){ return { theme:prefs.theme, accent:String(prefs.accent).toUpperCase(), textSize:prefs.textSize, uiStyle:prefs.uiStyle }; }
+const LOOK_KEYS = ['theme', 'accent', 'textSize', 'uiStyle', 'bg', 'dayTint', 'dayLabel', 'customHue'];
+function appearanceSnapshot(){
+  const o = {};
+  LOOK_KEYS.forEach(function(k){ o[k] = k === 'accent' ? String(prefs.accent).toUpperCase() : prefs[k]; });
+  return o;
+}
 function changesCount(){
   if(ui.page !== 'appearance' || !ui.snapshot) return 0;
   const cur = appearanceSnapshot();
   let n = 0;
-  for(const k in cur) if(cur[k] !== ui.snapshot[k]) n++;
+  for(const k in cur) if(k !== 'customHue' && cur[k] !== ui.snapshot[k]) n++;
   return n;
 }
 
@@ -1450,6 +1632,9 @@ function pickerHtml(){
 }
 function pickerValue(target){
   if(target === 'patternStart') return ui.pattern.start;
+  if(target === 'patternEnd') return ui.pattern.end;
+  if(target === 'rangeFrom'){ const b = rangeBounds(); return b ? b[0] : null; }
+  if(target === 'rangeTo'){ const b = rangeBounds(); return b ? b[1] : null; }
   if(target === 'exportFrom') return ui.export.from;
   if(target === 'exportTo') return ui.export.to;
   if(!ui.sheet) return null;
@@ -1459,7 +1644,20 @@ function pickerValue(target){
   return null;
 }
 function setPickerValue(target, k){
-  if(target === 'patternStart'){ ui.pattern.start = k; return; }
+  if(target === 'patternStart'){
+    ui.pattern.start = k;
+    if(!ui.pattern.end || ui.pattern.end < k){ const p = parseKey(k); ui.pattern.end = dk(p[0], p[1], daysInMonth(p[0], p[1])); }
+    return;
+  }
+  if(target === 'patternEnd'){ ui.pattern.end = k < ui.pattern.start ? ui.pattern.start : k; return; }
+  if(target === 'rangeFrom' || target === 'rangeTo'){
+    const b = rangeBounds() || [k, k];
+    let f = target === 'rangeFrom' ? k : b[0], to = target === 'rangeTo' ? k : b[1];
+    if(to < f){ const tmp = f; f = to; to = tmp; }
+    ui.rangeStart = f; ui.rangeEnd = to;
+    showRangeMonth(f, to);
+    return;
+  }
   if(target === 'exportFrom'){ ui.export.from = k; return; }
   if(target === 'exportTo'){ ui.export.to = k; return; }
   if(!ui.sheet) return;
@@ -1474,6 +1672,7 @@ function sheetHtml(){
   if(s.type === 'income') return incomeSheet(s);
   if(s.type === 'payment') return paymentSheet(s);
   if(s.type === 'workplace') return workplaceSheet(s);
+  if(s.type === 'pattern') return patternSheet();
   return '';
 }
 function docSheet(title, html){
@@ -1490,14 +1689,14 @@ function welcomeSheet(){
   inner += '<div class="logo-xl">'+appIconImg()+'</div>';
   inner += '<h2>'+esc(t('Добро пожаловать'))+'</h2><div class="hint">'+esc(t('Твой график — твой доход'))+'</div>';
   inner += '<div class="feats">' + feats.map(function(f, i){
-    return '<div class="feat" style="--i:'+i+'">'+tile(f[0])+'<div><b>'+esc(f[1])+'</b><span>'+esc(f[2])+'</span></div></div>';
+    return '<div class="feat" style="--i:'+i+'">'+tile(f[0])+'<div class="ft"><b>'+esc(f[1])+'</b><span>'+esc(f[2])+'</span></div></div>';
   }).join('') + '</div>';
   inner += '<div class="legal-wrap'+(ui.legalOpen ? ' open' : '')+'"><button type="button" class="link acc" data-act="toggleLegalText">'
         +  esc(t('Пользовательское соглашение'))+' · '+esc(ui.legalOpen ? t('Скрыть') : t('Читать полностью'))+'</button>'
         +  '<div class="legal">'+legalHtml()+'</div></div>';
   inner += '<div class="checks" data-act="toggleLegal" role="checkbox" aria-checked="'+(ui.legalChecked ? 'true' : 'false')+'"><div class="box'+(ui.legalChecked ? ' on' : '')+'">'+ico.check()+'</div>'
         +  '<div class="txt" style="text-align:left">'+esc(t('Я прочитал условия и согласен, что данные хранятся только на этом устройстве.'))+'</div></div>';
-  inner += '<div class="btns"><button type="button" class="btn primary" data-act="acceptAgreement">'+esc(t('Начать'))+'</button></div>';
+  inner += '<div class="btns"><button type="button" class="btn primary'+(ui.legalChecked ? '' : ' off')+'" data-act="acceptAgreement" aria-disabled="'+(ui.legalChecked ? 'false' : 'true')+'">'+esc(t('Начать'))+'</button></div>';
   inner += '</div>';
   return ovl('welcome', ' center', inner, false);
 }
@@ -1526,6 +1725,7 @@ function workplaceSheet(s){
   inner += '<div style="display:flex;align-items:center;gap:12px"><span class="tile tw" style="--cc:'+s.color+';width:44px;height:44px"><i></i></span>'
         +  '<h2 style="margin:0">'+esc(editing ? t('Место работы') : t('Добавить место работы'))+'</h2></div>';
   inner += '<div class="field"><label for="wpName">'+esc(t('Название'))+'</label><input id="wpName" data-inp="wpName" type="text" value="'+esc(s.name)+'" maxlength="60" placeholder="'+esc(t('Например: Кофейня'))+'"></div>';
+  inner += '<div class="field"><label for="wpShort">'+esc(t('Подпись в календаре'))+'</label><input id="wpShort" data-inp="wpShort" type="text" value="'+esc(s.short || '')+'" maxlength="10" placeholder="'+esc(String(s.name || '').trim().split(/\s+/)[0] || t('Например: Кофе'))+'"></div>';
   inner += '<div class="field"><label>'+esc(t('Тип оплаты'))+'</label>'+segHtml([ { v:'hourly', label:'Почасовая' }, { v:'daily', label:'Фиксированная' } ], s.payType, 'sheetPayType')+'</div>';
   inner += '<div class="row2">'
         +  '<div class="field" style="flex:2"><label for="wpRate">'+esc(s.payType === 'daily' ? t('Ставка (за смену)') : t('Ставка (в час)'))+'</label><input id="wpRate" data-inp="wpRate" type="number" min="0" step="1" inputmode="decimal" value="'+esc(s.rate)+'"></div>'
@@ -1597,7 +1797,7 @@ function runCounters(){
 function canGoBack(){
   if(ui.picker || ui.confirm) return true;
   if(ui.sheet) return !(ui.sheet.type === 'agreement' && ui.sheet.mode === 'first');
-  return !!(ui.page || ui.patternOpen || ui.rangeMode || ui.tab !== 'calendar');
+  return !!(ui.page || ui.rangeMode || ui.tab !== 'calendar');
 }
 function handleBack(){
   if(ui.picker || ui.confirm || ui.sheet){
@@ -1605,7 +1805,6 @@ function handleBack(){
     closeTop(); return true;
   }
   if(ui.page){ A.back(); return true; }
-  if(ui.patternOpen){ ui.patternOpen = false; render(); return true; }
   if(ui.rangeMode){ A.toggleRange(); return true; }
   if(ui.tab !== 'calendar'){ A.tab({ id:'calendar' }); return true; }
   return false;
@@ -1782,6 +1981,7 @@ function closeTop(){
     ui.closing = null;
     if(ui.picker) ui.picker = null;
     else if(ui.confirm) ui.confirm = null;
+    else if(ui.returnToPattern && ui.sheet && ui.sheet.type === 'workplace'){ ui.returnToPattern = false; ui.sheet = { type:'pattern' }; }
     else ui.sheet = null;
     render();
   }, reduceMotion() ? 0 : 220);
@@ -1795,6 +1995,11 @@ function viewedDay(){
   const now = new Date();
   if(ui.view.y === now.getFullYear() && ui.view.m === now.getMonth()) return todayKey();
   return dk(ui.view.y, ui.view.m, 1);
+}
+/* Если выбранный период не попадает в открытый месяц — показываем месяц его начала */
+function showRangeMonth(from, to){
+  const mr = monthRange(ui.view.y, ui.view.m);
+  if(to < mr.from || from > mr.to){ const p = parseKey(from); ui.view = { y:p[0], m:p[1] }; }
 }
 function shiftMonth(delta){
   ui.view.m += delta;
@@ -1846,16 +2051,25 @@ const A = {
 
   toggleRange:function(){
     ui.rangeMode = !ui.rangeMode;
-    ui.rangeStart = null; ui.rangeEnd = null; ui.patternOpen = false;
+    ui.patternOpen = false;
+    if(ui.rangeMode){
+      const mr = monthRange(ui.view.y, ui.view.m);
+      ui.rangeStart = mr.from; ui.rangeEnd = mr.to;
+    } else { ui.rangeStart = null; ui.rangeEnd = null; }
     render();
   },
   resetRange:function(){ ui.rangeStart = null; ui.rangeEnd = null; render(); },
+  rangePreset:function(d){
+    ui.rangeStart = d.f; ui.rangeEnd = d.t;
+    showRangeMonth(d.f, d.t);
+    haptic('tick'); render();
+  },
   dayTap:function(d){
     const k = d.k;
     if(ui.rangeMode){
       if(!ui.rangeStart || ui.rangeEnd){ ui.rangeStart = k; ui.rangeEnd = null; }
-      else ui.rangeEnd = k;
-      render(); return;
+      else { ui.rangeEnd = k; if(ui.rangeEnd < ui.rangeStart){ const tmp = ui.rangeStart; ui.rangeStart = ui.rangeEnd; ui.rangeEnd = tmp; } }
+      haptic('tick'); render(); return;
     }
     ui.selected = (ui.selected === k) ? null : k;
     ui.editorPicker = false;
@@ -1891,44 +2105,67 @@ const A = {
     });
   },
 
-  togglePattern:function(){
-    if(!ui.patternOpen){
-      ui.pattern.start = ui.selected || dk(ui.view.y, ui.view.m, 1);
-      ui.rangeMode = false; ui.rangeStart = null; ui.rangeEnd = null;
-      if(!wpById(ui.pattern.workplaceId)) ui.pattern.workplaceId = state.workplaces.length ? state.workplaces[0].id : null;
-    }
-    ui.patternOpen = !ui.patternOpen;
+  togglePattern:function(){ A.openPattern(); },
+  openPattern:function(){
+    const p = ui.pattern;
+    const now = new Date();
+    const curMonth = ui.view.y === now.getFullYear() && ui.view.m === now.getMonth();
+    p.start = ui.selected || (curMonth ? todayKey() : dk(ui.view.y, ui.view.m, 1));
+    p.end = patternEndFor('month');
+    if(!wpById(p.workplaceId)) p.workplaceId = state.workplaces.length ? state.workplaces[0].id : null;
+    const w = wpById(p.workplaceId);
+    if(w && !p.hoursTouched) p.hours = w.defaultHours;
+    ui.rangeMode = false; ui.rangeStart = null; ui.rangeEnd = null;
+    openSheet({ type:'pattern' });
+  },
+  patWp:function(d){
+    ui.pattern.workplaceId = d.id;
+    const w = wpById(d.id);
+    if(w && !ui.pattern.hoursTouched) ui.pattern.hours = w.defaultHours;
     render();
   },
-  patWp:function(d){ ui.pattern.workplaceId = d.id; render(); },
-  patPreset:function(d){ ui.pattern.workDays = d.w; ui.pattern.offDays = d.o; render(); },
-  patFill:function(d){ ui.pattern.fill = d.v; render(); },
+  patMode:function(d){ ui.pattern.mode = d.v; render(); },
+  patPreset:function(d){ ui.pattern.workDays = parseInt(d.w, 10); ui.pattern.offDays = parseInt(d.o, 10); haptic('tick'); render(); },
+  patWeekday:function(d){ const i = parseInt(d.i, 10); ui.pattern.weekdays[i] = ui.pattern.weekdays[i] ? 0 : 1; haptic('tick'); render(); },
+  patWeekPreset:function(d){ ui.pattern.weekdays = String(d.v).split('').map(Number); render(); },
+  patStep:function(d){
+    const f = d.f, lim = { workDays:[1, 14, 1], offDays:[0, 14, 1], hours:[0, 24, .5] }[f];
+    if(!lim) return;
+    let v = (parseFloat(ui.pattern[f]) || 0) + lim[2] * (parseFloat(d.d) > 0 ? 1 : -1);
+    v = Math.max(lim[0], Math.min(lim[1], Math.round(v * 2) / 2));
+    ui.pattern[f] = v;
+    if(f === 'hours') ui.pattern.hoursTouched = true;
+    haptic('tick'); render();
+  },
+  patEnd:function(d){ ui.pattern.end = patternEndFor(d.v); render(); },
+  patReplace:function(){ ui.pattern.replace = !ui.pattern.replace; haptic('tick'); render(); },
   applyPattern:function(){
     const p = ui.pattern;
-    const wd = Math.max(1, Math.round(parseFloat(p.workDays) || 1));
-    const od = Math.max(0, Math.round(parseFloat(p.offDays) || 0));
-    const cycle = wd + od;
-    const parts = String(p.start || '').split('-').map(Number);
-    if(parts.length !== 3 || isNaN(parts[0]) || isNaN(parts[1]) || isNaN(parts[2])) return;
     if(!state.workplaces.length){ toast(t('Сначала добавь место работы')); A.addWorkplace(); return; }
     if(!wpById(p.workplaceId)){ toast(t('Выбери место работы')); return; }
-    const startD = new Date(parts[0], parts[1]-1, parts[2]);
-    let endD;
-    if(p.fill === 'week'){ const dow = (startD.getDay() + 6) % 7; endD = new Date(parts[0], parts[1]-1, parts[2] + (6 - dow)); }
-    else endD = new Date(parts[0], parts[1]-1, daysInMonth(parts[0], parts[1]-1));
+    if(p.mode === 'week' && !p.weekdays.some(Boolean)){ toast(t('Выбери хотя бы один рабочий день')); return; }
+    const days = patternDays(p);
+    if(!days.length) return;
     const hours = Math.max(0, parseFloat(p.hours) || 0);
-    let i = 0;
-    const cur = new Date(startD);
-    while(cur <= endD){
-      const k = dk(cur.getFullYear(), cur.getMonth(), cur.getDate());
-      if(i % cycle < wd) state.shifts[k] = { workplaceId:p.workplaceId, hours:hours, dayOff:false };
-      else state.shifts[k] = { dayOff:true };
-      i++; cur.setDate(cur.getDate() + 1);
-    }
-    ui.view = { y:parts[0], m:parts[1]-1 };
-    ui.selected = null; ui.slide = ''; ui.patternOpen = false;
+    const undo = {};
+    let changed = 0;
+    days.forEach(function(x){
+      if(!p.replace && state.shifts[x.k]) return;
+      undo[x.k] = state.shifts[x.k] ? JSON.parse(JSON.stringify(state.shifts[x.k])) : null;
+      state.shifts[x.k] = x.work ? { workplaceId:p.workplaceId, hours:hours, dayOff:false } : { dayOff:true };
+      changed++;
+    });
+    const s0 = parseKey(days[0].k);
+    ui.view = { y:s0[0], m:s0[1] };
+    ui.selected = null; ui.slide = '';
     haptic('heavy');
-    saveState(); render(); toast(t('Шаблон применён'));
+    saveState();
+    closeTop();
+    if(!changed){ toast(t('Все дни уже отмечены — ничего не изменилось')); return; }
+    toast(t('Шаблон применён') + ': ' + cnt(changed, 'day'), { label:t('Отменить'), fn:function(){
+      Object.keys(undo).forEach(function(k){ if(undo[k]) state.shifts[k] = undo[k]; else delete state.shifts[k]; });
+      saveState(); render(); toast(t('Отменено'));
+    } });
   },
 
   openPicker:function(d){
@@ -1949,16 +2186,17 @@ const A = {
 
   addWorkplace:function(){
     if(state.workplaces.length >= 10){ toast(t('Достигнут лимит — 10 мест работы')); return; }
+    if(ui.sheet && ui.sheet.type === 'pattern') ui.returnToPattern = true;
     const used = {};
     state.workplaces.forEach(function(w){ used[w.color] = true; });
     let color = SWATCHES[state.workplaces.length % SWATCHES.length];
     for(const c of SWATCHES){ if(!used[c]){ color = c; break; } }
-    openSheet({ type:'workplace', index:null, name:'', payType:'hourly', rate:'', currency:defaultCurrency(), defaultHours:8, color:color });
+    openSheet({ type:'workplace', index:null, name:'', short:'', payType:'hourly', rate:'', currency:defaultCurrency(), defaultHours:8, color:color });
   },
   editWorkplace:function(d){
     const w = state.workplaces[parseInt(d.i,10)];
     if(!w) return;
-    openSheet({ type:'workplace', index:parseInt(d.i,10), name:w.name, payType:w.payType, rate:String(w.rate), currency:w.currency, defaultHours:w.defaultHours, color:w.color });
+    openSheet({ type:'workplace', index:parseInt(d.i,10), name:w.name, short:w.short || '', payType:w.payType, rate:String(w.rate), currency:w.currency, defaultHours:w.defaultHours, color:w.color });
   },
   sheetPayType:function(d){ if(ui.sheet) ui.sheet.payType = d.v; render(); },
   sheetColor:function(d){ if(ui.sheet) ui.sheet.color = d.v; render(); },
@@ -1968,7 +2206,7 @@ const A = {
     const name = String(s.name || '').trim();
     if(!name){ toast(t('Название не может быть пустым')); const el = document.getElementById('wpName'); if(el) el.focus(); return; }
     const data = {
-      name:name.slice(0,60), payType:(s.payType === 'daily' ? 'daily' : 'hourly'),
+      name:name.slice(0,60), short:String(s.short || '').trim().slice(0,10), payType:(s.payType === 'daily' ? 'daily' : 'hourly'),
       rate:Math.max(0, parseFloat(s.rate) || 0), currency:String(s.currency || '₽').slice(0,4) || '₽',
       defaultHours:Math.max(0, parseFloat(s.defaultHours) || 0), color:s.color
     };
@@ -1983,6 +2221,12 @@ const A = {
       Object.assign(w, data);
     }
     normalize(); saveState();
+    if(ui.returnToPattern){
+      ui.returnToPattern = false;
+      const nw = state.workplaces[state.workplaces.length - 1];
+      if(s.index === null || s.index === undefined){ ui.pattern.workplaceId = nw.id; if(!ui.pattern.hoursTouched) ui.pattern.hours = nw.defaultHours; }
+      ui.sheet = { type:'pattern' }; render(); toast(t('Готово')); return;
+    }
     closeTop(); toast(t('Готово'));
   },
   deleteWorkplace:function(){
@@ -2078,9 +2322,13 @@ const A = {
   setAccent:function(d){ prefs.accent = d.v; savePrefs(); applyPrefs(); haptic('tick'); render(); },
   setTextSize:function(d){ prefs.textSize = d.v; savePrefs(); applyPrefs(); render(); TabBar.sync(); },
   setUiStyle:function(d){ prefs.uiStyle = d.v; savePrefs(); applyPrefs(); render(); },
+  setBg:function(d){ prefs.bg = d.v; savePrefs(); applyPrefs(); haptic('tick'); render(); },
+  setDayTint:function(d){ prefs.dayTint = d.v; savePrefs(); applyPrefs(); render(); },
+  setDayLabel:function(d){ prefs.dayLabel = d.v; savePrefs(); applyPrefs(); render(); },
+  useCustom:function(){ prefs.accent = hslHex(prefs.customHue); savePrefs(); applyPrefs(); haptic('tick'); render(); },
   discardAppearance:function(){
     const s = ui.snapshot; if(!s) return;
-    prefs.theme = s.theme; prefs.accent = s.accent; prefs.textSize = s.textSize; prefs.uiStyle = s.uiStyle;
+    LOOK_KEYS.forEach(function(k){ prefs[k] = s[k]; });
     savePrefs(); applyPrefs(); render();
   },
   commitAppearance:function(){ ui.snapshot = appearanceSnapshot(); toast(t('Сохранено')); A.back(); },
@@ -2139,10 +2387,20 @@ const INP = {
     saveSoon();
     clearTimeout(INP._nt); INP._nt = setTimeout(render, 400);
   },
-  patWork:function(v){ ui.pattern.workDays = v; },
-  patOff:function(v){ ui.pattern.offDays = v; },
-  patHours:function(v){ ui.pattern.hours = v; },
   wpName:function(v){ if(ui.sheet && ui.sheet.type === 'workplace') ui.sheet.name = v; },
+  wpShort:function(v){ if(ui.sheet && ui.sheet.type === 'workplace') ui.sheet.short = v; },
+  patField:function(v, d){
+    if(!d || !d.f) return;
+    ui.pattern[d.f] = v;
+    if(d.f === 'hours') ui.pattern.hoursTouched = true;
+    clearTimeout(INP._pt); INP._pt = setTimeout(render, 350);
+  },
+  hue:function(v){
+    prefs.customHue = Math.max(0, Math.min(359, parseInt(v, 10) || 0));
+    prefs.accent = hslHex(prefs.customHue);
+    applyPrefs();
+    clearTimeout(INP._ht); INP._ht = setTimeout(function(){ savePrefs(); render(); }, 120);
+  },
   wpRate:function(v){ if(ui.sheet && ui.sheet.type === 'workplace') ui.sheet.rate = v; },
   wpCur:function(v){ if(ui.sheet && ui.sheet.type === 'workplace') ui.sheet.currency = v; },
   wpDefHours:function(v){ if(ui.sheet && ui.sheet.type === 'workplace') ui.sheet.defaultHours = v; },
