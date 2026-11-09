@@ -16,7 +16,6 @@
 
 /ShiftFlow.mobileconfig
   Content-Type: application/x-apple-aspen-config
-  Content-Disposition: attachment; filename="ShiftFlow.mobileconfig"
   Cache-Control: no-cache
 
 /download/*

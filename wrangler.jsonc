@@ -1,0 +1,12 @@
+// Выкладка сайта ShiftFlow на Cloudflare Workers (статические файлы из папки web).
+// Команда: npx wrangler deploy   (нужен API-токен Cloudflare с правом «Edit Cloudflare Workers»)
+{
+  "name": "blue-rain-2af9",
+  "compatibility_date": "2025-09-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./web",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
