@@ -1,4 +1,7 @@
-Copyright 2019 The Manrope Project Authors (https://github.com/sharanda/manrope)
+ShiftFlow bundles two fonts, both licensed under the SIL Open Font License 1.1:
+  Onest     — Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
+  Unbounded — Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)
+
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

@@ -55,4 +55,4 @@ node tools/store/build-store-assets.js    # скриншоты, баннер, og
 
 ## Лицензия
 
-MIT — см. `LICENSE`. Шрифт Manrope распространяется по SIL Open Font License (`web/fonts/OFL.txt`).
+MIT — см. `LICENSE`. Шрифты Unbounded (заголовки и суммы) и Onest (текст) распространяются по SIL Open Font License (`web/fonts/OFL.txt`).

@@ -20,8 +20,8 @@
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="preload" href="fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <script>
 /* Ранний запуск: тема, акцент, размер текста и стиль применяются до первой отрисовки, чтобы не было вспышки. */
 (function(){
@@ -76,19 +76,42 @@
 </script>
 <style>
 @font-face{
-  font-family:"Manrope"; font-style:normal; font-display:swap; font-weight:200 800;
-  src:url(fonts/manrope-cyrillic.woff2) format("woff2-variations"), url(fonts/manrope-cyrillic.woff2) format("woff2");
+  font-family:"Onest"; font-style:normal; font-display:swap; font-weight:100 900;
+  src:url(fonts/onest-cyrillic.woff2) format("woff2");
   unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
 }
 @font-face{
-  font-family:"Manrope"; font-style:normal; font-display:swap; font-weight:200 800;
-  src:url(fonts/manrope-latin.woff2) format("woff2-variations"), url(fonts/manrope-latin.woff2) format("woff2");
+  font-family:"Onest"; font-style:normal; font-display:swap; font-weight:100 900;
+  src:url(fonts/onest-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{ /* знаки валют, в т. ч. ₽ */
+  font-family:"Onest"; font-style:normal; font-display:swap; font-weight:100 900;
+  src:url(fonts/onest-currency.woff2) format("woff2");
+  unicode-range:U+20A0-20AB,U+20AD-20CF;
+}
+@font-face{
+  font-family:"Unbounded"; font-style:normal; font-display:swap; font-weight:200 900;
+  src:url(fonts/unbounded-cyrillic.woff2) format("woff2");
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face{
+  font-family:"Unbounded"; font-style:normal; font-display:swap; font-weight:200 900;
+  src:url(fonts/unbounded-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{ /* знаки валют, в т. ч. ₽ */
+  font-family:"Unbounded"; font-style:normal; font-display:swap; font-weight:200 900;
+  src:url(fonts/unbounded-currency.woff2) format("woff2");
+  unicode-range:U+20A0-20AB,U+20AD-20CF;
 }
 
 /* ───────────── Токены ───────────── */
 :root{
   color-scheme:dark;
+  /* Шрифты: Unbounded — для заголовков и крупных сумм, Onest — для всего остального */
+  --font-ui:"Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-display:"Unbounded","Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   --accent:#3DDCB0;
   --accent-ink:#B9F2E2;
   --on-accent:#04110D;
@@ -195,8 +218,7 @@ body{
     var(--bg);
   background-attachment:fixed;
   color:var(--text);
-  font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-feature-settings:"ss01" 1, "cv11" 1;
+  font-family:var(--font-ui);
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
   overscroll-behavior-y:none;
@@ -276,7 +298,7 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 .page-head{ padding:6px 2px 18px; }
 .page-head.sub{ padding-top:52px; }
 .page-title{
-  margin:0; font-size:2.05rem; font-weight:800; letter-spacing:-.035em; line-height:1.05;
+  margin:0; font-family:var(--font-display); font-size:1.75rem; font-weight:700; letter-spacing:-.02em; line-height:1.1;
   transform-origin:left bottom;
   opacity:calc(1 - var(--sp) * .9);
   transform:scale(calc(1 - var(--sp) * .04));
@@ -294,7 +316,7 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 .brand-mark svg{ width:30px; height:auto; }
 .brand-mark .ball{ animation:ballIn .9s var(--spring) both .1s; transform-origin:50% 60%; transform-box:fill-box; }
 @keyframes ballIn{ from{ transform:translateY(-6px) scale(.6); opacity:0; } to{ transform:none; opacity:1; } }
-.brand-name{ display:block; font-size:1.3rem; font-weight:800; letter-spacing:-.03em; line-height:1.05; }
+.brand-name{ display:block; font-family:var(--font-display); font-size:1.12rem; font-weight:700; letter-spacing:-.015em; line-height:1.1; }
 .brand-name i{ font-style:normal; color:var(--accent); }
 .brand-sub{ display:block; font-size:.74rem; color:var(--text-3); margin-top:3px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
@@ -335,9 +357,9 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 
 .eyebrow{ font-size:.78rem; font-weight:700; color:var(--text-2); display:flex; align-items:center; gap:8px; }
 .eyebrow .pip{ width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent-glow); }
-.hero-num{ font-size:2.9rem; font-weight:800; letter-spacing:-.045em; line-height:1.05; margin-top:8px; white-space:nowrap; }
-.hero-num .cur{ font-size:.55em; font-weight:700; color:var(--text-2); letter-spacing:-.01em; margin-left:.12em; }
-.big{ font-size:2.1rem; font-weight:800; letter-spacing:-.04em; line-height:1.1; white-space:nowrap; }
+.hero-num{ font-family:var(--font-display); font-size:2.5rem; font-weight:700; letter-spacing:-.035em; line-height:1.1; margin-top:10px; white-space:nowrap; }
+.hero-num .cur{ font-size:.5em; font-weight:600; color:var(--text-2); letter-spacing:0; margin-left:.18em; }
+.big{ font-family:var(--font-display); font-size:1.8rem; font-weight:700; letter-spacing:-.03em; line-height:1.15; white-space:nowrap; }
 .big .cur{ font-size:.6em; color:var(--text-2); font-weight:700; margin-left:.1em; }
 .sub{ font-size:.82rem; color:var(--text-2); margin-top:6px; line-height:1.45; font-weight:500; }
 .sub b{ color:var(--text); font-weight:700; }
@@ -424,7 +446,7 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 
 .month-nav{ display:flex; align-items:center; gap:10px; margin:2px 0 14px; }
 .month-nav .ml{
-  flex:1; text-align:center; font-size:1.15rem; font-weight:800; letter-spacing:-.02em; cursor:pointer;
+  flex:1; text-align:center; font-family:var(--font-display); font-size:1rem; font-weight:600; letter-spacing:-.01em; cursor:pointer;
   padding:8px 4px; border-radius:99px; transition:transform .18s var(--ease);
 }
 .month-nav .ml small{ display:block; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); font-weight:700; margin-top:2px; }
@@ -433,11 +455,11 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 @keyframes labelIn{ from{ opacity:0; transform:translateY(6px); filter:blur(3px); } to{ opacity:1; transform:none; filter:none; } }
 
 /* ───────────── Календарь ───────────── */
-.cal{ padding:14px 12px 12px; }
+.cal{ padding:14px 10px 12px; }
 .wd{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin:0 0 8px; }
 .wd div{ text-align:center; font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-3); }
 .wd div.we{ color:color-mix(in oklab, var(--accent) 45%, var(--text-3)); }
-.grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+.grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
 .grid.slide-l{ animation:slideL .42s var(--out) both; }
 .grid.slide-r{ animation:slideR .42s var(--out) both; }
 @keyframes slideL{ from{ opacity:0; transform:translateX(26px); } to{ opacity:1; transform:none; } }
@@ -458,10 +480,11 @@ html[data-nav="pop"]::view-transition-new(root){ animation:.42s cubic-bezier(.16
 .day .n{ font-size:.86rem; font-weight:700; line-height:1.1; }
 .day.we .n{ color:var(--text-2); }
 .day .a{ font-size:.58rem; font-weight:700; margin-top:2px; color:var(--text-2); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; letter-spacing:-.01em; }
-.day .nm{ font-size:.54rem; font-weight:800; margin-top:3px; max-width:100%; padding:0 2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; line-height:1.15;
-  color:color-mix(in oklab, var(--wc) 62%, var(--text)); letter-spacing:-.01em; }
+.day .nm{ font-size:.52rem; font-weight:700; margin-top:3px; max-width:100%; padding:0 1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; line-height:1.15;
+  color:color-mix(in oklab, var(--wc) 62%, var(--text)); letter-spacing:-.03em; }
 .day.off .nm{ color:var(--text-3); }
-html[data-daylabel="both"] .cal .grid .day{ aspect-ratio:1/1.42; padding-top:6px; }
+html[data-daylabel="both"] .cal .grid .day{ aspect-ratio:1/1.42; padding:6px 0 0; }
+html[data-daylabel="name"] .cal .grid .day{ padding-left:0; padding-right:0; }
 html[data-daylabel="name"] .cal .grid .day{ aspect-ratio:1/1.2; }
 .day .bar{ position:absolute; left:22%; right:22%; bottom:5px; height:3px; border-radius:3px; background:var(--wc); }
 .day.work .bar{ box-shadow:0 0 8px var(--wc); }
@@ -707,7 +730,7 @@ input[type=number]{ font-variant-numeric:tabular-nums; }
 
 /* Языковой герой */
 .hello{ text-align:center; padding:26px 16px 22px; }
-.hello .hw{ font-size:2.6rem; font-weight:800; letter-spacing:-.04em; color:var(--accent-ink); display:inline-block; animation:helloIn .7s var(--out) both; }
+.hello .hw{ font-family:var(--font-display); font-size:2.3rem; font-weight:700; letter-spacing:-.025em; color:var(--accent-ink); display:inline-block; animation:helloIn .7s var(--out) both; }
 @keyframes helloIn{ from{ opacity:0; transform:translateY(14px) scale(.96); filter:blur(6px); } to{ opacity:1; transform:none; filter:none; } }
 .hello .hs{ font-size:.82rem; color:var(--text-2); margin-top:8px; font-weight:600; }
 
@@ -835,7 +858,7 @@ input[type=number]{ font-variant-numeric:tabular-nums; }
 .welcome{ text-align:center; padding:8px 4px 0; }
 .welcome .logo-xl{ width:92px; height:92px; margin:6px auto 16px; border-radius:26px; overflow:hidden; box-shadow:0 18px 40px rgba(0,0,0,.35), 0 0 40px var(--accent-soft); animation:logoIn .9s var(--spring) both; }
 @keyframes logoIn{ from{ opacity:0; transform:scale(.6) rotate(-8deg); } to{ opacity:1; transform:none; } }
-.welcome h2{ font-size:1.6rem; }
+.welcome h2{ font-family:var(--font-display); font-size:1.4rem; font-weight:700; letter-spacing:-.02em; }
 .feats{ text-align:left; margin:18px 0 4px; display:flex; flex-direction:column; gap:10px; }
 .feat{ display:flex; gap:14px; align-items:center; animation:rowIn .5s var(--out) both; animation-delay:calc(var(--i,0) * 90ms + 250ms); }
 .feat .tile{ width:44px; height:44px; border-radius:calc(13px * var(--rk)); }
@@ -941,8 +964,8 @@ html.typing .tabbar-fade{ opacity:0; }
 @keyframes ping{ from{ box-shadow:0 0 0 0 var(--accent-mid); } to{ box-shadow:0 0 0 12px transparent; } }
 
 @media (max-width:360px){
-  .hero-num{ font-size:2.4rem; }
-  .page-title{ font-size:1.8rem; }
+  .hero-num{ font-size:2.15rem; }
+  .page-title{ font-size:1.55rem; }
   .day{ min-height:40px; }
   .swatch{ width:38px; height:38px; }
 }

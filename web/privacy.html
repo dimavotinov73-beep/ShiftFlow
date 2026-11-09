@@ -8,20 +8,23 @@
 <meta name="description" content="Политика конфиденциальности приложения ShiftFlow: приложение не собирает и не передаёт персональные данные.">
 <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
 <style>
-@font-face{ font-family:"Manrope"; font-weight:200 800; font-display:swap; src:url(fonts/manrope-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
-@font-face{ font-family:"Manrope"; font-weight:200 800; font-display:swap; src:url(fonts/manrope-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
+@font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
+@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
 :root{ --bg:#08090B; --card:#111416; --text:#F1F5F4; --muted:#A2ADAA; --line:rgba(255,255,255,.08); --accent:#3DDCB0; }
 @media (prefers-color-scheme: light){ :root{ --bg:#F3F5F4; --card:#FFFFFF; --text:#0E1513; --muted:#55615D; --line:rgba(12,32,27,.09); --accent:#1F8A6D; } }
 *{ box-sizing:border-box; }
 body{ margin:0; background:radial-gradient(90% 50% at 10% -5%, rgba(61,220,176,.12), transparent 60%), var(--bg); color:var(--text);
-  font:16px/1.65 "Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+  font:16px/1.65 "Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
+h1,h2{ font-family:"Unbounded","Onest",sans-serif; font-weight:700; }
 main{ max-width:720px; margin:0 auto; padding:max(28px, env(safe-area-inset-top)) 18px 60px; }
 header{ display:flex; align-items:center; gap:14px; margin-bottom:28px; }
 header img{ width:56px; height:56px; border-radius:16px; }
-h1{ font-size:1.9rem; line-height:1.15; letter-spacing:-.03em; margin:0; }
+h1{ font-size:1.6rem; line-height:1.2; letter-spacing:-.02em; margin:0; }
 .sub{ color:var(--muted); font-weight:600; font-size:.9rem; }
 section{ background:var(--card); border-radius:22px; padding:22px 20px; margin:16px 0; box-shadow:inset 0 0 0 1px var(--line); }
-h2{ font-size:1.25rem; margin:0 0 6px; letter-spacing:-.02em; }
+h2{ font-size:1.1rem; margin:0 0 6px; letter-spacing:-.01em; }
 h3{ font-size:1rem; margin:20px 0 4px; }
 p{ margin:0 0 10px; color:var(--muted); }
 b{ color:var(--text); }

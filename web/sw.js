@@ -2,10 +2,11 @@
    Приложение локальное: все файлы кэшируются, наружу запросов нет.
    Навигация: сначала сеть (чтобы обновления подхватывались сразу), без сети — копия из кэша.
    Остальное: кэш сразу + тихое обновление в фоне. */
-const CACHE = 'shiftflow-v3.0.0';
+const CACHE = 'shiftflow-v3.0.0-2';
 const CORE = [
   './', './index.html', './app.js', './manifest.webmanifest', './privacy.html',
-  './fonts/manrope-cyrillic.woff2', './fonts/manrope-latin.woff2',
+  './fonts/onest-cyrillic.woff2', './fonts/onest-latin.woff2', './fonts/onest-currency.woff2',
+  './fonts/unbounded-cyrillic.woff2', './fonts/unbounded-latin.woff2', './fonts/unbounded-currency.woff2',
   './icons/icon.svg', './icons/favicon.svg', './icons/favicon-32.png', './icons/apple-touch-icon.png',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-192.png', './icons/maskable-512.png'
 ];

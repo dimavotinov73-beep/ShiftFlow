@@ -69,6 +69,7 @@ async function captureApp(browser, base, lang) {
   const snap = async (name) => { await page.waitForTimeout(250); shots[name] = await page.screenshot(); };
   const scrollTo = async (sel, offset) => { await page.evaluate(([q, o]) => { const e = document.querySelector(q); window.scrollTo(0, e ? e.getBoundingClientRect().top + window.pageYOffset - o : 0); }, [sel, offset]); await page.waitForTimeout(500); };
 
+  await snap('00-top');
   await page.evaluate(() => window.scrollTo(0, 250)); await page.waitForTimeout(500);
   await snap('01-calendar');
   await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
@@ -96,12 +97,14 @@ async function captureApp(browser, base, lang) {
 
 function frameHtml(base, shot, copy) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>
-  @font-face{ font-family:M; font-weight:200 800; src:url(${base}/fonts/manrope-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:M; font-weight:200 800; src:url(${base}/fonts/manrope-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
+  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
+  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
   html,body{ margin:0; width:1080px; height:1920px; overflow:hidden; }
   body{ background:radial-gradient(70% 40% at 20% 8%, rgba(61,220,176,.30), transparent 70%), radial-gradient(60% 40% at 100% 30%, rgba(146,96,218,.20), transparent 70%), linear-gradient(180deg, #0B1715, #060708 70%);
     font-family:M, sans-serif; color:#F1F5F4; -webkit-font-smoothing:antialiased; }
-  h1{ position:absolute; left:84px; right:84px; top:96px; margin:0; font-size:80px; line-height:1.04; letter-spacing:-.045em; font-weight:800; }
+  h1{ position:absolute; left:84px; right:84px; top:100px; margin:0; font-family:D, M, sans-serif; font-size:66px; line-height:1.12; letter-spacing:-.025em; font-weight:700; }
   p{ position:absolute; left:86px; right:84px; top:290px; margin:0; font-size:36px; color:#A9C9C0; font-weight:600; letter-spacing:-.01em; }
   .phone{ position:absolute; left:160px; top:400px; width:760px; height:1490px; border-radius:74px; padding:16px; box-sizing:border-box; background:linear-gradient(160deg,#2B3335,#0E1112);
     box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 0 2px rgba(255,255,255,.08) inset, 0 0 90px rgba(61,220,176,.15); }
@@ -115,16 +118,18 @@ function bannerHtml(base, shot, w, h, lang) {
   const icon = fs.readFileSync(path.join(WEB, 'icons', 'icon.svg'));
   const k = h / 500;
   return `<!doctype html><html><head><meta charset="utf-8"><style>
-  @font-face{ font-family:M; font-weight:200 800; src:url(${base}/fonts/manrope-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:M; font-weight:200 800; src:url(${base}/fonts/manrope-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
+  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
+  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
   html,body{ margin:0; width:${w}px; height:${h}px; overflow:hidden; }
   body{ position:relative; background:radial-gradient(60% 90% at 78% 40%, rgba(61,220,176,.28), transparent 70%), radial-gradient(50% 70% at 10% 100%, rgba(146,96,218,.18), transparent 70%), linear-gradient(120deg,#0B1715,#060708);
     font-family:M, sans-serif; color:#F1F5F4; -webkit-font-smoothing:antialiased; }
   .l{ position:absolute; left:${70*k}px; top:50%; transform:translateY(-50%); }
   .brand{ display:flex; align-items:center; gap:${18*k}px; }
   .brand img{ width:${86*k}px; height:${86*k}px; border-radius:${22*k}px; box-shadow:0 ${14*k}px ${40*k}px rgba(0,0,0,.45); }
-  .brand b{ font-size:${54*k}px; letter-spacing:-.04em; font-weight:800; } .brand b i{ font-style:normal; color:#3DDCB0; }
-  h1{ margin:${26*k}px 0 0; font-size:${44*k}px; line-height:1.08; letter-spacing:-.035em; font-weight:800; }
+  .brand b{ font-family:D, M, sans-serif; font-size:${44*k}px; letter-spacing:-.02em; font-weight:700; } .brand b i{ font-style:normal; color:#3DDCB0; }
+  h1{ margin:${26*k}px 0 0; font-family:D, M, sans-serif; font-size:${36*k}px; line-height:1.15; letter-spacing:-.02em; font-weight:700; }
   p{ margin:${16*k}px 0 0; font-size:${19*k}px; color:#9FBFB6; font-weight:700; letter-spacing:.02em; }
   .phone{ position:absolute; right:${70*k}px; top:${46*k}px; width:${300*k}px; height:${560*k}px; border-radius:${44*k}px; padding:${9*k}px; background:linear-gradient(160deg,#2B3335,#0E1112);
     box-shadow:0 ${30*k}px ${80*k}px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08) inset; transform:rotate(-6deg); }
@@ -149,14 +154,14 @@ function bannerHtml(base, shot, w, h, lang) {
       fs.writeFileSync(out('web/icons/screenshot-calendar.png'), shots['01-calendar']);
       fs.writeFileSync(out('web/icons/screenshot-finance.png'), shots['03-finance']);
       await page.setViewportSize({ width:1024, height:500 });
-      await page.setContent(bannerHtml(base, shots['01-calendar'], 1024, 500, 'ru'), { waitUntil:'networkidle' });
+      await page.setContent(bannerHtml(base, shots['00-top'], 1024, 500, 'ru'), { waitUntil:'networkidle' });
       await page.screenshot({ path:out('store/graphics/feature-graphic.png') });
       await page.setViewportSize({ width:1200, height:630 });
-      await page.setContent(bannerHtml(base, shots['01-calendar'], 1200, 630, 'ru'), { waitUntil:'networkidle' });
+      await page.setContent(bannerHtml(base, shots['00-top'], 1200, 630, 'ru'), { waitUntil:'networkidle' });
       await page.screenshot({ path:out('web/icons/og-image.png') });
     } else {
       await page.setViewportSize({ width:1024, height:500 });
-      await page.setContent(bannerHtml(base, shots['01-calendar'], 1024, 500, 'en'), { waitUntil:'networkidle' });
+      await page.setContent(bannerHtml(base, shots['00-top'], 1024, 500, 'en'), { waitUntil:'networkidle' });
       await page.screenshot({ path:out('store/graphics/feature-graphic-en.png') });
     }
   }
