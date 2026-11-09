@@ -215,6 +215,8 @@ function savePrefs(){
 function isLight(){
   if(prefs.theme === 'light') return true;
   if(prefs.theme === 'dark') return false;
+  const host = document.documentElement.getAttribute('data-theme'); /* тема встраивающей страницы, если она её задаёт */
+  if(host === 'light' || host === 'dark') return host === 'light';
   return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
 }
 function hexRgb(hex){
@@ -1615,7 +1617,7 @@ function syncBack(){
     if(typeof window.AndroidApp.setCanGoBack === 'function'){ try{ window.AndroidApp.setCanGoBack(need); }catch(e){} }
     return;
   }
-  if(!window.history || !history.pushState) return;
+  if(!window.history || !history.pushState || window.top !== window) return;
   if(need && !histGuard){ try{ history.pushState({ sf:1 }, ''); histGuard = true; }catch(e){} }
   else if(!need && histGuard){ histGuard = false; histIgnore++; try{ history.back(); }catch(e){ histIgnore--; } }
 }
@@ -2275,6 +2277,11 @@ if(window.matchMedia){
   if(mq.addEventListener) mq.addEventListener('change', onSys); else if(mq.addListener) mq.addListener(onSys);
 }
 
+if(window.MutationObserver){
+  new MutationObserver(function(){ if(booted && prefs.theme === 'auto'){ applyPrefs(); render(); } })
+    .observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+}
+
 /* Отступы от системных панелей, которые передаёт Android-обёртка (в CSS-пикселях) */
 window.__setInsets = function(top, right, bottom, left){
   const r = document.documentElement.style;
@@ -2308,7 +2315,7 @@ function boot(){
   window.__back = function(){ return handleBack(); };
   window.__canGoBack = function(){ return canGoBack(); };
 
-  if(!window.AndroidApp && 'serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
+  if(!window.AndroidApp && window.top === window && 'serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
     window.addEventListener('load', function(){
       try{ navigator.serviceWorker.register('sw.js').catch(function(){}); }catch(e){}
     });

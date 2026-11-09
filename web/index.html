@@ -32,7 +32,8 @@
   if(!p.v || p.v < 2){ acc = '#3DDCB0'; }
   else if(OLD[String(acc).toUpperCase()]) acc = OLD[String(acc).toUpperCase()];
   var theme = p.theme || 'auto';
-  var light = theme === 'light' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches);
+  var host = document.documentElement.getAttribute('data-theme');
+  var light = theme === 'light' || (theme === 'auto' && (host ? host === 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)));
   var root = document.documentElement;
   if(light) root.classList.add('light');
   root.setAttribute('lang', p.lang || 'ru');
@@ -82,6 +83,7 @@
 
 /* ───────────── Токены ───────────── */
 :root{
+  color-scheme:dark;
   --accent:#3DDCB0;
   --accent-ink:#B9F2E2;
   --on-accent:#04110D;
@@ -137,6 +139,7 @@
   --safe-right:max(env(safe-area-inset-right), var(--sar, 0px));
 }
 :root.light{
+  color-scheme:light;
   --accent-ink:#1F7A62;
   --bg:#F3F5F4;
   --bg-glow-1:color-mix(in oklab, var(--accent) 18%, transparent);
