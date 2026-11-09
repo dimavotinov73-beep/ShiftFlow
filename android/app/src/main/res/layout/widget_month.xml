@@ -2,148 +2,848 @@
 <!-- Сгенерировано tools/android/gen_widget_layouts.py -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/background"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/widget_bg_dark" android:padding="16dp">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/w_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:src="@drawable/widget_bg" android:scaleType="fitXY" android:importantForAccessibility="no" />
+    <ImageView android:id="@+id/w_edge" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:src="@drawable/widget_edge" android:scaleType="fitXY" android:importantForAccessibility="no" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="12dp">
+        <LinearLayout android:id="@+id/w_head" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
             <ImageView android:id="@+id/w_mark" android:layout_width="22dp" android:layout_height="14dp" android:src="@drawable/widget_mark_dark"
                 android:scaleType="fitCenter" android:importantForAccessibility="no" />
             <TextView android:id="@+id/w_title" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
                 android:layout_marginStart="7dp" android:maxLines="1" android:ellipsize="end"
-                android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="Ноябрь · заработано" />
+                android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="Ноябрь 2026" />
         </LinearLayout>
-        <TextView android:id="@+id/w_total" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
-            android:maxLines="1" android:ellipsize="end" android:textSize="28sp" android:fontFamily="@font/unbounded_bold"
-            android:textColor="#F1F5F4" android:text="15 320 ₽" />
-        <TextView android:id="@+id/w_meta" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp"
-            android:maxLines="1" android:ellipsize="end" android:textSize="12sp" android:fontFamily="@font/onest_medium"
-            android:textColor="#A2ADAA" android:text="5 смен · 52 ч" />
-        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:minHeight="8dp" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="58dp" android:orientation="horizontal">
-        <FrameLayout android:id="@+id/m0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m0_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="horizontal">
+            <TextView android:id="@+id/h0" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h1" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h2" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h3" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h4" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h5" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginEnd="4dp"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+            <TextView android:id="@+id/h6" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:gravity="center" android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r0" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d00" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d00_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m0_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d00_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m0_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m0_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="10" />
-                <TextView android:id="@+id/m0_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d00_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d00_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m0_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d00_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m1_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d01" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d01_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m1_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d01_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m1_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m1_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="11" />
-                <TextView android:id="@+id/m1_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d01_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d01_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m1_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d01_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m2_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d02" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d02_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m2_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d02_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m2_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m2_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="12" />
-                <TextView android:id="@+id/m2_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d02_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d02_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m2_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d02_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m3_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d03" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d03_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m3_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d03_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m3_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m3_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="13" />
-                <TextView android:id="@+id/m3_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d03_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d03_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m3_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d03_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m4_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d04" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d04_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m4_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d04_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m4_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m4_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="14" />
-                <TextView android:id="@+id/m4_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d04_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d04_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m4_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d04_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
-            <ImageView android:id="@+id/m5_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d05" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d05_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m5_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d05_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m5_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m5_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="15" />
-                <TextView android:id="@+id/m5_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d05_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d05_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m5_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d05_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
-        <FrameLayout android:id="@+id/m6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
-            <ImageView android:id="@+id/m6_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        <FrameLayout android:id="@+id/d06" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d06_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
-            <ImageView android:id="@+id/m6_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+            <ImageView android:id="@+id/d06_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
-                <TextView android:id="@+id/m6_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
-                <TextView android:id="@+id/m6_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="16" />
-                <TextView android:id="@+id/m6_nm" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="2dp" android:paddingRight="2dp"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d06_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d06_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
                     android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/m6_bar" android:layout_width="16dp" android:layout_height="3dp"
-                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
+            <ImageView android:id="@+id/d06_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d10_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d10_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d10_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d10_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d10_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d11_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d11_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d11_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d11_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d11_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d12_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d12_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d12_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d12_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d12_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d13" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d13_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d13_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d13_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d13_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d13_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d14" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d14_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d14_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d14_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d14_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d14_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d15" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d15_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d15_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d15_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d15_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d15_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d16" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d16_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d16_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d16_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d16_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d16_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d20" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d20_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d20_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d20_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d20_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d20_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d21" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d21_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d21_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d21_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d21_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d21_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d22" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d22_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d22_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d22_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d22_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d22_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d23" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d23_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d23_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d23_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d23_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d23_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d24" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d24_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d24_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d24_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d24_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d24_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d25" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d25_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d25_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d25_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d25_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d25_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d26" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d26_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d26_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d26_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d26_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d26_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d30" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d30_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d30_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d30_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d30_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d30_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d31" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d31_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d31_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d31_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d31_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d31_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d32" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d32_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d32_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d32_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d32_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d32_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d33" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d33_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d33_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d33_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d33_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d33_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d34" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d34_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d34_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d34_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d34_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d34_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d35" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d35_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d35_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d35_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d35_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d35_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d36" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d36_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d36_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d36_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d36_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d36_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r4" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d40" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d40_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d40_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d40_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d40_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d40_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d41" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d41_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d41_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d41_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d41_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d41_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d42" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d42_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d42_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d42_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d42_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d42_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d43" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d43_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d43_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d43_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d43_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d43_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d44" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d44_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d44_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d44_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d44_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d44_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d45" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d45_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d45_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d45_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d45_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d45_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d46" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d46_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d46_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d46_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d46_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d46_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/r5" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+        <FrameLayout android:id="@+id/d50" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d50_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d50_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d50_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d50_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d50_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d51" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d51_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d51_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d51_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d51_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d51_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d52" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d52_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d52_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d52_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d52_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d52_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d53" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d53_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d53_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d53_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d53_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d53_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d54" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d54_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d54_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d54_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d54_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d54_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d55" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
+            <ImageView android:id="@+id/d55_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d55_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d55_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d55_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d55_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
+                android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
+        </FrameLayout>
+        <FrameLayout android:id="@+id/d56" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+            <ImageView android:id="@+id/d56_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
+            <ImageView android:id="@+id/d56_ring" android:layout_width="match_parent" android:layout_height="match_parent"
+                android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="5dp">
+                <TextView android:id="@+id/d56_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:includeFontPadding="false" android:textSize="12sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/d56_nm" android:layout_width="match_parent" android:layout_height="11dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="8.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+            </LinearLayout>
+            <ImageView android:id="@+id/d56_bar" android:layout_width="14dp" android:layout_height="3dp"
+                android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="3dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
         </LinearLayout>

@@ -46,6 +46,5 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_week_info" />
         </receiver>
         <!-- Кнопки виджета: не экспортирован, вызывается только PendingIntent-ами приложения -->
-        <receiver android:name=".WidgetActionReceiver" android:exported="false" />
     </application>
 </manifest>

@@ -2,22 +2,32 @@
 <!-- Сгенерировано tools/android/gen_widget_layouts.py -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/background"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/widget_bg_dark" android:padding="8dp">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/w_bg" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:src="@drawable/widget_bg" android:scaleType="fitXY" android:importantForAccessibility="no" />
+    <ImageView android:id="@+id/w_edge" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:src="@drawable/widget_edge" android:scaleType="fitXY" android:importantForAccessibility="no" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="8dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
         <FrameLayout android:id="@+id/k0" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="4dp">
             <ImageView android:id="@+id/k0_bg" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k0_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k0_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k0_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="10" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k0_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k0_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k0_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -26,13 +36,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k1_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k1_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k1_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="11" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k1_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k1_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k1_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -41,13 +58,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k2_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k2_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k2_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="12" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k2_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k2_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k2_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -56,13 +80,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k3_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k3_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k3_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="13" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k3_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k3_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k3_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -71,13 +102,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k4_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k4_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k4_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="14" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k4_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k4_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k4_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -86,13 +124,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k5_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k5_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k5_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="15" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k5_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k5_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k5_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>
@@ -101,13 +146,20 @@
                 android:src="@drawable/widget_cell" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <ImageView android:id="@+id/k6_ring" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:src="@drawable/widget_cell_ring" android:scaleType="fitXY" android:visibility="gone" android:importantForAccessibility="no" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+                android:gravity="center" android:paddingBottom="7dp">
                 <TextView android:id="@+id/k6_wd" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k6_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:textSize="14sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="16" />
+                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                <TextView android:id="@+id/k6_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
+                    android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
+                    android:paddingLeft="2dp" android:paddingRight="2dp"
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
             </LinearLayout>
-            <ImageView android:id="@+id/k6_bar" android:layout_width="16dp" android:layout_height="3dp"
+            <ImageView android:id="@+id/k6_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
                 android:src="@drawable/widget_bar" android:scaleType="fitXY" android:visibility="invisible" android:importantForAccessibility="no" />
         </FrameLayout>

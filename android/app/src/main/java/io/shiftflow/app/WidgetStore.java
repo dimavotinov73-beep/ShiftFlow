@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 /**
  * Данные для виджетов рабочего стола.
  *
- * Приложение (JS) после каждого сохранения отдаёт сюда компактный снимок: места работы и дни
- * с прошлой недели до конца следующего месяца. Действия на виджете меняют снимок сразу (чтобы
- * виджет обновился без открытия приложения) и складываются в очередь — при следующем запуске
- * приложение заберёт очередь и применит её к основным данным.
+ * Приложение (JS) после каждого сохранения отдаёт сюда компактный снимок: места работы, цвета темы
+ * и дни с прошлой недели до конца следующего месяца. Виджеты только показывают данные и открывают
+ * приложение. Очередь действий осталась от версии 3.1.0 (кнопки на виджете): при запуске приложение
+ * забирает то, что могло в ней остаться.
  *
  * Всё хранится в приватных SharedPreferences приложения и не покидает устройство.
  */
@@ -26,10 +26,7 @@ final class WidgetStore {
     private static final String KEY_SNAPSHOT = "snapshot";
     private static final String KEY_OPS = "ops";
     static final int MAX_SNAPSHOT = 300_000;
-    private static final int MAX_OPS = 200;
-
     static final Pattern DATE = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    static final Pattern ID = Pattern.compile("^[A-Za-z0-9_-]{1,40}$");
 
     private WidgetStore() {}
 
@@ -65,47 +62,6 @@ final class WidgetStore {
         String ops = p.getString(KEY_OPS, "[]");
         p.edit().remove(KEY_OPS).commit();
         return ops;
-    }
-
-    /** Действие на виджете: shift (отметить смену), off (выходной), clear (сбросить). */
-    static synchronized boolean applyOp(Context c, String op, String date, String wpId) {
-        if (op == null || date == null || !DATE.matcher(date).matches()) return false;
-        if (!op.equals("shift") && !op.equals("off") && !op.equals("clear")) return false;
-        JSONObject snap = snapshot(c);
-        if (snap == null) return false;
-        try {
-            JSONObject days = snap.optJSONObject("days");
-            if (days == null) {
-                days = new JSONObject();
-                snap.put("days", days);
-            }
-            if (op.equals("shift")) {
-                if (wpId == null || !ID.matcher(wpId).matches()) return false;
-                JSONObject w = findWorkplace(snap, wpId);
-                if (w == null) return false;
-                double h = w.optDouble("h", 8);
-                double rate = w.optDouble("r", 0);
-                double pay = "daily".equals(w.optString("t")) ? rate : rate * h;
-                days.put(date, new JSONObject().put("w", wpId).put("h", h).put("p", Math.round(pay * 100) / 100.0));
-            } else if (op.equals("off")) {
-                days.put(date, new JSONObject().put("o", 1));
-            } else {
-                days.remove(date);
-            }
-            JSONArray ops;
-            try {
-                ops = new JSONArray(prefs(c).getString(KEY_OPS, "[]"));
-            } catch (JSONException e) {
-                ops = new JSONArray();
-            }
-            if (ops.length() < MAX_OPS) {
-                ops.put(new JSONObject().put("op", op).put("d", date).put("w", wpId == null ? "" : wpId));
-            }
-            prefs(c).edit().putString(KEY_SNAPSHOT, snap.toString()).putString(KEY_OPS, ops.toString()).commit();
-            return true;
-        } catch (JSONException e) {
-            return false;
-        }
     }
 
     static JSONObject findWorkplace(JSONObject snap, String id) {

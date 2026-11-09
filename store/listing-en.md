@@ -21,7 +21,7 @@ HIGHLIGHTS
 • Pattern schedules: 2/2, 3/3, 5/2 or your own — to the end of the week or month
 • Totals for any range: select dates and instantly see pay, shifts and hours
 • Finance: month total, each workplace's share, monthly statistics and your best month of the year
-• Home screen widgets: Today with Shift and Day off buttons, Month with earnings, and Week
+• Home screen widgets: Today, a Month calendar that grows to the whole month, and Week with shift names — in your theme colors
 • Export to Excel (.xlsx) and CSV for any range, per workplace or all at once
 • Import shifts from Excel, CSV or a backup — merged without duplicates
 
@@ -41,8 +41,8 @@ DESIGN
 
 ShiftFlow — your schedule, your income.
 
-## What's new (3.1.0)
-Home screen widgets, shift import and export (Excel, CSV), a smoother and more responsive tab bar, swipe-to-close sheets, a light mode for low-end devices, and an updated user agreement and privacy policy.
+## What's new (3.1.1)
+Home screen widgets (Today, a Month calendar, Week) in your theme colors, shift import and export (Excel, CSV), a new Appearance screen, a smoother tab bar and swipe-to-close sheets, a light mode for low-end devices, and an updated user agreement and privacy policy.
 
 ## Category
 Productivity

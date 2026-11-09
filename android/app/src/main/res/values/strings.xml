@@ -7,8 +7,9 @@
     <string name="widget_today">Сегодня</string>
     <string name="widget_month">Месяц</string>
     <string name="widget_week">Неделя</string>
-    <string name="widget_today_desc">Смена на сегодня и кнопки «Смена» и «Выходной»</string>
-    <string name="widget_month_desc">Заработок за месяц и текущая неделя</string>
-    <string name="widget_week_desc">Смены текущей недели</string>
+    <string name="widget_today_desc">Смена на сегодня и быстрый переход в приложение</string>
+    <string name="widget_month_desc">Календарь месяца со сменами: растяните вниз — покажет больше недель</string>
+    <string name="widget_week_desc">Смены текущей недели с названиями мест работы</string>
     <string name="widget_open_app">Открой ShiftFlow</string>
+    <string name="widget_open">Открыть</string>
 </resources>

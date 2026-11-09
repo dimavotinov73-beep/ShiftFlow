@@ -69,8 +69,8 @@ android {
         applicationId = "io.shiftflow.app"
         minSdk = 24
         targetSdk = 36
-        versionCode = 310
-        versionName = "3.1.0"
+        versionCode = 311
+        versionName = "3.1.1"
         // Канал обновлений по умолчанию (тестовые сборки): проверка version.json на сайте
         buildConfigField("String", "UPDATE_CHANNEL", "\"site\"")
         buildConfigField("String", "UPDATE_URL", "\"$siteUpdateUrl\"")

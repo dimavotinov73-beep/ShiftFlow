@@ -118,6 +118,8 @@ const DICT = {
       'Moving from the old website? Open Finance there, set the export “From” date to your first shift and tap “Download all (every workplace)”. Then pick that file here.',
     'Не получилось прочитать Excel-файл':'Could not read the Excel file','В файле не нашлось смен':'No shifts found in the file',
     'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
+    'Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
+    'Текст и форма':'Text and shape','Скругления':'Corners','Вернуть стандартное оформление':'Restore default look','Стандартное оформление':'Default look restored',
     'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
     '«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.':
       '“Battery saver” turns off blur and decorative animations, so the app runs faster on low-end phones and uses less battery.',
@@ -195,7 +197,9 @@ const CURRENT_VERSION = 4;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.1.0';
+const APP_BUILD = '3.1.1';
+/* Кнопка и автопроверка обновлений пока скрыты: включить — true (механизм проверки и загрузки готов) */
+const UPDATES_ENABLED = false;
 const BRAND = 'ShiftFlow';
 
 /* Цвета мест работы: проверены на различимость (в т.ч. при дальтонизме) в светлой и тёмной теме. */
@@ -608,6 +612,7 @@ function appIconImg(){ return '<img src="icons/icon.svg" alt="" width="92" heigh
    на текущий DOM. Узлы, которые не изменились, остаются на месте — поэтому
    работают CSS-переходы, сохраняется фокус и прокрутка. Узлы с другим data-key
    заменяются целиком (и проигрывают анимацию появления). */
+let sheetGesture = null;   /* активный жест смахивания листа (см. ниже) — его сдвиг морфинг не трогает */
 function morph(parent, html){
   const tpl = document.createElement('template');
   tpl.innerHTML = html;
@@ -650,9 +655,11 @@ function morphNode(a, b){
     const at = ba[i];
     if(a.getAttribute(at.name) !== at.value) a.setAttribute(at.name, at.value);
   }
+  /* Лист, который сейчас тянут пальцем, сохраняет свой сдвиг, даже если интерфейс перерисовался */
+  const live = sheetGesture && (a === sheetGesture.sheet || a === sheetGesture.scrim);
   for(let i=a.attributes.length-1;i>=0;i--){
     const n = a.attributes[i].name;
-    if(!b.hasAttribute(n)) a.removeAttribute(n);
+    if(!b.hasAttribute(n) && !(live && n === 'style')) a.removeAttribute(n);
   }
   if(a.tagName === 'INPUT' || a.tagName === 'TEXTAREA'){
     const v = b.getAttribute('value') || '';
@@ -1399,7 +1406,7 @@ function settingsView(){
       + '<a class="row" href="mailto:'+SUPPORT_EMAIL+'?subject=ShiftFlow%20'+APP_BUILD+'" rel="noopener">'+tile(ico.mail())
       + '<span class="row-body"><span class="row-title">'+esc(t('Поддержка'))+'</span><span class="row-sub">'+SUPPORT_EMAIL+'</span></span><span class="row-end">'+ico.chevR()+'</span></a>'
       + '</div>';
-  out += updatesSection();
+  if(UPDATES_ENABLED) out += updatesSection();
   out += '<div class="note">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
   return out;
 }
@@ -1475,7 +1482,7 @@ window.__onUpdate = function(info){
   render();
 };
 function autoCheckUpdates(){
-  if(!prefs.autoUpdate) return;
+  if(!UPDATES_ENABLED || !prefs.autoUpdate) return;
   setTimeout(function(){ checkUpdates(false); }, 2500);
 }
 
@@ -1501,14 +1508,28 @@ function widgetSnapshot(){
   let quick = state.workplaces[0] ? state.workplaces[0].id : '';
   Object.keys(counts).forEach(function(id){ if(counts[id] > (counts[quick] || 0)) quick = id; });
   return {
-    v:1, lang:LANG, light:isLight(), accent:String(prefs.accent).toUpperCase(), cur:defaultCurrency(), quick:quick, made:todayKey(),
+    v:2, lang:LANG, light:isLight(), accent:String(prefs.accent).toUpperCase(), pal:widgetPalette(), cur:defaultCurrency(), quick:quick, made:todayKey(),
     wps:state.workplaces.map(function(w){ return { id:w.id, n:w.name, s:shortLabel(w), c:w.color, t:w.payType, r:w.rate, h:w.defaultHours, cur:w.currency }; }),
     days:days,
     L:{ months:months().map(function(m){ return m.charAt(0).toUpperCase() + m.slice(1); }), monthsGen:(LANG === 'ru' ? MONTHS_GEN.ru : months()),
         wd:wdShort(), wdl:WD_LONG_I18N[LANG] || WD_LONG_I18N.ru, today:t('Сегодня'), off:t('Выходной'), offShort:t('вых'), none:t('Не отмечено'),
-        earned:t('заработано'), shift:t('Смена'), reset:t('Сбросить'), open:t('Открыть'), h:t('ч'),
+        earned:t('заработано'), shift:t('Смена'), open:t('Открыть'), next:t('Следующая смена'), h:t('ч'),
         shifts:PLURALS[LANG].shift, hours:PLURALS[LANG].hour, addPlace:t('Добавь место работы в приложении'), week:t('Эта неделя') }
   };
+}
+/* Цвета виджетов из темы и оттенка фона (как карточки и клетки в самом приложении) */
+function mixHex(a, b, t){
+  const x = hexRgb(a), y = hexRgb(b);
+  return '#' + x.map(function(v, i){ const c = Math.round(v * t + y[i] * (1 - t)); return (c < 16 ? '0' : '') + c.toString(16); }).join('').toUpperCase();
+}
+function widgetPalette(){
+  const b = BACKGROUNDS.filter(function(x){ return x.v === prefs.bg; })[0] || BACKGROUNDS[0];
+  if(isLight()){
+    const lighter = luminance(hexRgb(b.l)) >= luminance(hexRgb(b.ls)) ? b.l : b.ls;
+    const darker = lighter === b.l ? b.ls : b.l;
+    return { bg:lighter.toUpperCase(), cell:mixHex(darker, '#808080', .97) };
+  }
+  return { bg:mixHex(b.ds, b.d, .55), cell:mixHex('#FFFFFF', b.ds, .05) };
 }
 function pushWidgets(){
   if(!window.AndroidApp || typeof window.AndroidApp.setWidgetData !== 'function') return;
@@ -1545,10 +1566,30 @@ window.__openDay = function(k){
   });
 };
 
+/* Экран «Оформление»: живое превью сверху и пять тематических карточек.
+   Каждая карточка — заголовок с текущим значением и наглядные варианты-миниатюры. */
+function lookCard(d, icon, title, value, body){
+  return '<section class="card look" style="--d:'+d+'"><div class="look-h">'+tile(icon)
+    + '<span class="look-t">'+esc(title)+'</span>'+(value ? '<span class="look-v">'+esc(value)+'</span>' : '')+'</div>'+body+'</section>';
+}
+function lookSub(text){ return '<div class="look-sub">'+esc(text)+'</div>'; }
+/* Вариант-миниатюра: превью + подпись, выбранный — с рамкой акцента и галочкой */
+function lookOpt(act, v, on, preview, name, extra){
+  return '<button type="button" class="opt'+(on ? ' on' : '')+'" data-act="'+act+'" data-v="'+v+'" aria-pressed="'+on+'"'+(extra || '')+'>'
+    + preview + '<span class="opt-n">'+esc(name)+'</span><span class="ck" aria-hidden="true">'+ico.check()+'</span></button>';
+}
+function themePreview(b, light){
+  const ln = light ? 'rgba(14,21,19,.22)' : 'rgba(241,245,244,.28)';
+  return '<span class="thp-in" style="--b:'+(light ? b.l : b.d)+';--s:'+(light ? b.ls : b.ds)+';--ln:'+ln+'"><i class="c"></i><i class="l1"></i><i class="l2"></i><i class="a"></i></span>';
+}
+const LOOK_DEFAULTS = { theme:'auto', accent:'#3DDCB0', textSize:'m', uiStyle:'soft', bg:'graphite', dayTint:'soft', dayLabel:'both', customHue:160, perf:'auto' };
+function lookIsDefault(){
+  return Object.keys(LOOK_DEFAULTS).every(function(k){ return k === 'customHue' || String(prefs[k]).toUpperCase() === String(LOOK_DEFAULTS[k]).toUpperCase(); });
+}
+
 function appearancePage(){
   let out = topbar(t('Оформление'), { back:true });
   out += pageHead(t('Оформление'), t('Изменения видны сразу'), true);
-  const light = isLight();
 
   /* Живое превью: те же цвета мест работы, подсветка и подписи, что и в календаре */
   const wps = state.workplaces.length ? state.workplaces : [ { color:SWATCHES[0], name:t('Смена') }, { color:SWATCHES[1], name:t('Смена') } ];
@@ -1564,53 +1605,73 @@ function appearancePage(){
             + (nm && prefs.dayLabel !== 'sum' ? '<em>'+esc(nm)+'</em>' : '') + (w ? '<i></i>' : '') + '</div>';
         }).join('') + '</div></section>';
 
-  out += themeQuickRow();
-  out += label(t('Тема'), prefs.theme === 'auto' ? t('Авто') : (prefs.theme === 'light' ? t('Светлая') : t('Тёмная')));
-  out += segHtml([ { v:'auto', label:'Авто' }, { v:'light', label:'Светлая' }, { v:'dark', label:'Тёмная' } ], prefs.theme, 'setTheme');
+  /* 1. Тема и фон */
+  const bgNow = BACKGROUNDS.filter(function(b){ return b.v === prefs.bg; })[0] || BACKGROUNDS[0];
+  const themeName = prefs.theme === 'auto' ? t('Авто') : (prefs.theme === 'light' ? t('Светлая') : t('Тёмная'));
+  let body = '<div class="opts" style="--n:3">'
+    + lookOpt('setTheme', 'auto', prefs.theme === 'auto', '<span class="thp auto">'+themePreview(bgNow, false)+'<span class="half">'+themePreview(bgNow, true)+'</span></span>', t('Авто'))
+    + lookOpt('setTheme', 'light', prefs.theme === 'light', '<span class="thp">'+themePreview(bgNow, true)+'</span>', t('Светлая'))
+    + lookOpt('setTheme', 'dark', prefs.theme === 'dark', '<span class="thp">'+themePreview(bgNow, false)+'</span>', t('Тёмная'))
+    + '</div>';
+  if(prefs.theme === 'auto') body += '<div class="look-note">'+esc(t('Тема меняется вместе с системной'))+'</div>';
+  body += lookSub(t('Оттенок фона'));
+  const light = isLight();
+  body += '<div class="tints">' + BACKGROUNDS.map(function(b){
+    const on = prefs.bg === b.v;
+    return '<button type="button" class="tint'+(on ? ' on' : '')+'" data-act="setBg" data-v="'+b.v+'" aria-pressed="'+on+'" style="--b:'+(light ? b.l : b.d)+';--s:'+(light ? b.ls : b.ds)+'">'
+      + '<span class="dot"><i></i></span><span class="opt-n">'+esc(t(b.n))+'</span></button>';
+  }).join('') + '</div>';
+  out += lookCard(1, light ? ico.sun() : ico.moon(), t('Тема и фон'), themeName + ' · ' + t(bgNow.n), body);
 
-  out += label(t('Цвет акцента'), accentName(prefs.accent));
-  out += '<section class="card" style="--d:2"><div class="swatches grid6">';
+  /* 2. Цвет акцента */
+  body = '<div class="swatches grid6">';
   ACCENTS.forEach(function(a){
     const on = String(prefs.accent).toUpperCase() === a.c;
-    out += '<button type="button" class="swatch'+(on ? ' on' : '')+'" style="--c:'+a.c+'" data-act="setAccent" data-v="'+a.c+'" aria-label="'+esc(t(a.n))+'" aria-pressed="'+on+'">'+ico.check()+'</button>';
+    body += '<button type="button" class="swatch'+(on ? ' on' : '')+'" style="--c:'+a.c+'" data-act="setAccent" data-v="'+a.c+'" aria-label="'+esc(t(a.n))+'" aria-pressed="'+on+'">'+ico.check()+'</button>';
   });
-  out += '</div>';
+  body += '</div>';
   const custom = isCustomAccent();
-  out += '<div class="custom">'
+  body += '<div class="custom">'
       +  '<button type="button" class="swatch'+(custom ? ' on' : '')+'" style="--c:'+hslHex(prefs.customHue)+'" data-act="useCustom" aria-label="'+esc(t('Свой цвет'))+'" aria-pressed="'+custom+'">'+ico.check()+'</button>'
       +  '<div class="hue"><label class="flabel" for="hue">'+esc(t('Свой цвет'))+'</label>'
       +  '<input id="hue" type="range" min="0" max="359" step="1" value="'+prefs.customHue+'" data-inp="hue"></div></div>';
-  out += '</section>';
+  out += lookCard(2, ico.palette(), t('Цвет акцента'), accentName(prefs.accent), body);
 
-  out += label(t('Фон'), optName(BACKGROUNDS, prefs.bg));
-  out += '<div class="bgs">' + BACKGROUNDS.map(function(b){
-    return '<button type="button" class="bgc'+(prefs.bg === b.v ? ' on' : '')+'" data-act="setBg" data-v="'+b.v+'" style="--b:'+(light ? b.l : b.d)+';--s:'+(light ? b.ls : b.ds)+'" aria-pressed="'+(prefs.bg === b.v)+'">'
-      + '<span class="bgp"><i></i><i></i></span>'+esc(t(b.n))+'</button>';
+  /* 3. Календарь: подсветка смен и подписи — на миниатюрах настоящих дней */
+  const wc = w0.color, wn = shortLabel(w0), pay = numStr(state.workplaces.length ? Math.round(calcPay({ workplaceId:w0.id, hours:w0.defaultHours })) : 2560);
+  const cell = function(k, lab){
+    return '<span class="dcp" style="--wc:'+wc+';--k:'+k+'"><b>12</b>'+(lab || '')+'<i></i></span>';
+  };
+  body = lookSub(t('Подсветка смен')) + '<div class="opts" style="--n:3">' + DAY_TINTS.map(function(x){
+    return lookOpt('setDayTint', x.v, prefs.dayTint === x.v, cell(x.k, '<em>'+esc(wn)+'</em>'), t(x.n));
   }).join('') + '</div>';
+  const tk = (DAY_TINTS.filter(function(x){ return x.v === prefs.dayTint; })[0] || DAY_TINTS[1]).k;
+  body += lookSub(t('Подписи в днях')) + '<div class="opts" style="--n:3">'
+    + lookOpt('setDayLabel', 'both', prefs.dayLabel === 'both', cell(tk, '<em>'+esc(wn)+'</em><s>'+esc(pay)+'</s>'), t('Всё'))
+    + lookOpt('setDayLabel', 'name', prefs.dayLabel === 'name', cell(tk, '<em>'+esc(wn)+'</em>'), t('Название'))
+    + lookOpt('setDayLabel', 'sum', prefs.dayLabel === 'sum', cell(tk, '<s>'+esc(pay)+'</s>'), t('Сумма'))
+    + '</div>';
+  out += lookCard(3, ico.calendar(), t('Календарь'), optName(DAY_TINTS, prefs.dayTint) + ' · ' + optName(DAY_LABELS, prefs.dayLabel), body);
 
-  out += label(t('Размер текста'), optName(TEXT_SIZES, prefs.textSize));
-  out += '<div class="sizes">';
+  /* 4. Текст и форма */
+  body = lookSub(t('Размер текста')) + '<div class="sizes">';
   TEXT_SIZES.forEach(function(x, i){
-    out += '<button type="button" class="'+(x.v === prefs.textSize ? 'on' : '')+'" style="font-size:'+(13 + i*3)+'px" data-act="setTextSize" data-v="'+x.v+'" aria-label="'+esc(t(x.n))+'">Aa</button>';
+    body += '<button type="button" class="'+(x.v === prefs.textSize ? 'on' : '')+'" style="font-size:'+(13 + i*3)+'px" data-act="setTextSize" data-v="'+x.v+'" aria-label="'+esc(t(x.n))+'" aria-pressed="'+(x.v === prefs.textSize)+'">Aa</button>';
   });
-  out += '</div>';
+  body += '</div>';
+  body += lookSub(t('Скругления')) + '<div class="opts" style="--n:3">' + UI_STYLES.map(function(x){
+    return lookOpt('setUiStyle', x.v, x.v === prefs.uiStyle, '<span class="shp" style="--r:'+Math.round(16 * x.k)+'px"><i></i></span>', t(x.n));
+  }).join('') + '</div>';
+  out += lookCard(4, ico.type(), t('Текст и форма'), optName(TEXT_SIZES, prefs.textSize) + ' · ' + optName(UI_STYLES, prefs.uiStyle), body);
 
-  out += label(t('Стиль интерфейса'), optName(UI_STYLES, prefs.uiStyle));
-  out += '<div class="styles">';
-  UI_STYLES.forEach(function(x){
-    const r = Math.round(14 * x.k);
-    out += '<button type="button" class="'+(x.v === prefs.uiStyle ? 'on' : '')+'" style="border-radius:'+r+'px" data-act="setUiStyle" data-v="'+x.v+'">'
-        + '<div class="mini" style="border-radius:'+Math.round(9*x.k)+'px"></div>'+esc(t(x.n))+'</button>';
-  });
-  out += '</div>';
+  /* 5. Плавность и эффекты */
+  body = segHtml(PERF_MODES.map(function(x){ return { v:x.v, label:x.n }; }), prefs.perf, 'setPerf')
+    + '<div class="look-note">'+esc(t('«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.'))+'</div>';
+  out += lookCard(5, ico.sparkle(), t('Эффекты'), prefs.perf === 'auto' ? t('Авто') + ' · ' + (isLite() ? t('экономно') : t('максимум')) : optName(PERF_MODES, prefs.perf), body);
 
-  out += label(t('Подсветка смен'), optName(DAY_TINTS, prefs.dayTint));
-  out += segHtml(DAY_TINTS.map(function(x){ return { v:x.v, label:x.n }; }), prefs.dayTint, 'setDayTint');
-  out += label(t('Подписи в днях'), optName(DAY_LABELS, prefs.dayLabel));
-  out += segHtml(DAY_LABELS.map(function(x){ return { v:x.v, label:x.s }; }), prefs.dayLabel, 'setDayLabel');
-  out += label(t('Плавность и эффекты'), prefs.perf === 'auto' ? t('Авто') + ' · ' + (isLite() ? t('экономно') : t('максимум')) : optName(PERF_MODES, prefs.perf));
-  out += segHtml(PERF_MODES.map(function(x){ return { v:x.v, label:x.n }; }), prefs.perf, 'setPerf');
-  out += '<div class="note" style="text-align:left;margin:10px 4px 0">'+esc(t('«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.'))+'</div>';
+  if(!lookIsDefault()){
+    out += '<div class="look-reset"><button type="button" class="btn ghost sm" data-act="resetAppearance">'+ico.refresh()+esc(t('Вернуть стандартное оформление'))+'</button></div>';
+  }
 
   const n = changesCount();
   if(n){
@@ -1803,7 +1864,7 @@ const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Отн�
    'Смены, места работы, ставки, заметки и настройки хранятся в памяти приложения на вашем устройстве. Разработчик не получает к ним доступа и не является их оператором в смысле Федерального закона № 152-ФЗ «О персональных данных».',
    'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.'],
   ['3. Проверка обновлений',
-   'Чтобы показать кнопку «Загрузить обновление», приложение запрашивает с сервера обновлений небольшой файл с номером версии. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить: «Настройки → Обновления». Версии из Google Play и RuStore обновляются через магазин.'],
+   'Если в приложении включена проверка обновлений, оно запрашивает с сервера обновлений небольшой файл с номером версии, чтобы предложить новую версию. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить в настройках приложения. Версии из Google Play и RuStore обновляются через магазин и к серверу обновлений не обращаются.'],
   ['4. Обращения в поддержку',
    'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа. По вашей просьбе переписка будет удалена.'],
   ['5. Разрешения',
@@ -1826,7 +1887,7 @@ const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow A
    'Shifts, workplaces, rates, notes and settings are stored in the app’s storage on your device. The developer has no access to them.',
    'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.'],
   ['3. Update checks',
-   'To show the “Download update” button, the app requests a small file with the version number from the update server. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Turn off automatic checks in Settings → Updates. Google Play and RuStore versions update through the store.'],
+   'When update checks are enabled in the app, it requests a small file with the version number from the update server to offer a newer version. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Automatic checks can be turned off in the app settings. Google Play and RuStore versions update through the store and never contact the update server.'],
   ['4. Support',
    'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The conversation is deleted on request.'],
   ['5. Permissions',
@@ -1845,7 +1906,7 @@ const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow A
 
 function ovl(kind, extra, inner, closable){
   const closing = ui.closing === kind ? ' closing' : '';
-  return '<div class="overlay'+(extra || '')+closing+'" data-key="ov-'+kind+'"'+(closable === false ? '' : ' data-act="ovlClose"')+'>'+inner+'</div>';
+  return '<div class="overlay'+(extra || '')+closing+'" data-key="ov-'+kind+'"'+(closable === false ? '' : ' data-act="ovlClose"')+'><i class="scrim" aria-hidden="true"></i>'+inner+'</div>';
 }
 function overlayHtml(){
   let out = '';
@@ -2586,6 +2647,11 @@ const A = {
   setDayTint:function(d){ prefs.dayTint = d.v; savePrefs(); applyPrefs(); render(); },
   setDayLabel:function(d){ prefs.dayLabel = d.v; savePrefs(); applyPrefs(); render(); },
   setPerf:function(d){ prefs.perf = d.v; savePrefs(); applyPrefs(); render(); },
+  resetAppearance:function(){
+    Object.keys(LOOK_DEFAULTS).forEach(function(k){ if(k !== 'customHue') prefs[k] = LOOK_DEFAULTS[k]; });
+    savePrefs(); applyPrefs(); haptic('tick'); render(); TabBar.sync();
+    toast(t('Стандартное оформление'));
+  },
   checkUpdate:function(){ checkUpdates(true); },
   downloadUpdate:function(){
     const u = updateInfo || {};
@@ -3070,53 +3136,91 @@ document.addEventListener('focusout', function(){
 })();
 
 /* Смахивание листа вниз за полоску сверху: лист идёт за пальцем, затемнение тает,
-   а по отпусканию лист либо уезжает (далеко или быстро), либо пружинит обратно. */
+   а по отпусканию лист либо уезжает (далеко или быстро), либо мягко возвращается.
+   Чтобы не было рывков и подтормаживаний:
+   — за кадр применяется не больше одного сдвига (requestAnimationFrame);
+   — двигаются только transform листа и opacity отдельного слоя затемнения (без пересчёта стилей всего листа);
+   — анимация появления листа не «залипает» (fill: backwards), поэтому после жеста она не проигрывается заново;
+   — закрытие продолжается с того места, где отпущен палец, с его скоростью. */
 (function(){
-  let g = null;
+  let g = null, raf = 0;
+  const paint = function(){
+    raf = 0;
+    if(!g) return;
+    g.sheet.style.transform = 'translate3d(0,' + g.dy.toFixed(1) + 'px,0)';
+    if(g.scrim) g.scrim.style.opacity = Math.max(0, 1 - Math.max(0, g.dy) / (g.vis * 1.05)).toFixed(3);
+  };
   document.addEventListener('pointerdown', function(e){
+    if(g || sheetGesture) return;
     const zone = e.target && e.target.closest ? e.target.closest('.sheet-drag') : null;
-    if(!zone || ui.closing) return;
+    if(!zone || ui.closing || (e.pointerType === 'mouse' && e.button !== 0)) return;
     const sheet = zone.closest('.sheet'), ov = sheet ? sheet.closest('.overlay') : null;
     if(!sheet || !ov || ov.classList.contains('center')) return;
-    g = { zone:zone, sheet:sheet, ov:ov, id:e.pointerId, y0:e.clientY, lastY:e.clientY, lastT:e.timeStamp, v:0, dy:0, h:sheet.offsetHeight || 400 };
+    /* Если лист ещё выезжает — доводим появление до конца, иначе анимация перебьёт сдвиг */
+    if(sheet.getAnimations) sheet.getAnimations().forEach(function(a){ try{ a.finish(); }catch(err){} });
+    const top = sheet.getBoundingClientRect().top;
+    g = { zone:zone, sheet:sheet, ov:ov, scrim:ov.querySelector(':scope > .scrim'), id:e.pointerId,
+          y0:e.clientY, samples:[[e.timeStamp, e.clientY]], dy:0,
+          vis:Math.max(160, Math.min(sheet.offsetHeight || 400, window.innerHeight - top)) };
+    sheetGesture = g;
     try{ zone.setPointerCapture(e.pointerId); }catch(err){}
-    sheet.style.animation = 'none';
     sheet.style.transition = 'none';
-    ov.classList.add('dragging');
+    sheet.style.willChange = 'transform';
+    if(g.scrim){ g.scrim.style.transition = 'none'; g.scrim.style.willChange = 'opacity'; }
+    document.documentElement.classList.add('sdrag');
   });
   document.addEventListener('pointermove', function(e){
     if(!g || e.pointerId !== g.id) return;
     const raw = e.clientY - g.y0;
-    g.dy = raw < 0 ? Math.max(-24, raw * .2) : raw;
-    const dt = Math.max(1, e.timeStamp - g.lastT);
-    g.v = g.v * .6 + ((e.clientY - g.lastY) / dt) * .4;   /* скорость, px/мс */
-    g.lastY = e.clientY; g.lastT = e.timeStamp;
-    g.sheet.style.transform = 'translate3d(0,' + g.dy.toFixed(1) + 'px,0)';
-    g.ov.style.setProperty('--ov', Math.max(0, 1 - Math.max(0, g.dy) / (g.h * 1.1)).toFixed(3));
+    g.dy = raw < 0 ? -Math.min(24, Math.sqrt(-raw) * 2.4) : raw;   /* вверх — лишь лёгкое сопротивление */
+    g.samples.push([e.timeStamp, e.clientY]);
+    if(g.samples.length > 6) g.samples.shift();
+    if(!raf) raf = requestAnimationFrame(paint);
   });
+  /* Скорость по последним ~80 мс движения, px/мс (вниз — положительная) */
+  const velocity = function(d, now){
+    const s = d.samples, last = s[s.length - 1];
+    if(now - last[0] > 90) return 0;   /* палец остановился перед отпусканием — броска нет */
+    for(let i = 0; i < s.length - 1; i++){
+      if(last[0] - s[i][0] <= 80) return (last[1] - s[i][1]) / Math.max(8, last[0] - s[i][0]);
+    }
+    return 0;
+  };
+  const settle = function(d){
+    const clean = function(){
+      d.sheet.style.transition = ''; d.sheet.style.willChange = '';
+      if(d.scrim){ d.scrim.style.transition = ''; d.scrim.style.willChange = ''; }
+      if(sheetGesture === d) sheetGesture = null;
+    };
+    d.sheet.addEventListener('transitionend', clean, { once:true });
+    setTimeout(clean, 400);
+  };
   const end = function(e){
     if(!g || (e && e.pointerId !== g.id)) return;
     const d = g; g = null;
-    d.ov.classList.remove('dragging');
-    if(e && e.timeStamp - d.lastT > 90) d.v = 0;   /* палец остановился перед отпусканием — бросок не считаем */
-    const dismiss = d.dy > d.h * .28 || (d.v > .45 && d.dy > 24);
+    if(raf){ cancelAnimationFrame(raf); raf = 0; }
+    document.documentElement.classList.remove('sdrag');
+    const v = e && e.type === 'pointerup' ? velocity(d, e.timeStamp) : 0;
+    const dismiss = d.dy > Math.min(d.vis * .3, 170) || (v > .45 && d.dy > 16);
     if(dismiss){
-      const left = Math.max(80, d.h + 40 - d.dy);
-      const ms = Math.round(Math.max(150, Math.min(300, left / Math.max(d.v, 1.4))));
-      d.sheet.style.transition = 'transform ' + ms + 'ms cubic-bezier(.2,.7,.3,1)';
-      d.sheet.style.transform = 'translate3d(0,' + (d.h + 40) + 'px,0)';
-      d.ov.style.setProperty('--ov', '0');
-      d.ov.style.setProperty('--ov-ms', ms + 'ms');
+      /* Ровно столько, чтобы лист ушёл за нижний край экрана, со скоростью пальца */
+      const rest = Math.max(60, window.innerHeight - (d.sheet.getBoundingClientRect().top) + 24);
+      const ms = Math.round(Math.max(170, Math.min(320, rest / Math.max(v, 1.6))));
+      d.sheet.style.transition = 'transform ' + ms + 'ms cubic-bezier(.22,.75,.35,1)';
+      d.sheet.style.transform = 'translate3d(0,' + (d.dy + rest).toFixed(1) + 'px,0)';
+      if(d.scrim){ d.scrim.style.transition = 'opacity ' + ms + 'ms linear'; d.scrim.style.opacity = '0'; }
       haptic('tick');
-      setTimeout(function(){ closeTop(true); }, ms);
+      setTimeout(function(){ if(sheetGesture === d) sheetGesture = null; closeTop(true); }, ms);
     } else {
-      d.sheet.style.transition = 'transform .42s cubic-bezier(.34,1.3,.5,1)';
+      d.sheet.style.transition = 'transform .32s cubic-bezier(.2,.9,.25,1)';
       d.sheet.style.transform = '';
-      d.ov.style.setProperty('--ov', '1');
+      if(d.scrim){ d.scrim.style.transition = 'opacity .32s linear'; d.scrim.style.opacity = ''; }
+      settle(d);
     }
   };
   document.addEventListener('pointerup', end);
   document.addEventListener('pointercancel', end);
+  window.addEventListener('blur', function(){ end(null); });
 })();
 
 window.addEventListener('pagehide', saveState);

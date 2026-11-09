@@ -6,8 +6,9 @@
     <string name="widget_today">Today</string>
     <string name="widget_month">Month</string>
     <string name="widget_week">Week</string>
-    <string name="widget_today_desc">Today’s shift with Shift and Day off buttons</string>
-    <string name="widget_month_desc">Month earnings and the current week</string>
-    <string name="widget_week_desc">Shifts of the current week</string>
+    <string name="widget_today_desc">Today’s shift and a quick way into the app</string>
+    <string name="widget_month_desc">Month calendar with your shifts — stretch it down to see more weeks</string>
+    <string name="widget_week_desc">This week’s shifts with workplace names</string>
     <string name="widget_open_app">Open ShiftFlow</string>
+    <string name="widget_open">Open</string>
 </resources>
