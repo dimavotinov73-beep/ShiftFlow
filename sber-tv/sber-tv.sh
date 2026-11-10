@@ -7,7 +7,7 @@
 # Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
 # собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — большие часы в цвет
 # обоев (гора на обоях встаёт перед цифрами), виджет погоды, живые обои, док с иконками как на Mac
-# («Все приложения» закреплены справа), Launchpad, пункт управления (Wi-Fi, VPN, Bluetooth, источники),
+# («Все приложения» закреплены справа), Launchpad, кнопка VPN рядом с пунктом управления (Wi-Fi, Bluetooth, источники),
 # настройки в стиле Mac, 34 стандартных обоя по категориям, отключение кнопок Сбера на пульте,
 # голосовой ассистент Джарвис (sha256 проверяется).
 #
@@ -22,7 +22,7 @@
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
-#   bash sber-tv.sh TV_IP look         свои фото для обоев, место для погоды, VPN в пункте управления
+#   bash sber-tv.sh TV_IP look         свои фото для обоев, место для погоды, кнопка VPN
 #   bash sber-tv.sh TV_IP keys         отключить кнопки Сбера на пульте (Okko, ИВИ...), ассистент → Алиса
 #   bash sber-tv.sh TV_IP keys-reset   вернуть кнопкам пульта их обычную работу
 #   bash sber-tv.sh TV_IP jarvis       Джарвис: голосовой ИИ на кнопке ассистента (Claude + голос Яндекса)
@@ -35,9 +35,9 @@ set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0-sber6.apk
-APK_SHA256=5968de0e27feaaf3bda43d084f0f47a8579edfa7118a8930f56c4739e0de7a9f
-APK_VERSION_CODE=15
+APK_NAME=tvhome-3.0-sber7.apk
+APK_SHA256=641ec9fcc085fac9c54377de7c7b05b22ba9497a44e739386319aee803233948
+APK_VERSION_CODE=16
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -231,9 +231,9 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
     grant_settings
     if [ "${1:-}" = quiet ]; then say "Домашний экран обновлён"
     else
-      say "Домашний экран обновлён: виджет погоды, живые обои, гора перед часами, «Все приложения» справа в доке"
+      say "Домашний экран обновлён: кнопка VPN рядом с пунктом управления, «Обои» в настройках открываются с пульта"
       echo "Обои (и живые), погода, язык, заставка — «Настройки лаунчера» в пункте управления (кнопка справа вверху)."
-      echo "Свои фото для обоев, другое место для погоды, VPN в пункте управления: bash $0 $TV_HOST look"
+      echo "Свои фото для обоев, другое место для погоды, кнопка VPN: bash $0 $TV_HOST look"
       echo "Кнопки Сбера на пульте: bash $0 $TV_HOST keys; голосовой ассистент: bash $0 $TV_HOST jarvis"
     fi
     return 0
@@ -340,7 +340,7 @@ choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "в
   printf -v "$var" '%s' "$ans"
 }
 
-look() {   # look [обои] [фото...]: обои, погода и VPN в пункте управления. Вид всегда один, стили не выбираются
+look() {   # look [обои] [фото...]: обои, погода и кнопка VPN. Вид всегда один, стили не выбираются
   local wall src photos=() out="$DIR/look" city vpn pkg tunnel="" vpns=() labels=() receivers version
   probe
   version="$(launcher_version)"
@@ -362,11 +362,11 @@ look() {   # look [обои] [фото...]: обои, погода и VPN в п�
     export LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY
   fi
 
-  # Плитка VPN в пункте управления: приложения с VpnService на ТВ; переключать сама она умеет v2rayNG (и его форки) и WireGuard.
+  # Кнопка VPN рядом с пунктом управления: приложения с VpnService на ТВ; переключать сама она умеет v2rayNG (и его форки) и WireGuard.
   mapfile -t vpns < <(tv 'cmd package query-services --brief -a android.net.VpnService' | tr -d '\r' \
     | sed -n 's#^ *\([A-Za-z0-9_.]*\)/.*#\1#p' | sort -u)
   if [ ${#vpns[@]} -eq 0 ]; then
-    echo; echo "VPN-приложений на ТВ нет — плитку VPN в пункт управления не добавляю."
+    echo; echo "VPN-приложений на ТВ нет — кнопку VPN не добавляю."
   else
     receivers="$(tv 'cmd package query-receivers --brief -a com.twofortyfouram.locale.intent.action.FIRE_SETTING' | tr -d '\r')"
     for pkg in "${vpns[@]}"; do
@@ -378,7 +378,7 @@ look() {   # look [обои] [фото...]: обои, погода и VPN в п�
       fi
     done
     [ -n "${LOOK_VPN-}" ] && LOOK_ANSWERS=("$LOOK_VPN")
-    choose vpn "Плитка VPN в пункте управления (кнопка справа вверху): OK включает и выключает VPN, зелёная — включён" \
+    choose vpn "Кнопка VPN справа вверху, рядом с пунктом управления: OK включает и выключает VPN, зелёный замок — включён" \
       "${labels[@]}" "Без VPN"
     if [ "$vpn" -le ${#vpns[@]} ]; then
       export LOOK_VPN_APP=${vpns[$((vpn - 1))]}

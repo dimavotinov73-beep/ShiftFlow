@@ -97,7 +97,7 @@ index 00000000..9b2ca37b
 +FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 +OTHER DEALINGS IN THE FONT SOFTWARE.
 diff --git a/launcher/app/build.gradle b/launcher/app/build.gradle
-index 3ceec7b4..f4da74cb 100644
+index 3ceec7b4..c8935f5a 100644
 --- a/launcher/app/build.gradle
 +++ b/launcher/app/build.gradle
 @@ -11,8 +11,8 @@ android {
@@ -106,8 +106,8 @@ index 3ceec7b4..f4da74cb 100644
          targetSdk 34
 -        versionCode 9
 -        versionName '3.0'
-+        versionCode 15
-+        versionName '3.0-sber6'
++        versionCode 16
++        versionName '3.0-sber7'
      }
  
      buildTypes {
@@ -155635,10 +155635,10 @@ index 00000000..757791d8
 +    }
 +}
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
-index e4d1ab46..439d5700 100644
+index e4d1ab46..90be9e90 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
 +++ b/launcher/app/src/main/java/com/gathin/tvhome/LauncherSettingsActivity.java
-@@ -3,208 +3,1291 @@ package com.gathin.tvhome;
+@@ -3,208 +3,1302 @@ package com.gathin.tvhome;
  import android.app.Activity;
  import android.app.AlertDialog;
  import android.content.ActivityNotFoundException;
@@ -156493,7 +156493,11 @@ index e4d1ab46..439d5700 100644
 +        return getResources().getDisplayMetrics().widthPixels - dp(2 * PAGE_MARGIN + SIDEBAR_DP + PANE_GAP);
 +    }
 +
-+    /** The wallpaper grid's tile at this place, counted as focusedTile counts. */
++    /**
++     * The wallpaper grid's tile at this place, counted as focusedTile counts: only the tiles, which take focus. The
++     * "Now on screen" card above them is a line too, and its picture is not a tile: counted, Right on Wallpaper sent
++     * the focus to that picture, which cannot hold it, and the page did not open.
++     */
 +    private View tileAt(int place) {
 +        int index = 0;
 +        View first = null;
@@ -156501,9 +156505,11 @@ index e4d1ab46..439d5700 100644
 +            View line = rows.getChildAt(i);
 +            if (!(line instanceof ViewGroup)) continue;
 +            ViewGroup g = (ViewGroup) line;
-+            for (int j = 0; j < g.getChildCount(); j++, index++) {
-+                if (first == null) first = g.getChildAt(j);
-+                if (index == place) return g.getChildAt(j);
++            for (int j = 0; j < g.getChildCount(); j++) {
++                View tile = g.getChildAt(j);
++                if (!tile.isFocusable()) continue;
++                if (first == null) first = tile;
++                if (index++ == place) return tile;
 +            }
 +        }
 +        return first;
@@ -156691,7 +156697,12 @@ index e4d1ab46..439d5700 100644
 +            View line = rows.getChildAt(i);
 +            if (!(line instanceof ViewGroup)) continue;
 +            ViewGroup g = (ViewGroup) line;
-+            for (int j = 0; j < g.getChildCount(); j++, index++) if (g.getChildAt(j) == focus) return index;
++            for (int j = 0; j < g.getChildCount(); j++) {
++                View tile = g.getChildAt(j);
++                if (!tile.isFocusable()) continue;
++                if (tile == focus) return index;
++                index++;
++            }
 +        }
 +        return 0;
 +    }
@@ -156789,15 +156800,15 @@ index e4d1ab46..439d5700 100644
 -        refresh();
 -        if (config.launcherSettingsButton) reorderChoice.requestFocus();
 -        else columnChoices[Math.max(0, Math.min(columns - 4, 3))].requestFocus();
-+        return tile;
-     }
- 
+-    }
+-
 -    private void reverseRow(TextView[] views) {
 -        LinearLayout row = (LinearLayout) views[0].getParent();
 -        row.removeAllViews();
 -        for (int i = views.length - 1; i >= 0; i--) row.addView(views[i]);
--    }
--
++        return tile;
+     }
+ 
 -    private void showWallpaperPicker() {
 -        File dir = Config.dir(this);
 -        List<File> images = new java.util.ArrayList<>(WallpaperRotation.images(
@@ -157075,7 +157086,7 @@ index e4d1ab46..439d5700 100644
          PackageManager pm = getPackageManager();
          List<String[]> apps = new ArrayList<>();
          Intent tv = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
-@@ -216,30 +1299,21 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -216,30 +1310,21 @@ public final class LauncherSettingsActivity extends Activity {
              if (!seen) apps.add(new String[]{r.loadLabel(pm).toString(), pkg});
          }
          Collections.sort(apps, (a, b) -> a[0].compareToIgnoreCase(b[0]));
@@ -157117,7 +157128,7 @@ index e4d1ab46..439d5700 100644
      private String openOnStartLabel() {
          String pkg = choices.getString(OpenOnStart.KEY, "");
          if (pkg.isEmpty()) return getString(R.string.off);
-@@ -251,12 +1325,332 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -251,12 +1336,332 @@ public final class LauncherSettingsActivity extends Activity {
          }
      }
  
@@ -157292,7 +157303,8 @@ index e4d1ab46..439d5700 100644
 +            android.graphics.Rect wide = new android.graphics.Rect(rect);
 +            wide.inset(0, -room);
 +            return super.computeScrollDeltaToGetChildRectOnScreen(wide);
-+        }
+         }
+-        return -1;
 +    }
 +
 +    private LinearLayout plate() {
@@ -157418,8 +157430,7 @@ index e4d1ab46..439d5700 100644
 +
 +        @Override
 +        public void setAlpha(int alpha) {
-         }
--        return -1;
++        }
 +
 +        @Override
 +        public void setColorFilter(android.graphics.ColorFilter filter) {
@@ -157455,7 +157466,7 @@ index e4d1ab46..439d5700 100644
      }
  
      /**
-@@ -269,45 +1663,6 @@ public final class LauncherSettingsActivity extends Activity {
+@@ -269,45 +1674,6 @@ public final class LauncherSettingsActivity extends Activity {
                  choices.getLong(Config.SETTINGS_REVISION_KEY, 0) + 1).apply();
      }
  
@@ -158014,7 +158025,7 @@ index 00000000..f0c45d24
 +    }
 +}
 diff --git a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
-index a5acd794..fa60db7c 100644
+index a5acd794..28f38fcb 100644
 --- a/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
 +++ b/launcher/app/src/main/java/com/gathin/tvhome/MainActivity.java
 @@ -23,6 +23,7 @@ import android.graphics.Color;
@@ -158290,7 +158301,7 @@ index a5acd794..fa60db7c 100644
          };
          btnInputs.setOnKeyListener(pillKeys);
          btnWifi.setOnKeyListener(pillKeys);
-@@ -809,11 +882,32 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -809,11 +882,33 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              }
          }
          if (festive) applyFestiveSkin((TextView) btnInputs, (TextView) btnSettings);
@@ -158304,7 +158315,8 @@ index a5acd794..fa60db7c 100644
 +            setCompactLabel((TextView) btnLibraryTop, getString(R.string.library_short));
 +        }
 +        if (iconDock) {
-+            // Sber edition: one button in the header, the control centre's; Wi-Fi and the inputs are in it.
++            // Sber edition: in the header the control centre's button, and the VPN's beside it (updateVpnPill); Wi-Fi
++            // and the inputs are in the control centre.
 +            btnWifi.setVisibility(View.GONE);
 +            btnInputs.setVisibility(View.GONE);
 +            // Sber edition: the gear becomes the control centre's button; the TV's settings are one of its buttons.
@@ -158324,7 +158336,7 @@ index a5acd794..fa60db7c 100644
          });
  
          packageFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-@@ -841,6 +935,105 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -841,6 +936,105 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          }
          // Not after recreate(): the launch intent survives it and would open the settings again.
          if (savedInstanceState == null && !openLauncherSettingsIfAsked(getIntent())) openInputsIfAsked(getIntent());
@@ -158430,7 +158442,7 @@ index a5acd794..fa60db7c 100644
      }
  
      /**
-@@ -983,9 +1176,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -983,9 +1177,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              pillsShown = true;
          }
          if (showStats) startStats();
@@ -158444,15 +158456,10 @@ index a5acd794..fa60db7c 100644
          if (festive && diya != null) {
              diya.start();
              LocalDate today = LocalDate.now();
-@@ -1018,6 +1215,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1018,6 +1216,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          }
      }
  
-+    /** The control centre's VPN capsule: switches the VPN where the app allows it, else opens the app. */
-+    private void switchVpn() {
-+        if (!extras.vpnToggle || !toggleVpn()) openVpnPill();
-+    }
-+
 +    @Override
 +    public void onLauncherSettingsRequested() {
 +        // For a result, as from the Settings pill: "Change the order of apps" there comes back here to start moving.
@@ -158462,7 +158469,7 @@ index a5acd794..fa60db7c 100644
      private void startPendingSettingsReorder() {
          if (settingsRecreationPending || !tilesReady || !hasWindowFocus() || isFinishing()
                  || !getIntent().getBooleanExtra(LauncherSettingsActivity.EXTRA_REORDER, false)) return;
-@@ -1116,6 +1324,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1116,6 +1320,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          lastFocusedKey = returnKey;
          lastFocused = returnSlot;
          packageSequence = currentPackageSequence(packageSequence);
@@ -158470,7 +158477,7 @@ index a5acd794..fa60db7c 100644
      }
  
      /**
-@@ -1151,9 +1360,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1151,9 +1356,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      @Override
      protected void onPause() {
          super.onPause();
@@ -158482,7 +158489,7 @@ index a5acd794..fa60db7c 100644
          stopAmbientAnimation();
          hero.animate().cancel();
          ambient.animate().cancel();
-@@ -1214,7 +1425,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1214,7 +1421,11 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      protected void onDestroy() {
          super.onDestroy();
          unregisterReceiver(packageReceiver);
@@ -158494,7 +158501,7 @@ index a5acd794..fa60db7c 100644
          ConnectivityManager cm = getSystemService(ConnectivityManager.class);
          TvInputManager tim = (TvInputManager) getSystemService(TV_INPUT_SERVICE);
          if (tim != null) tim.unregisterCallback(inputCallback);
-@@ -1263,7 +1478,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1263,7 +1474,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                  && event.getKeyCode() == KeyEvent.KEYCODE_MENU) {
              int position = focusedTilePosition();
              if (position >= 0 && position < adapter.appCount()
@@ -158503,7 +158510,7 @@ index a5acd794..fa60db7c 100644
                  if (event.getAction() == KeyEvent.ACTION_UP && !event.isCanceled()) {
                      onTileLongPress(position, getCurrentFocus());
                  }
-@@ -1607,6 +1822,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1607,6 +1818,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              }
              boolean fromVpnPill = libraryFromVpnPill;
              libraryFromVpnPill = false;
@@ -158517,7 +158524,7 @@ index a5acd794..fa60db7c 100644
              // The VPN pill can hide while the library is open (its VPN dropped): then focus goes as from the grid.
              if (fromVpnPill && btnVpn.getVisibility() == View.VISIBLE) {
                  btnVpn.requestFocus();
-@@ -1618,7 +1840,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1618,7 +1836,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              });
          });
          openPopup = appLibrary.popup;
@@ -158526,7 +158533,7 @@ index a5acd794..fa60db7c 100644
      }
  
      @Override
-@@ -1633,6 +1855,42 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1633,6 +1851,42 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              });
              return;
          }
@@ -158569,7 +158576,7 @@ index a5acd794..fa60db7c 100644
          // Tile rect in root coordinates, using layout positions (ignores the scale animation).
          Rect r = tileRect;
          r.set(0, 0, card.getWidth(), card.getHeight());
-@@ -1642,7 +1900,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1642,7 +1896,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          float w = card.getWidth() * scale + 2 * pad;
          float h = card.getHeight() * scale + 2 * pad;
          float x = r.exactCenterX() - w / 2f;
@@ -158578,7 +158585,7 @@ index a5acd794..fa60db7c 100644
  
          ViewGroup.LayoutParams lp = glass.getLayoutParams();
          if (lp.width != (int) w || lp.height != (int) h || card.getWidth() != glassCardW) {
-@@ -1650,26 +1908,38 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1650,26 +1904,38 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              lp.height = (int) h;
              glass.setLayoutParams(lp);
              // GlassView draws its slab inset by pad, i.e. exactly over the zoomed tile: same corners as the tile.
@@ -158624,7 +158631,7 @@ index a5acd794..fa60db7c 100644
              glassShown = true;
          } else if (!animations) {
              springX.cancel();
-@@ -1680,28 +1950,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1680,28 +1946,6 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              springX.animateToFinalPosition(x - glassScrollShiftX);
              springY.animateToFinalPosition(y - glassScrollShift);
          }
@@ -158653,7 +158660,7 @@ index a5acd794..fa60db7c 100644
      }
  
      /** Refits the glass to the focused holder once the grid layout and tile dimensions settle. */
-@@ -1723,6 +1971,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -1723,6 +1967,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
      // ---- top shelf -------------------------------------------------------------------------------
  
      private void showHero(int position, float dockTopInRoot) {
@@ -158664,7 +158671,7 @@ index a5acd794..fa60db7c 100644
          String label = adapter.labelAt(position);
          int color = adapter.ambientColorAt(position);
          float y = dockTopInRoot - 14 * density - 26 * density - hero.getHeight();
-@@ -2018,6 +2270,337 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2018,6 +2266,332 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          }).start();
      }
  
@@ -158734,11 +158741,6 @@ index a5acd794..fa60db7c 100644
 +        ControlCenter sheet = new ControlCenter(this, animations && !reducedMotion);
 +        sheet.tile(R.drawable.ic_wifi, getString(R.string.wifi), online && !TextUtils.isEmpty(network)
 +                ? network.toString() : getString(R.string.cc_not_connected), online ? 0xFF0A84FF : 0, this::openNetworkPill);
-+        if (vpnAppIntent() != null) {
-+            boolean up = vpnPillState == VpnBadge.PILL_UP;
-+            sheet.tile(up ? R.drawable.ic_lock : R.drawable.ic_lock_open, getString(R.string.dock_vpn),
-+                    getString(up ? R.string.cc_on : R.string.cc_off), up ? 0xFF30D158 : 0, this::switchVpn);
-+        }
 +        sheet.tile(R.drawable.ic_headphones, getString(R.string.cc_bluetooth), getString(R.string.cc_bluetooth_sub), 0,
 +                () -> open(systemIntent(Settings.ACTION_BLUETOOTH_SETTINGS)));
 +        if (inputsAvailable) {
@@ -159002,7 +159004,7 @@ index a5acd794..fa60db7c 100644
      private void hideHero() {
          if (!heroShown) return;
          stopAmbientAnimation();
-@@ -2246,6 +2829,22 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2246,6 +2820,22 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) return true;
              boolean forward = rtlAppGrid ? keyCode == KeyEvent.KEYCODE_DPAD_LEFT : keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
              int last = adapter.focusablePosition(count - 1);
@@ -159025,7 +159027,7 @@ index a5acd794..fa60db7c 100644
              if (forward && position >= last) {
                  if (adapter.isLibraryAt(count)) focusLibrary();
                  return true;
-@@ -2311,6 +2910,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2311,6 +2901,17 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          clockColumn.addView(column, clockColumn.indexOfChild(clockRow) + 1, lp);
      }
  
@@ -159043,7 +159045,7 @@ index a5acd794..fa60db7c 100644
      /** The first top-bar button after Inputs that is shown, in bar order (top_bar_apps, the network pill, ...); Settings is always there. */
      private View firstTopButton() {
          ViewGroup bar = findViewById(R.id.topButtons);
-@@ -2678,6 +3288,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2678,6 +3279,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              btnWifi.setContentDescription(btnWifi.getText());
              btnWifi.setText(null);
          }
@@ -159052,7 +159054,7 @@ index a5acd794..fa60db7c 100644
          if (festive && diya != null) {
              if (online && flame == 0) flame = 3;   // online some other way (cellular, USB tethering)
              diya.setSteady(steady);
-@@ -2727,6 +3339,180 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2727,6 +3330,180 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          pill.getLayoutParams().width = Math.round(42 * density);
      }
  
@@ -159233,20 +159235,7 @@ index a5acd794..fa60db7c 100644
      // ---- festive skin ------------------------------------------------------------------------------
  
      /**
-@@ -2811,6 +3597,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
-     /** vpn_pill: the whole pill solid green with a lock while a VPN is up, solid red "VPN off" while it is not. */
-     private void updateVpnPill(boolean vpn) {
-         int state = VpnBadge.pillState(vpn, vpnAppIntent() != null);
-+        if (iconDock) {
-+            // The switch is in the control centre, not in the header.
-+            vpnPillState = state;
-+            btnVpn.setVisibility(View.GONE);
-+            return;
-+        }
-         if (state == VpnBadge.PILL_HIDDEN) {
-             if (btnVpn.getVisibility() == View.GONE) return;
-             boolean focused = btnVpn.hasFocus();
-@@ -2821,13 +3613,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2821,13 +3598,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          if (state != vpnPillState) {
              vpnPillState = state;
              boolean up = state == VpnBadge.PILL_UP;
@@ -159258,14 +159247,17 @@ index a5acd794..fa60db7c 100644
              btnVpn.setTextColor(ink);
 -            btnVpn.setBackground(VpnBadge.pillBackground(up, density));
 -            btnVpn.setCompoundDrawablesRelativeWithIntrinsicBounds(up ? R.drawable.ic_lock : 0, 0, 0, 0);
+-            btnVpn.setCompoundDrawableTintList(ink);
 +            btnVpn.setSelected(up);
 +            btnVpn.setCompoundDrawablesRelativeWithIntrinsicBounds(up ? R.drawable.ic_lock : R.drawable.ic_lock_open, 0, 0, 0);
-             btnVpn.setCompoundDrawableTintList(ink);
++            // Sber edition: the round VPN button beside the control centre's; its lock turns green while the VPN is up.
++            btnVpn.setCompoundDrawableTintList(iconDock ? getColorStateList(R.color.pill_vpn_icon) : ink);
++            if (iconDock) btnVpn.setText(up ? R.string.vpn_pill_on : R.string.vpn_off);
 +            if (compactPills) setCompactLabel(btnVpn, btnVpn.getText());
          }
          btnVpn.setVisibility(View.VISIBLE);
      }
-@@ -2856,7 +3649,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -2856,7 +3636,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
                  }
              }
          }
@@ -159275,7 +159267,7 @@ index a5acd794..fa60db7c 100644
      }
  
      /** boot_to_live_tv, or the Open on start app: the first time Home comes up after the TV starts, open that app
-@@ -3265,7 +4059,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -3265,7 +4046,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              });
          }
          if (moduleCards) addSettingsMenuRow(rows, popup, R.string.module_cards, this::showModuleCards);
@@ -159284,7 +159276,7 @@ index a5acd794..fa60db7c 100644
          addSettingsMenuRow(rows, popup, R.string.reorder, this::toggleReorder);
          // A launcher may not restart the TV itself; the Home key helper can open the system power menu instead.
          if (HomeKeyService.canOpenPowerMenu()) addSettingsMenuRow(rows, popup, R.string.power_menu, HomeKeyService::openPowerMenu);
-@@ -3287,12 +4081,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -3287,12 +4068,15 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
          if (reordering) return;
          String key = adapter.keyAt(position);
          String pkg = adapter.packageAt(position);
@@ -159303,7 +159295,7 @@ index a5acd794..fa60db7c 100644
              boolean inDock = position < COLUMNS;
              addSettingsMenuRow(rows, popup, inDock ? R.string.tile_replace_in_dock : R.string.tile_add_to_dock,
                      () -> startDockEditFor(key, inDock));
-@@ -3305,13 +4102,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
+@@ -3305,13 +4089,14 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
              pickUp(at);
              Toast.makeText(this, R.string.reorder_hint, Toast.LENGTH_LONG).show();
          });
@@ -161221,6 +161213,20 @@ index 00000000..a16a6ccb
 +<selector xmlns:android="http://schemas.android.com/apk/res/android">
 +    <item android:state_focused="true" android:color="#FF111111" />
 +    <item android:state_selected="true" android:color="#FFFFFFFF" />
++    <item android:color="#8CFFFFFF" />
++</selector>
+diff --git a/launcher/app/src/main/res/color/pill_vpn_icon.xml b/launcher/app/src/main/res/color/pill_vpn_icon.xml
+new file mode 100644
+index 00000000..6dcc5527
+--- /dev/null
++++ b/launcher/app/src/main/res/color/pill_vpn_icon.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Sber edition: the VPN button's lock beside the control centre's button: dark on the focused (white) button, green
++     while the VPN is up (state_selected), dimmed while it is off. -->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:state_focused="true" android:color="#FF111111" />
++    <item android:state_selected="true" android:color="#FF30D158" />
 +    <item android:color="#8CFFFFFF" />
 +</selector>
 diff --git a/launcher/app/src/main/res/drawable/glass_panel.xml b/launcher/app/src/main/res/drawable/glass_panel.xml
@@ -168402,10 +168408,10 @@ index 538ed3d3..e5beaf7b 100644
          <item quantity="one">%1$d приложение</item>
 diff --git a/launcher/app/src/main/res/values-ru/strings_sber.xml b/launcher/app/src/main/res/values-ru/strings_sber.xml
 new file mode 100644
-index 00000000..c3da2558
+index 00000000..99995977
 --- /dev/null
 +++ b/launcher/app/src/main/res/values-ru/strings_sber.xml
-@@ -0,0 +1,130 @@
+@@ -0,0 +1,128 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
 +    <string name="weather_clear">Ясно</string>
@@ -168493,7 +168499,6 @@ index 00000000..c3da2558
 +    <string name="wallpaper_cat_space">Земля из космоса</string>
 +    <string name="wallpaper_cat_other">Другие</string>
 +    <!-- Sber edition: the Mac-style dock's own icons and the names over them. -->
-+    <string name="dock_vpn">VPN</string>
 +    <string name="dock_all_apps">Все приложения</string>
 +    <string name="library_uninstall">Удалить</string>
 +    <!-- Sber edition: Launcher settings laid out like a Mac's, its sections' groups. -->
@@ -168510,14 +168515,13 @@ index 00000000..c3da2558
 +    <!-- Sber edition: the control centre under the header's top-right button. -->
 +    <string name="control_center">Пункт управления</string>
 +    <string name="cc_not_connected">Не подключено</string>
-+    <string name="cc_on">Включён</string>
-+    <string name="cc_off">Выключен</string>
 +    <string name="cc_bluetooth">Bluetooth</string>
 +    <string name="cc_bluetooth_sub">Пульты и наушники</string>
 +    <string name="cc_inputs_sub">HDMI и антенна</string>
 +    <string name="cc_screensaver">Заставка</string>
 +    <string name="cc_screensaver_sub">Запустить сейчас</string>
 +    <string name="cc_tv_settings">Настройки ТВ</string>
++    <string name="vpn_pill_on">VPN включён</string>
 +    <string name="cc_power">Питание</string>
 +    <!-- Sber edition, sber6: the weather widget, live wallpapers, the nature category. -->
 +    <string name="weather_range">Макс. %1$s  Мин. %2$s</string>
@@ -168589,10 +168593,10 @@ index 00000000..661f1c54
 +</resources>
 diff --git a/launcher/app/src/main/res/values/strings_sber.xml b/launcher/app/src/main/res/values/strings_sber.xml
 new file mode 100644
-index 00000000..5e588144
+index 00000000..0a6d74db
 --- /dev/null
 +++ b/launcher/app/src/main/res/values/strings_sber.xml
-@@ -0,0 +1,131 @@
+@@ -0,0 +1,129 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!-- Strings for the compact pills, the VPN switch, the weather line and the Launcher settings screen; Russian in values-ru. -->
 +<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
@@ -168681,7 +168685,6 @@ index 00000000..5e588144
 +    <string name="wallpaper_cat_space">Earth from space</string>
 +    <string name="wallpaper_cat_other">Other</string>
 +    <!-- Sber edition: the Mac-style dock's own icons and the names over them. -->
-+    <string name="dock_vpn">VPN</string>
 +    <string name="dock_all_apps">All apps</string>
 +    <string name="library_uninstall">Uninstall</string>
 +    <!-- Sber edition: Launcher settings laid out like a Mac's, its sections' groups. -->
@@ -168698,14 +168701,13 @@ index 00000000..5e588144
 +    <!-- Sber edition: the control centre under the header's top-right button. -->
 +    <string name="control_center">Control centre</string>
 +    <string name="cc_not_connected">Not connected</string>
-+    <string name="cc_on">On</string>
-+    <string name="cc_off">Off</string>
 +    <string name="cc_bluetooth">Bluetooth</string>
 +    <string name="cc_bluetooth_sub">Remotes and headphones</string>
 +    <string name="cc_inputs_sub">HDMI and antenna</string>
 +    <string name="cc_screensaver">Screensaver</string>
 +    <string name="cc_screensaver_sub">Start now</string>
 +    <string name="cc_tv_settings">TV settings</string>
++    <string name="vpn_pill_on">VPN on</string>
 +    <string name="cc_power">Power</string>
 +    <!-- Sber edition, sber6: the weather widget, live wallpapers, the nature category. -->
 +    <string name="weather_range">H %1$s  L %2$s</string>
