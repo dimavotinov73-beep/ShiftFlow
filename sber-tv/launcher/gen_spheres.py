@@ -2,6 +2,9 @@
 rim, overlapping on a dark ground. Original renders (no Apple artwork), 1920x1080 for a TV.
 
 usage: python3 gen_spheres.py OUT_DIR [NAME ...]
+
+Layout 'e' is drawn for the launcher's depth effect: its front sphere rises into the bottom of the big clock, and a
+NAME.png beside the picture holds that sphere's outline (alpha), which the launcher draws over the clock's digits.
 """
 import os
 import sys
@@ -92,12 +95,15 @@ LAYOUTS = {
     'b': [(-0.10, 0.75, 0.80), (0.85, 1.55, 0.95), (1.70, 0.30, 0.75), (0.95, 0.20, 0.42)],
     'c': [(1.95, 1.05, 1.05), (0.20, 0.10, 0.70), (0.80, 0.95, 0.55)],
     'd': [(0.45, 1.20, 0.95), (1.55, 1.25, 0.80), (1.05, -0.45, 0.85), (0.20, 0.25, 0.30)],
+    # The front sphere's top crosses the clock (x 0.12..0.87, y 0.15..0.48 of the height): the depth effect.
+    'e': [(1.60, 0.10, 0.85), (1.15, -0.40, 0.55), (0.52, 1.22, 0.86)],
 }
 
 PLAN = [
     ('graphite-teal', 'a'), ('midnight-silver', 'b'), ('deep-blue', 'c'), ('ultraviolet', 'd'),
     ('desert-gold', 'a'), ('forest', 'b'), ('rose', 'c'), ('ocean', 'd'),
     ('ember', 'b'), ('storm', 'a'), ('graphite-teal', 'c'), ('deep-blue', 'd'),
+    ('desert-gold', 'e'),
 ]
 
 
@@ -118,6 +124,18 @@ def render(palette, layout):
     return pic.resize((W, H), Image.LANCZOS)
 
 
+def front_mask(layout, size=(960, 540)):
+    """The front sphere's disc as alpha (RGBA, black), antialiased: what stands in front of the clock."""
+    cx, cy, r = LAYOUTS[layout][-1]
+    mw, mh = size
+    my, mx = np.mgrid[0:mh, 0:mw].astype(np.float32)
+    d = np.sqrt((mx / mh - cx) ** 2 + (my / mh - cy) ** 2)
+    alpha = np.clip((r - d) * mh + 0.5, 0, 1)
+    rgba = np.zeros((mh, mw, 4), np.uint8)
+    rgba[..., 3] = (alpha * 255 + 0.5).astype(np.uint8)
+    return Image.fromarray(rgba, 'RGBA')
+
+
 if __name__ == '__main__':
     out = sys.argv[1]
     os.makedirs(out, exist_ok=True)
@@ -128,4 +146,6 @@ if __name__ == '__main__':
             continue
         render(palette, layout).save(os.path.join(out, name + '.jpg'), 'JPEG', quality=92, optimize=True,
                                      progressive=True, subsampling=0)
+        if layout == 'e':
+            front_mask(layout).save(os.path.join(out, name + '.png'), optimize=True)
         print(name)

@@ -5,10 +5,11 @@
 # (github.com/Gathin23/cleanyourtv) на зафиксированном коммите и запускает его же скрипты
 # с готовым профилем examples/sber-salute-tv-at30a6 — теми же командами, что и на ПК.
 # Отличия: лаунчер не собирается на телефоне (нужны JDK и Android SDK), а берётся готовый APK,
-# собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — большие часы с
-# погодой в цвет обоев, док с иконками как на Mac (кнопки VPN и «Все приложения» в нём), Launchpad,
-# пункт управления, настройки в стиле Mac, стандартные обои по категориям, отключение кнопок Сбера
-# на пульте, голосовой ассистент Джарвис (sha256 проверяется).
+# собранный из того же коммита с правками для Салют ТВ из launcher/sber.patch — большие часы в цвет
+# обоев (гора на обоях встаёт перед цифрами), виджет погоды, живые обои, док с иконками как на Mac
+# («Все приложения» закреплены справа), Launchpad, пункт управления (Wi-Fi, VPN, Bluetooth, источники),
+# настройки в стиле Mac, 34 стандартных обоя по категориям, отключение кнопок Сбера на пульте,
+# голосовой ассистент Джарвис (sha256 проверяется).
 #
 # Использование (TV_IP — адрес телевизора в домашней сети):
 #   bash sber-tv.sh TV_IP              проверить ТВ и сделать всё (= install)
@@ -21,7 +22,7 @@
 #   bash sber-tv.sh TV_IP closed       проверить, что ADB-порт на ТВ закрыт
 #   bash sber-tv.sh TV_IP aurora       поставить Aurora Store — каталог Google Play без сервисов Google
 #   bash sber-tv.sh TV_IP apk ФАЙЛ.apk [split.apk ...]   поставить на ТВ приложение из APK с телефона
-#   bash sber-tv.sh TV_IP look         свои фото для обоев, место для погоды, кнопка VPN
+#   bash sber-tv.sh TV_IP look         свои фото для обоев, место для погоды, VPN в пункте управления
 #   bash sber-tv.sh TV_IP keys         отключить кнопки Сбера на пульте (Okko, ИВИ...), ассистент → Алиса
 #   bash sber-tv.sh TV_IP keys-reset   вернуть кнопкам пульта их обычную работу
 #   bash sber-tv.sh TV_IP jarvis       Джарвис: голосовой ИИ на кнопке ассистента (Claude + голос Яндекса)
@@ -34,9 +35,9 @@ set -euo pipefail
 
 UPSTREAM_COMMIT=b06ab21105c49900cb1ed76b24414dba1e21d0db
 KIT_URL=https://raw.githubusercontent.com/dimavotinov73-beep/ShiftFlow/ccr-e16201a1-9rnk6y/sber-tv
-APK_NAME=tvhome-3.0-sber5.apk
-APK_SHA256=dda8de2f6cd2222817722de3a9af9090a3e0d9368c41feeea2ae31b1bbcfa220
-APK_VERSION_CODE=14
+APK_NAME=tvhome-3.0-sber6.apk
+APK_SHA256=5968de0e27feaaf3bda43d084f0f47a8579edfa7118a8930f56c4739e0de7a9f
+APK_VERSION_CODE=15
 PROFILE=examples/sber-salute-tv-at30a6
 STOCK=ru.sberdevices.starlauncher
 AURORA_CODE=76   # Aurora Store 4.8.4 с F-Droid
@@ -230,9 +231,9 @@ update_launcher() {   # update_launcher [quiet]: quiet — из look, котор
     grant_settings
     if [ "${1:-}" = quiet ]; then say "Домашний экран обновлён"
     else
-      say "Домашний экран обновлён: часы и погода в цвет обоев, док как на Mac, Launchpad, пункт управления"
-      echo "Обои, погода, язык, заставка — значок «Настройки лаунчера» в доке (или кнопка справа вверху)."
-      echo "Свои фото для обоев, другое место для погоды, кнопка VPN: bash $0 $TV_HOST look"
+      say "Домашний экран обновлён: виджет погоды, живые обои, гора перед часами, «Все приложения» справа в доке"
+      echo "Обои (и живые), погода, язык, заставка — «Настройки лаунчера» в пункте управления (кнопка справа вверху)."
+      echo "Свои фото для обоев, другое место для погоды, VPN в пункте управления: bash $0 $TV_HOST look"
       echo "Кнопки Сбера на пульте: bash $0 $TV_HOST keys; голосовой ассистент: bash $0 $TV_HOST jarvis"
     fi
     return 0
@@ -339,7 +340,7 @@ choose() {   # choose ПЕРЕМЕННАЯ "Вопрос" "вариант 1" "в
   printf -v "$var" '%s' "$ans"
 }
 
-look() {   # look [обои] [фото...]: обои, погода и кнопка VPN. Вид всегда один, стили не выбираются
+look() {   # look [обои] [фото...]: обои, погода и VPN в пункте управления. Вид всегда один, стили не выбираются
   local wall src photos=() out="$DIR/look" city vpn pkg tunnel="" vpns=() labels=() receivers version
   probe
   version="$(launcher_version)"
@@ -361,11 +362,11 @@ look() {   # look [обои] [фото...]: обои, погода и кнопк
     export LOOK_WEATHER_LAT LOOK_WEATHER_LON LOOK_WEATHER_CITY
   fi
 
-  # Кнопка VPN: приложения с VpnService на ТВ; переключать сама она умеет v2rayNG (и его форки) и WireGuard.
+  # Плитка VPN в пункте управления: приложения с VpnService на ТВ; переключать сама она умеет v2rayNG (и его форки) и WireGuard.
   mapfile -t vpns < <(tv 'cmd package query-services --brief -a android.net.VpnService' | tr -d '\r' \
     | sed -n 's#^ *\([A-Za-z0-9_.]*\)/.*#\1#p' | sort -u)
   if [ ${#vpns[@]} -eq 0 ]; then
-    echo; echo "VPN-приложений на ТВ нет — кнопку VPN не добавляю."
+    echo; echo "VPN-приложений на ТВ нет — плитку VPN в пункт управления не добавляю."
   else
     receivers="$(tv 'cmd package query-receivers --brief -a com.twofortyfouram.locale.intent.action.FIRE_SETTING' | tr -d '\r')"
     for pkg in "${vpns[@]}"; do
@@ -377,8 +378,8 @@ look() {   # look [обои] [фото...]: обои, погода и кнопк
       fi
     done
     [ -n "${LOOK_VPN-}" ] && LOOK_ANSWERS=("$LOOK_VPN")
-    choose vpn "Кнопка VPN вверху справа (белая — VPN включён, тусклая — выключен; удержать OK — открыть приложение)" \
-      "${labels[@]}" "Без кнопки VPN"
+    choose vpn "Плитка VPN в пункте управления (кнопка справа вверху): OK включает и выключает VPN, зелёная — включён" \
+      "${labels[@]}" "Без VPN"
     if [ "$vpn" -le ${#vpns[@]} ]; then
       export LOOK_VPN_APP=${vpns[$((vpn - 1))]}
       if [ "$LOOK_VPN_APP" = com.wireguard.android ]; then
@@ -424,7 +425,7 @@ import json, os, shutil, sys
 kit, out, wall, *photos = sys.argv[1:]
 with open(os.path.join(kit, "examples/sber-salute-tv-at30a6/config.json"), encoding="utf-8") as f:
     cfg = json.load(f)   # скрытые служебные приложения, русские названия, библиотека приложений
-# Вид всегда один (так собран лаунчер): часы над доком; здесь только то, что выбирают: обои, погода, кнопка VPN.
+# Вид всегда один (так собран лаунчер): часы над доком; здесь только то, что выбирают: обои, погода, VPN.
 cfg["tile_menu"] = True        # удержать OK на значке в доке: Переместить, Убрать из дока, О приложении
 cfg["reorder_button"] = False  # переставлять — через меню значка в доке или «Настройки лаунчера»
 cfg["compact_pills"] = True    # кнопки сверху — кружки, раскрываются с подписью при наведении
@@ -451,13 +452,13 @@ if not os.listdir(walls):
 with open(os.path.join(out, "config.json"), "w", encoding="utf-8") as f:
     json.dump(cfg, f, ensure_ascii=False, indent=2)
 count = len([n for n in os.listdir(walls) if n.endswith(".jpg")]) if os.path.isdir(walls) else 0
-print(f"тема собрана: своих фото {count} (и 20 стандартных обоев в лаунчере)")
+print(f"тема собрана: своих фото {count} (и 34 стандартных обоя и 4 живых в лаунчере)")
 PYEOF
   "$PY" -I "$DIR/look_build.py" "$DIR" "$out" "$wall" "${photos[@]}"
   say "Отправляю на ТВ"
   bash "$DIR/tools/theme.sh" "$out"
   say "Готово. На ТВ:"
-  echo "- обои: Настройки лаунчера → Обои — по категориям, «Все по очереди», свои с телефона по QR-коду;"
+  echo "- обои: Пункт управления → Настройки лаунчера → Обои — живые, по категориям, «Все по очереди», свои с телефона по QR-коду;"
   echo "- переставить приложение: удержите OK на значке в доке → «Переместить», стрелки, «Назад» — поставить;"
   echo "- кнопки Сбера на пульте: bash $0 $TV_HOST keys; голосовой ассистент: bash $0 $TV_HOST jarvis"
 }
