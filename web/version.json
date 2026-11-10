@@ -1,20 +1,20 @@
 {
-  "version": "3.1.1",
-  "code": 311,
-  "date": "2026-11-09",
+  "version": "3.2.0",
+  "code": 320,
+  "date": "2026-11-10",
   "apk": "download/ShiftFlow.apk",
   "notes": {
     "ru": [
-      "Новый экран «Оформление»: темы, цвета, календарь и текст — по карточкам",
-      "Виджеты в цветах выбранного фона; «Месяц» стал календарём и растягивается до всего месяца",
-      "В виджете «Неделя» — названия смен, в «Сегодня» — одна кнопка «Открыть»",
-      "Листы смахиваются плавно, без подрагиваний"
+      "Новый облик «Табель»: бумага, чернила и штампы вместо неона и стекла",
+      "Итог месяца — как кассовый чек, день — как листок отрывного календаря",
+      "Смены в календаре отмечаются оттиском штампа, сегодня — обведено ручкой",
+      "Виджеты, иконка и страницы сайта — в том же стиле"
     ],
     "en": [
-      "New Appearance screen: theme, colors, calendar and text in clear cards",
-      "Widgets follow your background tint; Month is now a calendar that grows to the whole month",
-      "Week widget shows shift names, Today has a single Open button",
-      "Sheets swipe away smoothly, without jitter"
+      "New “Timesheet” look: paper, ink and stamps instead of neon and glass",
+      "Month total as a receipt, the selected day as a tear-off calendar page",
+      "Shifts are stamped on the calendar, today is circled in pen",
+      "Widgets, icon and web pages in the same style"
     ]
   }
 }

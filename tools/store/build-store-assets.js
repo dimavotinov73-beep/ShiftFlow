@@ -57,7 +57,8 @@ const dataUri = (buf) => 'data:image/png;base64,' + buf.toString('base64');
 
 async function captureApp(browser, base, lang) {
   const s = seed(lang);
-  const ctx = await browser.newContext({ viewport:{ width:360, height:721 }, deviceScaleFactor:3, isMobile:true, hasTouch:true, colorScheme:'dark', locale:lang === 'en' ? 'en-US' : 'ru-RU' });
+  s.prefs.theme = 'light';   // скриншоты для магазинов — на «бумаге»
+  const ctx = await browser.newContext({ viewport:{ width:360, height:721 }, deviceScaleFactor:3, isMobile:true, hasTouch:true, colorScheme:'light', locale:lang === 'en' ? 'en-US' : 'ru-RU' });
   await ctx.addInitScript(([p, d]) => {
     if (!sessionStorage.getItem('seeded')) { localStorage.setItem('tabel-prefs', p); localStorage.setItem('tabel-data', d); sessionStorage.setItem('seeded', '1'); }
   }, [JSON.stringify(s.prefs), JSON.stringify(s.data)]);
@@ -95,45 +96,44 @@ async function captureApp(browser, base, lang) {
   return shots;
 }
 
-function frameHtml(base, shot, copy) {
-  return `<!doctype html><html><head><meta charset="utf-8"><style>
-  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+// Рамка скриншота: лист бумаги, заголовок набран как в табеле, приписка от руки, телефон — плоский, с «подложенным листом»
+const FONTS = (base) => `
+  @font-face{ font-family:D; font-weight:500 900; src:url(${base}/fonts/sofia-condensed.woff2) format("woff2"); }
+  @font-face{ font-family:H; font-weight:600; src:url(${base}/fonts/caveat.woff2) format("woff2"); }
   @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }`;
+const PAPER = '#ECE7DA', INK = '#1F1D1A', MUTED = '#5E5A50', SHEET2 = '#D8D1BF';
+
+function frameHtml(base, shot, copy) {
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${FONTS(base)}
   html,body{ margin:0; width:1080px; height:1920px; overflow:hidden; }
-  body{ background:radial-gradient(70% 40% at 20% 8%, rgba(61,220,176,.30), transparent 70%), radial-gradient(60% 40% at 100% 30%, rgba(146,96,218,.20), transparent 70%), linear-gradient(180deg, #0B1715, #060708 70%);
-    font-family:M, sans-serif; color:#F1F5F4; -webkit-font-smoothing:antialiased; }
-  h1{ position:absolute; left:84px; right:84px; top:100px; margin:0; font-family:D, M, sans-serif; font-size:66px; line-height:1.12; letter-spacing:-.025em; font-weight:700; }
-  p{ position:absolute; left:86px; right:84px; top:290px; margin:0; font-size:36px; color:#A9C9C0; font-weight:600; letter-spacing:-.01em; }
-  .phone{ position:absolute; left:160px; top:400px; width:760px; height:1490px; border-radius:74px; padding:16px; box-sizing:border-box; background:linear-gradient(160deg,#2B3335,#0E1112);
-    box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 0 2px rgba(255,255,255,.08) inset, 0 0 90px rgba(61,220,176,.15); }
-  .phone img{ display:block; width:728px; height:1458px; border-radius:60px; object-fit:cover; object-position:top; }
-  </style></head><body><h1>${copy.title}</h1><p>${copy.sub}</p><div class="phone"><img src="${dataUri(shot)}"></div></body></html>`;
+  body{ background:${PAPER}; font-family:M, sans-serif; color:${INK}; -webkit-font-smoothing:antialiased; }
+  .head{ position:absolute; left:84px; right:84px; top:84px; padding-top:30px; border-top:6px solid ${INK}; }
+  h1{ margin:0; font-family:D, M, sans-serif; font-size:106px; line-height:.92; letter-spacing:.01em; font-weight:900; text-transform:uppercase; }
+  p{ margin:22px 0 0 4px; font-family:H, M, sans-serif; font-size:54px; line-height:1.02; color:${MUTED}; transform:rotate(-1.2deg); transform-origin:left center; }
+  .phone{ position:absolute; left:160px; bottom:-60px; width:760px; height:1420px; border-radius:66px; padding:16px; box-sizing:border-box; background:${INK};
+    box-shadow:22px 22px 0 ${SHEET2}; transform:rotate(-1deg); }
+  .phone img{ display:block; width:728px; height:1388px; border-radius:52px; object-fit:cover; object-position:top; }
+  </style></head><body><div class="head"><h1>${copy.title}</h1><p>${copy.sub}</p></div><div class="phone"><img src="${dataUri(shot)}"></div></body></html>`;
 }
 
 function bannerHtml(base, shot, w, h, lang) {
   const tag = lang === 'en' ? 'Shifts and income,<br>under control' : 'Смены и доход —<br>под контролем';
-  const small = lang === 'en' ? 'Offline · No account · No ads' : 'Офлайн · Без аккаунта · Без рекламы';
+  const small = lang === 'en' ? 'offline · no account · no ads' : 'офлайн · без аккаунта · без рекламы';
   const icon = fs.readFileSync(path.join(WEB, 'icons', 'icon.svg'));
   const k = h / 500;
-  return `<!doctype html><html><head><meta charset="utf-8"><style>
-  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:D; font-weight:200 900; src:url(${base}/fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
-  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F; }
-  @font-face{ font-family:M; font-weight:100 900; src:url(${base}/fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F; }
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${FONTS(base)}
   html,body{ margin:0; width:${w}px; height:${h}px; overflow:hidden; }
-  body{ position:relative; background:radial-gradient(60% 90% at 78% 40%, rgba(61,220,176,.28), transparent 70%), radial-gradient(50% 70% at 10% 100%, rgba(146,96,218,.18), transparent 70%), linear-gradient(120deg,#0B1715,#060708);
-    font-family:M, sans-serif; color:#F1F5F4; -webkit-font-smoothing:antialiased; }
-  .l{ position:absolute; left:${70*k}px; top:50%; transform:translateY(-50%); }
-  .brand{ display:flex; align-items:center; gap:${18*k}px; }
-  .brand img{ width:${86*k}px; height:${86*k}px; border-radius:${22*k}px; box-shadow:0 ${14*k}px ${40*k}px rgba(0,0,0,.45); }
-  .brand b{ font-family:D, M, sans-serif; font-size:${44*k}px; letter-spacing:-.02em; font-weight:700; } .brand b i{ font-style:normal; color:#3DDCB0; }
-  h1{ margin:${26*k}px 0 0; font-family:D, M, sans-serif; font-size:${36*k}px; line-height:1.15; letter-spacing:-.02em; font-weight:700; }
-  p{ margin:${16*k}px 0 0; font-size:${19*k}px; color:#9FBFB6; font-weight:700; letter-spacing:.02em; }
-  .phone{ position:absolute; right:${70*k}px; top:${46*k}px; width:${300*k}px; height:${560*k}px; border-radius:${44*k}px; padding:${9*k}px; background:linear-gradient(160deg,#2B3335,#0E1112);
-    box-shadow:0 ${30*k}px ${80*k}px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08) inset; transform:rotate(-6deg); }
-  .phone img{ width:100%; height:100%; border-radius:${36*k}px; object-fit:cover; object-position:top; display:block; }
+  body{ position:relative; background:${PAPER}; font-family:M, sans-serif; color:${INK}; -webkit-font-smoothing:antialiased; }
+  .l{ position:absolute; left:${64*k}px; top:50%; transform:translateY(-50%); }
+  .brand{ display:flex; align-items:center; gap:${16*k}px; }
+  .brand img{ width:${78*k}px; height:${78*k}px; border-radius:${18*k}px; }
+  .brand b{ font-family:D, M, sans-serif; font-size:${62*k}px; letter-spacing:.02em; font-weight:900; text-transform:uppercase; line-height:.9; } .brand b i{ font-style:normal; color:#1F7A62; }
+  h1{ margin:${24*k}px 0 0; font-family:D, M, sans-serif; font-size:${74*k}px; line-height:.92; letter-spacing:.01em; font-weight:900; text-transform:uppercase; }
+  p{ margin:${18*k}px 0 0; font-family:H, M, sans-serif; font-size:${34*k}px; line-height:1; color:${MUTED}; transform:rotate(-1.5deg); transform-origin:left center; }
+  .phone{ position:absolute; right:${78*k}px; top:${46*k}px; width:${300*k}px; height:${560*k}px; border-radius:${42*k}px; padding:${9*k}px; background:${INK};
+    box-shadow:${12*k}px ${12*k}px 0 ${SHEET2}; transform:rotate(-6deg); }
+  .phone img{ width:100%; height:100%; border-radius:${34*k}px; object-fit:cover; object-position:top; display:block; }
   </style></head><body><div class="l"><div class="brand"><img src="data:image/svg+xml;base64,${icon.toString('base64')}"><b>Shift<i>Flow</i></b></div>
   <h1>${tag}</h1><p>${small}</p></div><div class="phone"><img src="${dataUri(shot)}"></div></body></html>`;
 }

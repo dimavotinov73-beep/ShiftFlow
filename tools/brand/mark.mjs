@@ -4,11 +4,8 @@
 
 export const BRAND = {
   mint: '#3DDCB0',
-  mintLight: '#B9FFEA',
-  mintDeep: '#119C7E',
-  ink: '#07090A',
-  inkTeal: '#0E2622',
-  line: '#F4FBF9',
+  ink: '#1F1D1A',     // чернила
+  line: '#F3EFE4',    // бумага
 };
 
 const f2 = (n) => Math.round(n * 100) / 100;
@@ -46,49 +43,15 @@ export function markSvgBody({ mono = false, color = BRAND.line, idp = 'sf' } = {
     return `<path d="${g.d}" fill="none" stroke="${color}" stroke-width="${g.sw}" stroke-linecap="round" stroke-linejoin="round"/>`
       + `<circle cx="${g.cx}" cy="${f2(g.cy)}" r="${g.r}" fill="${color}"/>`;
   }
-  return `
-  <defs>
-    <radialGradient id="${idp}-ball" cx="0.36" cy="0.3" r="0.78">
-      <stop offset="0" stop-color="${BRAND.mintLight}"/>
-      <stop offset="0.45" stop-color="${BRAND.mint}"/>
-      <stop offset="1" stop-color="${BRAND.mintDeep}"/>
-    </radialGradient>
-    <linearGradient id="${idp}-line" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="${BRAND.line}" stop-opacity="0.55"/>
-      <stop offset="0.5" stop-color="${BRAND.line}"/>
-      <stop offset="1" stop-color="${BRAND.line}" stop-opacity="0.55"/>
-    </linearGradient>
-    <filter id="${idp}-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="5"/>
-    </filter>
-  </defs>
-  <circle cx="${g.cx}" cy="${f2(g.cy + 2)}" r="${g.r + 2}" fill="${BRAND.mint}" opacity="0.55" filter="url(#${idp}-glow)"/>
-  <path d="${g.d}" fill="none" stroke="url(#${idp}-line)" stroke-width="${g.sw}" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="${g.cx}" cy="${f2(g.cy)}" r="${g.r}" fill="url(#${idp}-ball)"/>
-  <ellipse cx="${f2(g.cx - 4.2)}" cy="${f2(g.cy - 5.4)}" rx="4.6" ry="2.6" fill="#fff" opacity="0.38" transform="rotate(-28 ${f2(g.cx - 4.2)} ${f2(g.cy - 5.4)})"/>`;
+  // Плоский знак: линия цвета бумаги и шар акцентного цвета — без градиентов, блика и свечения
+  return `<path d="${g.d}" fill="none" stroke="${BRAND.line}" stroke-width="${g.sw}" stroke-linecap="round" stroke-linejoin="round"/>`
+    + `<circle cx="${g.cx}" cy="${f2(g.cy)}" r="${g.r}" fill="${BRAND.mint}"/>`;
 }
 
-function background({ rounded, idp }) {
-  const shape = rounded
-    ? `<rect width="100" height="100" rx="22.5" fill="url(#${idp}-bg)"/>`
-    : `<rect width="100" height="100" fill="url(#${idp}-bg)"/>`;
-  const sheen = rounded
-    ? `<rect x="0.5" y="0.5" width="99" height="99" rx="22" fill="none" stroke="#fff" stroke-opacity="0.07"/>`
-    : '';
-  return `
-  <defs>
-    <linearGradient id="${idp}-bg" x1="0.15" y1="0" x2="0.85" y2="1">
-      <stop offset="0" stop-color="${BRAND.inkTeal}"/>
-      <stop offset="1" stop-color="${BRAND.ink}"/>
-    </linearGradient>
-    <radialGradient id="${idp}-halo" cx="0.5" cy="0.42" r="0.5">
-      <stop offset="0" stop-color="${BRAND.mint}" stop-opacity="0.22"/>
-      <stop offset="1" stop-color="${BRAND.mint}" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  ${shape}
-  <rect width="100" height="100" ${rounded ? 'rx="22.5"' : ''} fill="url(#${idp}-halo)"/>
-  ${sheen}`;
+function background({ rounded }) {
+  return rounded
+    ? `<rect width="100" height="100" rx="22.5" fill="${BRAND.ink}"/>`
+    : `<rect width="100" height="100" fill="${BRAND.ink}"/>`;
 }
 
 /**

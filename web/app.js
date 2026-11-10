@@ -119,11 +119,12 @@ const DICT = {
     'Не получилось прочитать Excel-файл':'Could not read the Excel file','В файле не нашлось смен':'No shifts found in the file',
     'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
     'Установить на iPhone':'Install on iPhone','Значок на экране «Домой», работает без интернета':'Home Screen icon, works offline',
+    'Штамп':'Stamp','Заливка':'Fill','Бумага':'Paper','Синька':'Blueprint','Чистый':'Plain','Крафт':'Kraft','Тема и бумага':'Theme and paper','Отметка смены':'Shift mark',
     'Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
     'Текст и форма':'Text and shape','Скругления':'Corners','Вернуть стандартное оформление':'Restore default look','Стандартное оформление':'Default look restored',
     'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
-    '«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.':
-      '“Battery saver” turns off blur and decorative animations, so the app runs faster on low-end phones and uses less battery.',
+    '«Экономно» отключает зерно бумаги и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.':
+      'Battery saver turns off the paper grain and decorative animations, so the app runs faster on low-end phones and uses less power.',
     'Импорт и экспорт':'Import and export','Excel, CSV и резервная копия':'Excel, CSV and backup','Поддержка':'Support',
     'Файлы создаются прямо на телефоне и никуда не отправляются. Сохраняй резервную копию перед переездом на новый телефон.':
       'Files are created right on your phone and never sent anywhere. Save a backup before moving to a new phone.',
@@ -198,7 +199,7 @@ const CURRENT_VERSION = 4;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.1.1';
+const APP_BUILD = '3.2.0';
 /* Кнопка и автопроверка обновлений пока скрыты: включить — true (механизм проверки и загрузки готов) */
 const UPDATES_ENABLED = false;
 const BRAND = 'ShiftFlow';
@@ -214,17 +215,17 @@ const ACCENTS = [
 ];
 /* Фон: оттенок тёмной и светлой темы (значения дублируются в CSS как :root[data-bg=…]) */
 const BACKGROUNDS = [
-  { v:'graphite', n:'Графит',  d:'#08090B', ds:'#15191B', l:'#F3F5F4', ls:'#FFFFFF' },
-  { v:'midnight', n:'Полночь', d:'#070912', ds:'#151A2C', l:'#EEF1F8', ls:'#FFFFFF' },
-  { v:'oled',     n:'Контраст', d:'#000000', ds:'#111213', l:'#FFFFFF', ls:'#F1F2F2' },
-  { v:'cocoa',    n:'Какао',   d:'#0D0A08', ds:'#1C1612', l:'#F5F0EA', ls:'#FFFCF8' }
+  { v:'graphite', n:'Бумага', d:'#121315', ds:'#1A1C1F', l:'#ECE7DA', ls:'#F9F6EE' },
+  { v:'midnight', n:'Синька', d:'#0C111C', ds:'#131A29', l:'#E3E8EF', ls:'#F6F8FB' },
+  { v:'oled',     n:'Чистый', d:'#000000', ds:'#0C0C0D', l:'#FFFFFF', ls:'#F3F3F0' },
+  { v:'cocoa',    n:'Крафт',  d:'#15100B', ds:'#1F1811', l:'#DCCDB1', ls:'#F1E7D2' }
 ];
-const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Мягкая', k:'14%' }, { v:'bold', n:'Яркая', k:'34%' } ];
+const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Штамп', k:'9%' }, { v:'bold', n:'Заливка', k:'18%' } ];
 const PERF_MODES = [ { v:'auto', n:'Авто' }, { v:'full', n:'Максимум' }, { v:'lite', n:'Экономно' } ];
 const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
 const OLD_ACCENTS = { '#FF9500':'#FFA43A','#00E5FF':'#38BDF8','#FF2FE0':'#FF5C9A','#39FF14':'#3DDCB0','#7B2FFF':'#9B7BFF','#3D5CFF':'#4C8DFF','#FF3B3B':'#FF5C9A','#8E8E93':'#3DDCB0' };
 const TEXT_SIZES = [ { v:'s', n:'Мелкий', k:.92 }, { v:'m', n:'Обычный', k:1 }, { v:'l', n:'Крупный', k:1.08 }, { v:'xl', n:'Очень крупный', k:1.17 } ];
-const UI_STYLES = [ { v:'round', n:'Округлый', k:1.3 }, { v:'soft', n:'Мягкий', k:1 }, { v:'crisp', n:'Чёткий', k:.45 } ];
+const UI_STYLES = [ { v:'round', n:'Округлый', k:2 }, { v:'soft', n:'Мягкий', k:1 }, { v:'crisp', n:'Чёткий', k:.3 } ];
 
 let prefs = { theme:'auto', accent:'#3DDCB0', lang:'ru', agreement:null, textSize:'m', uiStyle:'soft',
               bg:'graphite', dayTint:'soft', dayLabel:'both', customHue:160, perf:'auto', autoUpdate:true, v:PREFS_VERSION };
@@ -348,6 +349,7 @@ function applyPrefs(){
   root.setAttribute('data-bg', prefs.bg);
   root.classList.toggle('lite', isLite());
   root.setAttribute('data-daylabel', prefs.dayLabel);
+  root.setAttribute('data-daytint', prefs.dayTint);
   for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
   if(meta) meta.setAttribute('content', light ? bgDef().l : bgDef().d);
@@ -736,7 +738,7 @@ window.addEventListener('scroll', onScroll, { passive:true });
    Контур — несколько дуг (углы, «плечи» выемки и сама выемка), поэтому пересчёт за кадр почти бесплатный.
    Нажатие засчитывается в любой точке панели (включая пузырь): берётся ближайшая вкладка. */
 const TabBar = (function(){
-  const H = 60, R = 24, RB = 21, GAP = 4, LIFT = 4, FIL = 9, SINK = 5;
+  const H = 60, R = 18, RB = 21, GAP = 4, LIFT = 4, FIL = 9, SINK = 5;
   let wrap, fade, bar, glass, edgePath, edge, bubble, tabsBox, tabEls = [], bubbleIcons = [];
   let built = false, W = 0, PAD = 12, idx = -1, near = -1;
   let x = 0, v = 0, target = 0, sink = 0, raf = 0, last = 0;
@@ -829,9 +831,7 @@ const TabBar = (function(){
     wrap.className = 'tabbar-wrap';
     let h = '<nav class="tabbar" id="tabbar" role="tablist" aria-label="ShiftFlow">'
       + '<div class="tb-shadow"></div><div class="tb-glass"><div class="tb-sheen"></div></div>'
-      + '<svg class="tb-edge" aria-hidden="true"><defs><linearGradient id="tbEdgeG" x1="0" y1="0" x2="0" y2="1">'
-      + '<stop offset="0" style="stop-color:var(--edge-top)"/><stop offset="1" style="stop-color:var(--edge-bottom)"/></linearGradient></defs>'
-      + '<path stroke="url(#tbEdgeG)"/></svg>'
+      + '<svg class="tb-edge" aria-hidden="true"><path/></svg>'
       + '<div class="tb-bubble" aria-hidden="true">';
     TABS.forEach(function(tb){ h += '<span class="bi">' + tb.icon() + '</span>'; });
     h += '</div><div class="tb-tabs">';
@@ -971,6 +971,25 @@ function segbar(st){
   parts.forEach(function(p){ out += '<span><i style="background:'+p.w.color+'"></i>'+esc(p.w.name)+' · '+Math.round(p.pay/st.total*100)+'%</span>'; });
   return out + '</div>';
 }
+/* Чек: итог периода. Номер, сумма, строки мест работы с точками-отбивками и отрывной край. */
+function slipNo(y, m){ return (m < 9 ? '0' : '') + (m + 1) + '/' + String(y).slice(-2); }
+function slipHtml(st, cur, title, no, body){
+  return '<section class="card slip hero" style="--d:0">'
+    + '<div class="slip-top"><span>'+esc(title)+'</span><span>№ '+esc(no)+'</span></div>'
+    + '<div class="slip-cap">'+esc(t('заработано'))+'</div>'
+    + moneyHtml(st.total, cur, 'hero-num')
+    + (body || '')
+    + '<div class="slip-foot"><span>'+esc(cnt(st.shifts,'shift'))+'</span><span>'+esc(cnt(st.hours,'hour'))+'</span><span>'+esc(cnt(st.off,'off'))+'</span></div>'
+    + '</section>';
+}
+function slipRows(st){
+  const rows = state.workplaces.map(function(w){ return { w:w, s:st.wpStats[w.id] }; }).filter(function(x){ return x.s && (x.s.days || x.s.pay); });
+  if(!rows.length) return '';
+  return '<div class="lrows">' + rows.map(function(x, i){
+    return '<div class="lr" style="--i:'+i+'"><i style="background:'+x.w.color+'"></i><span class="lr-n">'+esc(x.w.name)+'</span><span class="lr-d"></span>'
+      + '<span class="lr-m">'+esc(cnt(x.s.days,'shift'))+'</span><span class="lr-v">'+esc(money(x.s.pay, x.w.currency))+'</span></div>';
+  }).join('') + '</div>';
+}
 function warnHtml(){ return '<div class="warn">' + esc(t('Не удалось сохранить данные в этом браузере (возможно, включён приватный режим или закончилось место). Скачай резервную копию в настройках.')) + '</div>'; }
 
 /* ════════════════════════ Экран «Календарь» ════════════════════════ */
@@ -983,12 +1002,7 @@ function calendarView(){
       + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div></div>';
   if(storageBroken) out += warnHtml();
 
-  out += '<section class="card hero" style="--d:0">'
-      + '<div class="eyebrow"><span class="pip"></span>'+esc(monthTitle(m))+' · '+esc(t('заработано'))+'</div>'
-      + moneyHtml(ms.total, cur, 'hero-num')
-      + '<div class="sub">'+statLine(ms)+'</div>'
-      + segbar(ms)
-      + '</section>';
+  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms));
 
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
@@ -1051,9 +1065,10 @@ function dayCell(k, d, tKey, weekend){
   if(prefs.dayLabel === 'sum'){ if(cls.indexOf(' off') >= 0) a = nm; nm = ''; }
   else if(prefs.dayLabel === 'name') a = '';
   const note = (state.notes && state.notes[k]) ? String(state.notes[k]) : '';
-  return '<div class="'+cls+'" style="--i:'+d+(wc ? ';--wc:'+wc : '')+'" data-act="dayTap" data-k="'+k+'" role="button" tabindex="0" aria-label="'+esc(label)+'">'
+  const rot = (((d * 37) % 9) - 4) * .7;   /* −2,8°…2,8° — как у штампа, поставленного рукой */
+  return '<div class="'+cls+'" style="--i:'+d+';--rot:'+rot.toFixed(1)+'deg'+(wc ? ';--wc:'+wc : '')+'" data-act="dayTap" data-k="'+k+'" role="button" tabindex="0" aria-label="'+esc(label)+'">'
     + '<span class="n">'+d+'</span>'
-    + (nm ? '<span class="nm">'+esc(nm)+'</span>' : '')
+    + (nm ? '<span class="nm"'+(nm.length > 7 ? ' style="--nf:'+Math.max(.6, 7.3 / nm.length).toFixed(2)+'"' : '')+'>'+esc(nm)+'</span>' : '')
     + (a ? '<span class="a">'+esc(a)+'</span>' : '')
     + (note ? '<span class="note"></span>' : '') + (bar ? '<span class="bar"></span>' : '') + '</div>';
 }
@@ -1079,8 +1094,11 @@ function dayEditor(){
   const pc = w ? w.color : (s.dayOff ? 'var(--text-3)' : 'var(--accent)');
   let sub = fmtWeekday(k);
   if(w) sub += ' · ' + w.name; else if(s.dayOff) sub += ' · ' + t('Выходной');
+  const kp = parseKey(k), dow = new Date(kp[0], kp[1], kp[2]).getDay();
+  const mName = (LANG === 'ru' ? MONTHS_GEN.ru : months())[kp[1]] || '';
   let out = '<section class="panel" style="--pc:'+pc+'" data-key="ed-'+k+'">';
-  out += '<div class="panel-head"><div class="panel-title">'+esc(fmtDayMonth(k))+'<small>'+esc(sub)+'</small></div>'
+  out += '<div class="panel-head"><div class="leaf'+(dow === 0 || dow === 6 ? ' we' : '')+'" aria-label="'+esc(fmtDayMonth(k))+'">'
+      +  '<b class="leaf-n">'+kp[2]+'</b><span class="leaf-t"><span class="leaf-m">'+esc(mName)+'</span><span class="leaf-w">'+esc(sub)+'</span></span></div>'
       +  '<button type="button" class="icon-btn sm" data-act="closeEditor" aria-label="'+esc(t('Закрыть день'))+'">'+ico.x()+'</button></div>';
 
   if(!has || ui.editorPicker){
@@ -1292,15 +1310,10 @@ function financeView(){
       + '<button type="button" class="icon-btn" data-act="nextMonth" aria-label="'+esc(t('Следующий месяц'))+'">'+ico.chevR()+'</button></div>';
 
   out += label(t('Итого за месяц'));
-  out += '<section class="card" style="--d:0">';
-  out += '<div class="eyebrow"><span class="pip"></span>'+esc(monthTitle(m))+' '+y+'</div>';
-  out += moneyHtml(ms.total, cur, 'hero-num');
-  out += '<div class="sub">'+statLine(ms)+'</div>';
-  if(state.workplaces.length) out += wpBreakdown(ms);
-  else out += '<div class="empty" style="padding-bottom:4px"><div class="ill">'+ico.briefcase()+'</div>'+esc(t('Добавь место работы, чтобы отмечать смены и считать доход.'))
-            + '<div style="margin-top:12px"><button type="button" class="pill solid" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button></div></div>';
-  if(ms.shifts || ms.off) out += '<div class="actions"><button type="button" class="link danger" data-act="clearMonth">'+esc(t('Очистить месяц'))+'</button></div>';
-  out += '</section>';
+  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), state.workplaces.length ? wpBreakdown(ms)
+    : '<div class="empty" style="padding-bottom:4px"><div class="ill">'+ico.briefcase()+'</div>'+esc(t('Добавь место работы, чтобы отмечать смены и считать доход.'))
+      + '<div style="margin-top:12px"><button type="button" class="pill solid" data-act="addWorkplace">'+esc(t('Добавить место работы'))+'</button></div></div>');
+  if(ms.shifts || ms.off) out += '<div class="actions" style="justify-content:flex-end;margin:-10px 2px 0"><button type="button" class="link danger" data-act="clearMonth">'+esc(t('Очистить месяц'))+'</button></div>';
 
   /* Год */
   const sy = ui.statsYear;
@@ -1363,7 +1376,7 @@ function financeView(){
   });
   out += row({ act:'exportAll', key:'ex-all', tile:tile(ico.doc()), title:t('Скачать всё'), sub:t('Все места работы'), end:ico.down() });
   out += '</div>';
-  out += '<div class="note">'+esc(t('Файлы создаются на устройстве — интернет не нужен.'))+'</div>';
+  out += '<div class="note hand">'+esc(t('Файлы создаются на устройстве — интернет не нужен.'))+'</div>';
   return out;
 }
 
@@ -1413,7 +1426,7 @@ function settingsView(){
     out += '<div class="group" style="--d:5"><a class="row" href="ios.html">'+tile(ico.down())
         + '<span class="row-body"><span class="row-title">'+esc(t('Установить на iPhone'))+'</span><span class="row-sub">'+esc(t('Значок на экране «Домой», работает без интернета'))+'</span></span><span class="row-end">'+ico.chevR()+'</span></a></div>';
   }
-  out += '<div class="note">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
+  out += '<div class="note hand">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
   return out;
 }
 
@@ -1629,14 +1642,14 @@ function appearancePage(){
     + lookOpt('setTheme', 'dark', prefs.theme === 'dark', '<span class="thp">'+themePreview(bgNow, false)+'</span>', t('Тёмная'))
     + '</div>';
   if(prefs.theme === 'auto') body += '<div class="look-note">'+esc(t('Тема меняется вместе с системной'))+'</div>';
-  body += lookSub(t('Оттенок фона'));
+  body += lookSub(t('Бумага'));
   const light = isLight();
   body += '<div class="tints">' + BACKGROUNDS.map(function(b){
     const on = prefs.bg === b.v;
     return '<button type="button" class="tint'+(on ? ' on' : '')+'" data-act="setBg" data-v="'+b.v+'" aria-pressed="'+on+'" style="--b:'+(light ? b.l : b.d)+';--s:'+(light ? b.ls : b.ds)+'">'
       + '<span class="dot"><i></i></span><span class="opt-n">'+esc(t(b.n))+'</span></button>';
   }).join('') + '</div>';
-  out += lookCard(1, light ? ico.sun() : ico.moon(), t('Тема и фон'), themeName + ' · ' + t(bgNow.n), body);
+  out += lookCard(1, light ? ico.sun() : ico.moon(), t('Тема и бумага'), themeName + ' · ' + t(bgNow.n), body);
 
   /* 2. Цвет акцента */
   body = '<div class="swatches grid6">';
@@ -1654,17 +1667,17 @@ function appearancePage(){
 
   /* 3. Календарь: подсветка смен и подписи — на миниатюрах настоящих дней */
   const wc = w0.color, wn = shortLabel(w0), pay = numStr(state.workplaces.length ? Math.round(calcPay({ workplaceId:w0.id, hours:w0.defaultHours })) : 2560);
-  const cell = function(k, lab){
-    return '<span class="dcp" style="--wc:'+wc+';--k:'+k+'"><b>12</b>'+(lab || '')+'<i></i></span>';
+  const cell = function(tint, lab, noName){
+    return '<span class="dcp m-'+tint.v+(noName ? ' no-name' : '')+'" style="--wc:'+wc+';--k:'+tint.k+'"><b>12</b>'+(lab || '')+'<i></i></span>';
   };
-  body = lookSub(t('Подсветка смен')) + '<div class="opts" style="--n:3">' + DAY_TINTS.map(function(x){
-    return lookOpt('setDayTint', x.v, prefs.dayTint === x.v, cell(x.k, '<em>'+esc(wn)+'</em>'), t(x.n));
+  body = lookSub(t('Отметка смены')) + '<div class="opts" style="--n:3">' + DAY_TINTS.map(function(x){
+    return lookOpt('setDayTint', x.v, prefs.dayTint === x.v, cell(x, '<em>'+esc(wn)+'</em>'), t(x.n));
   }).join('') + '</div>';
-  const tk = (DAY_TINTS.filter(function(x){ return x.v === prefs.dayTint; })[0] || DAY_TINTS[1]).k;
+  const tn = DAY_TINTS.filter(function(x){ return x.v === prefs.dayTint; })[0] || DAY_TINTS[1];
   body += lookSub(t('Подписи в днях')) + '<div class="opts" style="--n:3">'
-    + lookOpt('setDayLabel', 'both', prefs.dayLabel === 'both', cell(tk, '<em>'+esc(wn)+'</em><s>'+esc(pay)+'</s>'), t('Всё'))
-    + lookOpt('setDayLabel', 'name', prefs.dayLabel === 'name', cell(tk, '<em>'+esc(wn)+'</em>'), t('Название'))
-    + lookOpt('setDayLabel', 'sum', prefs.dayLabel === 'sum', cell(tk, '<s>'+esc(pay)+'</s>'), t('Сумма'))
+    + lookOpt('setDayLabel', 'both', prefs.dayLabel === 'both', cell(tn, '<em>'+esc(wn)+'</em><s>'+esc(pay)+'</s>'), t('Всё'))
+    + lookOpt('setDayLabel', 'name', prefs.dayLabel === 'name', cell(tn, '<em>'+esc(wn)+'</em>'), t('Название'))
+    + lookOpt('setDayLabel', 'sum', prefs.dayLabel === 'sum', cell(tn, '<s>'+esc(pay)+'</s>', true), t('Сумма'))
     + '</div>';
   out += lookCard(3, ico.calendar(), t('Календарь'), optName(DAY_TINTS, prefs.dayTint) + ' · ' + optName(DAY_LABELS, prefs.dayLabel), body);
 
@@ -1681,7 +1694,7 @@ function appearancePage(){
 
   /* 5. Плавность и эффекты */
   body = segHtml(PERF_MODES.map(function(x){ return { v:x.v, label:x.n }; }), prefs.perf, 'setPerf')
-    + '<div class="look-note">'+esc(t('«Экономно» отключает размытие и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.'))+'</div>';
+    + '<div class="look-note">'+esc(t('«Экономно» отключает зерно бумаги и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.'))+'</div>';
   out += lookCard(5, ico.sparkle(), t('Эффекты'), prefs.perf === 'auto' ? t('Авто') + ' · ' + (isLite() ? t('экономно') : t('максимум')) : optName(PERF_MODES, prefs.perf), body);
 
   if(!lookIsDefault()){
@@ -1725,7 +1738,7 @@ function languagePage(){
   [ { v:'ru', n:'Русский', s:'Russian' }, { v:'en', n:'English', s:'Английский' } ].forEach(function(l){
     out += row({ act:'setLang', data:' data-v="'+l.v+'"', on:LANG === l.v, title:l.n, sub:l.s, end:'<span class="radio">'+ico.check()+'</span>' });
   });
-  out += '</div><div class="note">'+esc(t('Язык интерфейса не зависит от языка системы.'))+'</div>';
+  out += '</div><div class="note hand">'+esc(t('Язык интерфейса не зависит от языка системы.'))+'</div>';
   return out;
 }
 
@@ -1756,7 +1769,7 @@ function dataPage(){
   let out = topbar(t('Импорт и экспорт'), { back:true });
   out += pageHead(t('Импорт и экспорт'), t('Всё хранится только на этом устройстве'), true);
   out += '<section class="card" style="--d:0;display:flex;gap:14px;align-items:flex-start">'+tile(ico.lock())
-      + '<div class="sub" style="margin:0">'+esc(t('Файлы создаются прямо на телефоне и никуда не отправляются. Сохраняй резервную копию перед переездом на новый телефон.'))+'</div></section>';
+      + '<div class="info">'+esc(t('Файлы создаются прямо на телефоне и никуда не отправляются. Сохраняй резервную копию перед переездом на новый телефон.'))+'</div></section>';
   out += label(t('Экспорт'));
   out += '<section class="card" style="--d:1;padding:14px">'
       + '<div class="row2">'

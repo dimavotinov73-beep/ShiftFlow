@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     private void createWebView() {
         web = new WebView(this);
-        web.setBackgroundColor(lightUi ? 0xFFF3F5F4 : 0xFF08090B);
+        web.setBackgroundColor(lightUi ? 0xFFECE7DA : 0xFF121315);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         root.addView(web, 0, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -221,7 +221,7 @@ public class MainActivity extends Activity {
 
     private void applyBarColors() {
         if (Build.VERSION.SDK_INT >= 30) return;
-        int bg = lightUi ? 0xFFF3F5F4 : 0xFF08090B;
+        int bg = lightUi ? 0xFFECE7DA : 0xFF121315;
         Window w = getWindow();
         w.setStatusBarColor(bg);
         w.setNavigationBarColor(bg);
@@ -246,7 +246,7 @@ public class MainActivity extends Activity {
             decor.setSystemUiVisibility(flags);
             applyBarColors();
         }
-        if (web != null) web.setBackgroundColor(lightUi ? 0xFFF3F5F4 : 0xFF08090B);
+        if (web != null) web.setBackgroundColor(lightUi ? 0xFFECE7DA : 0xFF121315);
     }
 
     private void pushInsets() {

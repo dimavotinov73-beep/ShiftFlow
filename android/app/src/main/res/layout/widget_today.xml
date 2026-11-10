@@ -20,8 +20,8 @@
             <ImageView android:id="@+id/w_dot" android:layout_width="10dp" android:layout_height="10dp" android:layout_marginEnd="8dp"
                 android:src="@drawable/widget_dot" android:importantForAccessibility="no" />
             <TextView android:id="@+id/w_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                android:maxLines="1" android:ellipsize="end" android:textSize="20sp" android:fontFamily="@font/unbounded_bold"
-                android:textColor="#F1F5F4" android:text="Кофейня" />
+                android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false" android:textSize="30sp" android:fontFamily="@font/sofia_bold"
+                android:textAllCaps="true" android:letterSpacing="0.02" android:textColor="#ECE7DA" android:text="Кофейня" />
         </LinearLayout>
         <TextView android:id="@+id/w_sub" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
             android:maxLines="1" android:ellipsize="end" android:textSize="13sp" android:fontFamily="@font/onest_medium"
@@ -32,7 +32,7 @@
                 android:src="@drawable/widget_pill" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <TextView android:id="@+id/w_open_text" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="8dp" android:paddingRight="8dp"
-                android:textSize="13sp" android:fontFamily="@font/onest_bold" android:textColor="#05110D" android:text="Открыть" />
+                android:textSize="17sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.07" android:textColor="#05110D" android:text="Открыть" />
         </FrameLayout>
     </LinearLayout>
 </FrameLayout>

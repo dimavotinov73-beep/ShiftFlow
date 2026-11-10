@@ -20,12 +20,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k0_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k0_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k0_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -42,12 +42,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k1_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k1_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k1_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -64,12 +64,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k2_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k2_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k2_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -86,12 +86,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k3_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k3_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k3_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -108,12 +108,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k4_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k4_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k4_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -130,12 +130,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k5_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k5_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k5_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"
@@ -152,12 +152,12 @@
                     android:layout_marginBottom="1dp" android:includeFontPadding="false"
                     android:textSize="9sp" android:fontFamily="@font/onest_bold" android:textColor="#68726F" android:text="ПН" android:textAllCaps="true" />
                 <TextView android:id="@+id/k6_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="15sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="19sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/k6_nm" android:layout_width="match_parent" android:layout_height="12dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
-                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="9.5sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="11sp" android:autoSizeStepGranularity="0.5sp"
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/k6_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="5dp"

@@ -1,6 +1,9 @@
-ShiftFlow bundles two fonts, both licensed under the SIL Open Font License 1.1:
-  Onest     — Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
-  Unbounded — Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)
+ShiftFlow bundles four fonts, all licensed under the SIL Open Font License 1.1:
+  Onest                    — Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
+  Sofia Sans Extra Condensed — Copyright 2019 The Sofia Sans Project Authors (https://github.com/lettersoup/Sofia-Sans)
+  Martian Mono             — Copyright 2021 The Martian Mono Project Authors (https://github.com/evilmartians/mono)
+  Caveat                   — Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+The files are subsets (Latin + Cyrillic); Sofia Sans Extra Condensed is served under the family name "Sofia Condensed".
 
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.

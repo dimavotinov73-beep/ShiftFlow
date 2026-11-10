@@ -34,15 +34,15 @@ PRIVACY
 
 DESIGN
 • Dark and light theme, or follow the system
-• 12 accent colors and 4 background tints
+• 12 accent colors and 4 paper types: plain, blueprint, white, kraft
 • Adjustable text size, corner style and calendar labels
 • Battery-saver mode for low-end phones
 • English and Russian
 
 ShiftFlow — your schedule, your income.
 
-## What's new (3.1.1)
-Home screen widgets (Today, a Month calendar, Week) in your theme colors, shift import and export (Excel, CSV), a new Appearance screen, a smoother tab bar and swipe-to-close sheets, a light mode for low-end devices, and an updated user agreement and privacy policy.
+## What's new (3.2.0)
+A new “Timesheet” look: paper, ink and stamps instead of neon and glass. The month total reads like a receipt, the selected day like a tear-off calendar page, shifts are stamped on the calendar and today is circled in pen. Widgets, icon and web pages share the same style.
 
 ## Category
 Productivity

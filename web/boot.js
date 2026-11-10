@@ -19,15 +19,16 @@
     root.style.setProperty('--accent-ink', 'rgb(' + c.map(function(v){ return light ? Math.round(v*.58) : Math.min(255, Math.round(v*.38 + 158)); }).join(',') + ')');
   }catch(e){}
   root.style.setProperty('--fs', ({ s:.92, m:1, l:1.08, xl:1.17 })[p.textSize] || 1);
-  root.style.setProperty('--rk', ({ round:1.3, soft:1, crisp:.45 })[p.uiStyle] || 1);
-  var bgs = { graphite:['#08090B','#F3F5F4'], midnight:['#070912','#EEF1F8'], oled:['#000000','#FFFFFF'], cocoa:['#0D0A08','#F5F0EA'] };
+  root.style.setProperty('--rk', ({ round:2, soft:1, crisp:.3 })[p.uiStyle] || 1);
+  var bgs = { graphite:['#121315','#ECE7DA'], midnight:['#0C111C','#E3E8EF'], oled:['#000000','#FFFFFF'], cocoa:['#15100B','#DCCDB1'] };
   var bg = bgs[p.bg] ? p.bg : 'graphite';
   root.setAttribute('data-bg', bg);
   var mem = navigator.deviceMemory, cores = navigator.hardwareConcurrency;
   var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(p.perf === 'lite' || ((p.perf || 'auto') === 'auto' && ((mem && mem <= 3) || (cores && cores <= 4) || rm))) root.classList.add('lite');
   root.setAttribute('data-daylabel', p.dayLabel || 'both');
-  root.style.setProperty('--dt', ({ line:'0%', soft:'14%', bold:'34%' })[p.dayTint] || '14%');
+  root.setAttribute('data-daytint', ({ line:1, soft:1, bold:1 })[p.dayTint] ? p.dayTint : 'soft');
+  root.style.setProperty('--dt', ({ line:'0%', soft:'9%', bold:'18%' })[p.dayTint] || '9%');
   var m = document.querySelector('meta[name="theme-color"]');
   if(m) m.setAttribute('content', bgs[bg][light ? 1 : 0]);
 

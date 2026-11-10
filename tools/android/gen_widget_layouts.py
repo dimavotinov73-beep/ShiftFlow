@@ -27,12 +27,12 @@ def cell(cid, wd=False, num_sp=14, name_h=12, name_max=9, bar_mb=4, margin_end=T
             <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
                 android:gravity="center" android:paddingBottom="{bar_mb + 2}dp">{wd_view}
                 <TextView android:id="@+id/{cid}_num" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:includeFontPadding="false" android:textSize="{num_sp}sp" android:fontFamily="@font/onest_bold" android:textColor="#F1F5F4" android:text="9" />
+                    android:includeFontPadding="false" android:textSize="{num_sp}sp" android:fontFamily="@font/sofia_bold" android:textColor="#ECE7DA" android:text="9" />
                 <TextView android:id="@+id/{cid}_nm" android:layout_width="match_parent" android:layout_height="{name_h}dp" android:layout_marginTop="2dp"
                     android:gravity="center" android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false"
                     android:paddingLeft="2dp" android:paddingRight="2dp"
                     android:autoSizeTextType="uniform" android:autoSizeMinTextSize="6sp" android:autoSizeMaxTextSize="{name_max}sp" android:autoSizeStepGranularity="0.5sp"
-                    android:textSize="8sp" android:fontFamily="@font/onest_bold" android:textColor="#A2ADAA" android:text="" />
+                    android:textSize="9sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.04" android:textColor="#ABA699" android:text="" />
             </LinearLayout>
             <ImageView android:id="@+id/{cid}_bar" android:layout_width="14dp" android:layout_height="3dp"
                 android:layout_gravity="bottom|center_horizontal" android:layout_marginBottom="{bar_mb}dp"
@@ -47,7 +47,7 @@ def pill(idn, text):
                 android:src="@drawable/widget_pill" android:scaleType="fitXY" android:importantForAccessibility="no" />
             <TextView android:id="@+id/{idn}_text" android:layout_width="match_parent" android:layout_height="match_parent"
                 android:gravity="center" android:maxLines="1" android:ellipsize="end" android:paddingLeft="8dp" android:paddingRight="8dp"
-                android:textSize="13sp" android:fontFamily="@font/onest_bold" android:textColor="#05110D" android:text="{text}" />
+                android:textSize="17sp" android:fontFamily="@font/sofia_bold" android:textAllCaps="true" android:letterSpacing="0.07" android:textColor="#05110D" android:text="{text}" />
         </FrameLayout>'''
 
 
@@ -88,8 +88,8 @@ w('layout/widget_today.xml', root_open('14dp') + head('Понедельник, 9
             <ImageView android:id="@+id/w_dot" android:layout_width="10dp" android:layout_height="10dp" android:layout_marginEnd="8dp"
                 android:src="@drawable/widget_dot" android:importantForAccessibility="no" />
             <TextView android:id="@+id/w_status" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
-                android:maxLines="1" android:ellipsize="end" android:textSize="20sp" android:fontFamily="@font/unbounded_bold"
-                android:textColor="#F1F5F4" android:text="Кофейня" />
+                android:maxLines="1" android:ellipsize="end" android:includeFontPadding="false" android:textSize="30sp" android:fontFamily="@font/sofia_bold"
+                android:textAllCaps="true" android:letterSpacing="0.02" android:textColor="#ECE7DA" android:text="Кофейня" />
         </LinearLayout>
         <TextView android:id="@+id/w_sub" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
             android:maxLines="1" android:ellipsize="end" android:textSize="13sp" android:fontFamily="@font/onest_medium"
@@ -101,7 +101,7 @@ weeks = ''.join(
     f'''
         <LinearLayout android:id="@+id/r{r}" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
             android:layout_marginTop="4dp" android:orientation="horizontal">'''
-    + ''.join(cell(f'd{r}{i}', num_sp=12, name_h=11, name_max=8.5, bar_mb=3, margin_end=i < 6) for i in range(7))
+    + ''.join(cell(f'd{r}{i}', num_sp=15, name_h=11, name_max=10, bar_mb=3, margin_end=i < 6) for i in range(7))
     + '''
         </LinearLayout>''' for r in range(6))
 wdrow = ''.join(
@@ -116,14 +116,14 @@ w('layout/widget_month.xml', root_open('12dp') + head('Ноябрь 2026') + '''
 # «Неделя»: семь дней с днём недели, числом и названием смены
 w('layout/widget_week.xml', root_open('8dp') + '''
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">'''
-  + ''.join(cell(f'k{i}', wd=True, num_sp=15, name_h=12, name_max=9.5, bar_mb=5, margin_end=i < 6) for i in range(7)) + '''
+  + ''.join(cell(f'k{i}', wd=True, num_sp=19, name_h=12, name_max=11, bar_mb=5, margin_end=i < 6) for i in range(7)) + '''
         </LinearLayout>''' + ROOT_CLOSE)
 
 # ───────── Графика ─────────
 # Фон и обводка виджета: белые фигуры, цвет задаётся при отрисовке (setColorFilter / setImageAlpha)
 w('drawable/widget_bg.xml', f'''<?xml version="1.0" encoding="utf-8"?>
 <shape {NS} android:shape="rectangle">
-    <solid android:color="#FFFFFFFF" />
+    <solid android:color="#FF16181A" />
     <corners android:radius="24dp" />
 </shape>
 ''')
@@ -131,14 +131,14 @@ w('drawable/widget_bg.xml', f'''<?xml version="1.0" encoding="utf-8"?>
 w('drawable/widget_edge.xml', f'''<?xml version="1.0" encoding="utf-8"?>
 <shape {NS} android:shape="rectangle">
     <solid android:color="#00000000" />
-    <stroke android:width="1dp" android:color="#FFFFFFFF" />
+    <stroke android:width="1dp" android:color="#24FFFFFF" />
     <corners android:radius="24dp" />
 </shape>
 ''')
-for name, rad in [('widget_cell', '10dp'), ('widget_pill', '19dp')]:
+for name, rad, col in [('widget_cell', '6dp', '#FF25272A'), ('widget_pill', '8dp', '#FF3DDCB0')]:
     w(f'drawable/{name}.xml', f'''<?xml version="1.0" encoding="utf-8"?>
 <shape {NS} android:shape="rectangle">
-    <solid android:color="#FFFFFFFF" />
+    <solid android:color="{col}" />
     <corners android:radius="{rad}" />
 </shape>
 ''')
@@ -146,7 +146,7 @@ w('drawable/widget_cell_ring.xml', f'''<?xml version="1.0" encoding="utf-8"?>
 <shape {NS} android:shape="rectangle">
     <solid android:color="#00000000" />
     <stroke android:width="2dp" android:color="#FFFFFFFF" />
-    <corners android:radius="10dp" />
+    <corners android:radius="6dp" />
 </shape>
 ''')
 w('drawable/widget_bar.xml', f'''<?xml version="1.0" encoding="utf-8"?>
@@ -185,7 +185,6 @@ for name, mw, mh, cw, ch, desc in [('today', 110, 110, 2, 2, 'widget_today_desc'
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/widget_{name}"
     android:previewImage="@drawable/widget_preview_{name}"
-    android:previewLayout="@layout/widget_{name}"
     android:description="@string/{desc}"
     android:widgetCategory="home_screen" />
 ''')

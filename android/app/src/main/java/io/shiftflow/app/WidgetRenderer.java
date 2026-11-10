@@ -39,7 +39,7 @@ final class WidgetRenderer {
     /** Палитра виджета в цветах приложения. */
     private static final class Theme {
         boolean light;
-        int bg, cell, off, text, text2, text3, accent, onAccent, todayNum, edge, edgeAlpha;
+        int bg, cell, off, text, text2, text3, red, accent, onAccent, todayNum, edge, edgeAlpha;
     }
 
     private static Theme theme(JSONObject snap) {
@@ -48,16 +48,16 @@ final class WidgetRenderer {
         t.accent = color(snap == null ? null : snap.optString("accent"), 0xFF3DDCB0);
         JSONObject pal = snap == null ? null : snap.optJSONObject("pal");
         if (t.light) {
-            t.text = 0xFF0E1513; t.text2 = 0xFF55615D; t.text3 = 0xFF8B9592;
-            t.bg = color(pal == null ? null : pal.optString("bg"), 0xFFFFFFFF);
-            t.cell = color(pal == null ? null : pal.optString("cell"), 0xFFF0F3F2);
-            t.edge = 0xFF000000; t.edgeAlpha = 18;
+            t.text = 0xFF1F1D1A; t.text2 = 0xFF5E5A50; t.text3 = 0xFF8D887A; t.red = 0xFFC8402C;
+            t.bg = color(pal == null ? null : pal.optString("bg"), 0xFFF9F6EE);
+            t.cell = color(pal == null ? null : pal.optString("cell"), 0xFFECE7DA);
+            t.edge = 0xFF000000; t.edgeAlpha = 150;   // обводка в макете — 14% непрозрачности, здесь ещё ослабляем
             t.todayNum = mix(t.accent, 0xFF000000, .62f);
         } else {
-            t.text = 0xFFF1F5F4; t.text2 = 0xFFA2ADAA; t.text3 = 0xFF68726F;
-            t.bg = color(pal == null ? null : pal.optString("bg"), 0xFF111416);
-            t.cell = color(pal == null ? null : pal.optString("cell"), 0xFF1C2124);
-            t.edge = 0xFFFFFFFF; t.edgeAlpha = 30;
+            t.text = 0xFFECE7DA; t.text2 = 0xFFABA699; t.text3 = 0xFF79756B; t.red = 0xFFF2755F;
+            t.bg = color(pal == null ? null : pal.optString("bg"), 0xFF16181A);
+            t.cell = color(pal == null ? null : pal.optString("cell"), 0xFF25272A);
+            t.edge = 0xFFFFFFFF; t.edgeAlpha = 255;
             t.todayNum = mix(t.accent, 0xFFFFFFFF, .5f);
         }
         t.off = mix(t.text3, t.cell, t.light ? .10f : .12f);
@@ -256,9 +256,10 @@ final class WidgetRenderer {
         boolean isToday = k.equals(today);
         int wc = wp != null ? color(wp.optString("c"), th.accent) : th.accent;
 
-        int cellColor = th.cell, numColor = th.text;
+        boolean weekend = dowMonday(d) >= 5;
+        int cellColor = th.cell, numColor = weekend ? th.red : th.text;
         if (wp != null) cellColor = mix(wc, th.cell, th.light ? .22f : .30f);
-        else if (off) { cellColor = th.off; numColor = th.text3; }
+        else if (off) { cellColor = th.off; numColor = weekend ? mix(th.red, th.text3, .6f) : th.text3; }
         else if (isToday) cellColor = mix(th.accent, th.cell, th.light ? .10f : .14f);
         if (isToday) numColor = th.todayNum;
         if (!inMonth) {
@@ -290,7 +291,7 @@ final class WidgetRenderer {
     }
 
     private static int weekdayColor(Theme th, int i) {
-        return i >= 5 ? mix(th.accent, th.text3, .5f) : th.text3;
+        return i >= 5 ? th.red : th.text3;
     }
 
     // ───────────── «Неделя» ─────────────

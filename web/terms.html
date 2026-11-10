@@ -13,21 +13,20 @@
 <style>
 @font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
 @font-face{ font-family:"Onest"; font-weight:100 900; font-display:swap; src:url(fonts/onest-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
-@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-cyrillic.woff2) format("woff2"); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
-@font-face{ font-family:"Unbounded"; font-weight:200 900; font-display:swap; src:url(fonts/unbounded-latin.woff2) format("woff2"); unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122; }
-:root{ color-scheme:dark; --bg:#08090B; --card:#111416; --text:#F1F5F4; --muted:#A2ADAA; --line:rgba(255,255,255,.08); --accent:#3DDCB0; }
-@media (prefers-color-scheme: light){ :root{ color-scheme:light; --bg:#F3F5F4; --card:#FFFFFF; --text:#0E1513; --muted:#55615D; --line:rgba(12,32,27,.09); --accent:#1F8A6D; } }
+@font-face{ font-family:"Sofia Condensed"; font-weight:500 900; font-display:swap; src:url(fonts/sofia-condensed.woff2) format("woff2"); }
+:root{ color-scheme:dark; --bg:#121315; --card:#1A1C1F; --text:#ECE7DA; --muted:#ABA699; --line:rgba(236,231,218,.28); --accent:#B9F2E2; }
+@media (prefers-color-scheme: light){ :root{ color-scheme:light; --bg:#ECE7DA; --card:#F9F6EE; --text:#1F1D1A; --muted:#5E5A50; --line:rgba(31,29,26,.3); --accent:#1F7A62; } }
 *{ box-sizing:border-box; }
 body{ margin:0; background:var(--bg); color:var(--text); font:16px/1.65 "Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; -webkit-font-smoothing:antialiased; }
 main{ max-width:760px; margin:0 auto; padding:max(28px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 60px max(18px, env(safe-area-inset-left)); }
 header{ display:flex; align-items:center; gap:14px; margin-bottom:24px; }
-header img{ width:56px; height:56px; border-radius:16px; }
-h1,h2{ font-family:"Unbounded","Onest",sans-serif; font-weight:700; text-wrap:balance; }
-h1{ font-size:1.5rem; line-height:1.2; letter-spacing:-.02em; margin:0; }
+header img{ width:56px; height:56px; border-radius:13px; }
+h1,h2{ font-family:"Sofia Condensed","Arial Narrow","Onest",sans-serif; font-weight:900; text-transform:uppercase; text-wrap:balance; }
+h1{ font-size:2.2rem; line-height:.95; letter-spacing:.02em; margin:0; }
 h3{ font-size:1rem; margin:22px 0 6px; }
 .sub{ color:var(--muted); font-weight:600; font-size:.9rem; }
 nav{ display:flex; gap:16px; flex-wrap:wrap; margin:0 0 8px; font-weight:700; font-size:.9rem; }
-section{ background:var(--card); border-radius:22px; padding:22px 20px; margin:16px 0; box-shadow:inset 0 0 0 1px var(--line); }
+section{ background:var(--card); border-radius:9px; padding:22px 20px; margin:16px 0; box-shadow:inset 0 0 0 1px var(--line); }
 p{ margin:0 0 10px; color:var(--muted); }
 b{ color:var(--text); }
 a{ color:var(--accent); }
