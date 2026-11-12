@@ -81,8 +81,7 @@
    - **В GitHub Actions:** добавь секреты `SF_KEYSTORE_BASE64`, `SF_KEYSTORE_PASSWORD`, `SF_KEY_ALIAS`, `SF_KEY_PASSWORD` и запусти workflow «Android». Workflow сейчас собирает релиз с каналом по умолчанию (play), поэтому для RuStore удобнее собрать локально или добавить в workflow `-Pchannel=rustore`.
 6. **Карточка в консоли:**
    - тексты — из `store/listing-ru.md`;
-   - значок — `store/graphics/icon-512.png`;
-   - скриншоты — `store/screenshots/ru/*.png`;
+   - значок и скриншоты — из `store/rustore/` (раздел 4);
    - возраст — 0+;
    - ссылки — на политику и соглашение (GitHub Pages);
    - почта поддержки.
