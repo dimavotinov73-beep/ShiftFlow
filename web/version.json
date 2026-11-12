@@ -1,22 +1,26 @@
 {
-  "version": "3.3.0",
-  "code": 330,
+  "version": "3.4.0",
+  "code": 340,
   "date": "2026-11-12",
   "apk": "download/ShiftFlow.apk",
   "notes": {
     "ru": [
-      "Несколько смен в один день: подработка, раздельная смена — каждая со своими часами и оплатой",
-      "Приложение — блокнот на столе: пружина, линованная страница, чек на скотче",
-      "Листок дня отрывается при закрытии, чек «печатается» при смене месяца",
-      "Кнопки — тиснёные этикетки, нижняя панель — кожаный ремешок",
-      "Шаблон графика добавляет смены второго места работы к уже отмеченным дням"
+      "Несколько смен в один день: подработка, раздельная смена — у каждой свои часы, корректировка и оплата",
+      "В листке дня — «Добавить ещё смену», замена места работы и удаление смены с кнопкой «Вернуть», итог дня",
+      "В календаре — до двух оттисков в клетке (при 3+ сменах «+N»), клетка делится цветами мест работы",
+      "Шаблон графика добавляет смены второго места работы к уже отмеченным дням",
+      "Статистика, экспорт и импорт (Excel, CSV, копия) и виджеты учитывают все смены дня",
+      "Оформление «Табель» сохранено: бумага, чернила и штампы",
+      "Политика конфиденциальности 3.1: возрастная маркировка 0+ и уточнения по 152-ФЗ"
     ],
     "en": [
-      "Several shifts in one day: side jobs and split shifts, each with its own hours and pay",
-      "The app is a notebook on a desk: spiral binding, ruled page, a receipt taped on",
-      "The day page tears off when closed, the receipt prints when the month changes",
-      "Buttons are embossed labels, the tab bar is a leather strap",
-      "Pattern schedules add a second job's shifts to days that are already marked"
+      "Several shifts in one day: side jobs and split shifts, each with its own hours, adjustment and pay",
+      "The day page has “Add another shift”, workplace replacement, removal with Undo and a day total",
+      "Calendar cells show up to two stamps (“+N” for 3+ shifts) and split tints by workplace color",
+      "Pattern schedules add a second job's shifts to days that are already marked",
+      "Stats, export and import (Excel, CSV, backup) and widgets count every shift of the day",
+      "The “Timesheet” look stays: paper, ink and stamps",
+      "Privacy policy 3.1: 0+ content rating and 152-FZ clarifications"
     ]
   }
 }

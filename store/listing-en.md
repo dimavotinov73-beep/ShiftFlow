@@ -42,16 +42,16 @@ DESIGN
 
 ShiftFlow — your schedule, your income.
 
-## What's new (3.3.0)
-Several shifts in one day — side jobs or split shifts, each with its own hours and pay. A new look: the app is a notebook on a desk — spiral binding, a ruled page, a taped-on receipt, a day page that tears off, label-tape buttons and a leather strap at the bottom.
+## What's new (3.4.0)
+Several shifts in one day — side jobs or split shifts, each with its own hours, adjustment and pay. The day page lets you add another shift, replace a workplace or remove a shift, with a day total at the bottom. Calendar cells show up to two stamps, and pattern schedules add a second job's shifts to days that are already marked. The “Timesheet” look — paper, ink and stamps — stays.
 
 ## Category
 Productivity
 
 ## Contact
-- Website / web app: https://blue-rain-2af9.dimavotinov73.workers.dev/
-- Privacy policy: https://blue-rain-2af9.dimavotinov73.workers.dev/privacy.html
-- Terms of use: https://blue-rain-2af9.dimavotinov73.workers.dev/terms.html
+- Website / web app: https://dimavotinov73-beep.github.io/ShiftFlow/web/
+- Privacy policy: https://dimavotinov73-beep.github.io/ShiftFlow/web/privacy.html
+- Terms of use: https://dimavotinov73-beep.github.io/ShiftFlow/web/terms.html
 - Support email: shiftflow123@gmail.com
 
 ## Graphics

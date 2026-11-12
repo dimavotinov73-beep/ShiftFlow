@@ -29,6 +29,9 @@ function seed(lang){
     }
   }
   shifts['2026-11-03'] = { workplaceId:'w1', hours:8, adjust:en ? 35 : 600 };
+  // Два места работы в один день: утром кофейня, вечером занятие
+  shifts['2026-11-05'] = { items:[ { workplaceId:'w1', hours:6 }, { workplaceId:'w3', hours:2 } ] };
+  shifts['2026-11-06'] = { items:[ { workplaceId:'w2', hours:12 }, { workplaceId:'w3', hours:1.5 } ] };
   notes['2026-11-03'] = en ? 'Covered for Alex, +tips' : 'Подменил Лёшу, +чаевые';
   notes['2026-11-07'] = en ? 'Stocktaking' : 'Инвентаризация';
   return { prefs:{ theme:'dark', accent:'#3DDCB0', lang:en ? 'en' : 'ru', agreement:{ version:'3.0', at:'2026-11-01T10:00:00Z' }, textSize:'m', uiStyle:'soft', v:2 },

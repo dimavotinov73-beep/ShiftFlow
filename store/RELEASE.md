@@ -22,6 +22,11 @@
    - политика конфиденциальности: https://blue-rain-2af9.dimavotinov73.workers.dev/privacy.html
    - пользовательское соглашение: https://blue-rain-2af9.dimavotinov73.workers.dev/terms.html
 
+   ⚠️ **Для магазинов используй адреса GitHub Pages** — они работают сразу после слияния ветки в `main` и открываются в России
+   без VPN (Cloudflare в РФ работает с перебоями, модератор может не открыть ссылку):
+   - политика конфиденциальности: https://dimavotinov73-beep.github.io/ShiftFlow/web/privacy.html
+   - пользовательское соглашение: https://dimavotinov73-beep.github.io/ShiftFlow/web/terms.html
+
    `privacy.html` и `terms.html` собираются из текстов приложения: правишь `LEGAL_*` / `PRIVACY_*` в `web/app.js`,
    затем `node tools/legal/build-legal-pages.js`. Если меняешь смысл соглашения — подними `AGREEMENT_VERSION`
    в `web/app.js`, и приложение попросит всех заново принять условия.
@@ -75,7 +80,7 @@
 > Кнопка обновления в приложении сейчас выключена (`UPDATES_ENABLED = false` в `web/app.js`).
 > Чтобы включить: поставь `true`, пересобери APK и залей сайт — шаг 4 ниже начнёт работать.
 
-1. Увеличь `versionCode` (310 → 311 → …) и `versionName` в `android/app/build.gradle.kts`.
+1. Увеличь `versionCode` (340 → 341 → …) и `versionName` в `android/app/build.gradle.kts`.
 2. Поменяй `APP_BUILD` в `web/app.js` и имя кэша `CACHE` в `web/sw.js` на тот же номер версии.
 3. Обнови `web/version.json`: `version`, `code`, `date` и список «Что нового» (`notes.ru`, `notes.en`, до 8 пунктов).
 4. Собери APK для сайта и положи его в `web/download/ShiftFlow.apk`, залей `web/` на сайт.
@@ -111,12 +116,13 @@
 
 ## 3. RuStore
 
-1. Консоль: https://console.rustore.ru — регистрация через VK ID, выбери тип (физлицо / самозанятый / ИП / юрлицо), пройди проверку.
-2. «Создать приложение» → тот же пакет `io.shiftflow.app`.
-3. Загрузи **APK** (`app-release.apk`, подписанный твоим ключом) или AAB по инструкции RuStore.
+Подробный разбор требований (152-ФЗ, 436-ФЗ, 149-ФЗ, правила RuStore), ответы для анкеты и чек-лист перед отправкой — в **`store/RUSTORE.md`**.
+
+1. Консоль: https://console.rustore.ru — регистрация через VK ID, выбери статус разработчика, пройди проверку.
+2. «Создать приложение» → пакет `io.shiftflow.app`.
+3. Собери `./gradlew assembleRelease -Pchannel=rustore` (подписан твоим ключом): кнопка обновления ведёт в RuStore, приложение не обращается к серверу обновлений и не скачивает APK.
 4. Карточка: тексты из `store/listing-ru.md`, значок 512×512, скриншоты `store/screenshots/ru/*.png`,
-   категория «Бизнес» или «Полезные инструменты», возраст 0+, ссылки на политику конфиденциальности и пользовательское соглашение.
-   Собирай с `-Pchannel=rustore`, чтобы кнопка обновления вела в RuStore.
+   категория «Бизнес» или «Полезные инструменты», возраст **0+**, ссылки на политику и соглашение (адреса GitHub Pages, см. шаг 0).
 5. Отправь на модерацию (обычно 1–3 рабочих дня).
 
 ## 4. Другие Android-магазины (по желанию)

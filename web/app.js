@@ -146,7 +146,14 @@ const DICT = {
     'Раз в 12 часов, без передачи твоих данных':'Every 12 hours, none of your data is sent','Приложение для Android':'Android app',
     'Скачать APK · работает без интернета':'Download the APK · works offline','Обновляем…':'Updating…',
     'Не отмечено':'Not marked','Сбросить':'Reset','Открыть':'Open','Добавь место работы в приложении':'Add a workplace in the app',
-    'Индиго':'Indigo','Орхидея':'Orchid','Коралл':'Coral','Солнце':'Sun','Лайм':'Lime','Серебро':'Silver'
+    'Индиго':'Indigo','Орхидея':'Orchid','Коралл':'Coral','Солнце':'Sun','Лайм':'Lime','Серебро':'Silver',
+    'Снять выходной':'Remove day off','Сменить место работы':'Change workplace','Убрать смену':'Remove shift',
+    'Корректировка к оплате':'Pay adjustment','Что в этот день?':'What’s on this day?','Ещё смена — где?':'Another shift — where?',
+    'Заменить место работы':'Replace workplace','Добавить ещё смену в этот день':'Add another shift to this day','Ещё смена':'Another shift',
+    'Итого за день':'Day total','Отмеченные дни останутся, смены другого места добавятся':'Marked days stay; shifts of another workplace are added',
+    'Смена убрана':'Shift removed','Вернуть':'Undo',
+    'Смены из файла добавятся к твоим. Если день уже отмечен, его заменят смены из файла. Места работы с тем же названием объединятся.':
+      'Shifts from the file are added to yours. A day that is already marked is replaced by the shifts from the file. Workplaces with the same name are merged.'
   }
 };
 
@@ -201,7 +208,7 @@ const MAX_DAY_ITEMS = 6;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.3.0';
+const APP_BUILD = '3.4.0';
 /* Кнопка и автопроверка обновлений пока скрыты: включить — true (механизм проверки и загрузки готов) */
 const UPDATES_ENABLED = false;
 const BRAND = 'ShiftFlow';
@@ -217,13 +224,11 @@ const ACCENTS = [
 ];
 /* Фон: оттенок тёмной и светлой темы (значения дублируются в CSS как :root[data-bg=…]) */
 const BACKGROUNDS = [
-  { v:'graphite', n:'Бумага', d:'#1C1D20', ds:'#24262A', l:'#F6F2E7', ls:'#FFFDF6' },
-  { v:'midnight', n:'Синька', d:'#141A28', ds:'#1B2334', l:'#EEF2F6', ls:'#FAFCFE' },
-  { v:'oled',     n:'Чистый', d:'#050505', ds:'#111112', l:'#FFFFFF', ls:'#F3F3F0' },
-  { v:'cocoa',    n:'Крафт',  d:'#211A13', ds:'#2A2219', l:'#D8C7A6', ls:'#F1E7D2' }
+  { v:'graphite', n:'Бумага', d:'#121315', ds:'#1A1C1F', l:'#ECE7DA', ls:'#F9F6EE' },
+  { v:'midnight', n:'Синька', d:'#0C111C', ds:'#131A29', l:'#E3E8EF', ls:'#F6F8FB' },
+  { v:'oled',     n:'Чистый', d:'#000000', ds:'#0C0C0D', l:'#FFFFFF', ls:'#F3F3F0' },
+  { v:'cocoa',    n:'Крафт',  d:'#15100B', ds:'#1F1811', l:'#DCCDB1', ls:'#F1E7D2' }
 ];
-/* Цвет стола под блокнотом — он же цвет строки состояния */
-const DESK = { dark:'#17120E', light:'#C3A57C' };
 const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Штамп', k:'9%' }, { v:'bold', n:'Заливка', k:'18%' } ];
 const PERF_MODES = [ { v:'auto', n:'Авто' }, { v:'full', n:'Максимум' }, { v:'lite', n:'Экономно' } ];
 const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
@@ -356,7 +361,7 @@ function applyPrefs(){
   root.setAttribute('data-daytint', prefs.dayTint);
   for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if(meta) meta.setAttribute('content', light ? DESK.light : DESK.dark);
+  if(meta) meta.setAttribute('content', light ? bgDef().l : bgDef().d);
   if(window.AndroidApp && typeof window.AndroidApp.setStatusBar === 'function'){
     try{ window.AndroidApp.setStatusBar(light); }catch(e){}
   }
@@ -999,9 +1004,8 @@ function segbar(st){
 }
 /* Чек: итог периода. Номер, сумма, строки мест работы с точками-отбивками и отрывной край. */
 function slipNo(y, m){ return (m < 9 ? '0' : '') + (m + 1) + '/' + String(y).slice(-2); }
-function slipHtml(st, cur, title, no, body, key){
-  /* При смене месяца чек «печатается» заново */
-  return '<section class="card slip hero'+(key && ui.slide ? ' printing' : '')+'" style="--d:0"'+(key ? ' data-key="'+key+'"' : '')+'>'
+function slipHtml(st, cur, title, no, body){
+  return '<section class="card slip hero" style="--d:0">'
     + '<div class="slip-top"><span>'+esc(title)+'</span><span>№ '+esc(no)+'</span></div>'
     + '<div class="slip-cap">'+esc(t('заработано'))+'</div>'
     + moneyHtml(st.total, cur, 'hero-num')
@@ -1029,7 +1033,7 @@ function calendarView(){
       + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div></div>';
   if(storageBroken) out += warnHtml();
 
-  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms), 'slip-' + y + '-' + m);
+  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms));
 
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
@@ -1121,7 +1125,7 @@ function wpChipsHtml(selectedId, act, opts){
   return out + '</div>';
 }
 
-/* День — листок блокнота: список смен (можно несколько), выходной, заметка */
+/* День — листок отрывного календаря: список смен (можно несколько), выходной, заметка */
 function dayEditor(){
   const k = ui.selected;
   if(!k || ui.rangeMode) return '';
@@ -1147,7 +1151,7 @@ function dayEditor(){
         +  '<button type="button" class="link" data-act="pickOff">'+esc(t('Снять выходной'))+'</button></div>';
   }
 
-  /* Смены дня — строки блокнота */
+  /* Смены дня — строки табеля */
   if(items.length){
     out += '<div class="shifts">';
     items.forEach(function(it, i){
@@ -1502,7 +1506,7 @@ function settingsView(){
     out += '<div class="group" style="--d:5"><a class="row" href="ios.html">'+tile(ico.down())
         + '<span class="row-body"><span class="row-title">'+esc(t('Установить на iPhone'))+'</span><span class="row-sub">'+esc(t('Значок на экране «Домой», работает без интернета'))+'</span></span><span class="row-end">'+ico.chevR()+'</span></a></div>';
   }
-  out += '<div class="note hand">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
+  out += '<div class="note hand">'+esc(t('Нет сервера, аккаунта и рекламы. Приложение не отправляет данные в сеть.'))+'<br>ShiftFlow '+APP_BUILD+' · 0+ · '+esc(t('Сделано с заботой о твоём времени.'))+'</div>';
   return out;
 }
 
@@ -1962,16 +1966,16 @@ const LEGAL_EN = '<p>Version '+AGREEMENT_VERSION+', November 9, 2026. The Russia
 ]);
 function legalHtml(){ return LANG === 'en' ? LEGAL_EN : LEGAL_RU; }
 
-const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Относится к приложению ShiftFlow для Android и веб-версии.</p>' + sect([
+const PRIVACY_RU = '<p>Редакция 3.1 от 12 ноября 2026 г. Относится к приложению ShiftFlow для Android и веб-версии.</p>' + sect([
   ['1. Коротко',
-   'ShiftFlow не собирает и не передаёт ваши данные. Всё, что вы вводите, хранится только на вашем устройстве. Нет аккаунтов, рекламы, аналитики, трекеров и сторонних SDK.'],
+   'ShiftFlow не собирает и не передаёт ваши данные. Всё, что вы вводите, хранится только на вашем устройстве. Нет аккаунтов и входа через сторонние сервисы, рекламы, аналитики, трекеров, сторонних SDK и рекомендательных алгоритмов.'],
   ['2. Данные в приложении',
    'Смены, места работы, ставки, заметки и настройки хранятся в памяти приложения на вашем устройстве. Разработчик не получает к ним доступа и не является их оператором в смысле Федерального закона № 152-ФЗ «О персональных данных».',
    'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.'],
   ['3. Проверка обновлений',
    'Если в приложении включена проверка обновлений, оно запрашивает с сервера обновлений небольшой файл с номером версии, чтобы предложить новую версию. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить в настройках приложения. Версии из Google Play и RuStore обновляются через магазин и к серверу обновлений не обращаются.'],
   ['4. Обращения в поддержку',
-   'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа. По вашей просьбе переписка будет удалена.'],
+   'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа на обращение. Правовое основание — исполнение Пользовательского соглашения по вашему запросу (п. 5 ч. 1 ст. 6 Федерального закона № 152-ФЗ), поэтому отдельное согласие не запрашивается. Переписка не передаётся третьим лицам и по вашей просьбе удаляется.'],
   ['5. Разрешения',
    'Интернет — только для проверки обновлений. Файлы — только через системное окно выбора, когда вы сами экспортируете или импортируете данные. Доступ к контактам, местоположению, камере и микрофону не запрашивается. Облачное резервное копирование Android для приложения отключено.'],
   ['6. Безопасность',
@@ -1979,22 +1983,22 @@ const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Отн�
   ['7. Хранение и удаление',
    'Данные хранятся, пока вы их не удалите: «Настройки → Импорт и экспорт → Удалить все данные» или удаление приложения.'],
   ['8. Дети',
-   'Приложение не предназначено для детей младше 14 лет и сознательно не собирает их данные.'],
+   'Знак информационной продукции — 0+: в приложении нет информации, запрещённой для детей (Федеральный закон № 436-ФЗ). Принять Пользовательское соглашение может пользователь старше 14 лет; приложение сознательно не собирает данные детей.'],
   ['9. Изменения',
    'Новая редакция политики публикуется в приложении и на сайте. При существенных изменениях приложение попросит подтвердить согласие.'],
   ['10. Контакты',
    'Вопросы о конфиденциальности: '+MAIL+'.']
 ]);
-const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow Android app and web version.</p>' + sect([
+const PRIVACY_EN = '<p>Version 3.1, November 12, 2026. Applies to the ShiftFlow Android app and web version.</p>' + sect([
   ['1. In short',
-   'ShiftFlow does not collect or share your data. Everything you enter stays on your device. No accounts, ads, analytics, trackers or third-party SDKs.'],
+   'ShiftFlow does not collect or share your data. Everything you enter stays on your device. No accounts or third-party sign-in, ads, analytics, trackers, third-party SDKs or recommendation algorithms.'],
   ['2. Data in the app',
    'Shifts, workplaces, rates, notes and settings are stored in the app’s storage on your device. The developer has no access to them.',
    'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.'],
   ['3. Update checks',
    'When update checks are enabled in the app, it requests a small file with the version number from the update server to offer a newer version. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Automatic checks can be turned off in the app settings. Google Play and RuStore versions update through the store and never contact the update server.'],
   ['4. Support',
-   'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The conversation is deleted on request.'],
+   'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The legal basis is performing the Terms at your request, so no separate consent is asked. The conversation is not shared and is deleted on request.'],
   ['5. Permissions',
    'Internet — only for update checks. Files — only through the system picker when you export or import. No access to contacts, location, camera or microphone. Android cloud backup is disabled for the app.'],
   ['6. Security',
@@ -2002,7 +2006,7 @@ const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow A
   ['7. Retention and deletion',
    'Data is kept until you delete it: Settings → Import and export → Delete all data, or uninstall the app.'],
   ['8. Children',
-   'The app is not directed at children under 14 and does not knowingly collect their data.'],
+   'Content rating: 0+ (no content restricted for children). The Terms can be accepted by users over 14; the app does not knowingly collect children’s data.'],
   ['9. Changes',
    'A new version of this policy is published in the app and on the website. After material changes the app asks you to confirm again.'],
   ['10. Contact',
@@ -2503,14 +2507,7 @@ const A = {
     ui.editorPick = null;
     render();
   },
-  /* Листок дня отрывается и улетает, затем убирается из разметки */
-  closeEditor:function(){
-    const done = function(){ ui.selected = null; ui.editorPick = null; render(); };
-    const el = document.querySelector('.panel[data-key^="ed-"]');
-    if(!el || reduceMotion() || isLite()){ done(); return; }
-    el.classList.add('tear'); haptic('tick');
-    setTimeout(done, 300);
-  },
+  closeEditor:function(){ ui.selected = null; ui.editorPick = null; render(); },
   /* Выбор места работы: первая смена дня, ещё одна смена или замена места у существующей */
   pickWp:function(d){
     const k = ui.selected; if(!k || !wpById(d.id)) return;

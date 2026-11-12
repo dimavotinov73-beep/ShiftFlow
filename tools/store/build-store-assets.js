@@ -23,7 +23,7 @@ const TYPES = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.c
 const COPY = {
   ru: [
     { file:'01-calendar',  title:'Все смены —<br>в одном календаре', sub:'Отмечай смены и выходные в одно касание' },
-    { file:'02-day',       title:'Ставка, часы<br>и чаевые', sub:'Доход за каждый день считается сам' },
+    { file:'02-day',       title:'Две работы —<br>в одном дне', sub:'У каждой смены свои часы и оплата' },
     { file:'03-finance',   title:'Сколько заработал —<br>видно сразу', sub:'Итоги по каждому месту работы' },
     { file:'04-year',      title:'Весь год<br>как на ладони', sub:'Статистика и выгрузка в Excel' },
     { file:'05-pattern',   title:'График 2/2<br>за секунду', sub:'Шаблоны смен до конца месяца' },
@@ -31,7 +31,7 @@ const COPY = {
   ],
   en: [
     { file:'01-calendar',  title:'Every shift<br>in one calendar', sub:'Mark shifts and days off in one tap' },
-    { file:'02-day',       title:'Rates, hours<br>and tips', sub:'Daily pay is calculated for you' },
+    { file:'02-day',       title:'Two jobs<br>in one day', sub:'Each shift with its own hours and pay' },
     { file:'03-finance',   title:'See what you earned<br>at a glance', sub:'Totals for every workplace' },
     { file:'04-year',      title:'Your whole year<br>in one view', sub:'Statistics and Excel export' },
     { file:'05-pattern',   title:'A 2/2 schedule<br>in a second', sub:'Shift patterns to month end' },
@@ -74,8 +74,8 @@ async function captureApp(browser, base, lang) {
   await page.evaluate(() => window.scrollTo(0, 250)); await page.waitForTimeout(500);
   await snap('01-calendar');
   await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
-  await page.click('.grid .day[data-k="2026-11-03"]'); await page.waitForTimeout(700);
-  await scrollTo('.cal', 8); await page.evaluate(() => window.scrollBy(0, 330)); await page.waitForTimeout(500);
+  await page.click('.grid .day[data-k="2026-11-05"]'); await page.waitForTimeout(700);
+  await scrollTo('.panel', 70); await page.waitForTimeout(500);
   await snap('02-day');
   await page.click('[data-act="closeEditor"]');
   await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(300);
