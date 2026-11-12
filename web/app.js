@@ -195,11 +195,13 @@ function wdLong(){ return WD_LONG_I18N[LANG] || WD_LONG_I18N.ru; }
 /* ════════════════════════ Константы и состояние ════════════════════════ */
 const PREF_KEY = 'tabel-prefs';
 const DATA_KEY = 'tabel-data';
-const CURRENT_VERSION = 4;
+const CURRENT_VERSION = 5;
+/* Сколько смен можно записать на один день (подработки, раздельные смены) */
+const MAX_DAY_ITEMS = 6;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.2.0';
+const APP_BUILD = '3.3.0';
 /* Кнопка и автопроверка обновлений пока скрыты: включить — true (механизм проверки и загрузки готов) */
 const UPDATES_ENABLED = false;
 const BRAND = 'ShiftFlow';
@@ -215,11 +217,13 @@ const ACCENTS = [
 ];
 /* Фон: оттенок тёмной и светлой темы (значения дублируются в CSS как :root[data-bg=…]) */
 const BACKGROUNDS = [
-  { v:'graphite', n:'Бумага', d:'#121315', ds:'#1A1C1F', l:'#ECE7DA', ls:'#F9F6EE' },
-  { v:'midnight', n:'Синька', d:'#0C111C', ds:'#131A29', l:'#E3E8EF', ls:'#F6F8FB' },
-  { v:'oled',     n:'Чистый', d:'#000000', ds:'#0C0C0D', l:'#FFFFFF', ls:'#F3F3F0' },
-  { v:'cocoa',    n:'Крафт',  d:'#15100B', ds:'#1F1811', l:'#DCCDB1', ls:'#F1E7D2' }
+  { v:'graphite', n:'Бумага', d:'#1C1D20', ds:'#24262A', l:'#F6F2E7', ls:'#FFFDF6' },
+  { v:'midnight', n:'Синька', d:'#141A28', ds:'#1B2334', l:'#EEF2F6', ls:'#FAFCFE' },
+  { v:'oled',     n:'Чистый', d:'#050505', ds:'#111112', l:'#FFFFFF', ls:'#F3F3F0' },
+  { v:'cocoa',    n:'Крафт',  d:'#211A13', ds:'#2A2219', l:'#D8C7A6', ls:'#F1E7D2' }
 ];
+/* Цвет стола под блокнотом — он же цвет строки состояния */
+const DESK = { dark:'#17120E', light:'#C3A57C' };
 const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Штамп', k:'9%' }, { v:'bold', n:'Заливка', k:'18%' } ];
 const PERF_MODES = [ { v:'auto', n:'Авто' }, { v:'full', n:'Максимум' }, { v:'lite', n:'Экономно' } ];
 const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
@@ -244,7 +248,7 @@ let ui = {
   statsYear:0, statsOpen:false, chartSel:null,
   sheet:null, confirm:null, picker:null, closing:null,
   slide:'', viewAnim:'tab', pendingPulse:false,
-  legalChecked:false, legalOpen:false, editorPicker:false,
+  legalChecked:false, legalOpen:false, editorPick:null,
   export:{ from:'', to:'' },
   snapshot:null, scrollMemo:{}
 };
@@ -352,7 +356,7 @@ function applyPrefs(){
   root.setAttribute('data-daytint', prefs.dayTint);
   for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if(meta) meta.setAttribute('content', light ? bgDef().l : bgDef().d);
+  if(meta) meta.setAttribute('content', light ? DESK.light : DESK.dark);
   if(window.AndroidApp && typeof window.AndroidApp.setStatusBar === 'function'){
     try{ window.AndroidApp.setStatusBar(light); }catch(e){}
   }
@@ -380,6 +384,8 @@ function migrate(obj){
     v = 3;
   }
   if(v < 4){ if(!obj.notes || typeof obj.notes !== 'object') obj.notes = {}; v = 4; }
+  /* v5: в дне — список смен { items:[…] } вместо одной; сам перевод делает normalize() */
+  if(v < 5) v = 5;
   obj.version = v;
   return obj;
 }
@@ -414,11 +420,16 @@ function normalize(){
       if(!/^\d{4}-\d{2}-\d{2}$/.test(k)) return;
       const s = state.shifts[k] || {};
       if(s.dayOff){ shifts[k] = { dayOff:true }; return; }
-      if(s.workplaceId && ids[s.workplaceId]){
-        const h = (s.hours === undefined || s.hours === null || s.hours === '') ? undefined : Math.max(0, parseFloat(s.hours) || 0);
-        const a = (s.adjust === undefined || s.adjust === null || s.adjust === '') ? 0 : (parseFloat(s.adjust) || 0);
-        shifts[k] = { workplaceId:s.workplaceId, hours:(isFinite(h) ? h : undefined), adjust:(a ? a : undefined), dayOff:false };
-      }
+      /* старый формат (одна смена прямо в дне), новый ({ items }) и просто массив */
+      const raw = Array.isArray(s) ? s : (Array.isArray(s.items) ? s.items : (s.workplaceId ? [s] : []));
+      const items = [];
+      raw.forEach(function(it){
+        if(!it || !it.workplaceId || !ids[it.workplaceId] || items.length >= MAX_DAY_ITEMS) return;
+        const h = (it.hours === undefined || it.hours === null || it.hours === '') ? undefined : Math.max(0, parseFloat(it.hours) || 0);
+        const a = (it.adjust === undefined || it.adjust === null || it.adjust === '') ? 0 : (parseFloat(it.adjust) || 0);
+        items.push({ workplaceId:it.workplaceId, hours:(isFinite(h) ? h : undefined), adjust:(a ? a : undefined) });
+      });
+      if(items.length) shifts[k] = { items:items };
     });
   }
   state.shifts = shifts;
@@ -491,6 +502,20 @@ function basePay(s){
   return (parseFloat(s.hours) || 0) * (w.rate || 0);
 }
 function calcPay(s){ return basePay(s) + (parseFloat(s && s.adjust) || 0); }
+/* ── День: список смен или выходной ── */
+function dayItems(k){ const s = state.shifts[k]; return s && Array.isArray(s.items) ? s.items : []; }
+function isDayOff(k){ const s = state.shifts[k]; return !!(s && s.dayOff); }
+function setDayItems(k, items){
+  items = (items || []).filter(function(it){ return it && it.workplaceId; }).slice(0, MAX_DAY_ITEMS);
+  if(items.length) state.shifts[k] = { items:items }; else delete state.shifts[k];
+}
+function newItem(wpId, from){
+  const w = wpById(wpId);
+  const same = from && from.workplaceId === wpId;
+  return { workplaceId:wpId, hours:same ? from.hours : (w && isFinite(parseFloat(w.defaultHours)) ? parseFloat(w.defaultHours) : undefined), adjust:same ? from.adjust : undefined };
+}
+function dayPay(k){ return dayItems(k).reduce(function(a, it){ return a + calcPay(it); }, 0); }
+function dayHours(k){ return dayItems(k).reduce(function(a, it){ return a + (parseFloat(it.hours) || 0); }, 0); }
 function inRange(k, from, to){
   if(from && k < from) return false;
   if(to && k > to) return false;
@@ -506,11 +531,12 @@ function rangeStats(from, to){
     const s = state.shifts[k];
     if(!s) return;
     if(s.dayOff){ st.off++; return; }
-    if(!s.workplaceId) return;
-    const pay = calcPay(s);
-    st.pay += pay; st.shifts++; st.hours += (parseFloat(s.hours) || 0);
-    const ws = st.wpStats[s.workplaceId];
-    if(ws){ ws.pay += pay; ws.days++; ws.shifts++; ws.hours += (parseFloat(s.hours) || 0); }
+    (s.items || []).forEach(function(it){
+      const pay = calcPay(it), h = parseFloat(it.hours) || 0;
+      st.pay += pay; st.shifts++; st.hours += h;
+      const ws = st.wpStats[it.workplaceId];
+      if(ws){ ws.pay += pay; ws.days++; ws.shifts++; ws.hours += h; }
+    });
   });
   st.total = st.pay;
   return st;
@@ -973,8 +999,9 @@ function segbar(st){
 }
 /* Чек: итог периода. Номер, сумма, строки мест работы с точками-отбивками и отрывной край. */
 function slipNo(y, m){ return (m < 9 ? '0' : '') + (m + 1) + '/' + String(y).slice(-2); }
-function slipHtml(st, cur, title, no, body){
-  return '<section class="card slip hero" style="--d:0">'
+function slipHtml(st, cur, title, no, body, key){
+  /* При смене месяца чек «печатается» заново */
+  return '<section class="card slip hero'+(key && ui.slide ? ' printing' : '')+'" style="--d:0"'+(key ? ' data-key="'+key+'"' : '')+'>'
     + '<div class="slip-top"><span>'+esc(title)+'</span><span>№ '+esc(no)+'</span></div>'
     + '<div class="slip-cap">'+esc(t('заработано'))+'</div>'
     + moneyHtml(st.total, cur, 'hero-num')
@@ -1002,7 +1029,7 @@ function calendarView(){
       + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div></div>';
   if(storageBroken) out += warnHtml();
 
-  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms));
+  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms), 'slip-' + y + '-' + m);
 
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
@@ -1040,7 +1067,8 @@ function toolCard(act, icon, title, sub, on){
 
 function dayCell(k, d, tKey, weekend){
   const s = state.shifts[k];
-  let cls = 'day' + (weekend ? ' we' : ''), a = '', nm = '', wc = '', bar = false;
+  const items = dayItems(k);
+  let cls = 'day' + (weekend ? ' we' : ''), a = '', stamps = [], bg = '', bar = false;
   if(k === tKey) cls += ' today';
   if(ui.selected === k && !ui.rangeMode) cls += ' sel';
   if(ui.rangeMode && ui.rangeStart){
@@ -1050,25 +1078,33 @@ function dayCell(k, d, tKey, weekend){
   }
   let label = fmtDate(k);
   if(s && s.dayOff){
-    cls += ' off'; nm = t('вых'); bar = true; label += ', ' + t('Выходной');
-  } else if(s && s.workplaceId){
-    const w = wpById(s.workplaceId);
-    if(w){
-      const pay = calcPay(s);
-      cls += ' work'; wc = w.color; bar = true;
-      nm = shortLabel(w);
+    cls += ' off'; stamps.push({ t:t('вых') }); bar = true; label += ', ' + t('Выходной');
+  } else if(items.length){
+    const ws = items.map(function(it){ return wpById(it.workplaceId); }).filter(Boolean);
+    if(ws.length){
+      const pay = dayPay(k);
+      cls += ' work' + (items.length > 1 ? ' multi' : ''); bar = true;
+      /* до двух оттисков; если смен больше — второй показывает «+N» */
+      stamps.push({ t:shortLabel(ws[0]), c:ws[0].color });
+      if(ws.length === 2) stamps.push({ t:shortLabel(ws[1]), c:ws[1].color });
+      else if(ws.length > 2) stamps.push({ t:'+' + (ws.length - 1), c:ws[1].color });
+      bg = ws.length > 1 && ws[1].color !== ws[0].color ? ';--wc:'+ws[0].color+';--wc2:'+ws[1].color : ';--wc:'+ws[0].color;
       a = pay > 0 ? compact(pay) : '';
-      label += ', ' + w.name + (pay > 0 ? ', ' + money(pay, w.currency) : '');
+      label += ', ' + ws.map(function(w){ return w.name; }).join(', ') + (pay > 0 ? ', ' + money(pay, ws[0].currency) : '');
     }
   }
   /* Что подписывать в клетке — выбирается в «Оформлении» */
-  if(prefs.dayLabel === 'sum'){ if(cls.indexOf(' off') >= 0) a = nm; nm = ''; }
+  if(prefs.dayLabel === 'sum'){ if(cls.indexOf(' off') >= 0) a = stamps[0].t; stamps = []; }
   else if(prefs.dayLabel === 'name') a = '';
   const note = (state.notes && state.notes[k]) ? String(state.notes[k]) : '';
   const rot = (((d * 37) % 9) - 4) * .7;   /* −2,8°…2,8° — как у штампа, поставленного рукой */
-  return '<div class="'+cls+'" style="--i:'+d+';--rot:'+rot.toFixed(1)+'deg'+(wc ? ';--wc:'+wc : '')+'" data-act="dayTap" data-k="'+k+'" role="button" tabindex="0" aria-label="'+esc(label)+'">'
+  return '<div class="'+cls+'" style="--i:'+d+';--rot:'+rot.toFixed(1)+'deg'+bg+'" data-act="dayTap" data-k="'+k+'" role="button" tabindex="0" aria-label="'+esc(label)+'">'
     + '<span class="n">'+d+'</span>'
-    + (nm ? '<span class="nm"'+(nm.length > 7 ? ' style="--nf:'+Math.max(.6, 7.3 / nm.length).toFixed(2)+'"' : '')+'>'+esc(nm)+'</span>' : '')
+    + stamps.map(function(x, j){
+        const len = x.t.length, lim = stamps.length > 1 ? 6 : 7;
+        const nf = len > lim ? Math.max(.58, (lim + .3) / len) * (stamps.length > 1 ? .9 : 1) : (stamps.length > 1 ? .9 : 1);
+        return '<span class="nm'+(j ? ' n2' : '')+'" style="'+(x.c ? '--sc:'+x.c+';' : '')+(nf !== 1 ? '--nf:'+nf.toFixed(2) : '')+'">'+esc(x.t)+'</span>';
+      }).join('')
     + (a ? '<span class="a">'+esc(a)+'</span>' : '')
     + (note ? '<span class="note"></span>' : '') + (bar ? '<span class="bar"></span>' : '') + '</div>';
 }
@@ -1085,15 +1121,20 @@ function wpChipsHtml(selectedId, act, opts){
   return out + '</div>';
 }
 
+/* День — листок блокнота: список смен (можно несколько), выходной, заметка */
 function dayEditor(){
   const k = ui.selected;
   if(!k || ui.rangeMode) return '';
-  const s = state.shifts[k] || {};
-  const has = !!(s.workplaceId || s.dayOff);
-  const w = s.workplaceId ? wpById(s.workplaceId) : null;
-  const pc = w ? w.color : (s.dayOff ? 'var(--text-3)' : 'var(--accent)');
+  const off = isDayOff(k), items = dayItems(k);
+  const has = off || items.length > 0;
+  const pick = ui.editorPick;            /* null | 'add' | индекс смены, которую меняем */
+  const picking = !has || pick !== null && pick !== undefined;
+  const first = items[0] ? wpById(items[0].workplaceId) : null;
+  const pc = first ? first.color : (off ? 'var(--text-3)' : 'var(--accent)');
   let sub = fmtWeekday(k);
-  if(w) sub += ' · ' + w.name; else if(s.dayOff) sub += ' · ' + t('Выходной');
+  if(items.length === 1 && first) sub += ' · ' + first.name;
+  else if(items.length > 1) sub += ' · ' + cnt(items.length, 'shift');
+  else if(off) sub += ' · ' + t('Выходной');
   const kp = parseKey(k), dow = new Date(kp[0], kp[1], kp[2]).getDay();
   const mName = (LANG === 'ru' ? MONTHS_GEN.ru : months())[kp[1]] || '';
   let out = '<section class="panel" style="--pc:'+pc+'" data-key="ed-'+k+'">';
@@ -1101,45 +1142,72 @@ function dayEditor(){
       +  '<b class="leaf-n">'+kp[2]+'</b><span class="leaf-t"><span class="leaf-m">'+esc(mName)+'</span><span class="leaf-w">'+esc(sub)+'</span></span></div>'
       +  '<button type="button" class="icon-btn sm" data-act="closeEditor" aria-label="'+esc(t('Закрыть день'))+'">'+ico.x()+'</button></div>';
 
-  if(!has || ui.editorPicker){
-    out += wpChipsHtml(s.workplaceId, 'pickWp', { off:true, offOn:!!s.dayOff, add:true });
-  } else {
-    out += '<div class="chips">'
-        + (s.dayOff
-            ? '<button type="button" class="chip on" style="--cc:var(--text-3)" data-act="pickOff"><i></i>'+esc(t('Выходной'))+'</button>'
-            : (w ? '<button type="button" class="chip on" style="--cc:'+w.color+'" data-act="pickWp" data-id="'+w.id+'"><i></i>'+esc(w.name)+'</button>' : ''))
-        + '<button type="button" class="chip muted" data-act="reopenPicker">'+ico.edit().replace('<svg','<svg style="width:15px;height:15px"')+esc(t('Сменить'))+'</button></div>';
+  if(off && !picking){
+    out += '<div class="offline"><span class="off-stamp">'+esc(t('Выходной'))+'</span>'
+        +  '<button type="button" class="link" data-act="pickOff">'+esc(t('Снять выходной'))+'</button></div>';
   }
 
-  if(w && !s.dayOff){
-    const daily = w.payType === 'daily';
-    out += '<div class="row2">'
-        +  '<div class="field"><label for="hours">'+esc(daily ? t('Часов (учёт, на оплату не влияет)') : t('Часов'))+'</label>'
-        +  '<input id="hours" data-inp="hours" type="number" min="0" step="0.5" inputmode="decimal" value="'+esc(s.hours === undefined || s.hours === null ? '' : String(s.hours))+'"></div>'
-        +  '<div class="field"><label for="dayAdjust">'+esc(t('Корректировка к оплате за этот день'))+'</label>'
-        +  '<input id="dayAdjust" data-inp="dayAdjust" type="number" step="1" inputmode="decimal" value="'+esc(s.adjust === undefined || s.adjust === null || s.adjust === '' ? '' : String(s.adjust))+'" placeholder="±0"></div>'
+  /* Смены дня — строки блокнота */
+  if(items.length){
+    out += '<div class="shifts">';
+    items.forEach(function(it, i){
+      const w = wpById(it.workplaceId);
+      if(!w) return;
+      const daily = w.payType === 'daily';
+      const changing = pick === i;
+      out += '<div class="sh'+(changing ? ' changing' : '')+'" style="--wc:'+w.color+'" data-key="sh-'+k+'-'+i+'">'
+          +  '<div class="sh-top"><span class="sh-no">'+(i + 1)+'</span>'
+          +  '<button type="button" class="sh-wp" data-act="changeItem" data-i="'+i+'" aria-label="'+esc(t('Сменить место работы'))+'"><i></i><span>'+esc(w.name)+'</span>'+ico.chevD()+'</button>'
+          +  '<button type="button" class="icon-btn sm sh-del" data-act="removeItem" data-i="'+i+'" aria-label="'+esc(t('Убрать смену'))+'">'+ico.x()+'</button></div>'
+          +  '<div class="row2">'
+          +  '<div class="field"><label for="hours-'+i+'">'+esc(daily ? t('Часов (учёт, на оплату не влияет)') : t('Часов'))+'</label>'
+          +  '<input id="hours-'+i+'" data-inp="hours" data-i="'+i+'" type="number" min="0" step="0.5" inputmode="decimal" value="'+esc(it.hours === undefined || it.hours === null ? '' : String(it.hours))+'"></div>'
+          +  '<div class="field"><label for="adj-'+i+'">'+esc(t('Корректировка к оплате'))+'</label>'
+          +  '<input id="adj-'+i+'" data-inp="dayAdjust" data-i="'+i+'" type="number" step="1" inputmode="decimal" value="'+esc(it.adjust === undefined || it.adjust === null || it.adjust === '' ? '' : String(it.adjust))+'" placeholder="±0"></div>'
+          +  '</div>'
+          +  '<div class="preview" id="payPreview-'+i+'">'+payPreviewHtml(k, i)+'</div></div>';
+    });
+    out += '</div>';
+  }
+
+  if(picking){
+    const title = !has ? t('Что в этот день?') : (pick === 'add' ? t('Ещё смена — где?') : (off ? t('Что в этот день?') : t('Заменить место работы')));
+    out += '<div class="pick"><div class="pick-t">'+esc(title)+'</div>'
+        +  wpChipsHtml(typeof pick === 'number' && items[pick] ? items[pick].workplaceId : '', 'pickWp', { off:!items.length, offOn:off, add:true })
+        +  (has && !(off && !items.length && pick === null) ? '<button type="button" class="link" data-act="cancelPick" style="margin-top:8px">'+esc(t('Отмена'))+'</button>' : '')
         +  '</div>';
-    out += '<div class="preview" id="payPreview">'+payPreviewHtml(k)+'</div>';
+  } else if(items.length && items.length < MAX_DAY_ITEMS){
+    out += '<button type="button" class="add-line" data-act="addShift">'+ico.plus()+'<span>'+esc(items.length === 1 ? t('Добавить ещё смену в этот день') : t('Ещё смена'))+'</span></button>';
+  }
+
+  if(items.length > 1){
+    out += '<div class="day-total" id="dayTotal">'+dayTotalHtml(k)+'</div>';
   }
   out += '<div class="field"><label for="dayNote">'+esc(t('Заметка ко дню'))+'</label>'
       +  '<input id="dayNote" data-inp="dayNote" type="text" maxlength="140" value="'+esc((state.notes && state.notes[k]) || '')+'" placeholder="'+esc(t('Например: подменил смену'))+'"></div>';
   if(has) out += '<div class="actions"><button type="button" class="link danger" data-act="clearDay">'+esc(t('Очистить день'))+'</button></div>';
   return out + '</section>';
 }
+function dayTotalHtml(k){
+  const items = dayItems(k);
+  const cur = items[0] && wpById(items[0].workplaceId) ? wpById(items[0].workplaceId).currency : defaultCurrency();
+  return '<span>'+esc(t('Итого за день'))+' · '+esc(cnt(items.length, 'shift'))+' · '+esc(num(dayHours(k)))+' '+esc(t('ч'))+'</span>'
+    + '<b class="num">'+esc(money(dayPay(k), cur))+'</b>';
+}
 
-function payPreviewHtml(k){
-  const s = state.shifts[k];
-  if(!s || !s.workplaceId) return '';
-  const w = wpById(s.workplaceId);
+function payPreviewHtml(k, i){
+  const it = dayItems(k)[i || 0];
+  if(!it) return '';
+  const w = wpById(it.workplaceId);
   if(!w) return '';
-  const base = basePay(s), adj = parseFloat(s.adjust) || 0, pay = base + adj;
+  const base = basePay(it), adj = parseFloat(it.adjust) || 0, pay = base + adj;
   let html = '<span>'+esc(t('Оплата'))+'</span>';
   if(adj){
     html += '<span class="num">'+esc(money(base, w.currency))+'</span><span class="num '+(adj > 0 ? 'plus' : 'minus')+'">'+(adj > 0 ? '+ ' : '− ')+esc(money(Math.abs(adj), w.currency))+'</span><span>=</span>';
   }
   html += '<span class="v num">'+esc(money(pay, w.currency))+'</span>';
-  if(w.payType === 'daily' && parseFloat(s.hours) > 0){
-    html += '<span>≈ '+esc(money(pay / (parseFloat(s.hours) || 1), w.currency))+' / '+esc(t('час'))+'</span>';
+  if(w.payType === 'daily' && parseFloat(it.hours) > 0){
+    html += '<span>≈ '+esc(money(pay / (parseFloat(it.hours) || 1), w.currency))+' / '+esc(t('час'))+'</span>';
   }
   return html;
 }
@@ -1196,6 +1264,14 @@ function rangePanel(){
 }
 
 /* ════════════════════════ Шаблон графика ════════════════════════ */
+/* Что шаблон сделает с днём: 'set' — записать, 'add' — добавить смену к уже отмеченным (другое место работы), 'keep' — не трогать */
+function patternAction(x, p){
+  if(p.replace || !state.shifts[x.k]) return 'set';
+  if(!x.work || isDayOff(x.k)) return 'keep';
+  const items = dayItems(x.k);
+  if(items.some(function(it){ return it.workplaceId === p.workplaceId; }) || items.length >= MAX_DAY_ITEMS) return 'keep';
+  return 'add';
+}
 function patternDays(p){
   const out = [];
   if(!p.start || !p.end) return out;
@@ -1227,7 +1303,7 @@ function patternSheet(){
   const days = patternDays(p);
   let works = 0, offs = 0, kept = 0, pay = 0;
   days.forEach(function(x){
-    if(!p.replace && state.shifts[x.k]){ kept++; return; }
+    if(patternAction(x, p) === 'keep'){ kept++; return; }
     if(x.work){ works++; if(w) pay += w.payType === 'daily' ? w.rate : w.rate * (parseFloat(p.hours) || 0); }
     else offs++;
   });
@@ -1257,11 +1333,11 @@ function patternSheet(){
     return '<button type="button" class="chip'+(p.end === patternEndFor(x[0]) ? ' on' : '')+'" data-act="patEnd" data-v="'+x[0]+'">'+esc(t(x[1]))+'</button>';
   }).join('') + '</div>';
   inner += '<div class="field"><label>'+esc(w && w.payType === 'daily' ? t('Часов (учёт, на оплату не влияет)') : t('Часов за смену'))+'</label>'+stepper('hours', p.hours, t('Часов за смену'))+'</div>';
-  inner += '<div class="switch-row"><span><b>'+esc(t('Заменить уже отмеченные дни'))+'</b><small>'+esc(p.replace ? t('Отмеченные дни перезапишутся') : t('Отмеченные дни останутся как есть'))+'</small></span>'
+  inner += '<div class="switch-row"><span><b>'+esc(t('Заменить уже отмеченные дни'))+'</b><small>'+esc(p.replace ? t('Отмеченные дни перезапишутся') : t('Отмеченные дни останутся, смены другого места добавятся'))+'</small></span>'
         +  '<button type="button" class="switch'+(p.replace ? ' on' : '')+'" data-act="patReplace" role="switch" aria-checked="'+(p.replace ? 'true' : 'false')+'" aria-label="'+esc(t('Заменить уже отмеченные дни'))+'"></button></div>';
   inner += '<div class="field"><label>'+esc(t('Предпросмотр'))+'</label><div class="pstrip">'
         +  days.slice(0, 14).map(function(x){
-             const keep = !p.replace && !!state.shifts[x.k];
+             const keep = patternAction(x, p) === 'keep';
              return '<div class="pd'+(keep ? ' keep' : (x.work ? ' w' : ''))+'"'+(w ? ' style="--wc:'+w.color+'"' : '')+'><span>'+wdShort()[x.dow]+'</span><b>'+x.day+'</b></div>';
            }).join('')
         +  '</div><div class="plegend"><span><i class="w"'+(w ? ' style="--wc:'+w.color+'"' : '')+'></i>'+esc(t('Смена'))+'</span><span><i></i>'+esc(t('Выходной'))+'</span>'+(kept ? '<span><i class="keep"></i>'+esc(t('Уже отмечено'))+'</span>' : '')
@@ -1528,15 +1604,16 @@ function widgetSnapshot(){
     const s = state.shifts[k];
     if(!s) continue;
     if(s.dayOff){ days[k] = { o:1 }; continue; }
-    const w = wpById(s.workplaceId);
-    if(!w) continue;
-    days[k] = { w:w.id, h:(parseFloat(s.hours) || 0), p:Math.round(calcPay(s) * 100) / 100 };
-    counts[w.id] = (counts[w.id] || 0) + 1;
+    /* w — первое место работы дня (цвет и подпись), ws — все места, h/p — сумма часов и оплаты за день */
+    const ws = dayItems(k).map(function(it){ return it.workplaceId; }).filter(function(id){ return !!wpById(id); });
+    if(!ws.length) continue;
+    days[k] = { w:ws[0], ws:ws, h:dayHours(k), p:Math.round(dayPay(k) * 100) / 100 };
+    ws.forEach(function(id){ counts[id] = (counts[id] || 0) + 1; });
   }
   let quick = state.workplaces[0] ? state.workplaces[0].id : '';
   Object.keys(counts).forEach(function(id){ if(counts[id] > (counts[quick] || 0)) quick = id; });
   return {
-    v:2, lang:LANG, light:isLight(), accent:String(prefs.accent).toUpperCase(), pal:widgetPalette(), cur:defaultCurrency(), quick:quick, made:todayKey(),
+    v:3, lang:LANG, light:isLight(), accent:String(prefs.accent).toUpperCase(), pal:widgetPalette(), cur:defaultCurrency(), quick:quick, made:todayKey(),
     wps:state.workplaces.map(function(w){ return { id:w.id, n:w.name, s:shortLabel(w), c:w.color, t:w.payType, r:w.rate, h:w.defaultHours, cur:w.currency }; }),
     days:days,
     L:{ months:months().map(function(m){ return m.charAt(0).toUpperCase() + m.slice(1); }), monthsGen:(LANG === 'ru' ? MONTHS_GEN.ru : months()),
@@ -1575,7 +1652,7 @@ window.__widgetSync = function(){
     if(o.op === 'shift'){
       const w = wpById(o.w);
       if(!w) return;
-      state.shifts[o.d] = { workplaceId:w.id, hours:w.defaultHours, dayOff:false }; changed++;
+      state.shifts[o.d] = { items:[newItem(w.id)] }; changed++;
     } else if(o.op === 'off'){ state.shifts[o.d] = { dayOff:true }; changed++; }
     else if(o.op === 'clear'){ delete state.shifts[o.d]; changed++; }
   });
@@ -2295,14 +2372,16 @@ function csvFromRows(rows){ let out = '﻿'; rows.forEach(function(r){ out += r.
 function wpRows(wpId, from, to){
   const w = wpById(wpId);
   const rows = [[ t('Дата'), t('Часов'), t('Оплата'), t('Место работы') ]];
-  Object.keys(state.shifts).filter(function(k){ const s = state.shifts[k]; return s && !s.dayOff && s.workplaceId === wpId && inRange(k, from, to); })
-    .sort().forEach(function(k){ const s = state.shifts[k]; rows.push([ k, (s.hours === undefined ? '' : s.hours), Math.round(calcPay(s) * 100) / 100, w ? w.name : '' ]); });
+  Object.keys(state.shifts).filter(function(k){ return inRange(k, from, to); }).sort().forEach(function(k){
+    dayItems(k).forEach(function(s){ if(s.workplaceId === wpId) rows.push([ k, (s.hours === undefined ? '' : s.hours), Math.round(calcPay(s) * 100) / 100, w ? w.name : '' ]); });
+  });
   return rows;
 }
 function allRows(from, to){
   const rows = [[ t('Дата'), t('Место работы'), t('Часов'), t('Оплата') ]];
-  Object.keys(state.shifts).filter(function(k){ const s = state.shifts[k]; return s && !s.dayOff && s.workplaceId && inRange(k, from, to); })
-    .sort().forEach(function(k){ const s = state.shifts[k], w = wpById(s.workplaceId); rows.push([ k, w ? w.name : '', (s.hours === undefined ? '' : s.hours), Math.round(calcPay(s) * 100) / 100 ]); });
+  Object.keys(state.shifts).filter(function(k){ return inRange(k, from, to); }).sort().forEach(function(k){
+    dayItems(k).forEach(function(s){ const w = wpById(s.workplaceId); rows.push([ k, w ? w.name : '', (s.hours === undefined ? '' : s.hours), Math.round(calcPay(s) * 100) / 100 ]); });
+  });
   return rows;
 }
 function exportSheets(sheets, base){
@@ -2371,7 +2450,7 @@ const A = {
       ui.tab = d.id; ui.page = null;
       ui.selected = ui.tab === 'calendar' ? ui.selected : null;
       ui.rangeMode = false; ui.rangeStart = null; ui.rangeEnd = null;
-      ui.patternOpen = false; ui.editorPicker = false; ui.slide = ''; ui.chartSel = null;
+      ui.patternOpen = false; ui.editorPick = null; ui.slide = ''; ui.chartSel = null;
     });
   },
   openPage:function(d){
@@ -2421,35 +2500,59 @@ const A = {
       haptic('tick'); render(); return;
     }
     ui.selected = (ui.selected === k) ? null : k;
-    ui.editorPicker = false;
+    ui.editorPick = null;
     render();
   },
-  closeEditor:function(){ ui.selected = null; ui.editorPicker = false; render(); },
+  /* Листок дня отрывается и улетает, затем убирается из разметки */
+  closeEditor:function(){
+    const done = function(){ ui.selected = null; ui.editorPick = null; render(); };
+    const el = document.querySelector('.panel[data-key^="ed-"]');
+    if(!el || reduceMotion() || isLite()){ done(); return; }
+    el.classList.add('tear'); haptic('tick');
+    setTimeout(done, 300);
+  },
+  /* Выбор места работы: первая смена дня, ещё одна смена или замена места у существующей */
   pickWp:function(d){
-    const k = ui.selected; if(!k) return;
-    const prev = state.shifts[k] || {};
-    const same = (prev.workplaceId === d.id);
-    const wp = wpById(d.id);
-    const defH = (wp && isFinite(parseFloat(wp.defaultHours))) ? parseFloat(wp.defaultHours) : undefined;
-    state.shifts[k] = { workplaceId:d.id, hours:(same ? prev.hours : defH), adjust:(same ? prev.adjust : undefined), dayOff:false };
-    ui.editorPicker = false;
-    haptic('tick');
+    const k = ui.selected; if(!k || !wpById(d.id)) return;
+    const items = dayItems(k).slice(), pick = ui.editorPick;
+    if(typeof pick === 'number' && items[pick]) items[pick] = newItem(d.id, items[pick]);
+    else if(pick === 'add' && items.length < MAX_DAY_ITEMS) items.push(newItem(d.id));
+    else if(!items.length) items.push(newItem(d.id));
+    setDayItems(k, items);
+    ui.editorPick = null; ui.pulse = k;
+    haptic('heavy');
     saveState(); render();
   },
   pickOff:function(){
     const k = ui.selected; if(!k) return;
-    const cur = state.shifts[k];
-    if(cur && cur.dayOff) delete state.shifts[k];
-    else state.shifts[k] = { dayOff:true };
-    ui.editorPicker = false;
+    if(isDayOff(k)) delete state.shifts[k];
+    else if(!dayItems(k).length) state.shifts[k] = { dayOff:true };
+    ui.editorPick = null;
     saveState(); render();
   },
-  reopenPicker:function(){ ui.editorPicker = true; render(); },
+  addShift:function(){ if(dayItems(ui.selected).length < MAX_DAY_ITEMS){ ui.editorPick = 'add'; render(); } },
+  changeItem:function(d){ ui.editorPick = parseInt(d.i, 10); render(); },
+  cancelPick:function(){ ui.editorPick = null; render(); },
+  removeItem:function(d){
+    const k = ui.selected; if(!k) return;
+    const i = parseInt(d.i, 10), items = dayItems(k).slice(), gone = items[i];
+    if(!gone) return;
+    items.splice(i, 1);
+    setDayItems(k, items);
+    ui.editorPick = null;
+    saveState(); render();
+    const w = wpById(gone.workplaceId);
+    toast(t('Смена убрана') + (w ? ': ' + w.name : ''), { label:t('Вернуть'), fn:function(){
+      const now = dayItems(k).slice(); now.splice(Math.min(i, now.length), 0, gone);
+      if(isDayOff(k)) delete state.shifts[k];
+      setDayItems(k, now); saveState(); render();
+    } });
+  },
   clearDay:function(){
     const k = ui.selected; if(!k) return;
     askConfirm(t('Очистить день?') + ' ' + fmtDate(k), t('Очистить'), true, function(){
       delete state.shifts[k];
-      ui.editorPicker = false;
+      ui.editorPick = null;
       saveState(); render(); toast(t('День очищен'));
     });
   },
@@ -2499,9 +2602,13 @@ const A = {
     const undo = {};
     let changed = 0;
     days.forEach(function(x){
-      if(!p.replace && state.shifts[x.k]) return;
+      const act = patternAction(x, p);
+      if(act === 'keep') return;
       undo[x.k] = state.shifts[x.k] ? JSON.parse(JSON.stringify(state.shifts[x.k])) : null;
-      state.shifts[x.k] = x.work ? { workplaceId:p.workplaceId, hours:hours, dayOff:false } : { dayOff:true };
+      const item = { workplaceId:p.workplaceId, hours:hours };
+      if(act === 'add') setDayItems(x.k, dayItems(x.k).concat([item]));
+      else if(x.work) state.shifts[x.k] = { items:[item] };
+      else state.shifts[x.k] = { dayOff:true };
       changed++;
     });
     const s0 = parseKey(days[0].k);
@@ -2587,7 +2694,7 @@ const A = {
         ? 'Delete “' + w.name + '”? All its shifts and extra income will be removed too.'
         : 'Удалить «' + w.name + '»? Все смены и внесения по этому месту работы тоже будут удалены.',
       t('Удалить'), true, function(){
-        Object.keys(state.shifts).forEach(function(k){ if(state.shifts[k] && state.shifts[k].workplaceId === w.id) delete state.shifts[k]; });
+        Object.keys(state.shifts).forEach(function(k){ if(dayItems(k).length) setDayItems(k, dayItems(k).filter(function(it){ return it.workplaceId !== w.id; })); });
         state.incomes = state.incomes.filter(function(x){ return x.workplaceId !== w.id; });
         state.payments = state.payments.map(function(p){ return p.workplaceId === w.id ? Object.assign({}, p, { workplaceId:'' }) : p; });
         state.workplaces = state.workplaces.filter(function(x){ return x.id !== w.id; });
@@ -2747,17 +2854,17 @@ const A = {
 };
 
 const INP = {
-  hours:function(v){
+  hours:function(v, d){
     const k = ui.selected; if(!k) return;
-    const s = state.shifts[k]; if(!s) return;
-    s.hours = (v === '') ? undefined : Math.max(0, parseFloat(v) || 0);
+    const it = dayItems(k)[parseInt(d && d.i, 10) || 0]; if(!it) return;
+    it.hours = (v === '') ? undefined : Math.max(0, parseFloat(v) || 0);
     saveSoon(); refreshLive(k);
   },
-  dayAdjust:function(v){
+  dayAdjust:function(v, d){
     const k = ui.selected; if(!k) return;
-    const s = state.shifts[k]; if(!s) return;
+    const it = dayItems(k)[parseInt(d && d.i, 10) || 0]; if(!it) return;
     const n = parseFloat(v);
-    s.adjust = (v === '' || !isFinite(n) || n === 0) ? undefined : n;
+    it.adjust = (v === '' || !isFinite(n) || n === 0) ? undefined : n;
     saveSoon(); refreshLive(k);
   },
   dayNote:function(v){
@@ -2792,8 +2899,9 @@ const INP = {
 };
 /* Пока вводятся часы — обновляем превью сразу, а календарь и итоги чуть позже (без потери фокуса) */
 function refreshLive(k){
-  const pv = document.getElementById('payPreview');
-  if(pv) pv.innerHTML = payPreviewHtml(k);
+  dayItems(k).forEach(function(_, i){ const pv = document.getElementById('payPreview-' + i); if(pv) pv.innerHTML = payPreviewHtml(k, i); });
+  const tot = document.getElementById('dayTotal');
+  if(tot) tot.innerHTML = dayTotalHtml(k);
   clearTimeout(refreshLive.t);
   refreshLive.t = setTimeout(render, 350);
 }
@@ -2832,7 +2940,7 @@ function jsonPayload(m){
   normalize();
   const clean = state; state = keep;
   const keys = Object.keys(clean.shifts).sort();
-  return { kind:'json', data:clean, count:keys.filter(function(k){ return clean.shifts[k].workplaceId; }).length,
+  return { kind:'json', data:clean, count:keys.reduce(function(a, k){ return a + ((clean.shifts[k].items || []).length); }, 0),
            off:keys.filter(function(k){ return clean.shifts[k].dayOff; }).length, from:keys[0], to:keys[keys.length - 1],
            places:clean.workplaces.length };
 }
@@ -2878,7 +2986,7 @@ function importSheet(s){
   inner += '<div class="field"><label>'+esc(t('Как импортировать'))+'</label>'+segHtml([ { v:'merge', label:'Добавить к текущим' }, { v:'replace', label:'Заменить всё' } ], s.mode, 'importMode')+'</div>';
   inner += '<div class="note" style="text-align:left;margin:10px 4px 0">'+esc(s.mode === 'replace'
         ? t('Текущие места работы, смены и заметки будут удалены и заменены данными из файла.')
-        : t('Смены из файла добавятся к твоим. Если день уже отмечен, его заменит запись из файла. Места работы с тем же названием объединятся.'))+'</div>';
+        : t('Смены из файла добавятся к твоим. Если день уже отмечен, его заменят смены из файла. Места работы с тем же названием объединятся.'))+'</div>';
   inner += '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Отмена'))+'</button>'
         +  '<button type="button" class="btn '+(s.mode === 'replace' ? 'danger' : 'primary')+'" data-act="applyImport">'+esc(t('Импортировать'))+'</button></div></div>';
   return ovl('import', '', inner);
@@ -2913,8 +3021,10 @@ function applyImport(mode){
     Object.keys(p.data.shifts).forEach(function(k){
       const sh = p.data.shifts[k];
       if(sh.dayOff){ state.shifts[k] = { dayOff:true }; return; }
-      if(!map[sh.workplaceId]) return;
-      state.shifts[k] = Object.assign({}, sh, { workplaceId:map[sh.workplaceId] }); added++;
+      const items = (sh.items || []).filter(function(it){ return map[it.workplaceId]; })
+        .map(function(it){ return Object.assign({}, it, { workplaceId:map[it.workplaceId] }); });
+      if(!items.length) return;
+      state.shifts[k] = { items:items }; added += items.length;
     });
     Object.keys(p.data.notes).forEach(function(k){ state.notes[k] = p.data.notes[k]; });
   } else {
@@ -2927,15 +3037,17 @@ function applyImport(mode){
       w.color = SWATCHES[state.workplaces.length % SWATCHES.length];
       state.workplaces.push(w); map[w.id] = w;
     });
+    const byDay = {};
     p.recs.forEach(function(r){
       const bw = built.workplaces.filter(function(w){ return w.name === r.wp; })[0];
       const w = bw ? map[bw.id] : null;
       if(!w) return;
       const base = w.payType === 'daily' ? w.rate : (r.hours || 0) * w.rate;
       const adj = Math.round((r.pay - base) * 100) / 100;
-      state.shifts[r.date] = { workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined, dayOff:false };
+      (byDay[r.date] = byDay[r.date] || []).push({ workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined });
       added++;
     });
+    Object.keys(byDay).forEach(function(k){ state.shifts[k] = { items:byDay[k].slice(0, MAX_DAY_ITEMS) }; });
   }
   ui.importData = null;
   ui.pattern.workplaceId = state.workplaces[0] ? state.workplaces[0].id : null;
@@ -3046,8 +3158,11 @@ function excelDateKey(v){
 function parseExcelShifts(sheets){
   const norm = function(x){ return String(x === undefined || x === null ? '' : x).trim().toLowerCase(); };
   const find = function(head, names){ for(let i = 0; i < head.length; i++){ if(names.indexOf(norm(head[i])) >= 0) return i; } return -1; };
-  const byDate = {};
+  /* Одна и та же смена есть и на листе «Все», и на листе своего места работы, поэтому одинаковые строки
+     разных листов считаются одной сменой. Разные смены одного дня (и повторы внутри листа) сохраняются. */
+  const best = {};
   sheets.forEach(function(sh){
+    const local = {};
     const head = sh.rows[0] || [];
     const cDate = find(head, ['дата', 'date']);
     const cWp = find(head, ['место работы', 'workplace']);
@@ -3062,10 +3177,20 @@ function parseExcelShifts(sheets){
       const hRaw = cHours >= 0 ? row[cHours] : '';
       const hours = (hRaw === '' || hRaw === undefined || isNaN(parseFloat(hRaw))) ? undefined : Math.max(0, parseFloat(hRaw));
       const pay = parseFloat(String(row[cPay]).replace(',', '.').replace(/[^\d.\-]/g, '')) || 0;
-      byDate[k] = { date:k, wp:wp, hours:hours, pay:pay };
+      const sig = wp.toLowerCase() + '|' + (hours === undefined ? '' : hours) + '|' + Math.round(pay * 100);
+      const day = local[k] = local[k] || {};
+      (day[sig] = day[sig] || { rec:{ date:k, wp:wp, hours:hours, pay:pay }, n:0 }).n++;
     }
+    Object.keys(local).forEach(function(k){
+      const day = best[k] = best[k] || {};
+      Object.keys(local[k]).forEach(function(sig){ if(!day[sig] || day[sig].n < local[k][sig].n) day[sig] = local[k][sig]; });
+    });
   });
-  return Object.keys(byDate).sort().map(function(k){ return byDate[k]; });
+  const out = [];
+  Object.keys(best).sort().forEach(function(k){
+    Object.keys(best[k]).forEach(function(sig){ for(let i = 0; i < best[k][sig].n; i++) out.push(best[k][sig].rec); });
+  });
+  return out;
 }
 function mode(arr){
   const c = {}; let best = null, n = 0;
@@ -3099,7 +3224,8 @@ function buildFromExcel(recs){
     g.forEach(function(r){
       const base = hourly ? (r.hours || 0) * w.rate : w.rate;
       const adj = Math.round((r.pay - base) * 100) / 100;
-      shifts[r.date] = { workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined, dayOff:false };
+      const day = shifts[r.date] = shifts[r.date] || { items:[] };
+      if(day.items.length < MAX_DAY_ITEMS) day.items.push({ workplaceId:w.id, hours:r.hours, adjust:adj ? adj : undefined });
     });
   });
   return { workplaces:wps, shifts:shifts };

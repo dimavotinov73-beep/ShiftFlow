@@ -16,6 +16,7 @@ HIGHLIGHTS
 • Shift calendar: a shift or a day off in one tap, swipe for the next month
 • Up to 10 workplaces, each with its own color, rate and currency
 • Hourly or fixed pay per shift
+• Several shifts in one day — side jobs, split shifts
 • Pay adjustments: tips, bonuses, deductions
 • Notes for any day
 • Pattern schedules: 2/2, 3/3, 5/2 or your own — to the end of the week or month
@@ -41,8 +42,8 @@ DESIGN
 
 ShiftFlow — your schedule, your income.
 
-## What's new (3.2.0)
-A new “Timesheet” look: paper, ink and stamps instead of neon and glass. The month total reads like a receipt, the selected day like a tear-off calendar page, shifts are stamped on the calendar and today is circled in pen. Widgets, icon and web pages share the same style.
+## What's new (3.3.0)
+Several shifts in one day — side jobs or split shifts, each with its own hours and pay. A new look: the app is a notebook on a desk — spiral binding, a ruled page, a taped-on receipt, a day page that tears off, label-tape buttons and a leather strap at the bottom.
 
 ## Category
 Productivity

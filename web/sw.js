@@ -2,7 +2,7 @@
    Приложение локальное: все файлы кэшируются, наружу запросов нет.
    Навигация: сначала сеть (чтобы обновления подхватывались сразу), без сети — копия из кэша.
    Остальное: кэш сразу + тихое обновление в фоне. */
-const CACHE = 'shiftflow-v3.2.0';
+const CACHE = 'shiftflow-v3.3.0';
 const CORE = [
   './', './index.html', './boot.js', './app.js', './manifest.webmanifest', './privacy.html', './terms.html',
   './fonts/onest-cyrillic.woff2', './fonts/onest-latin.woff2', './fonts/onest-currency.woff2',

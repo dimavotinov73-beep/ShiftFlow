@@ -1,20 +1,22 @@
 {
-  "version": "3.2.0",
-  "code": 320,
-  "date": "2026-11-10",
+  "version": "3.3.0",
+  "code": 330,
+  "date": "2026-11-12",
   "apk": "download/ShiftFlow.apk",
   "notes": {
     "ru": [
-      "Новый облик «Табель»: бумага, чернила и штампы вместо неона и стекла",
-      "Итог месяца — как кассовый чек, день — как листок отрывного календаря",
-      "Смены в календаре отмечаются оттиском штампа, сегодня — обведено ручкой",
-      "Виджеты, иконка и страницы сайта — в том же стиле"
+      "Несколько смен в один день: подработка, раздельная смена — каждая со своими часами и оплатой",
+      "Приложение — блокнот на столе: пружина, линованная страница, чек на скотче",
+      "Листок дня отрывается при закрытии, чек «печатается» при смене месяца",
+      "Кнопки — тиснёные этикетки, нижняя панель — кожаный ремешок",
+      "Шаблон графика добавляет смены второго места работы к уже отмеченным дням"
     ],
     "en": [
-      "New “Timesheet” look: paper, ink and stamps instead of neon and glass",
-      "Month total as a receipt, the selected day as a tear-off calendar page",
-      "Shifts are stamped on the calendar, today is circled in pen",
-      "Widgets, icon and web pages in the same style"
+      "Several shifts in one day: side jobs and split shifts, each with its own hours and pay",
+      "The app is a notebook on a desk: spiral binding, ruled page, a receipt taped on",
+      "The day page tears off when closed, the receipt prints when the month changes",
+      "Buttons are embossed labels, the tab bar is a leather strap",
+      "Pattern schedules add a second job's shifts to days that are already marked"
     ]
   }
 }

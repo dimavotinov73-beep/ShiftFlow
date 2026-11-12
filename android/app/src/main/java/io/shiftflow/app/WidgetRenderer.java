@@ -159,6 +159,16 @@ final class WidgetRenderer {
         return String.format(Locale.US, "%.1f", h);
     }
 
+    private static String plural(JSONObject snap, double n, JSONArray forms) {
+        if (forms == null || forms.length() < 3) return "";
+        if (!ru(snap)) return Math.abs(n) == 1 ? forms.optString(0) : forms.optString(1);
+        long a = Math.abs(Math.round(n)) % 100, b = a % 10;
+        if (a > 10 && a < 20) return forms.optString(2);
+        if (b > 1 && b < 5) return forms.optString(1);
+        if (b == 1) return forms.optString(0);
+        return forms.optString(2);
+    }
+
     private static int dowMonday(Calendar cal) {
         return (cal.get(Calendar.DAY_OF_WEEK) + 5) % 7;   // 0 = понедельник
     }
@@ -167,6 +177,32 @@ final class WidgetRenderer {
     private static String dayMonth(JSONObject snap, JSONObject L, Calendar d) {
         String m = arr(L, "monthsGen", d.get(Calendar.MONTH), "");
         return ru(snap) ? d.get(Calendar.DAY_OF_MONTH) + " " + m : m + " " + d.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /** Сколько смен в дне (в снимке v3 — массив ws; в старом снимке — одна). */
+    private static int shiftCount(JSONObject day) {
+        JSONArray ws = day == null ? null : day.optJSONArray("ws");
+        return ws != null && ws.length() > 0 ? ws.length() : (day != null && day.has("w") ? 1 : 0);
+    }
+
+    /** «Кофейня + Склад» для заголовка: все места работы дня (без повторов), по полному названию. */
+    private static String dayNames(JSONObject snap, JSONObject day) {
+        JSONArray ws = day.optJSONArray("ws");
+        if (ws == null || ws.length() < 2) {
+            JSONObject wp = WidgetStore.findWorkplace(snap, day.optString("w"));
+            return wp == null ? "" : wpName(wp, false);
+        }
+        StringBuilder sb = new StringBuilder();
+        java.util.HashSet<String> seen = new java.util.HashSet<>();
+        for (int i = 0; i < ws.length(); i++) {
+            String id = ws.optString(i);
+            if (!seen.add(id)) continue;
+            JSONObject wp = WidgetStore.findWorkplace(snap, id);
+            if (wp == null) continue;
+            if (sb.length() > 0) sb.append(" + ");
+            sb.append(wpName(wp, false));
+        }
+        return sb.toString();
     }
 
     private static String wpName(JSONObject wp, boolean shortName) {
@@ -211,9 +247,11 @@ final class WidgetRenderer {
         JSONObject wp = d != null && d.has("w") ? WidgetStore.findWorkplace(snap, d.optString("w")) : null;
         String sub;
         if (wp != null) {
-            v.setTextViewText(R.id.w_status, wpName(wp, false));
+            v.setTextViewText(R.id.w_status, dayNames(snap, d));
             v.setInt(R.id.w_dot, "setColorFilter", color(wp.optString("c"), th.accent));
-            sub = hours(d.optDouble("h", 0)) + " " + str(L, "h", "ч") + " · "
+            int n = shiftCount(d);
+            sub = (n > 1 ? n + " " + plural(snap, n, L == null ? null : L.optJSONArray("shifts")) + " · " : "")
+                    + hours(d.optDouble("h", 0)) + " " + str(L, "h", "ч") + " · "
                     + money(snap, d.optDouble("p", 0), wp.optString("cur", snap.optString("cur")));
         } else {
             boolean off = d != null && d.has("o");
@@ -237,7 +275,7 @@ final class WidgetRenderer {
             JSONObject wp = WidgetStore.findWorkplace(snap, day.optString("w"));
             if (wp == null) continue;
             String wd = arr(L, "wd", dowMonday(d), "").toLowerCase(ru(snap) ? new Locale("ru", "RU") : Locale.US);
-            return str(L, "next", "Следующая смена") + ": " + (wd.isEmpty() ? "" : wd + ", ") + dayMonth(snap, L, d) + " · " + wpName(wp, false);
+            return str(L, "next", "Следующая смена") + ": " + (wd.isEmpty() ? "" : wd + ", ") + dayMonth(snap, L, d) + " · " + dayNames(snap, day);
         }
         return "";
     }
@@ -270,7 +308,8 @@ final class WidgetRenderer {
         v.setTextViewText(r[4], String.valueOf(d.get(Calendar.DAY_OF_MONTH)));
         v.setTextColor(r[4], numColor);
 
-        String name = wp != null ? wpName(wp, true) : (off ? str(L, "offShort", "вых") : "");
+        int n = shiftCount(day);
+        String name = wp != null ? wpName(wp, true) + (n > 1 ? " +" + (n - 1) : "") : (off ? str(L, "offShort", "вых") : "");
         v.setTextViewText(r[6], name);
         v.setTextColor(r[6], wp != null ? (inMonth ? mix(wc, th.text, th.light ? .78f : .6f) : th.text3) : th.text3);
 
