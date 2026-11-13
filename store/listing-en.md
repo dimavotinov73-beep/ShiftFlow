@@ -42,8 +42,8 @@ DESIGN
 
 ShiftFlow — your schedule, your income.
 
-## What's new (3.3.0)
-Several shifts in one day — side jobs or split shifts, each with its own hours and pay. A new look: the app is a notebook on a desk — spiral binding, a ruled page, a taped-on receipt, a day page that tears off, label-tape buttons and a leather strap at the bottom.
+## What's new (3.4.0)
+Several shifts in one day — side jobs or split shifts, each with its own hours and pay. Calendar cells show every workplace of the day, and the day page shows the day total. Pattern schedules can add a second job's shifts to days that are already marked.
 
 ## Category
 Productivity

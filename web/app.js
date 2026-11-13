@@ -211,7 +211,7 @@ const MAX_DAY_ITEMS = 6;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.3.1';
+const APP_BUILD = '3.4.0';
 /* Поддержка проекта: страница DonationAlerts (QR в icons/donate-qr.svg ведёт туда же).
    В сборках для Google Play и RuStore ссылки нет — их правила требуют собственную оплату магазина. */
 const DONATE_URL = 'https://www.donationalerts.com/r/shiftflow';
@@ -248,13 +248,11 @@ const ACCENTS = [
 ];
 /* Фон: оттенок тёмной и светлой темы (значения дублируются в CSS как :root[data-bg=…]) */
 const BACKGROUNDS = [
-  { v:'graphite', n:'Бумага', d:'#1C1D20', ds:'#24262A', l:'#F6F2E7', ls:'#FFFDF6' },
-  { v:'midnight', n:'Синька', d:'#141A28', ds:'#1B2334', l:'#EEF2F6', ls:'#FAFCFE' },
-  { v:'oled',     n:'Чистый', d:'#050505', ds:'#111112', l:'#FFFFFF', ls:'#F3F3F0' },
-  { v:'cocoa',    n:'Крафт',  d:'#211A13', ds:'#2A2219', l:'#D8C7A6', ls:'#F1E7D2' }
+  { v:'graphite', n:'Бумага', d:'#121315', ds:'#1A1C1F', l:'#ECE7DA', ls:'#F9F6EE' },
+  { v:'midnight', n:'Синька', d:'#0C111C', ds:'#131A29', l:'#E3E8EF', ls:'#F6F8FB' },
+  { v:'oled',     n:'Чистый', d:'#000000', ds:'#0C0C0D', l:'#FFFFFF', ls:'#F3F3F0' },
+  { v:'cocoa',    n:'Крафт',  d:'#15100B', ds:'#1F1811', l:'#DCCDB1', ls:'#F1E7D2' }
 ];
-/* Цвет стола под блокнотом — он же цвет строки состояния */
-const DESK = { dark:'#17120E', light:'#C3A57C' };
 const DAY_TINTS = [ { v:'line', n:'Полоска', k:'0%' }, { v:'soft', n:'Штамп', k:'9%' }, { v:'bold', n:'Заливка', k:'18%' } ];
 const PERF_MODES = [ { v:'auto', n:'Авто' }, { v:'full', n:'Максимум' }, { v:'lite', n:'Экономно' } ];
 const DAY_LABELS = [ { v:'both', n:'Название и сумма', s:'Всё' }, { v:'name', n:'Название', s:'Название' }, { v:'sum', n:'Сумма', s:'Сумма' } ];
@@ -389,7 +387,7 @@ function applyPrefs(){
   root.setAttribute('data-daytint', prefs.dayTint);
   for(const x of DAY_TINTS) if(x.v === prefs.dayTint) root.style.setProperty('--dt', x.k);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if(meta) meta.setAttribute('content', light ? DESK.light : DESK.dark);
+  if(meta) meta.setAttribute('content', light ? bgDef().l : bgDef().d);
   if(window.AndroidApp && typeof window.AndroidApp.setStatusBar === 'function'){
     try{ window.AndroidApp.setStatusBar(light); }catch(e){}
   }
@@ -1033,9 +1031,8 @@ function segbar(st){
 }
 /* Чек: итог периода. Номер, сумма, строки мест работы с точками-отбивками и отрывной край. */
 function slipNo(y, m){ return (m < 9 ? '0' : '') + (m + 1) + '/' + String(y).slice(-2); }
-function slipHtml(st, cur, title, no, body, key){
-  /* При смене месяца чек «печатается» заново */
-  return '<section class="card slip hero'+(key && ui.slide ? ' printing' : '')+'" style="--d:0"'+(key ? ' data-key="'+key+'"' : '')+'>'
+function slipHtml(st, cur, title, no, body){
+  return '<section class="card slip hero" style="--d:0">'
     + '<div class="slip-top"><span>'+esc(title)+'</span><span>№ '+esc(no)+'</span></div>'
     + '<div class="slip-cap">'+esc(t('заработано'))+'</div>'
     + moneyHtml(st.total, cur, 'hero-num')
@@ -1063,7 +1060,7 @@ function calendarView(){
       + '<span style="min-width:0"><span class="brand-name">Shift<i>Flow</i></span><span class="brand-sub">'+esc(t('Твой график — твой доход'))+'</span></span></div></div>';
   if(storageBroken) out += warnHtml();
 
-  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms), 'slip-' + y + '-' + m);
+  out += slipHtml(ms, cur, monthTitle(m) + ' ' + y, slipNo(y, m), slipRows(ms));
 
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
@@ -2563,14 +2560,7 @@ const A = {
     ui.editorPick = null;
     render();
   },
-  /* Листок дня отрывается и улетает, затем убирается из разметки */
-  closeEditor:function(){
-    const done = function(){ ui.selected = null; ui.editorPick = null; render(); };
-    const el = document.querySelector('.panel[data-key^="ed-"]');
-    if(!el || reduceMotion() || isLite()){ done(); return; }
-    el.classList.add('tear'); haptic('tick');
-    setTimeout(done, 300);
-  },
+  closeEditor:function(){ ui.selected = null; ui.editorPick = null; render(); },
   /* Выбор места работы: первая смена дня, ещё одна смена или замена места у существующей */
   pickWp:function(d){
     const k = ui.selected; if(!k || !wpById(d.id)) return;

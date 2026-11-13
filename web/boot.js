@@ -30,7 +30,7 @@
   root.setAttribute('data-daytint', ({ line:1, soft:1, bold:1 })[p.dayTint] ? p.dayTint : 'soft');
   root.style.setProperty('--dt', ({ line:'0%', soft:'9%', bold:'18%' })[p.dayTint] || '9%');
   var m = document.querySelector('meta[name="theme-color"]');
-  if(m) m.setAttribute('content', light ? '#C3A57C' : '#17120E');   /* цвет стола под блокнотом */
+  if(m) m.setAttribute('content', bgs[bg][light ? 1 : 0]);
 
   window.addEventListener('error', function(ev){
     try{
