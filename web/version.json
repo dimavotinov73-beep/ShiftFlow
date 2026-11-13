@@ -1,22 +1,22 @@
 {
-  "version": "3.3.0",
-  "code": 330,
-  "date": "2026-11-12",
+  "version": "3.3.1",
+  "code": 331,
+  "date": "2026-11-13",
   "apk": "download/ShiftFlow.apk",
   "notes": {
     "ru": [
+      "Можно поддержать проект: «Настройки → Поддержать проект» — страница DonationAlerts и QR-код",
       "Несколько смен в один день: подработка, раздельная смена — каждая со своими часами и оплатой",
       "Приложение — блокнот на столе: пружина, линованная страница, чек на скотче",
       "Листок дня отрывается при закрытии, чек «печатается» при смене месяца",
-      "Кнопки — тиснёные этикетки, нижняя панель — кожаный ремешок",
-      "Шаблон графика добавляет смены второго места работы к уже отмеченным дням"
+      "Кнопки — тиснёные этикетки, нижняя панель — кожаный ремешок"
     ],
     "en": [
+      "You can now support the project: Settings → Support the project — DonationAlerts page and a QR code",
       "Several shifts in one day: side jobs and split shifts, each with its own hours and pay",
       "The app is a notebook on a desk: spiral binding, ruled page, a receipt taped on",
       "The day page tears off when closed, the receipt prints when the month changes",
-      "Buttons are embossed labels, the tab bar is a leather strap",
-      "Pattern schedules add a second job's shifts to days that are already marked"
+      "Buttons are embossed labels, the tab bar is a leather strap"
     ]
   }
 }

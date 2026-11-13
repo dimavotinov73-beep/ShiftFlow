@@ -76,6 +76,7 @@ public class MainActivity extends Activity {
     private static final int REQ_OPEN = 42;
     private static final int MAX_FILE = 30 * 1024 * 1024;
     private static final long UPDATE_INTERVAL = 12L * 60 * 60 * 1000;
+    private static final String DONATE_URL = "https://www.donationalerts.com/r/shiftflow";
     private static final Pattern VERSION = Pattern.compile("^\\d{1,3}(\\.\\d{1,3}){0,3}$");
     private static final Set<String> SAVE_MIME = new HashSet<>();
     static {
@@ -624,6 +625,20 @@ public class MainActivity extends Activity {
         @JavascriptInterface
         public void openUpdate() {
             main.post(MainActivity.this::openUpdate);
+        }
+
+        /** Откуда установлено приложение: site, play или rustore — чтобы не показывать в магазинных сборках то, что запрещают их правила. */
+        @JavascriptInterface
+        public String channel() {
+            String c = BuildConfig.UPDATE_CHANNEL;
+            return "play".equals(c) || "rustore".equals(c) ? c : "site";
+        }
+
+        /** Страница пожертвований в браузере. Открывается только адрес из списка — произвольную ссылку из страницы сюда не передать. */
+        @JavascriptInterface
+        public void openDonate() {
+            if (!"site".equals(channel())) return;
+            main.post(() -> openExternal(Uri.parse(DONATE_URL)));
         }
     }
 }

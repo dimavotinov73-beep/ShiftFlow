@@ -120,6 +120,16 @@ const DICT = {
     'Импорт из Excel':'Import from Excel','Импортировать':'Import','Импортировано':'Imported',
     'Установить на iPhone':'Install on iPhone','Значок на экране «Домой», работает без интернета':'Home Screen icon, works offline',
     'Штамп':'Stamp','Заливка':'Fill','Бумага':'Paper','Синька':'Blueprint','Чистый':'Plain','Крафт':'Kraft','Тема и бумага':'Theme and paper','Отметка смены':'Shift mark',
+    'Поддержать проект':'Support the project','Чаевые разработчику — по желанию':'A tip for the developer, if you like','Поддержать ShiftFlow':'Support ShiftFlow',
+    'Поддержать':'Support','Не сейчас':'Not now','Хорошо, напомню нескоро':'Okay, not for a long while','Ссылка скопирована':'Link copied','Скопировать ссылку':'Copy link',
+    'Открыть DonationAlerts':'Open DonationAlerts','QR-код страницы пожертвований':'QR code of the donation page','наведи камеру другого телефона':'scan it with another phone',
+    'Нравится ShiftFlow? Его делает один человек — без рекламы, подписок и сбора данных. Если приложение экономит тебе время, можно поддержать проект.':
+      'Enjoying ShiftFlow? It is made by one person — no ads, no subscriptions, no data collection. If it saves you time, you can support the project.',
+    'ShiftFlow бесплатный: без рекламы, подписок и платных функций. Его делает один человек в свободное время.':
+      'ShiftFlow is free: no ads, subscriptions or paid features. It is made by one person in their spare time.',
+    'Любая сумма — это спасибо и повод сделать приложение ещё лучше.':'Any amount is a thank-you and a reason to make the app even better.',
+    'Пожертвование добровольное и ничего не открывает — все функции уже бесплатны. Платёж принимает DonationAlerts; приложение ничего туда не передаёт.':
+      'Donations are voluntary and unlock nothing — every feature is already free. DonationAlerts handles the payment; the app sends nothing there.',
     'Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
     'Текст и форма':'Text and shape','Скругления':'Corners','Вернуть стандартное оформление':'Restore default look','Стандартное оформление':'Default look restored',
     'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
@@ -201,7 +211,28 @@ const MAX_DAY_ITEMS = 6;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.3.0';
+const APP_BUILD = '3.3.1';
+/* Поддержка проекта: страница DonationAlerts (QR в icons/donate-qr.svg ведёт туда же).
+   В сборках для Google Play и RuStore ссылки нет — их правила требуют собственную оплату магазина. */
+const DONATE_URL = 'https://www.donationalerts.com/r/shiftflow';
+function donateAllowed(){
+  if(!window.AndroidApp) return true;
+  try{ return typeof window.AndroidApp.channel === 'function' && window.AndroidApp.channel() === 'site'; }catch(e){ return false; }
+}
+/* Стикер-напоминание на странице календаря: только тем, кто пользуется приложением всерьёз (2 недели и 20+ смен),
+   не чаще раза в 4 месяца, максимум 3 раза и больше никогда после того, как открыли «Поддержать». */
+function donateNoteDue(){
+  if(!donateAllowed()) return false;
+  const d = prefs.donate || {};
+  if(d.done || (d.shown || 0) >= 3) return false;
+  const now = Date.now();
+  if(d.later && now - d.later < 120 * 864e5) return false;
+  const since = prefs.agreement && Date.parse(prefs.agreement.at);
+  if(!since || now - since < 14 * 864e5) return false;
+  let n = 0;
+  for(const k in state.shifts){ n += dayItems(k).length; if(n >= 20) return true; }
+  return false;
+}
 /* Кнопка и автопроверка обновлений пока скрыты: включить — true (механизм проверки и загрузки готов) */
 const UPDATES_ENABLED = false;
 const BRAND = 'ShiftFlow';
@@ -282,6 +313,8 @@ function loadPrefs(){
   if(!DAY_LABELS.some(function(x){ return x.v === prefs.dayLabel; })) prefs.dayLabel = 'both';
   if(!PERF_MODES.some(function(x){ return x.v === prefs.perf; })) prefs.perf = 'auto';
   prefs.autoUpdate = prefs.autoUpdate !== false;
+  const dn = prefs.donate && typeof prefs.donate === 'object' ? prefs.donate : {};
+  prefs.donate = { done:!!dn.done, shown:Math.max(0, Math.min(9, parseInt(dn.shown, 10) || 0)), later:isFinite(dn.later) ? +dn.later : 0 };
   prefs.customHue = Math.max(0, Math.min(359, parseInt(prefs.customHue, 10) || 0));
   if(migrated) savePrefs();
 }
@@ -623,6 +656,7 @@ const ico = {
   lock:function(){ return svg('<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>'); },
   clock:function(){ return svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'); },
   edit:function(){ return svg('<path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>'); },
+  heart:function(){ return svg('<path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/>'); },
   mail:function(){ return svg('<rect x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 7.5l8 6 8-6"/>'); },
   refresh:function(){ return svg('<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4.5V11h-6.5"/>'); },
   table:function(){ return svg('<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 9.5v10"/>'); }
@@ -1052,7 +1086,15 @@ function calendarView(){
   out += '</section>';
 
   out += dayEditor();
+  if(donateNoteDue()) out += donateNote();
   return out;
+}
+function donateNote(){
+  return '<aside class="sticky" data-key="donate-note" role="note">'
+    + '<button type="button" class="sticky-x" data-act="donateLater" aria-label="'+esc(t('Не сейчас'))+'">'+ico.x()+'</button>'
+    + '<p>'+esc(t('Нравится ShiftFlow? Его делает один человек — без рекламы, подписок и сбора данных. Если приложение экономит тебе время, можно поддержать проект.'))+'</p>'
+    + '<div class="sticky-a"><button type="button" class="btn primary sm" data-act="donateFromNote">'+ico.heart()+'<span>'+esc(t('Поддержать'))+'</span></button>'
+    + '<button type="button" class="link" data-act="donateLater">'+esc(t('Не сейчас'))+'</button></div></aside>';
 }
 /* Подпись места работы в клетке календаря: своя или первое слово названия */
 function shortLabel(w){
@@ -1491,6 +1533,7 @@ function settingsView(){
       + '</div>';
   out += label(t('О приложении'));
   out += '<div class="group" style="--d:4">'
+      + (donateAllowed() ? row({ act:'openDonate', tile:tile(ico.heart(), 'heart'), title:t('Поддержать проект'), sub:t('Чаевые разработчику — по желанию') }) : '')
       + row({ act:'openAgreement', tile:tile(ico.doc()), title:t('Пользовательское соглашение'), value:prefs.agreement ? 'v'+prefs.agreement.version : '' })
       + row({ act:'openPrivacy', tile:tile(ico.shield()), title:t('Политика конфиденциальности') })
       + '<a class="row" href="mailto:'+SUPPORT_EMAIL+'?subject=ShiftFlow%20'+APP_BUILD+'" rel="noopener">'+tile(ico.mail())
@@ -1894,7 +1937,8 @@ const LEGAL_RU = '<p>Редакция '+AGREEMENT_VERSION+' от 9 ноября 
   ['1. Общие положения',
    '1.1. Настоящее Пользовательское соглашение (далее — Соглашение) определяет условия использования приложения ShiftFlow для Android и его веб-версии (далее — Приложение). Правообладатель Приложения — его разработчик (далее — Разработчик). Связь с Разработчиком: '+MAIL+'.',
    '1.2. Соглашение является публичной офертой (ст. 437 ГК РФ). Установка, запуск или использование Приложения, а также отметка о согласии с условиями означают полное и безоговорочное принятие Соглашения (ст. 438 ГК РФ). Если вы не согласны с условиями, не используйте Приложение и удалите его.',
-   '1.3. Приложение предоставляется бесплатно на условиях простой (неисключительной) лицензии (ст. 1286 ГК РФ) без ограничения территории на срок действия исключительного права.'],
+   '1.3. Приложение предоставляется бесплатно на условиях простой (неисключительной) лицензии (ст. 1286 ГК РФ) без ограничения территории на срок действия исключительного права.',
+   '1.4. Пожертвования Разработчику добровольны, не являются оплатой Приложения или каких-либо услуг и не дают дополнительных функций. Их принимает сервис DonationAlerts по своим правилам.'],
   ['2. Назначение Приложения',
    '2.1. Приложение — личный инструмент учёта рабочих смен, ставок и дохода: календарь смен, расчёт оплаты, статистика, виджеты рабочего стола, импорт и экспорт данных.',
    '2.2. Все расчёты носят справочный характер. Приложение не является бухгалтерской, налоговой или кадровой программой и не заменяет документы работодателя, табели и расчётные листки.'],
@@ -1929,7 +1973,8 @@ const LEGAL_EN = '<p>Version '+AGREEMENT_VERSION+', November 9, 2026. The Russia
   ['1. General',
    '1.1. These Terms govern the use of the ShiftFlow app for Android and its web version (the App). The App is owned by its developer (the Developer), contact: '+MAIL+'.',
    '1.2. These Terms are a public offer. Installing, launching or using the App, or ticking the consent box, means you accept them in full. If you do not agree, do not use the App and remove it.',
-   '1.3. The App is provided free of charge under a simple (non-exclusive) licence, worldwide, for the term of the exclusive right.'],
+   '1.3. The App is provided free of charge under a simple (non-exclusive) licence, worldwide, for the term of the exclusive right.',
+   '1.4. Donations to the Developer are voluntary, are not payment for the App or any service and unlock no features. They are accepted by DonationAlerts under its own rules.'],
   ['2. Purpose',
    '2.1. The App is a personal tool for tracking work shifts, rates and income: a shift calendar, pay calculation, statistics, home screen widgets, import and export.',
    '2.2. All calculations are for reference only. The App is not accounting, tax or HR software and does not replace employer documents or payslips.'],
@@ -1970,8 +2015,9 @@ const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Отн�
    'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.'],
   ['3. Проверка обновлений',
    'Если в приложении включена проверка обновлений, оно запрашивает с сервера обновлений небольшой файл с номером версии, чтобы предложить новую версию. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить в настройках приложения. Версии из Google Play и RuStore обновляются через магазин и к серверу обновлений не обращаются.'],
-  ['4. Обращения в поддержку',
-   'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа. По вашей просьбе переписка будет удалена.'],
+  ['4. Поддержка и пожертвования',
+   'Если вы напишете на '+MAIL+', разработчик получит ваш адрес и текст письма и использует их только для ответа. По вашей просьбе переписка будет удалена.',
+   'Кнопка «Поддержать проект» открывает страницу DonationAlerts в браузере. Приложение ничего туда не передаёт; если вы решите сделать пожертвование, платёж обрабатывает DonationAlerts по своей политике конфиденциальности.'],
   ['5. Разрешения',
    'Интернет — только для проверки обновлений. Файлы — только через системное окно выбора, когда вы сами экспортируете или импортируете данные. Доступ к контактам, местоположению, камере и микрофону не запрашивается. Облачное резервное копирование Android для приложения отключено.'],
   ['6. Безопасность',
@@ -1993,8 +2039,9 @@ const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow A
    'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.'],
   ['3. Update checks',
    'When update checks are enabled in the app, it requests a small file with the version number from the update server to offer a newer version. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Automatic checks can be turned off in the app settings. Google Play and RuStore versions update through the store and never contact the update server.'],
-  ['4. Support',
-   'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The conversation is deleted on request.'],
+  ['4. Support and donations',
+   'If you write to '+MAIL+', the developer receives your address and message and uses them only to reply. The conversation is deleted on request.',
+   'The “Support the project” button opens the DonationAlerts page in your browser. The app sends nothing there; if you choose to donate, DonationAlerts processes the payment under its own privacy policy.'],
   ['5. Permissions',
    'Internet — only for update checks. Files — only through the system picker when you export or import. No access to contacts, location, camera or microphone. Android cloud backup is disabled for the app.'],
   ['6. Security',
@@ -2092,7 +2139,20 @@ function sheetHtml(){
   if(s.type === 'workplace') return workplaceSheet(s);
   if(s.type === 'pattern') return patternSheet();
   if(s.type === 'import') return importSheet(s);
+  if(s.type === 'donate') return donateSheet();
   return '';
+}
+function donateSheet(){
+  let inner = '<div class="sheet donate" role="dialog" aria-modal="true" aria-label="'+esc(t('Поддержать проект'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+        +  '<h2>'+esc(t('Поддержать ShiftFlow'))+'</h2></div>';
+  inner += '<div class="jar">'
+        +  '<figure class="qr"><img src="icons/donate-qr.svg" width="132" height="132" alt="'+esc(t('QR-код страницы пожертвований'))+'"><figcaption>'+esc(t('наведи камеру другого телефона'))+'</figcaption></figure>'
+        +  '<div class="jar-t"><p>'+esc(t('ShiftFlow бесплатный: без рекламы, подписок и платных функций. Его делает один человек в свободное время.'))+'</p>'
+        +  '<p class="hand">'+esc(t('Любая сумма — это спасибо и повод сделать приложение ещё лучше.'))+'</p></div></div>';
+  inner += '<div class="btns"><button type="button" class="btn primary" data-act="donateGo">'+esc(t('Открыть DonationAlerts'))+'</button></div>';
+  inner += '<div class="actions" style="justify-content:center"><button type="button" class="link" data-act="donateCopy">'+esc(t('Скопировать ссылку'))+'</button></div>';
+  inner += '<div class="note">'+esc(t('Пожертвование добровольное и ничего не открывает — все функции уже бесплатны. Платёж принимает DonationAlerts; приложение ничего туда не передаёт.'))+'</div>';
+  return ovl('donate', '', inner + '</div>');
 }
 function docSheet(title, html){
   return ovl('doc', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div><h2>'+esc(title)+'</h2><div class="legal" style="margin-top:12px">'+html+'</div>'
@@ -2845,6 +2905,31 @@ const A = {
 
   ovlClose:function(d, el, e){ if(e && e.target !== el) return; closeTop(); },
   ovlCloseBtn:function(){ closeTop(); },
+  openDonate:function(){ if(donateAllowed()) openSheet({ type:'donate' }); },
+  donateFromNote:function(){ prefs.donate.done = true; savePrefs(); A.openDonate(); },
+  donateLater:function(){
+    prefs.donate.later = Date.now(); prefs.donate.shown = (prefs.donate.shown || 0) + 1; savePrefs();
+    render(); toast(t('Хорошо, напомню нескоро'));
+  },
+  donateGo:function(){
+    if(!donateAllowed()) return;
+    prefs.donate.done = true; savePrefs();
+    if(window.AndroidApp && typeof window.AndroidApp.openDonate === 'function'){ try{ window.AndroidApp.openDonate(); }catch(e){} return; }
+    /* Новая вкладка без доступа к приложению (noopener). window.open с noopener всегда возвращает null,
+       поэтому открываем через временную ссылку — приложение при этом никуда не уходит. */
+    const a = document.createElement('a');
+    a.href = DONATE_URL; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    document.body.appendChild(a); a.click(); a.remove();
+  },
+  donateCopy:function(){
+    const done = function(){ toast(t('Ссылка скопирована')); };
+    const fallback = function(){
+      try{ const ta = document.createElement('textarea'); ta.value = DONATE_URL; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); }
+      catch(e){ toast(DONATE_URL); }
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(DONATE_URL).then(done, fallback); else fallback();
+  },
   confirmYes:function(){
     const c = ui.confirm;
     ui.confirm = null;
