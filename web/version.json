@@ -1,20 +1,22 @@
 {
-  "version": "3.4.0",
-  "code": 340,
+  "version": "3.4.1",
+  "code": 341,
   "date": "2026-11-13",
   "apk": "download/ShiftFlow.apk",
   "notes": {
     "ru": [
+      "Текст читается лучше: контраст доведён до нормы WCAG 2.1 AA на всех видах бумаги и в обеих темах",
+      "Страницу можно увеличить двумя пальцами",
+      "Полное управление с клавиатуры: видимый фокус, Tab внутри открытых окон, Esc закрывает",
       "Несколько смен в один день: подработка, раздельная смена — у каждой свои часы и оплата",
-      "В клетке календаря — оттиски всех мест работы дня, в листке дня — итог за день",
-      "Шаблон графика добавляет смены второго места работы к уже отмеченным дням",
-      "Можно поддержать проект: «Настройки → Поддержать проект»"
+      "В клетке календаря — оттиски всех мест работы дня, в листке дня — итог за день"
     ],
     "en": [
+      "Easier to read: contrast meets WCAG 2.1 AA on every paper and in both themes",
+      "Pinch to zoom is allowed",
+      "Full keyboard support: visible focus, Tab stays inside open dialogs, Esc closes",
       "Several shifts in one day: side jobs and split shifts, each with its own hours and pay",
-      "Calendar cells show every workplace of the day, the day page shows the day total",
-      "Pattern schedules add a second job's shifts to days that are already marked",
-      "You can now support the project: Settings → Support the project"
+      "Calendar cells show every workplace of the day, the day page shows the day total"
     ]
   }
 }

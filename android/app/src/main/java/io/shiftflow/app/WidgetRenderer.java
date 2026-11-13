@@ -48,13 +48,13 @@ final class WidgetRenderer {
         t.accent = color(snap == null ? null : snap.optString("accent"), 0xFF3DDCB0);
         JSONObject pal = snap == null ? null : snap.optJSONObject("pal");
         if (t.light) {
-            t.text = 0xFF1F1D1A; t.text2 = 0xFF5E5A50; t.text3 = 0xFF8D887A; t.red = 0xFFC8402C;
+            t.text = 0xFF1F1D1A; t.text2 = 0xFF58544B; t.text3 = 0xFF6B6659; t.red = 0xFFBD3521;   // контраст не ниже 4.5:1, как в приложении
             t.bg = color(pal == null ? null : pal.optString("bg"), 0xFFF9F6EE);
             t.cell = color(pal == null ? null : pal.optString("cell"), 0xFFECE7DA);
             t.edge = 0xFF000000; t.edgeAlpha = 150;   // обводка в макете — 14% непрозрачности, здесь ещё ослабляем
             t.todayNum = mix(t.accent, 0xFF000000, .62f);
         } else {
-            t.text = 0xFFECE7DA; t.text2 = 0xFFABA699; t.text3 = 0xFF79756B; t.red = 0xFFF2755F;
+            t.text = 0xFFECE7DA; t.text2 = 0xFFABA699; t.text3 = 0xFF928E84; t.red = 0xFFF2755F;
             t.bg = color(pal == null ? null : pal.optString("bg"), 0xFF16181A);
             t.cell = color(pal == null ? null : pal.optString("cell"), 0xFF25272A);
             t.edge = 0xFFFFFFFF; t.edgeAlpha = 255;
@@ -311,7 +311,7 @@ final class WidgetRenderer {
         int n = shiftCount(day);
         String name = wp != null ? wpName(wp, true) + (n > 1 ? " +" + (n - 1) : "") : (off ? str(L, "offShort", "вых") : "");
         v.setTextViewText(r[6], name);
-        v.setTextColor(r[6], wp != null ? (inMonth ? mix(wc, th.text, th.light ? .78f : .6f) : th.text3) : th.text3);
+        v.setTextColor(r[6], wp != null ? (inMonth ? mix(wc, th.text, th.light ? .6f : .74f) : th.text3) : th.text3);
 
         if (wp != null || off) {
             v.setViewVisibility(r[5], View.VISIBLE);

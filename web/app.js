@@ -130,7 +130,7 @@ const DICT = {
     'Любая сумма — это спасибо и повод сделать приложение ещё лучше.':'Any amount is a thank-you and a reason to make the app even better.',
     'Пожертвование добровольное и ничего не открывает — все функции уже бесплатны. Платёж принимает DonationAlerts; приложение ничего туда не передаёт.':
       'Donations are voluntary and unlock nothing — every feature is already free. DonationAlerts handles the payment; the app sends nothing there.',
-    'Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
+    'Доход по месяцам':'Income by month','Эффекты':'Effects','Следующая смена':'Next shift','Тема и фон':'Theme and background','Оттенок фона':'Background tint','Тема меняется вместе с системной':'Follows your system setting',
     'Текст и форма':'Text and shape','Скругления':'Corners','Вернуть стандартное оформление':'Restore default look','Стандартное оформление':'Default look restored',
     'Плавность и эффекты':'Motion and effects','Максимум':'Full','Экономно':'Battery saver','экономно':'saver','максимум':'full',
     '«Экономно» отключает зерно бумаги и декоративные анимации — приложение быстрее работает на слабых телефонах и меньше тратит батарею.':
@@ -211,7 +211,7 @@ const MAX_DAY_ITEMS = 6;
 const PREFS_VERSION = 2;
 const AGREEMENT_VERSION = '3.0';
 const SUPPORT_EMAIL = 'shiftflow123@gmail.com';
-const APP_BUILD = '3.4.0';
+const APP_BUILD = '3.4.1';
 /* Поддержка проекта: страница DonationAlerts (QR в icons/donate-qr.svg ведёт туда же).
    В сборках для Google Play и RuStore ссылки нет — их правила требуют собственную оплату магазина. */
 const DONATE_URL = 'https://www.donationalerts.com/r/shiftflow';
@@ -338,13 +338,21 @@ function luminance(rgb){
   const c = rgb.map(function(v){ v /= 255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
   return 0.2126*c[0] + 0.7152*c[1] + 0.0722*c[2];
 }
+function contrastRatio(a, b){ const x = luminance(a), y = luminance(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); }
+/* Цвет акцента для текста: на светлой бумаге — темнее, на тёмной — светлее, пока не будет 4.6:1
+   и на странице, и на карточках выбранной бумаги (жёлтый или салатовый акцент иначе не читался бы). */
 function accentInks(hex){
-  const c = hexRgb(hex);
-  const dark = 'rgb(' + c.map(function(v){ return Math.min(255, Math.round(v*.38 + 158)); }).join(',') + ')';
-  const light = 'rgb(' + c.map(function(v){ return Math.round(v*.58); }).join(',') + ')';
+  const c = hexRgb(hex), b = bgDef();
+  const darkBgs = [hexRgb(b.d), hexRgb(b.ds), hexRgb(b.ds).map(function(v){ return Math.min(255, v + 12); })];
+  const lightBgs = [hexRgb(b.l), hexRgb(b.ls)];
+  const ok = function(ink, bgs){ return bgs.every(function(bg){ return contrastRatio(ink, bg) >= 4.6; }); };
+  let dk = c.map(function(v){ return Math.min(255, Math.round(v*.38 + 158)); });
+  for(let i = 0; i < 40 && !ok(dk, darkBgs); i++) dk = dk.map(function(v){ return Math.min(255, v + 4); });
+  let lt = c.map(function(v){ return Math.round(v*.58); });
+  for(let i = 0; i < 40 && !ok(lt, lightBgs); i++) lt = lt.map(function(v){ return Math.max(0, Math.round(v * .94)); });
   const L = luminance(c);
   const on = (1.05/(L+.05)) > ((L+.05)/0.055) ? '#FFFFFF' : '#05110D';
-  return { dark:dark, light:light, on:on };
+  return { dark:'rgb(' + dk.join(',') + ')', light:'rgb(' + lt.join(',') + ')', on:on };
 }
 function textScale(){ for(const x of TEXT_SIZES) if(x.v === prefs.textSize) return x.k; return 1; }
 function radiusScale(){ for(const x of UI_STYLES) if(x.v === prefs.uiStyle) return x.k; return 1; }
@@ -1064,7 +1072,7 @@ function calendarView(){
 
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
-      + '<div class="ml" data-act="goToday"><span class="m" data-key="ml-'+y+'-'+m+'">'+esc(monthTitle(m))+' '+y+'</span></div>'
+      + '<div class="ml" data-act="goToday" role="button" tabindex="0"><span class="m" data-key="ml-'+y+'-'+m+'">'+esc(monthTitle(m))+' '+y+'</span></div>'
       + '<button type="button" class="icon-btn" data-act="nextMonth" aria-label="'+esc(t('Следующий месяц'))+'">'+ico.chevR()+'</button>'
       + '</div>';
   out += '<div class="tools">'
@@ -1287,9 +1295,9 @@ function rangePanel(){
   });
   out += '</div>';
   out += '<div class="daterow">'
-      +  '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="rangeFrom" role="button">'+esc(b ? fmtDayMonth(b[0]) : '—')+ico.calendar()+'</div></div>'
+      +  '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="rangeFrom" role="button" tabindex="0">'+esc(b ? fmtDayMonth(b[0]) : '—')+ico.calendar()+'</div></div>'
       +  '<span class="dr-arrow">'+ico.chevR()+'</span>'
-      +  '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker'+(picking ? ' wait' : '')+'" data-act="openPicker" data-t="rangeTo" role="button">'+esc(picking ? '…' : (b ? fmtDayMonth(b[1]) : '—'))+ico.calendar()+'</div></div>'
+      +  '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker'+(picking ? ' wait' : '')+'" data-act="openPicker" data-t="rangeTo" role="button" tabindex="0">'+esc(picking ? '…' : (b ? fmtDayMonth(b[1]) : '—'))+ico.calendar()+'</div></div>'
       +  '</div>';
   if(b){
     const st = rangeStats(b[0], b[1]);
@@ -1347,7 +1355,7 @@ function patternSheet(){
     else offs++;
   });
   const sameArr = function(a, b){ return a.join('') === b.join(''); };
-  let inner = '<div class="sheet pat" role="dialog" aria-modal="true" aria-label="'+esc(t('График по шаблону'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+  let inner = '<div class="sheet pat" role="dialog" aria-modal="true" tabindex="-1" aria-label="'+esc(t('График по шаблону'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
         +  '<h2>'+esc(t('График по шаблону'))+'</h2><div class="hint">'+esc(t('Отметит смены и выходные на выбранные даты'))+'</div></div>';
   inner += '<div class="field"><label>'+esc(t('Место работы'))+'</label>'+wpChipsHtml(p.workplaceId, 'patWp', { add:true })+'</div>';
   inner += '<div class="field"><label>'+esc(t('Как чередовать'))+'</label>'+segHtml([ { v:'cycle', label:'Смены и выходные' }, { v:'week', label:'По дням недели' } ], p.mode, 'patMode')+'</div>';
@@ -1366,8 +1374,8 @@ function patternSheet(){
     inner += '<div class="row2"><div class="field"><label>'+esc(t('Смен подряд'))+'</label>'+stepper('workDays', p.workDays, t('Смен подряд'))+'</div>'
           +  '<div class="field"><label>'+esc(t('Выходных подряд'))+'</label>'+stepper('offDays', p.offDays, t('Выходных подряд'))+'</div></div>';
   }
-  inner += '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="patternStart" role="button">'+esc(fmtDayMonth(p.start))+ico.calendar()+'</div></div>'
-        +  '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="patternEnd" role="button">'+esc(fmtDayMonth(p.end))+ico.calendar()+'</div></div></div>';
+  inner += '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="patternStart" role="button" tabindex="0">'+esc(fmtDayMonth(p.start))+ico.calendar()+'</div></div>'
+        +  '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="patternEnd" role="button" tabindex="0">'+esc(fmtDayMonth(p.end))+ico.calendar()+'</div></div></div>';
   inner += '<div class="chips mini">' + [ ['week', 'До конца недели'], ['month', 'До конца месяца'], ['next', 'И следующий месяц'] ].map(function(x){
     return '<button type="button" class="chip'+(p.end === patternEndFor(x[0]) ? ' on' : '')+'" data-act="patEnd" data-v="'+x[0]+'">'+esc(t(x[1]))+'</button>';
   }).join('') + '</div>';
@@ -1421,7 +1429,7 @@ function financeView(){
   if(storageBroken) out += warnHtml();
   out += '<div class="month-nav">'
       + '<button type="button" class="icon-btn" data-act="prevMonth" aria-label="'+esc(t('Предыдущий месяц'))+'">'+ico.chevL()+'</button>'
-      + '<div class="ml" data-act="goToday"><span class="m" data-key="fml-'+y+'-'+m+'">'+esc(monthTitle(m))+' '+y+'</span></div>'
+      + '<div class="ml" data-act="goToday" role="button" tabindex="0"><span class="m" data-key="fml-'+y+'-'+m+'">'+esc(monthTitle(m))+' '+y+'</span></div>'
       + '<button type="button" class="icon-btn" data-act="nextMonth" aria-label="'+esc(t('Следующий месяц'))+'">'+ico.chevR()+'</button></div>';
 
   out += label(t('Итого за месяц'));
@@ -1452,11 +1460,11 @@ function financeView(){
   out += '<div class="chart"><div class="chart-cap">'
       + (sm ? '<span>'+esc(monthTitle(sel))+(sel === best && maxV > 0 ? ' · '+esc(t('Лучший месяц')) : '')+'</span><b class="num">'+esc(money(sm.total, cur))+'</b>'
             : '<span>'+esc(t('Выбери столбик, чтобы увидеть месяц'))+'</span>')
-      + '</div><div class="cols" data-key="cols-'+sy+'" role="list">';
+      + '</div><div class="cols" data-key="cols-'+sy+'" role="group" aria-label="'+esc(t('Доход по месяцам'))+'">';
   monthsStats.forEach(function(s2, mi){
     const h = maxV > 0 ? Math.max(2, Math.round(s2.total / maxV * 100)) : 2;
     const cls = 'col' + (s2.total <= 0 ? ' zero' : '') + (sy === now.getFullYear() && mi === now.getMonth() ? ' now' : '') + (mi === sel ? ' sel' : '');
-    out += '<div class="'+cls+'" role="listitem" data-act="chartSel" data-m="'+mi+'" title="'+esc(monthTitle(mi)+': '+money(s2.total, cur))+'" aria-label="'+esc(monthTitle(mi)+': '+money(s2.total, cur))+'"><span style="--h:'+h+'%;--i:'+mi+'"></span></div>';
+    out += '<div class="'+cls+'" role="button" tabindex="0" aria-pressed="'+(mi === sel)+'" data-act="chartSel" data-m="'+mi+'" title="'+esc(monthTitle(mi)+': '+money(s2.total, cur))+'" aria-label="'+esc(monthTitle(mi)+': '+money(s2.total, cur))+'"><span style="--h:'+h+'%;--i:'+mi+'"></span></div>';
   });
   out += '</div><div class="col-x">';
   (MONTH_LETTER[LANG] || MONTH_LETTER.ru).forEach(function(l, mi){ out += '<span class="'+(sy === now.getFullYear() && mi === now.getMonth() ? 'now' : '')+'">'+l+'</span>'; });
@@ -1482,8 +1490,8 @@ function financeView(){
   out += label(t('Экспорт в Excel'));
   out += '<section class="card" style="--d:2">';
   out += '<div class="row2">'
-      +  '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="exportFrom" role="button">'+esc(fmtDate(ui.export.from))+ico.calendar()+'</div></div>'
-      +  '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker" data-act="openPicker" data-t="exportTo" role="button">'+esc(fmtDate(ui.export.to))+ico.calendar()+'</div></div>'
+      +  '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="exportFrom" role="button" tabindex="0">'+esc(fmtDate(ui.export.from))+ico.calendar()+'</div></div>'
+      +  '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker" data-act="openPicker" data-t="exportTo" role="button" tabindex="0">'+esc(fmtDate(ui.export.to))+ico.calendar()+'</div></div>'
       +  '</div></section>';
   out += '<div class="group" style="--d:3">';
   state.workplaces.forEach(function(w){
@@ -1890,8 +1898,8 @@ function dataPage(){
   out += label(t('Экспорт'));
   out += '<section class="card" style="--d:1;padding:14px">'
       + '<div class="row2">'
-      + '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="exportFrom" role="button">'+esc(fmtDate(ui.export.from))+ico.calendar()+'</div></div>'
-      + '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker" data-act="openPicker" data-t="exportTo" role="button">'+esc(fmtDate(ui.export.to))+ico.calendar()+'</div></div>'
+      + '<div><span class="flabel">'+esc(t('С'))+'</span><div class="picker" data-act="openPicker" data-t="exportFrom" role="button" tabindex="0">'+esc(fmtDate(ui.export.from))+ico.calendar()+'</div></div>'
+      + '<div><span class="flabel">'+esc(t('По'))+'</span><div class="picker" data-act="openPicker" data-t="exportTo" role="button" tabindex="0">'+esc(fmtDate(ui.export.to))+ico.calendar()+'</div></div>'
       + '</div></section>';
   out += '<div class="group" style="--d:2">'
       + row({ act:'exportAll', tile:tile(ico.table()), title:t('Смены в Excel'), sub:t('.xlsx · все места работы и отдельные листы'), end:ico.down() })
@@ -1935,7 +1943,7 @@ const LEGAL_RU = '<p>Редакция '+AGREEMENT_VERSION+' от 9 ноября 
    '1.1. Настоящее Пользовательское соглашение (далее — Соглашение) определяет условия использования приложения ShiftFlow для Android и его веб-версии (далее — Приложение). Правообладатель Приложения — его разработчик (далее — Разработчик). Связь с Разработчиком: '+MAIL+'.',
    '1.2. Соглашение является публичной офертой (ст. 437 ГК РФ). Установка, запуск или использование Приложения, а также отметка о согласии с условиями означают полное и безоговорочное принятие Соглашения (ст. 438 ГК РФ). Если вы не согласны с условиями, не используйте Приложение и удалите его.',
    '1.3. Приложение предоставляется бесплатно на условиях простой (неисключительной) лицензии (ст. 1286 ГК РФ) без ограничения территории на срок действия исключительного права.',
-   '1.4. Пожертвования Разработчику добровольны, не являются оплатой Приложения или каких-либо услуг и не дают дополнительных функций. Их принимает сервис DonationAlerts по своим правилам.'],
+   '1.4. Пожертвования Разработчику добровольны, не являются оплатой Приложения или каких-либо услуг и не дают дополнительных функций. Их принимает сервис DonationAlerts по своим правилам. Если пожертвование сделано по ошибке, напишите в поддержку DonationAlerts или на '+MAIL+' — Разработчик поможет оформить возврат. Внутри Приложения платежей нет.'],
   ['2. Назначение Приложения',
    '2.1. Приложение — личный инструмент учёта рабочих смен, ставок и дохода: календарь смен, расчёт оплаты, статистика, виджеты рабочего стола, импорт и экспорт данных.',
    '2.2. Все расчёты носят справочный характер. Приложение не является бухгалтерской, налоговой или кадровой программой и не заменяет документы работодателя, табели и расчётные листки.'],
@@ -1971,7 +1979,7 @@ const LEGAL_EN = '<p>Version '+AGREEMENT_VERSION+', November 9, 2026. The Russia
    '1.1. These Terms govern the use of the ShiftFlow app for Android and its web version (the App). The App is owned by its developer (the Developer), contact: '+MAIL+'.',
    '1.2. These Terms are a public offer. Installing, launching or using the App, or ticking the consent box, means you accept them in full. If you do not agree, do not use the App and remove it.',
    '1.3. The App is provided free of charge under a simple (non-exclusive) licence, worldwide, for the term of the exclusive right.',
-   '1.4. Donations to the Developer are voluntary, are not payment for the App or any service and unlock no features. They are accepted by DonationAlerts under its own rules.'],
+   '1.4. Donations to the Developer are voluntary, are not payment for the App or any service and unlock no features. They are accepted by DonationAlerts under its own rules. If you donated by mistake, contact DonationAlerts support or '+MAIL+' and the Developer will help with a refund. There are no payments inside the App.'],
   ['2. Purpose',
    '2.1. The App is a personal tool for tracking work shifts, rates and income: a shift calendar, pay calculation, statistics, home screen widgets, import and export.',
    '2.2. All calculations are for reference only. The App is not accounting, tax or HR software and does not replace employer documents or payslips.'],
@@ -2009,7 +2017,8 @@ const PRIVACY_RU = '<p>Редакция 3.0 от 9 ноября 2026 г. Отн�
    'ShiftFlow не собирает и не передаёт ваши данные. Всё, что вы вводите, хранится только на вашем устройстве. Нет аккаунтов, рекламы, аналитики, трекеров и сторонних SDK.'],
   ['2. Данные в приложении',
    'Смены, места работы, ставки, заметки и настройки хранятся в памяти приложения на вашем устройстве. Разработчик не получает к ним доступа и не является их оператором в смысле Федерального закона № 152-ФЗ «О персональных данных».',
-   'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.'],
+   'Виджеты рабочего стола показывают часть этих данных на главном экране; нужная им копия тоже хранится только на устройстве. Учтите, что виджет видят все, кто смотрит на ваш экран.',
+   'Приложение и сайт не используют cookie и похожие технологии отслеживания. Данные и настройки лежат в памяти приложения или браузера на вашем устройстве (localStorage) и никуда не отправляются, поэтому баннер о cookie не показывается.'],
   ['3. Проверка обновлений',
    'Если в приложении включена проверка обновлений, оно запрашивает с сервера обновлений небольшой файл с номером версии, чтобы предложить новую версию. Запрос не содержит данных из приложения и идентификаторов устройства. Как и при любом обращении к сайту, сервер технически получает IP-адрес и сведения о браузере; их обрабатывает хостинг-провайдер (Cloudflare) по своей политике, разработчик не использует их для идентификации. Автоматическую проверку можно выключить в настройках приложения. Версии из Google Play и RuStore обновляются через магазин и к серверу обновлений не обращаются.'],
   ['4. Поддержка и пожертвования',
@@ -2033,7 +2042,8 @@ const PRIVACY_EN = '<p>Version 3.0, November 9, 2026. Applies to the ShiftFlow A
    'ShiftFlow does not collect or share your data. Everything you enter stays on your device. No accounts, ads, analytics, trackers or third-party SDKs.'],
   ['2. Data in the app',
    'Shifts, workplaces, rates, notes and settings are stored in the app’s storage on your device. The developer has no access to them.',
-   'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.'],
+   'Home screen widgets show part of this data on your home screen; the copy they need is also stored only on the device. Anyone looking at your screen can see a widget.',
+   'The app and the website use no cookies or similar tracking technologies. Data and settings are kept in the app or browser storage on your device (localStorage) and are never sent anywhere, so there is no cookie banner.'],
   ['3. Update checks',
    'When update checks are enabled in the app, it requests a small file with the version number from the update server to offer a newer version. The request carries no app data and no device identifiers. Like any website request, the server technically receives your IP address and browser details, processed by the hosting provider (Cloudflare) under its policy; the developer does not use them to identify you. Automatic checks can be turned off in the app settings. Google Play and RuStore versions update through the store and never contact the update server.'],
   ['4. Support and donations',
@@ -2078,7 +2088,7 @@ function pickerHtml(){
   const p = ui.picker;
   const nDays = daysInMonth(p.y, p.m), lead = leadBlanks(p.y, p.m);
   const cur = pickerValue(p.target), tKey = todayKey();
-  let inner = '<div class="sheet dp" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
+  let inner = '<div class="sheet dp" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
   inner += '<div class="dp-head"><button type="button" class="icon-btn sm" data-act="pickerNav" data-d="-1" aria-label="-1">'+ico.chevL()+'</button>'
         +  '<div class="t" data-key="dp-'+p.y+'-'+p.m+'">'+esc(monthTitle(p.m))+' '+p.y+'</div>'
         +  '<button type="button" class="icon-btn sm" data-act="pickerNav" data-d="1" aria-label="+1">'+ico.chevR()+'</button></div>';
@@ -2140,7 +2150,7 @@ function sheetHtml(){
   return '';
 }
 function donateSheet(){
-  let inner = '<div class="sheet donate" role="dialog" aria-modal="true" aria-label="'+esc(t('Поддержать проект'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+  let inner = '<div class="sheet donate" role="dialog" aria-modal="true" tabindex="-1" aria-label="'+esc(t('Поддержать проект'))+'"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
         +  '<h2>'+esc(t('Поддержать ShiftFlow'))+'</h2></div>';
   inner += '<div class="jar">'
         +  '<figure class="qr"><img src="icons/donate-qr.svg" width="132" height="132" alt="'+esc(t('QR-код страницы пожертвований'))+'"><figcaption>'+esc(t('наведи камеру другого телефона'))+'</figcaption></figure>'
@@ -2152,7 +2162,7 @@ function donateSheet(){
   return ovl('donate', '', inner + '</div>');
 }
 function docSheet(title, html){
-  return ovl('doc', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div><h2>'+esc(title)+'</h2><div class="legal" style="margin-top:12px">'+html+'</div>'
+  return ovl('doc', '', '<div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div><h2>'+esc(title)+'</h2><div class="legal" style="margin-top:12px">'+html+'</div>'
     + '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Закрыть'))+'</button></div></div>');
 }
 function welcomeSheet(){
@@ -2161,7 +2171,7 @@ function welcomeSheet(){
     [ico.finance(), t('Доход по ставкам'), t('Почасовые и фиксированные ставки, корректировки')],
     [ico.lock(), t('Только на устройстве'), t('Без аккаунта и интернета')]
   ];
-  let inner = '<div class="sheet welcome" role="dialog" aria-modal="true">';
+  let inner = '<div class="sheet welcome" role="dialog" aria-modal="true" tabindex="-1">';
   inner += '<div class="logo-xl">'+appIconImg()+'</div>';
   inner += '<h2>'+esc(t('Добро пожаловать'))+'</h2><div class="hint">'+esc(t('Твой график — твой доход'))+'</div>';
   inner += '<div class="feats">' + feats.map(function(f, i){
@@ -2172,26 +2182,26 @@ function welcomeSheet(){
         +  '<div class="legal-links"><button type="button" class="link acc" data-act="showLegal" data-v="terms">'+esc(t('Пользовательское соглашение'))+'</button>'
         +  '<button type="button" class="link acc" data-act="showLegal" data-v="privacy">'+esc(t('Политика конфиденциальности'))+'</button></div>'
         +  '<div class="legal" data-key="lg-'+doc+'">'+(doc === 'privacy' ? (LANG === 'en' ? PRIVACY_EN : PRIVACY_RU) : legalHtml())+'</div></div>';
-  inner += '<div class="checks" data-act="toggleLegal" role="checkbox" aria-checked="'+(ui.legalChecked ? 'true' : 'false')+'"><div class="box'+(ui.legalChecked ? ' on' : '')+'">'+ico.check()+'</div>'
+  inner += '<div class="checks" data-act="toggleLegal" tabindex="0" role="checkbox" aria-checked="'+(ui.legalChecked ? 'true' : 'false')+'"><div class="box'+(ui.legalChecked ? ' on' : '')+'">'+ico.check()+'</div>'
         +  '<div class="txt" style="text-align:left">'+esc(t('Я принимаю Пользовательское соглашение и Политику конфиденциальности. Мне есть 14 лет.'))+'</div></div>';
   inner += '<div class="btns"><button type="button" class="btn primary'+(ui.legalChecked ? '' : ' off')+'" data-act="acceptAgreement" aria-disabled="'+(ui.legalChecked ? 'false' : 'true')+'">'+esc(t('Начать'))+'</button></div>';
   inner += '</div>';
   return ovl('welcome', ' center', inner, false);
 }
 function incomeSheet(s){
-  return ovl('income', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
+  return ovl('income', '', '<div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
     + '<h2>'+esc(t('Добавить внесение'))+'</h2>'
-    + '<div class="field"><label>'+esc(t('Дата'))+'</label><div class="picker" data-act="openPicker" data-t="income" role="button">'+esc(fmtDate(s.date))+ico.calendar()+'</div></div>'
+    + '<div class="field"><label>'+esc(t('Дата'))+'</label><div class="picker" data-act="openPicker" data-t="income" role="button" tabindex="0">'+esc(fmtDate(s.date))+ico.calendar()+'</div></div>'
     + '<div class="field"><label for="incAmount">'+esc(t('Сумма'))+'</label><input id="incAmount" data-inp="incAmount" type="number" min="0" step="0.01" inputmode="decimal" value="'+esc(s.amount)+'"></div>'
     + '<div class="field"><label>'+esc(t('Место работы (необязательно)'))+'</label>'+wpChipsHtml(s.workplaceId, 'sheetWp', { all:true })+'</div>'
     + '<div class="field"><label for="incNote">'+esc(t('Заметка (необязательно)'))+'</label><input id="incNote" data-inp="incNote" type="text" value="'+esc(s.note)+'"></div>'
     + '<div class="btns"><button type="button" class="btn ghost" data-act="ovlCloseBtn">'+esc(t('Отмена'))+'</button><button type="button" class="btn primary" data-act="saveIncome">'+esc(t('Сохранить'))+'</button></div></div>');
 }
 function paymentSheet(s){
-  return ovl('payment', '', '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
+  return ovl('payment', '', '<div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>'
     + '<h2>'+esc(t('Записать выплату'))+'</h2>'
-    + '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="payFrom" role="button">'+esc(fmtDate(s.from))+'</div></div>'
-    + '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="payTo" role="button">'+esc(fmtDate(s.to))+'</div></div></div>'
+    + '<div class="row2"><div class="field"><label>'+esc(t('С'))+'</label><div class="picker" data-act="openPicker" data-t="payFrom" role="button" tabindex="0">'+esc(fmtDate(s.from))+'</div></div>'
+    + '<div class="field"><label>'+esc(t('По'))+'</label><div class="picker" data-act="openPicker" data-t="payTo" role="button" tabindex="0">'+esc(fmtDate(s.to))+'</div></div></div>'
     + '<div class="field"><label for="payAmount">'+esc(t('Сумма'))+'</label><input id="payAmount" data-inp="payAmount" type="number" min="0" step="0.01" inputmode="decimal" value="'+esc(s.amount)+'"></div>'
     + '<div class="field"><label>'+esc(t('Место работы (необязательно)'))+'</label>'+wpChipsHtml(s.workplaceId, 'sheetWp', { all:true })+'</div>'
     + '<div class="field"><label for="payNote">'+esc(t('Заметка (необязательно)'))+'</label><input id="payNote" data-inp="payNote" type="text" value="'+esc(s.note)+'"></div>'
@@ -2199,7 +2209,7 @@ function paymentSheet(s){
 }
 function workplaceSheet(s){
   const editing = s.index !== null && s.index !== undefined;
-  let inner = '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
+  let inner = '<div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div></div>';
   inner += '<div style="display:flex;align-items:center;gap:12px"><span class="tile tw" style="--cc:'+s.color+';width:44px;height:44px"><i></i></span>'
         +  '<h2 style="margin:0">'+esc(editing ? t('Место работы') : t('Добавить место работы'))+'</h2></div>';
   inner += '<div class="field"><label for="wpName">'+esc(t('Название'))+'</label><input id="wpName" data-inp="wpName" type="text" value="'+esc(s.name)+'" maxlength="60" placeholder="'+esc(t('Например: Кофейня'))+'"></div>';
@@ -2235,7 +2245,25 @@ function render(){
   TabBar.sync();
   afterRender();
 }
+/* Фокус в окнах: при открытии — на само окно, при закрытии — обратно на кнопку, которая его открыла */
+const dialogFocus = { key:null, opener:null, lastAct:null };
+function syncDialogFocus(){
+  const ovs = document.querySelectorAll('#app > .overlay');
+  const ov = ovs.length ? ovs[ovs.length - 1] : null;
+  const key = ov ? ov.getAttribute('data-key') : null;
+  if(key === dialogFocus.key) return;
+  if(key && !dialogFocus.key) dialogFocus.opener = dialogFocus.lastAct;
+  dialogFocus.key = key;
+  if(ov){
+    const sh = ov.querySelector('[role="dialog"]');
+    if(sh && !sh.contains(document.activeElement)) sh.focus({ preventScroll:true });
+  } else if(dialogFocus.opener && document.contains(dialogFocus.opener)){
+    dialogFocus.opener.focus({ preventScroll:true });
+    dialogFocus.opener = null;
+  }
+}
 function afterRender(){
+  syncDialogFocus();
   runCounters();
   if(ui.pendingPulse){
     ui.pendingPulse = false;
@@ -3052,7 +3080,7 @@ function importSheet(s){
   const p = ui.importData;
   if(!p) return '';
   const range = p.from ? fmtDate(p.from) + ' — ' + fmtDate(p.to) : '';
-  let inner = '<div class="sheet" role="dialog" aria-modal="true"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
+  let inner = '<div class="sheet" role="dialog" aria-modal="true" tabindex="-1"><div class="sheet-drag"><div class="grabber" aria-hidden="true"></div>'
         +  '<h2>'+esc(t('Импорт данных'))+'</h2><div class="hint">'+esc(range)+'</div></div>';
   inner += '<div class="psum" style="margin-top:6px">'+esc(t('В файле'))+': <b>'+esc(cnt(p.count, 'shift'))+'</b>'
         +  (p.off ? ' · <b>'+esc(cnt(p.off, 'off'))+'</b>' : '') + ' · <b>'+esc(cnt(p.places, 'place'))+'</b>'
@@ -3314,13 +3342,28 @@ document.addEventListener('click', function(e){
   const fn = A[el.getAttribute('data-act')];
   if(!fn) return;
   e.preventDefault();
+  if(!el.closest('.overlay')) dialogFocus.lastAct = el;
   if(el.getAttribute('data-act') !== 'ovlClose') haptic('tap');
   try{ fn(el.dataset || {}, el, e); }
   catch(err){ if(window.console) console.error('action ' + el.getAttribute('data-act'), err); }
 }, false);
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){ closeTop(); return; }
-  if((e.key === 'Enter' || e.key === ' ') && e.target && e.target.getAttribute && e.target.getAttribute('role') === 'button' && e.target.hasAttribute('data-act')){
+  /* Tab ходит по кругу внутри открытого окна */
+  if(e.key === 'Tab'){
+    const ovs = document.querySelectorAll('#app > .overlay');
+    const dlg = ovs.length ? ovs[ovs.length - 1].querySelector('[role="dialog"]') : null;
+    if(dlg){
+      const items = Array.prototype.filter.call(dlg.querySelectorAll('button:not([disabled]), [href], input:not([type=hidden]), textarea, [tabindex="0"]'),
+        function(x){ return x.offsetParent !== null; });
+      if(!items.length){ e.preventDefault(); dlg.focus(); return; }
+      const first = items[0], last = items[items.length - 1];
+      if(!dlg.contains(document.activeElement) || document.activeElement === dlg){ e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); return; }
+      if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); return; }
+    }
+  }
+  if((e.key === 'Enter' || e.key === ' ') && e.target && e.target.getAttribute && ['button','checkbox'].indexOf(e.target.getAttribute('role')) >= 0 && e.target.hasAttribute('data-act')){
     e.preventDefault(); e.target.click();
   }
 }, false);

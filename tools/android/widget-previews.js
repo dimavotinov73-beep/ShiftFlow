@@ -9,7 +9,7 @@ const font = (f) => 'data:font/ttf;base64,' + fs.readFileSync(path.join(ROOT, 'a
 
 const mix = (a, b, t) => { const x = [1,3,5].map(i => parseInt(a.substr(i,2),16)), y = [1,3,5].map(i => parseInt(b.substr(i,2),16));
   return '#' + x.map((v,i) => Math.round(v*t + y[i]*(1-t)).toString(16).padStart(2,'0')).join(''); };
-const ACC = '#3DDCB0', BG = '#F9F6EE', CELL = '#E9E4D7', TEXT = '#1F1D1A', T2 = '#5E5A50', T3 = '#8D887A', RED = '#C8402C';
+const ACC = '#3DDCB0', BG = '#F9F6EE', CELL = '#E9E4D7', TEXT = '#1F1D1A', T2 = '#58544B', T3 = '#6B6659', RED = '#BD3521';
 const OFF = mix(T3, CELL, .10), TODAY_NUM = mix(ACC, '#000000', .62);
 const S = 2;   // 1dp = 2px
 const css = `@font-face{font-family:D;src:url(${font('sofia_bold.ttf')})}@font-face{font-family:O;src:url(${font('onest_bold.ttf')})}@font-face{font-family:OM;src:url(${font('onest_medium.ttf')})}
@@ -44,7 +44,7 @@ const cell = (day, col, inMonth, opts) => {
   const nm = w ? w[1] : off ? 'вых' : '';
   return `<div class="c${today ? ' t' : ''}" style="background:${bg};--nm:${opts.nm}px;--bb:${opts.bb}px;padding-bottom:${opts.pb}px">`
     + (opts.wd ? `<span class="wd" style="color:${weekend ? RED : T3}">${WD[col]}</span>` : '')
-    + `<span class="num" style="font-size:${opts.num}px;color:${num}">${day}</span><span class="nm" style="color:${w ? mix(w[0], TEXT, .78) : T3}">${nm}</span>`
+    + `<span class="num" style="font-size:${opts.num}px;color:${num}">${day}</span><span class="nm" style="color:${w ? mix(w[0], TEXT, .6) : T3}">${nm}</span>`
     + (w || off ? `<i style="background:${w ? w[0] : T3}"></i>` : '') + `</div>`;
 };
 const monthGrid = (rows) => {

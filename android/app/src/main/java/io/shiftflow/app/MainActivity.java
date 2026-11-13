@@ -151,8 +151,9 @@ public class MainActivity extends Activity {
         s.setGeolocationEnabled(false);
         s.setJavaScriptCanOpenWindowsAutomatically(false);
         s.setSupportMultipleWindows(false);
-        s.setSupportZoom(false);
-        s.setBuiltInZoomControls(false);
+        // Увеличение двумя пальцами разрешено (доступность), кнопки масштаба не показываются
+        s.setSupportZoom(true);
+        s.setBuiltInZoomControls(true);
         s.setDisplayZoomControls(false);
         s.setTextZoom(100);
         s.setMediaPlaybackRequiresUserGesture(true);

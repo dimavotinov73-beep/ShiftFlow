@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
@@ -446,10 +446,10 @@ html.scrolled .page-title{ opacity:.15; }
   max-width:calc(100% - 3px); margin-top:6px; padding:2px 2.5px 1px; border:1.3px solid currentColor; border-radius:2px;
   font-family:var(--font-display); font-size:calc(.7rem * var(--nf, 1)); font-weight:800; letter-spacing:.02em; text-transform:uppercase; line-height:1;
   overflow:hidden; text-overflow:clip; white-space:nowrap;
-  color:color-mix(in oklab, var(--wc) 78%, var(--text)); transform:rotate(var(--rot, -1.5deg)); opacity:.94;
+  color:color-mix(in oklab, var(--wc) 78%, var(--text)); transform:rotate(var(--rot, -1.5deg));
   animation:stampIn .32s var(--out) both; animation-delay:calc(var(--i,0) * 9ms);
 }
-@keyframes stampIn{ from{ opacity:0; transform:rotate(var(--rot, -1.5deg)) scale(1.5); } to{ opacity:.94; transform:rotate(var(--rot, -1.5deg)); } }
+@keyframes stampIn{ from{ opacity:0; transform:rotate(var(--rot, -1.5deg)) scale(1.5); } to{ opacity:1; transform:rotate(var(--rot, -1.5deg)); } }
 html[data-daytint="bold"] .day.work .nm{ background:var(--wc); border-color:var(--wc); color:#fff; }
 html[data-daytint="line"] .day.work .nm{ border-color:transparent; padding-left:0; padding-right:0; transform:none; animation:none; }
 .day .a{ font-family:var(--font-mono); font-size:.5rem; font-weight:600; margin-top:4px; color:var(--text-2); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; letter-spacing:-.02em; }
@@ -475,6 +475,10 @@ html[data-daytint="line"] .day.work .bar, html[data-daylabel="sum"] .day.work .b
 .day.range-edge{ background:var(--accent); }
 .day.range-edge .n,.day.range-edge .a{ color:var(--on-accent); }
 .day.range-edge .nm{ color:var(--on-accent); }
+/* В выделенном периоде фон подсвечен акцентом — надписи пишутся основным цветом, чтобы читались на любом акценте */
+.day.range .nm, .day.range .a, .day.range.off .n{ color:var(--text); }
+html[data-daytint="bold"] .day.range.work .nm, html[data-daytint="bold"] .day.range-edge.work .nm{ background:transparent; border-color:currentColor; color:var(--text); }
+html[data-daytint="bold"] .day.range-edge.work .nm{ color:var(--on-accent); }
 /* Заметка — загнутый уголок */
 .day .note{ position:absolute; top:0; right:0; width:0; height:0; border-style:solid; border-width:0 10px 10px 0; border-color:transparent var(--accent-ink) transparent transparent; }
 .day.pulse .nm{ animation:stampHit .42s var(--spring) both; }
@@ -1020,11 +1024,9 @@ html.typing .tabbar-fade{ opacity:0; }
 
 /* ───────────── Несколько смен в день ───────────── */
 /* Клетка календаря: до двух оттисков (у каждого цвет своего места), подложка делится по диагонали */
-.day .nm{ color:color-mix(in oklab, var(--sc, var(--wc)) 78%, var(--text)); }
 .day .nm.n2{ --rot:2.2deg; margin-top:3px; }
 .day.multi .nm{ margin-top:4px; }
 .day.multi{ background:linear-gradient(135deg, color-mix(in oklab, var(--wc) var(--dt, 9%), transparent) 50%, color-mix(in oklab, var(--wc2, var(--wc)) var(--dt, 9%), transparent) 50%); }
-html[data-daytint="bold"] .day.work .nm{ background:var(--sc, var(--wc)); border-color:var(--sc, var(--wc)); }
 /* Листок дня: смены списком */
 .shifts{ margin-top:2px; }
 .sh{ position:relative; padding:10px 0 12px; border-top:1.5px dashed var(--line-2); }
@@ -1073,6 +1075,32 @@ html[data-daytint="bold"] .day.work .nm{ background:var(--sc, var(--wc)); border
 .donate .jar-t p.hand{ font-family:var(--font-hand); font-size:1.3rem; line-height:1.1; font-weight:600; color:var(--text); rotate:-1deg; }
 @media (max-width:360px){ .donate .jar{ flex-direction:column; align-items:flex-start; } }
 html.lite .sticky{ animation:none; }
+
+
+/* ───────────── Контраст (WCAG 2.1 AA, не ниже 4.5:1) ─────────────
+   Цвета подобраны расчётом под каждую бумагу и тему: второстепенный текст, красный и надписи-штампы
+   (--stamp-mix — доля цвета места работы в надписи) читаются на любой из 10 расцветок мест работы. */
+:root{ --text-3:#928E84; --stamp-mix:74%; }
+:root.light{ --text-2:#58544B; --text-3:#6B6659; --red:#BD3521; --danger:#BD3521; --stamp-mix:60%; }
+:root[data-bg="midnight"]{ --text-3:#908C81; --stamp-mix:76%; }
+:root.light[data-bg="midnight"]{ --text-2:#58544B; --text-3:#6B6659; --red:#BD3521; --danger:#BD3521; --stamp-mix:60%; }
+:root[data-bg="oled"]{ --text-3:#868278; --stamp-mix:80%; }
+:root.light[data-bg="oled"]{ --text-2:#5E5A50; --text-3:#726D5F; --red:#C53D29; --danger:#C53D29; --stamp-mix:64%; }
+:root[data-bg="cocoa"]{ --text-3:#8E8A80; --stamp-mix:76%; }
+:root.light[data-bg="cocoa"]{ --text-2:#4A463D; --text-3:#5B5649; --red:#A91F0B; --danger:#A91F0B; --stamp-mix:54%; }
+.day .nm, .dcp em, .demo-days div em{ color:color-mix(in oklab, var(--sc, var(--wc)) var(--stamp-mix), var(--text)); }
+/* Залитый штамп: заливка чуть глубже цвета места работы, буквы белые — от 4.8:1 для всех расцветок */
+html[data-daytint="bold"] .day.work .nm, .dcp.m-bold em, html[data-daytint="bold"] .demo-days div:not(.off) em{
+  background:color-mix(in oklab, var(--sc, var(--wc)) 82%, #000); border-color:color-mix(in oklab, var(--sc, var(--wc)) 82%, #000); color:#fff; }
+.pd.w span{ color:var(--text-2); }
+
+/* ───────────── Клавиатура: видимый фокус ───────────── */
+:focus{ outline:none; }
+:focus-visible{ outline:2.5px solid var(--accent-ink); outline-offset:2px; }
+input:focus-visible, textarea:focus-visible{ outline:none; }
+.day:focus-visible, .col:focus-visible{ outline-offset:-3px; }
+.tb-tab:focus-visible{ outline-offset:-8px; border-radius:14px; }
+.sheet:focus-visible{ outline:none; }
 
 @media (max-width:360px){
   .hero-num{ font-size:3.4rem; }
